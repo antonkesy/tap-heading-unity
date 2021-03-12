@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
                 _isRunning = true;
                 _waitingToStartNewGame = false;
                 levelGeneratorScript.StartGame();
+                uiManager.ShowPlayUI();
             }
     }
 

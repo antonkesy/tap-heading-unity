@@ -55,7 +55,6 @@ public class LevelGeneratorScript : MonoBehaviour
         var chunkManager = chunk.GetComponent<ChunkManager>();
         chunkManager.SetUp(xOffset, _isRight, _chunkSpeed);
         _chunks.Add(chunkManager);
-        Debug.Log("Add" + _chunks.Count);
         _isRight = !_isRight;
     }
 
