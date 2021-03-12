@@ -7,8 +7,11 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovementScript playerMovementScript;
     [SerializeField] private LevelGeneratorScript levelGeneratorScript;
+    [SerializeField] private UIManager uiManager;
 
     private bool _isRunning = false;
+
+    private int score;
 
     void Start()
     {
@@ -33,5 +36,6 @@ public class GameManager : MonoBehaviour
     internal void CoinPickedUpCallback()
     {
         //Todo()
+        uiManager.UpdateScoreText(++score);
     }
 }
