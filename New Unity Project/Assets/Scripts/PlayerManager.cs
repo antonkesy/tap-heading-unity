@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -30,17 +31,22 @@ public class PlayerManager : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         var og = other.gameObject;
-        if (og.CompareTag("Coin"))
-        {
-            OnCoinCollision(og);
-        }
-        else if (og.CompareTag("Wall"))
+        if (og.CompareTag("Wall"))
         {
             OnWallCollision();
         }
         else if (og.CompareTag("Bar"))
         {
             OnBarCollision();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        var og = other.gameObject;
+        if (og.CompareTag("Coin"))
+        {
+            OnCoinCollision(og);
         }
     }
 
