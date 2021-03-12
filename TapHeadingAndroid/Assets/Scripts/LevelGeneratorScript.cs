@@ -10,7 +10,7 @@ public class LevelGeneratorScript : MonoBehaviour
     [SerializeField] private float chunkSpeedBase;
     private float _chunkSpeed;
     private float _chunkYStart;
-    [SerializeField] private int amountOfChunksToBuffer = 10;
+    private int _amountOfChunksToBuffer;
 
     [SerializeField] private float yOffsetToChunks;
 
@@ -29,7 +29,7 @@ public class LevelGeneratorScript : MonoBehaviour
     {
         _chunkSize = chunkPrefab.transform.localScale.y;
         var mainCam = Camera.main;
-        if (mainCam)
+        if (mainCam is { })
         {
             var frustumHeight = 2.0f * mainCam.orthographicSize *
                                 Mathf.Tan(mainCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
@@ -38,8 +38,10 @@ public class LevelGeneratorScript : MonoBehaviour
         else
         {
             //Backup
-            _chunkYStart = amountOfChunksToBuffer * (_chunkSize + yOffsetToChunks) / 2f;
+            _chunkYStart = _amountOfChunksToBuffer * (_chunkSize + yOffsetToChunks) / 2f;
         }
+
+        _amountOfChunksToBuffer = (int) (_chunkYStart * 2 / (_chunkSize + yOffsetToChunks)) + 1;
 
         GenerateWalls();
     }
@@ -75,7 +77,7 @@ public class LevelGeneratorScript : MonoBehaviour
             _lastChunkPosition += _chunkSpeed * Time.fixedDeltaTime;
             if (_lastChunkPosition > _chunkSize + yOffsetToChunks)
             {
-                if (_chunks.Count > amountOfChunksToBuffer)
+                if (_chunks.Count > _amountOfChunksToBuffer)
                 {
                     _chunks[0].DestroyCall();
                     _chunks.RemoveAt(0);
