@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChunkManager : MonoBehaviour
@@ -7,7 +5,7 @@ public class ChunkManager : MonoBehaviour
     [SerializeField] private GameObject coinPrefab;
     [SerializeField] private float coinSpawnProbability;
     [SerializeField] private float coinOffsetToBar;
-    
+
 
     [SerializeField] private GameObject barPrefab;
     private float _destroyPosition;

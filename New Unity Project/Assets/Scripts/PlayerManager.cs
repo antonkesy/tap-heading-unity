@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
-public class PlayerMovementScript : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     private GameManager _gameManager;
 
@@ -56,10 +52,12 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void OnWallCollision()
     {
+        _gameManager.WallCollisionCallback();
     }
 
     private void OnBarCollision()
     {
+        _gameManager.BarCollisionCallback();
     }
 
     internal void SetManager(GameManager gameManager)

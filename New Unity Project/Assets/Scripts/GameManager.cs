@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private PlayerMovementScript playerMovementScript;
+    [FormerlySerializedAs("playerMovementScript")] [SerializeField]
+    private PlayerManager playerManager;
+
     [SerializeField] private LevelGeneratorScript levelGeneratorScript;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private CameraManager cameraManager;
 
     private bool _isRunning = false;
 
-    private int score;
+    private int _score;
 
     void Start()
     {
-        playerMovementScript.SetManager(this);
+        playerManager.SetManager(this);
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
             if (_isRunning)
             {
-                playerMovementScript.CallChangeDirection();
+                playerManager.CallChangeDirection();
             }
             else
             {
@@ -36,6 +37,18 @@ public class GameManager : MonoBehaviour
     internal void CoinPickedUpCallback()
     {
         //Todo()
-        uiManager.UpdateScoreText(++score);
+        uiManager.UpdateScoreText(++_score);
+    }
+
+    internal void WallCollisionCallback()
+    {
+        //TODO()
+        cameraManager.StartShaking();
+    }
+
+    internal void BarCollisionCallback()
+    {
+        //TODO()
+        cameraManager.StartShaking();
     }
 }
