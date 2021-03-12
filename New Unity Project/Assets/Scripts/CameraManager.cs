@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    [SerializeField] private float sceneWidth = 10;
+
     private Transform _transform;
 
     [SerializeField] private float shakeDuration = 1f;
@@ -18,6 +20,7 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         _transform = GetComponent<Transform>();
+        ScaleCameraToWidth();
     }
 
     // Update is called once per frame
@@ -27,6 +30,15 @@ public class CameraManager : MonoBehaviour
         {
             Shake();
         }
+    }
+
+    private void ScaleCameraToWidth()
+    {
+        var unitsPerPixel = sceneWidth / Screen.width;
+
+        var desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
+
+        if (Camera.main is { }) Camera.main.orthographicSize = desiredHalfHeight;
     }
 
     private void Shake()
