@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //TODO("to touch")
         if (Input.GetMouseButtonDown(0))
             if (_isRunning)
             {
