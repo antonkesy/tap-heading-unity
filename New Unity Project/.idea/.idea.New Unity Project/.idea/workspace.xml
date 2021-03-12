@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ac051ee-7fe5-452c-a3af-1b90ca746c78" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.New Unity Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.New Unity Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/LevelGeneratorScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LevelGeneratorScript.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +89,7 @@
       <updated>1615564384408</updated>
       <workItem from="1615564392224" duration="2777000" />
       <workItem from="1615567231432" duration="4919000" />
-      <workItem from="1615572801521" duration="10500000" />
+      <workItem from="1615572801521" duration="10993000" />
     </task>
     <servers />
   </component>
