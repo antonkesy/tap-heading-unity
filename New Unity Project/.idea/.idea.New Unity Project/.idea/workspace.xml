@@ -2,12 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ac051ee-7fe5-452c-a3af-1b90ca746c78" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/UI.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/UI/pause.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/UI/pause.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/UI/play-button-arrowhead.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Sprites/UI/play-button-arrowhead.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.New Unity Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.New Unity Project/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChunkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChunkManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/LevelGeneratorScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LevelGeneratorScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,11 +46,11 @@
       <option value="$PROJECT_DIR$/Assets/CameraManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/CameraShake.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/CameraManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/ChunkManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/LevelGeneratorScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1pfBhL1tqcZYqVigq4whH1vv4Tz" />
@@ -94,7 +102,7 @@
       <updated>1615564384408</updated>
       <workItem from="1615564392224" duration="2777000" />
       <workItem from="1615567231432" duration="4919000" />
-      <workItem from="1615572801521" duration="5436000" />
+      <workItem from="1615572801521" duration="8403000" />
     </task>
     <servers />
   </component>

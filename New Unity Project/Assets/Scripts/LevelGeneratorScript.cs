@@ -23,6 +23,10 @@ public class LevelGeneratorScript : MonoBehaviour
 
     private float _lastChunkPosition;
 
+    private bool _isPause;
+
+    private float _timePause;
+
     private void Start()
     {
         //Todo("set DestroyPosition")
@@ -58,29 +62,56 @@ public class LevelGeneratorScript : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        _lastChunkPosition += _chunkSpeed * Time.deltaTime;
-        if (_lastChunkPosition > _chunkSize + yOffsetToChunks)
+        if (!_isPause)
         {
-            if (_chunks.Count > amountOfChunksToBuffer)
+            _lastChunkPosition += _chunkSpeed * Time.deltaTime;
+            if (_lastChunkPosition > _chunkSize + yOffsetToChunks)
             {
-                /*
-                 * if (gameObject.transform.position.y <= _destroyPosition)
-            {
-            Destroy(gameObject);
-            }
-                 */
-                _chunks[0].DestroyCall();
-                _chunks.RemoveAt(0);
-            }
+                if (_chunks.Count > amountOfChunksToBuffer)
+                {
+                    _chunks[0].DestroyCall();
+                    _chunks.RemoveAt(0);
+                }
 
-            _lastChunkPosition = 0; //not called in GenerateChunk for easyRead
-            GenerateChunk();
+                _lastChunkPosition = 0; //not called in GenerateChunk for easyRead
+                GenerateChunk();
+            }
         }
     }
 
     internal void AddSpeed()
     {
         _chunkSpeed += speedAdder;
+        foreach (var chunk in _chunks)
+        {
+            chunk.UpdateSpeed(_chunkSpeed);
+        }
+    }
+
+    public void Pause()
+    {
+        //_timePause = _lastChunkPosition;
+        _isPause = true;
+        PauseChunks();
+    }
+
+    private void PauseChunks()
+    {
+        foreach (var chunk in _chunks)
+        {
+            chunk.UpdateSpeed(0);
+        }
+    }
+
+    public void Resume()
+    {
+        //_lastChunkPosition = _timePause;
+        _isPause = false;
+        ResumeChunks();
+    }
+
+    private void ResumeChunks()
+    {
         foreach (var chunk in _chunks)
         {
             chunk.UpdateSpeed(_chunkSpeed);

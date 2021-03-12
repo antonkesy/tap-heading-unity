@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     [SerializeField] private CameraManager cameraManager;
 
-    private bool _isRunning = false;
+    private bool _isRunning;
+
+    private bool _waitingToStartNewGame = true;
 
     private int _score;
 
@@ -27,9 +29,10 @@ public class GameManager : MonoBehaviour
             {
                 playerManager.CallChangeDirection();
             }
-            else
+            else if (_waitingToStartNewGame)
             {
                 _isRunning = true;
+                _waitingToStartNewGame = false;
                 levelGeneratorScript.StartGame();
             }
     }
@@ -51,5 +54,19 @@ public class GameManager : MonoBehaviour
     {
         //TODO()
         cameraManager.StartShaking();
+    }
+
+    public void OnPause()
+    {
+        levelGeneratorScript.Pause();
+        playerManager.SetPause();
+        _isRunning = false;
+    }
+
+    public void OnResume()
+    {
+        levelGeneratorScript.Resume();
+        playerManager.SetResume();
+        _isRunning = true;
     }
 }

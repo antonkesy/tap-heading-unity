@@ -11,6 +11,8 @@ public class PlayerManager : MonoBehaviour
 
     private bool _isDirectionRight;
 
+    private Vector2 _pauseVelocity;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -69,5 +71,16 @@ public class PlayerManager : MonoBehaviour
     internal void SetManager(GameManager gameManager)
     {
         _gameManager = gameManager;
+    }
+
+    internal void SetPause()
+    {
+        _pauseVelocity = _rb.velocity;
+        _rb.velocity = Vector2.zero;
+    }
+
+    internal void SetResume()
+    {
+        _rb.velocity = _pauseVelocity;
     }
 }
