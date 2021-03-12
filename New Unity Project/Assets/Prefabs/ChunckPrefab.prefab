@@ -43,4 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc5ef29a78831d44eaaab65a7f712d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinPrefab: {fileID: 2315305046691959865, guid: 873b1fae421081344b342f2803c1a7bd, type: 3}
+  coinSpawnProbability: 0.25
+  coinOffsetToBar: 0.3
   barPrefab: {fileID: 8119494203967691425, guid: 0a3f41de9c850d7488ffdf904cd91433, type: 3}

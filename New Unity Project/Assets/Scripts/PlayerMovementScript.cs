@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
@@ -35,7 +36,7 @@ public class PlayerMovementScript : MonoBehaviour
         var og = other.gameObject;
         if (og.CompareTag("Coin"))
         {
-            OnCoinCollision();
+            OnCoinCollision(og);
         }
         else if (og.CompareTag("Wall"))
         {
@@ -47,8 +48,9 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
 
-    private void OnCoinCollision()
+    private void OnCoinCollision(GameObject coinGameObject)
     {
+        Destroy(coinGameObject);
         _gameManager.CoinPickedUpCallback();
     }
 

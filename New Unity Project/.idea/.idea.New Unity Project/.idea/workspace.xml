@@ -2,25 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ac051ee-7fe5-452c-a3af-1b90ca746c78" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.New Unity Project/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.New Unity Project/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.New Unity Project/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.New Unity Project/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/ChunkManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/ChunkManager.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Bar.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Bar.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/ChunckPrefab.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/ChunckPrefab.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/LevelGeneratorScript.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/LevelGeneratorScript.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Coin.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Coin.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ChunkManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ChunkManager.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.New Unity Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.New Unity Project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ChunkManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ChunkManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/ChunckPrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/ChunckPrefab.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMovementScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMovementScript.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,15 +29,19 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ChunkManager.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/CameraScript.cs" />
       <option value="$PROJECT_DIR$/Assets/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/LevelGeneratorScript.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovementScript.cs" />
-      <option value="$PROJECT_DIR$/Assets/ChunkManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/ChunkManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/ChunkManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/LevelGeneratorScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovementScript.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1pfBhL1tqcZYqVigq4whH1vv4Tz" />
@@ -97,7 +92,7 @@
       <option name="presentableId" value="Default" />
       <updated>1615564384408</updated>
       <workItem from="1615564392224" duration="2777000" />
-      <workItem from="1615567231432" duration="3445000" />
+      <workItem from="1615567231432" duration="4919000" />
     </task>
     <servers />
   </component>
