@@ -30,9 +30,9 @@ public class ChunkManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        gameObject.transform.position += Vector3.down * (_speed * Time.deltaTime);
+        gameObject.transform.position += Vector3.down * (_speed * Time.fixedDeltaTime);
     }
 
     public void DestroyCall()

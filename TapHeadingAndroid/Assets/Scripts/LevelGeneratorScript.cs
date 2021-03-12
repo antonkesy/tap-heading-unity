@@ -68,11 +68,11 @@ public class LevelGeneratorScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
         if (!_isPause)
         {
-            _lastChunkPosition += _chunkSpeed * Time.deltaTime;
+            _lastChunkPosition += _chunkSpeed * Time.fixedDeltaTime;
             if (_lastChunkPosition > _chunkSize + yOffsetToChunks)
             {
                 if (_chunks.Count > amountOfChunksToBuffer)
