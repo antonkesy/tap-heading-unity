@@ -24,7 +24,7 @@ public class LevelGeneratorScript : MonoBehaviour
     private float _lastChunkPosition;
 
     private bool _isPause;
-    
+
     private void Start()
     {
         _chunkSize = chunkPrefab.transform.localScale.y;

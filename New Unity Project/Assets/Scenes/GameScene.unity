@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3ad9d3ee6a6d04a9c589c9d894a2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneWidth: 9
+  sceneWidth: 11
   shakeDuration: 0.25
   shakeAmount: 0.05
   decreaseFactor: 1
@@ -955,13 +955,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4170c6bd999a1314f9f2683b79512b9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedAdder: 0.001
+  speedAdder: 0.075
   chunkPrefab: {fileID: 6131700975251561847, guid: 1c90df38d90fa3341b144718578afd83, type: 3}
   chunkSpeedBase: 7
   amountOfChunksToBuffer: 10
   yOffsetToChunks: 8
   wallPrefab: {fileID: 5264863158843826151, guid: 2800482348f09184f99d13a441827f75, type: 3}
-  xOffset: 5
+  xOffset: 6
 --- !u!4 &836582973
 Transform:
   m_ObjectHideFlags: 0
