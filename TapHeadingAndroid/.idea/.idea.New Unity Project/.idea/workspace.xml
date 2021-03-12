@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8ac051ee-7fe5-452c-a3af-1b90ca746c78" name="Default Changelist" comment="" />
+    <list default="true" id="8ac051ee-7fe5-452c-a3af-1b90ca746c78" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,7 +91,7 @@
       <updated>1615564384408</updated>
       <workItem from="1615564392224" duration="2777000" />
       <workItem from="1615567231432" duration="4919000" />
-      <workItem from="1615572801521" duration="11520000" />
+      <workItem from="1615572801521" duration="11901000" />
     </task>
     <servers />
   </component>
