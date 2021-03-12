@@ -224,7 +224,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.995145
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3ad9d3ee6a6d04a9c589c9d894a2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneWidth: 9.5
+  sceneWidth: 9
   shakeDuration: 0.25
   shakeAmount: 0.05
   decreaseFactor: 1
@@ -435,9 +435,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedAdder: 0.0001
   chunkPrefab: {fileID: 6131700975251561847, guid: 1c90df38d90fa3341b144718578afd83, type: 3}
-  chunkSpeedBase: 3
-  chunkYStart: 10
-  yOffsetToChunks: 5
+  chunkSpeedBase: 5
+  chunkYStart: 20
+  yOffsetToChunks: 8
   wallPrefab: {fileID: 5264863158843826151, guid: 2800482348f09184f99d13a441827f75, type: 3}
   xOffset: 5
   destroyPosition: -7
@@ -853,6 +853,18 @@ PrefabInstance:
     - target: {fileID: 6764534175411120628, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764534175411120628, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764534175411120628, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764534175411120628, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6764534175411120628, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: m_LocalPosition.x
