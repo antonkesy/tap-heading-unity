@@ -24,15 +24,23 @@ public class LevelGeneratorScript : MonoBehaviour
     private float _lastChunkPosition;
 
     private bool _isPause;
-
-    private float _timePause;
-
+    
     private void Start()
     {
-        //Todo("set DestroyPosition")
-        //Todo("set xOffset")
         _chunkSize = chunkPrefab.transform.localScale.y;
-        _chunkYStart = amountOfChunksToBuffer * (_chunkSize + yOffsetToChunks) / 2f;
+        var mainCam = Camera.main;
+        if (mainCam)
+        {
+            var frustumHeight = 2.0f * mainCam.orthographicSize *
+                                Mathf.Tan(mainCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+            _chunkYStart = frustumHeight + _chunkSize + yOffsetToChunks;
+        }
+        else
+        {
+            //Backup
+            _chunkYStart = amountOfChunksToBuffer * (_chunkSize + yOffsetToChunks) / 2f;
+        }
+
         GenerateWalls();
     }
 
