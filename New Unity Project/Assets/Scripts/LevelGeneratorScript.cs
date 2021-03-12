@@ -59,7 +59,8 @@ public class LevelGeneratorScript : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private void GenerateChunk()
     {
-        var chunk = Instantiate(chunkPrefab, new Vector3(0, _chunkYStart, 0), Quaternion.identity);
+        var chunk = Instantiate(chunkPrefab, new Vector3(Random.Range(0, _isRight ? 3f : -3f), _chunkYStart, 0),
+            Quaternion.identity);
         var chunkManager = chunk.GetComponent<ChunkManager>();
         chunkManager.SetUp(xOffset, _isRight, _chunkSpeed);
         _chunks.Add(chunkManager);
