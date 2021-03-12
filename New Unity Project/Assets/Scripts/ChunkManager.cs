@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ChunkManager : MonoBehaviour
 {
@@ -8,13 +10,11 @@ public class ChunkManager : MonoBehaviour
 
 
     [SerializeField] private GameObject barPrefab;
-    private float _destroyPosition;
-
+  
     private float _speed = 1f;
 
-    internal void SetUp(float xOffset, bool isRight, float speed, float destroyPosition)
+    internal void SetUp(float xOffset, bool isRight, float speed)
     {
-        _destroyPosition = destroyPosition;
         _speed = speed;
         //TODO("cleanup")
         var parentTransform = transform;
@@ -33,9 +33,15 @@ public class ChunkManager : MonoBehaviour
     private void Update()
     {
         gameObject.transform.position += Vector3.down * (_speed * Time.deltaTime);
-        if (gameObject.transform.position.y <= _destroyPosition)
-        {
-            Destroy(gameObject);
-        }
+    }
+
+    public void DestroyCall()
+    {
+        Destroy(gameObject);
+    }
+
+    public void UpdateSpeed(float chunkSpeed)
+    {
+        _speed = chunkSpeed;
     }
 }

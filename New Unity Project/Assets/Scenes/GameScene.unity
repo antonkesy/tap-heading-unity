@@ -433,14 +433,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4170c6bd999a1314f9f2683b79512b9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedAdder: 0.0001
+  speedAdder: 0.001
   chunkPrefab: {fileID: 6131700975251561847, guid: 1c90df38d90fa3341b144718578afd83, type: 3}
-  chunkSpeedBase: 5
-  chunkYStart: 20
+  chunkSpeedBase: 7
+  amountOfChunksToBuffer: 10
   yOffsetToChunks: 8
   wallPrefab: {fileID: 5264863158843826151, guid: 2800482348f09184f99d13a441827f75, type: 3}
   xOffset: 5
-  destroyPosition: -7
 --- !u!4 &836582973
 Transform:
   m_ObjectHideFlags: 0
@@ -909,6 +908,10 @@ PrefabInstance:
     - target: {fileID: 8364433527196952822, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
+      propertyPath: sideSpeed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a60e517be7055544822569ef47f51a3, type: 3}

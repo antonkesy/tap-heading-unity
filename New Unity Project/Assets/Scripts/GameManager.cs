@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         //Todo()
         uiManager.UpdateScoreText(++_score);
+        levelGeneratorScript.AddSpeed();
     }
 
     internal void WallCollisionCallback()
