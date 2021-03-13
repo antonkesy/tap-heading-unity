@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem thrusterParticleSystem;
+
     private GameManager _gameManager;
 
     [SerializeField] private float sideSpeed;
@@ -16,6 +18,11 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+    }
+
+    internal void StartMoving()
+    {
+        thrusterParticleSystem.Play();
     }
 
     internal void CallChangeDirection()
@@ -77,10 +84,12 @@ public class PlayerManager : MonoBehaviour
     {
         _pauseVelocity = _rb.velocity;
         _rb.velocity = Vector2.zero;
+        thrusterParticleSystem.Pause();
     }
 
     internal void SetResume()
     {
         _rb.velocity = _pauseVelocity;
+        thrusterParticleSystem.Play();
     }
 }

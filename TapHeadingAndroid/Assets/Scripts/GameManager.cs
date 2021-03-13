@@ -6,7 +6,9 @@ public class GameManager : MonoBehaviour
     [FormerlySerializedAs("playerMovementScript")] [SerializeField]
     private PlayerManager playerManager;
 
-    [FormerlySerializedAs("levelGeneratorScript")] [SerializeField] private LevelManager levelManager;
+    [FormerlySerializedAs("levelGeneratorScript")] [SerializeField]
+    private LevelManager levelManager;
+
     [SerializeField] private UIManager uiManager;
     [SerializeField] private CameraManager cameraManager;
 
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour
                 _waitingToStartNewGame = false;
                 levelManager.StartGame();
                 uiManager.ShowPlayUI();
+                playerManager.StartMoving();
             }
     }
 
