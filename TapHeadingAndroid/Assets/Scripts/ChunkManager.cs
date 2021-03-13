@@ -25,4 +25,9 @@ public class ChunkManager : MonoBehaviour
             _coin.SetActive(false);
         }
     }
+
+    public void DestroyCall()
+    {
+        Destroy(_coin);
+    }
 }

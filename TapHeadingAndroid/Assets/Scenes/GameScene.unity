@@ -580,10 +580,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7385562332034086789, guid: 462d80058979b4f45877c88dbd60a476, type: 3}
-      propertyPath: autoRandomSeed
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 462d80058979b4f45877c88dbd60a476, type: 3}
 --- !u!198 &586790484 stripped
@@ -1027,7 +1023,7 @@ MonoBehaviour:
   chunkGroupTransform1: {fileID: 1316224600}
   speedAdder: 0.1
   chunkPrefab: {fileID: 6131700975251561847, guid: 1c90df38d90fa3341b144718578afd83, type: 3}
-  chunkSpeedBase: 7
+  chunkSpeedBase: 8
   yOffsetToChunks: 8
   wallPrefab: {fileID: 5264863158843826151, guid: 2800482348f09184f99d13a441827f75, type: 3}
   xOffset: 5.5
@@ -2955,18 +2951,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 272414626, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 272414628, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4855556740322836771, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6764534175411120628, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3014,6 +2998,10 @@ PrefabInstance:
     - target: {fileID: 8364433527196952822, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
+      propertyPath: startPosition.y
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: destroyParticleSystem

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] private Vector2 startPosition;
     [SerializeField] private ParticleSystem thrusterParticleSystem;
     [SerializeField] private ParticleSystem destroyParticleSystem;
 
@@ -61,7 +62,7 @@ public class PlayerManager : MonoBehaviour
         coinGameObject.SetActive(false);
         _gameManager.CoinPickedUpCallback();
     }
-    
+
     private void DestroyPlayer()
     {
         _rb.velocity = Vector2.zero;
@@ -87,6 +88,14 @@ public class PlayerManager : MonoBehaviour
     internal void SetResume()
     {
         _rb.velocity = _pauseVelocity;
+        thrusterParticleSystem.Play();
+    }
+
+    public void Restart()
+    {
+        GameObject o;
+        (o = gameObject).SetActive(true);
+        o.transform.position = startPosition;
         thrusterParticleSystem.Play();
     }
 }

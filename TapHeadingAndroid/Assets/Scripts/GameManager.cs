@@ -14,7 +14,9 @@ public class GameManager : MonoBehaviour
 
     private bool _isRunning;
 
-    private bool _waitingToStartNewGame = true;
+    private bool _waitingToStartFreshGame = true;
+
+    private bool _waitingToRestartGame = false;
 
     private int _score;
 
@@ -33,14 +35,31 @@ public class GameManager : MonoBehaviour
             {
                 playerManager.CallChangeDirection();
             }
-            else if (_waitingToStartNewGame)
+            else if (_waitingToStartFreshGame)
             {
-                _isRunning = true;
-                _waitingToStartNewGame = false;
-                levelManager.StartGame();
-                uiManager.ShowPlayUI();
-                playerManager.StartMoving();
+                StartGame();
+            }else if (_waitingToRestartGame)
+            {
+                RestartGame();
             }
+    }
+
+    private void RestartGame()
+    {
+        _isRunning = true;
+        _waitingToRestartGame = false;
+        levelManager.RestartGame();
+        uiManager.ShowPlayUI();
+        playerManager.Restart();
+    }
+
+    private void StartGame()
+    {
+        _isRunning = true;
+        _waitingToStartFreshGame = false;
+        levelManager.StartGame();
+        uiManager.ShowPlayUI();
+        playerManager.StartMoving();
     }
 
     internal void CoinPickedUpCallback()
@@ -61,6 +80,8 @@ public class GameManager : MonoBehaviour
         cameraManager.StartShaking();
         levelManager.Pause();
         _isRunning = false;
+        uiManager.ShowReturningMenuUI();
+        _waitingToRestartGame = true;
     }
 
     public void OnPause()

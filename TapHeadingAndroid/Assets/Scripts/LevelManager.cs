@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
 
     private float _pauseChunkSpeed;
 
-    private bool _isFirstChunkGroup = true;
+    private bool _isFirstChunkGroupBottom = true;
 
     private void Start()
     {
@@ -72,7 +72,7 @@ public class LevelManager : MonoBehaviour
         _chunkSpeed = chunkSpeedBase;
         GenerateChunks();
         //just for first generation
-        _isFirstChunkGroup = true;
+        _isFirstChunkGroupBottom = true;
         _isRight = !_isRight;
     }
 
@@ -85,7 +85,7 @@ public class LevelManager : MonoBehaviour
             yOffset += yOffsetToChunks + _chunkHeight;
         }
 
-        _isFirstChunkGroup = false;
+        _isFirstChunkGroupBottom = false;
         for (var i = 0; i < _amountOfChunksToBuffer; ++i)
         {
             GenerateChunk(yOffset);
@@ -96,7 +96,7 @@ public class LevelManager : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private void GenerateChunk(float yOffset)
     {
-        var chunk = Instantiate(chunkPrefab, _isFirstChunkGroup ? chunkGroupTransform0 : chunkGroupTransform1);
+        var chunk = Instantiate(chunkPrefab, _isFirstChunkGroupBottom ? chunkGroupTransform0 : chunkGroupTransform1);
         chunk.transform.position = GetNewChunkPosition(yOffset);
 
 
@@ -109,7 +109,7 @@ public class LevelManager : MonoBehaviour
                 ? -coinOffsetToBar - _halfChunkWidth
                 : coinOffsetToBar + _halfChunkWidth);
 
-        chunkManager.SetUp(_isFirstChunkGroup ? chunkGroupTransform0 : chunkGroupTransform1);
+        chunkManager.SetUp(_isFirstChunkGroupBottom ? chunkGroupTransform0 : chunkGroupTransform1);
         chunkManager.SpawnCoin(coinPosition);
         //prepare Next
         _isRight = !_isRight;
@@ -119,11 +119,6 @@ public class LevelManager : MonoBehaviour
     {
         return new Vector3((Random.Range(0, maxRandomOffset) + xOffset) * (_isRight ? 1 : -1), _chunkYStart + yOffset,
             0);
-    }
-
-    private void ResetChunk(GameObject chunk)
-    {
-        chunk.transform.position = new Vector3(Random.Range(0, _isRight ? 3f : -3f), _chunkYStart, 0);
     }
 
     // Update is called once per frame
@@ -138,7 +133,7 @@ public class LevelManager : MonoBehaviour
             if (_fistChunkYPosition > (_chunkHeight + yOffsetToChunks) * _amountOfChunksToBuffer)
             {
                 int start, stop;
-                if (_isFirstChunkGroup)
+                if (_isFirstChunkGroupBottom)
                 {
                     chunkGroupTransform1.position = Vector3.zero;
                     start = _amountOfChunksToBuffer;
@@ -169,7 +164,7 @@ public class LevelManager : MonoBehaviour
                     yOffset += yOffsetToChunks + _chunkHeight;
                 }
 
-                _isFirstChunkGroup = !_isFirstChunkGroup;
+                _isFirstChunkGroupBottom = !_isFirstChunkGroupBottom;
                 Debug.Log("ResetChunks");
                 _fistChunkYPosition = 0; //not called in GenerateChunk for easyRead
             }
@@ -202,5 +197,20 @@ public class LevelManager : MonoBehaviour
     private void ResumeChunks()
     {
         _chunkSpeed = _pauseChunkSpeed;
+    }
+
+    public void RestartGame()
+    {
+        chunkGroupTransform0.position = Vector3.zero;
+        foreach (var keyValuePair in _chunks)
+        {
+            keyValuePair.Value.DestroyCall();
+            Destroy(keyValuePair.Key.gameObject);
+        }
+
+        _chunks.Clear();
+        _fistChunkYPosition = 0;
+        _isPause = false;
+        StartGame();
     }
 }
