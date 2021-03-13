@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelGeneratorScript : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     [SerializeField] [Range(0, 1f)] private float maxRandomOffset;
     [SerializeField] private float coinOffsetToBar = .25f;

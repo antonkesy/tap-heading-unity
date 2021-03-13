@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     [FormerlySerializedAs("playerMovementScript")] [SerializeField]
     private PlayerManager playerManager;
 
-    [SerializeField] private LevelGeneratorScript levelGeneratorScript;
+    [FormerlySerializedAs("levelGeneratorScript")] [SerializeField] private LevelManager levelManager;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private CameraManager cameraManager;
 
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
             {
                 _isRunning = true;
                 _waitingToStartNewGame = false;
-                levelGeneratorScript.StartGame();
+                levelManager.StartGame();
                 uiManager.ShowPlayUI();
             }
     }
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     {
         //Todo()
         uiManager.UpdateScoreText(++_score);
-        levelGeneratorScript.AddSpeed();
+        levelManager.AddSpeed();
     }
 
     internal void WallCollisionCallback()
@@ -61,14 +61,14 @@ public class GameManager : MonoBehaviour
 
     public void OnPause()
     {
-        levelGeneratorScript.Pause();
+        levelManager.Pause();
         playerManager.SetPause();
         _isRunning = false;
     }
 
     public void OnResume()
     {
-        levelGeneratorScript.Resume();
+        levelManager.Resume();
         playerManager.SetResume();
         _isRunning = true;
     }

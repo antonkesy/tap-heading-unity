@@ -956,10 +956,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxRandomOffset: 0.69
-  coinOffsetToBar: 0.25
+  coinOffsetToBar: 0.5
   chunkGroupTransform0: {fileID: 1565829500}
   chunkGroupTransform1: {fileID: 1316224600}
-  speedAdder: 0.075
+  speedAdder: 0.1
   chunkPrefab: {fileID: 6131700975251561847, guid: 1c90df38d90fa3341b144718578afd83, type: 3}
   chunkSpeedBase: 7
   yOffsetToChunks: 8
