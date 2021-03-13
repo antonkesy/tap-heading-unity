@@ -25,11 +25,16 @@ public class GameManager : MonoBehaviour
 
     private int _highScore;
 
-    void Start()
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip collectCoinAudioClip;
+    [SerializeField] private AudioClip destroyPlayerAudioClip;
+
+    private void Start()
     {
         Application.targetFrameRate = 60;
         playerManager.SetManager(this);
         uiManager.ShowStartMenuUI();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -113,6 +118,7 @@ public class GameManager : MonoBehaviour
     internal void CoinPickedUpCallback()
     {
         //Todo()
+        _audioSource.PlayOneShot(collectCoinAudioClip, 1f);
         uiManager.UpdateScoreText(++_score);
         levelManager.AddSpeed();
     }
@@ -125,6 +131,7 @@ public class GameManager : MonoBehaviour
     private void OnPlayerDestroy()
     {
         //TODO()
+        _audioSource.PlayOneShot(destroyPlayerAudioClip, 1f);
         cameraManager.StartShaking();
         levelManager.Pause();
         _isRunning = false;
