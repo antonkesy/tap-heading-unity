@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject soundOffButton;
     [SerializeField] private GameObject soundOnButton;
-
+    
     private bool _isPlaying;
     private bool _isSoundOn;
 
@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
 
         _isSoundOn = PlayerPrefs.GetInt("soundOn", 1) == 1;
     }
-
+    
     internal void UpdateScoreText(int newScore)
     {
         scoreText.text = newScore.ToString();

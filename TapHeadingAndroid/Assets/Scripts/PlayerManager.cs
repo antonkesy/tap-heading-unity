@@ -7,6 +7,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Vector2 startPosition;
     [SerializeField] private ParticleSystem thrusterParticleSystem;
     [SerializeField] private ParticleSystem destroyParticleSystem;
+    [SerializeField] private GameObject pickupParticleSystemGameObject;
+    [SerializeField] private ParticleSystem pickupParticleSystem;
+
 
     private GameManager _gameManager;
 
@@ -67,6 +70,8 @@ public class PlayerManager : MonoBehaviour
     private void OnCoinCollision(GameObject coinGameObject)
     {
         coinGameObject.SetActive(false);
+        pickupParticleSystemGameObject.transform.position = coinGameObject.transform.position;
+        pickupParticleSystem.Play();
         _gameManager.CoinPickedUpCallback();
     }
 
