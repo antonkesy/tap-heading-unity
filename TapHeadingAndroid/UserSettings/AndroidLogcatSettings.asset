@@ -1,13 +1,20 @@
 {
-    "m_SelectedDeviceId": "",
+    "m_SelectedDeviceId": "1cc9c5cc",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "1cc9c5cc",
+        "name": "com.poorskill.tapheading",
+        "processId": 14606,
         "exited": false
     },
     "m_SelectedPriority": 0,
-    "m_KnownPackagesForSerialization": [],
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "1cc9c5cc",
+            "name": "com.poorskill.tapheading",
+            "processId": 14606,
+            "exited": false
+        }
+    ],
     "m_Tags": {
         "m_Entries": [
             {

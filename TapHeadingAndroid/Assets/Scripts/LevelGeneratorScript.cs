@@ -111,14 +111,14 @@ public class LevelGeneratorScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void FixedUpdate()
+    private void Update()
     {
-        chunkGroupTransform0.position += Vector3.down * (_chunkSpeed * Time.fixedDeltaTime);
-        chunkGroupTransform1.position += Vector3.down * (_chunkSpeed * Time.fixedDeltaTime);
+        chunkGroupTransform0.position += Vector3.down * (_chunkSpeed * Time.deltaTime);
+        chunkGroupTransform1.position += Vector3.down * (_chunkSpeed * Time.deltaTime);
 
         if (!_isPause)
         {
-            _fistChunkYPosition += _chunkSpeed * Time.fixedDeltaTime;
+            _fistChunkYPosition += _chunkSpeed * Time.deltaTime;
             if (_fistChunkYPosition > (_chunkHeight + yOffsetToChunks) * _amountOfChunksToBuffer)
             {
                 int start, stop;
