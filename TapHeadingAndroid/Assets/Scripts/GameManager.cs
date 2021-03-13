@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     private int _score;
 
+    private int _highScore;
+
     void Start()
     {
         Application.targetFrameRate = 60;
@@ -48,6 +50,8 @@ public class GameManager : MonoBehaviour
 
     private void RestartGame()
     {
+        _score = 0;
+        uiManager.UpdateScoreText(_score);
         _isRunning = true;
         _waitingToRestartGame = false;
         levelManager.RestartGame();
@@ -84,6 +88,7 @@ public class GameManager : MonoBehaviour
         _isRunning = false;
         uiManager.ShowReturningMenuUI();
         StartCoroutine(WaitToRestart());
+        _highScore = _highScore < _score ? _score : _highScore;
     }
 
     private IEnumerator WaitToRestart()

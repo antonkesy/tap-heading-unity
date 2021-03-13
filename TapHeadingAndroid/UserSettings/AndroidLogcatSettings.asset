@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "1cc9c5cc",
         "name": "com.poorskill.tapheading",
-        "processId": 23561,
+        "processId": 1114,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -24,6 +24,12 @@
             "deviceId": "1cc9c5cc",
             "name": "com.poorskill.tapheading",
             "processId": 23561,
+            "exited": false
+        },
+        {
+            "deviceId": "1cc9c5cc",
+            "name": "com.poorskill.tapheading",
+            "processId": 1114,
             "exited": false
         }
     ],
