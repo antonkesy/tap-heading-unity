@@ -19,7 +19,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameTitleText;
     private UIFader _gameTitleTextFader;
     [SerializeField] private TextMeshProUGUI tapToStartText;
-
     private void Start()
     {
         _scoreTextFader = scoreText.GetComponent<UIFader>();
@@ -50,8 +49,8 @@ public class UIManager : MonoBehaviour
 
     internal void ShowPlayUI()
     {
-        _scoreTextFader.Fade(true);
-        _scoreTextShadowFader.Fade(true);
+        _scoreTextFader.Fade(true, .5f);
+        _scoreTextShadowFader.Fade(true, .5f);
         pauseButton.gameObject.SetActive(true);
         resumeButton.gameObject.SetActive(false);
         menuManager.FadeOutMenu();
@@ -67,8 +66,6 @@ public class UIManager : MonoBehaviour
         pauseButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(false);
         //Menu
-        //menu.SetActive(true);
-        //_menuFader.Fade(true);
         menuManager.FadeInMenu();
         tapToStartText.text = "TAP TO RESTART";
         gameTitleText.gameObject.SetActive(false);
@@ -83,8 +80,7 @@ public class UIManager : MonoBehaviour
         pauseButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(false);
         //Menu
-        menu.SetActive(true);
-        menuManager.FadeInMenu();
+        menuManager.FadeInStart();
         tapToStartText.text = "TAP TO START";
         menuManager.SlideInGameTitle();
         highScoreText.gameObject.SetActive(false);

@@ -5,23 +5,29 @@ using UnityEngine;
 public class UIFader : MonoBehaviour
 {
     private CanvasGroup _canvasGroup;
-    [SerializeField] private float duration = 1f;
+    private bool _isFadeIn = true;
 
     private void Start()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
-        Debug.Log(_canvasGroup);
     }
 
-    public void Fade(bool fadeIn)
+    public void Fade(bool fadeIn, float duration)
     {
+        if (_isFadeIn == fadeIn)
+        {
+            return;
+        }
+
+        _isFadeIn = fadeIn;
+
         gameObject.SetActive(true);
-        StartCoroutine(DoFade(_canvasGroup, fadeIn ? 0 : 1, fadeIn ? 1 : 0, fadeIn));
+        StartCoroutine(DoFade(_canvasGroup, fadeIn ? 0 : 1, fadeIn ? 1 : 0, fadeIn, duration));
     }
 
-    private IEnumerator DoFade(CanvasGroup canvasGroup, float start, float end, bool endState)
+    private IEnumerator DoFade(CanvasGroup canvasGroup, float start, float end, bool endState, float duration)
     {
-        float counter = 0f;
+        var counter = 0f;
 
         while (counter < duration)
         {

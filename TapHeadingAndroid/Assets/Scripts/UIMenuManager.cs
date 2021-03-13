@@ -6,38 +6,73 @@ using UnityEngine;
 public class UIMenuManager : MonoBehaviour
 {
     [SerializeField] private UIFader[] faders;
+    [SerializeField] private UIFader homeButtonFader;
+    [SerializeField] private UIFader gameTitleFader;
     [SerializeField] private Transform gameTitleTransform;
-    [SerializeField] private float titlePosition;
+    private Vector3 _titlePosition;
     [SerializeField] private Transform titleStartTransform;
+    [SerializeField] private float titleLerpDuration;
+    [SerializeField] private float titleMenuDelay;
+
+    [SerializeField] private float fadeInOutDuration = .5f;
 
     private void Start()
     {
-        titlePosition = gameTitleTransform.position.y;
+        _titlePosition = gameTitleTransform.position;
     }
 
     internal void FadeInMenu()
     {
         foreach (var fader in faders)
         {
-            fader.Fade(true);
+            fader.Fade(true, fadeInOutDuration);
         }
+
+        homeButtonFader.Fade(true, fadeInOutDuration);
     }
 
     internal void FadeOutMenu()
     {
+        gameTitleFader.Fade(false, fadeInOutDuration);
         foreach (var fader in faders)
         {
-            fader.Fade(false);
+            fader.Fade(false, fadeInOutDuration * 2);
         }
+
+        homeButtonFader.Fade(false, fadeInOutDuration * 2);
+    }
+
+    internal void FadeInStart()
+    {
+        StartCoroutine(WaitForGameTitle());
+    }
+
+    private IEnumerator WaitForGameTitle()
+    {
+        foreach (var fader in faders)
+        {
+            fader.Fade(false, 0);
+        }
+
+        homeButtonFader.Fade(false, 0);
+
+
+        yield return new WaitForSecondsRealtime(titleMenuDelay);
+        foreach (var fader in faders)
+        {
+            fader.Fade(true, fadeInOutDuration);
+        }
+
+        yield return null;
     }
 
     internal void SlideInGameTitle()
     {
         gameTitleTransform.position = titleStartTransform.position;
-        StartCoroutine(SlideIn(gameTitleTransform, titlePosition, 2f));
+        StartCoroutine(SlideIn(gameTitleTransform, _titlePosition, titleLerpDuration));
     }
 
-    private IEnumerator SlideIn(Transform transformSlideObject, float toPosition, float duration)
+    private IEnumerator SlideIn(Transform transformSlideObject, Vector3 toPosition, float duration)
     {
         var counter = 0f;
 
@@ -45,8 +80,7 @@ public class UIMenuManager : MonoBehaviour
         {
             counter += Time.deltaTime;
             var position = gameTitleTransform.position;
-            position +=
-                Vector3.down * Mathf.Lerp(position.y, toPosition, counter / duration);
+            position = Vector3.Lerp(position, toPosition, counter / duration);
             gameTitleTransform.position = position;
 
             yield return null;
