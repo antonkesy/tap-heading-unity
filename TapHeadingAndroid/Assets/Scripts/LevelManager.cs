@@ -69,10 +69,10 @@ public class LevelManager : MonoBehaviour
 
     internal void StartGame()
     {
+        _isRight = Random.Range(0f, 1f) > 0.5f;
         _chunkSpeed = chunkSpeedBase;
         GenerateChunks();
         //just for first generation
-        _isFirstChunkGroupBottom = true;
         _isRight = !_isRight;
     }
 
@@ -91,6 +91,8 @@ public class LevelManager : MonoBehaviour
             GenerateChunk(yOffset);
             yOffset += yOffsetToChunks + _chunkHeight;
         }
+
+        _isFirstChunkGroupBottom = true;
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
@@ -202,6 +204,7 @@ public class LevelManager : MonoBehaviour
     public void RestartGame()
     {
         chunkGroupTransform0.position = Vector3.zero;
+        chunkGroupTransform1.position = Vector3.zero;
         foreach (var keyValuePair in _chunks)
         {
             keyValuePair.Value.DestroyCall();
@@ -210,6 +213,7 @@ public class LevelManager : MonoBehaviour
 
         _chunks.Clear();
         _fistChunkYPosition = 0;
+        _isFirstChunkGroupBottom = true;
         _isPause = false;
         StartGame();
     }

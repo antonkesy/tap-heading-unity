@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -38,7 +39,8 @@ public class GameManager : MonoBehaviour
             else if (_waitingToStartFreshGame)
             {
                 StartGame();
-            }else if (_waitingToRestartGame)
+            }
+            else if (_waitingToRestartGame)
             {
                 RestartGame();
             }
@@ -81,6 +83,12 @@ public class GameManager : MonoBehaviour
         levelManager.Pause();
         _isRunning = false;
         uiManager.ShowReturningMenuUI();
+        StartCoroutine(WaitToRestart());
+    }
+
+    private IEnumerator WaitToRestart()
+    {
+        yield return new WaitForSecondsRealtime(1f);
         _waitingToRestartGame = true;
     }
 
