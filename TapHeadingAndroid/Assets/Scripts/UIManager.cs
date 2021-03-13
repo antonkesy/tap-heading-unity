@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
 
         _gameTitleTextFader = gameTitleText.GetComponent<UIFader>();
 
-        _isSoundOn = PlayerPrefs.GetInt("soundOn", 1) == 1;
+        _isSoundOn = PlayerPrefs.GetInt("soundOff", 1) == 1;
 
         UpdateHighScoreText(PlayerPrefs.GetInt("highScore", 0));
     }
@@ -135,18 +135,18 @@ public class UIManager : MonoBehaviour
     public void OnSoundOnButtonClick()
     {
         if (_isPlaying) return;
-        PlayerPrefs.SetInt("soundOn", 0);
+        PlayerPrefs.SetInt("soundOff", 0);
         _isSoundOn = false;
         menuManager.SetSound(false);
         soundOffButton.SetActive(true);
         soundOnButton.SetActive(false);
-        //TODO()
+        gameManager.SetSound(true);
     }
 
     public void OnSoundOffButtonClick()
     {
         if (_isPlaying) return;
-        PlayerPrefs.SetInt("soundOn", 1);
+        PlayerPrefs.SetInt("soundOff", 1);
         soundOffButton.SetActive(false);
         soundOnButton.SetActive(true);
         menuManager.SetSound(true);

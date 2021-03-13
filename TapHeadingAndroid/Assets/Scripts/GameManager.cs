@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
     private int _highScore;
 
+    private bool _isSoundOn;
+
     private AudioSource _audioSource;
     [SerializeField] private AudioClip collectCoinAudioClip;
     [SerializeField] private AudioClip destroyPlayerAudioClip;
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
         playerManager.SetManager(this);
         uiManager.ShowStartMenuUI();
         _audioSource = GetComponent<AudioSource>();
+        _isSoundOn = PlayerPrefs.GetInt("soundOff", 1) == 0;
     }
 
     // Update is called once per frame
@@ -118,7 +121,8 @@ public class GameManager : MonoBehaviour
     internal void CoinPickedUpCallback()
     {
         //Todo()
-        _audioSource.PlayOneShot(collectCoinAudioClip, 1f);
+        if (_isSoundOn)
+            _audioSource.PlayOneShot(collectCoinAudioClip, 1f);
         uiManager.UpdateScoreText(++_score);
         levelManager.AddSpeed();
     }
@@ -131,7 +135,8 @@ public class GameManager : MonoBehaviour
     private void OnPlayerDestroy()
     {
         //TODO()
-        _audioSource.PlayOneShot(destroyPlayerAudioClip, 1f);
+        if (_isSoundOn)
+            _audioSource.PlayOneShot(destroyPlayerAudioClip, 1f);
         cameraManager.StartShaking();
         levelManager.Pause();
         _isRunning = false;
@@ -166,16 +171,8 @@ public class GameManager : MonoBehaviour
         _isRunning = true;
     }
 
-    public void ResetToStart()
-    {
-        //Todo();
-        levelManager.ResetGame();
-        playerManager.ResetPlayer();
-        _waitingToRestartGame = true;
-    }
-
     public void SetSound(bool soundOn)
     {
-        //throw new System.NotImplementedException();
+        _isSoundOn = soundOn;
     }
 }

@@ -370,6 +370,8 @@ MonoBehaviour:
   levelManager: {fileID: 836582972}
   uiManager: {fileID: 1781529468}
   cameraManager: {fileID: 519420033}
+  collectCoinAudioClip: {fileID: 8300000, guid: 89351c6067c906c4a8f792165a95787b, type: 3}
+  destroyPlayerAudioClip: {fileID: 8300000, guid: d014b90abaab44849b05ecb97f87d53b, type: 3}
 --- !u!4 &190944115
 Transform:
   m_ObjectHideFlags: 0
@@ -395,7 +397,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d014b90abaab44849b05ecb97f87d53b, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -3030,7 +3032,7 @@ GameObject:
   - component: {fileID: 1826263793}
   - component: {fileID: 1826263794}
   m_Layer: 5
-  m_Name: SoundOffButton
+  m_Name: SoundOnButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3131,7 +3133,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 531a4cf1e51e829448538b75e72b836d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 18aa11852d5c39f4ba2ed5800f5f51b2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3357,7 +3359,7 @@ GameObject:
   - component: {fileID: 2015256196}
   - component: {fileID: 2015256197}
   m_Layer: 5
-  m_Name: SoundOnButton
+  m_Name: SoundOffButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3458,7 +3460,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 18aa11852d5c39f4ba2ed5800f5f51b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 531a4cf1e51e829448538b75e72b836d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
