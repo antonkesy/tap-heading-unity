@@ -202,6 +202,14 @@ public class LevelManager : MonoBehaviour
 
     public void RestartGame()
     {
+        ResetGame();
+        _isPause = false;
+        StartGame();
+    }
+
+    public void ResetGame()
+    {
+        //TODO("Same side generate sometimes")
         chunkGroupTransform0.position = Vector3.zero;
         chunkGroupTransform1.position = Vector3.zero;
         foreach (var keyValuePair in _chunks)
@@ -213,7 +221,5 @@ public class LevelManager : MonoBehaviour
         _chunks.Clear();
         _fistChunkYPosition = 0;
         _isFirstChunkGroupBottom = true;
-        _isPause = false;
-        StartGame();
     }
 }

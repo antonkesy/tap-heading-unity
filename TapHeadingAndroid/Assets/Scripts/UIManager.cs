@@ -62,11 +62,10 @@ public class UIManager : MonoBehaviour
     {
         _isPlaying = true;
         aboutPanel.SetActive(false);
-        _scoreTextFader.Fade(true, .5f);
-        _scoreTextShadowFader.Fade(true, .5f);
-        //pauseButton.gameObject.SetActive(true);
-        //resumeButton.gameObject.SetActive(false);
-
+        _scoreTextFader.gameObject.SetActive(true);
+        _scoreTextShadowFader.gameObject.SetActive(true);
+        _scoreTextFader.Fade(true, 1.5f);
+        _scoreTextShadowFader.Fade(true, 1.5f);
         menuManager.FadeOutMenu();
         gameTitleText.gameObject.SetActive(false);
         highScoreText.gameObject.SetActive(false);
@@ -76,11 +75,6 @@ public class UIManager : MonoBehaviour
     {
         _isPlaying = false;
         aboutPanel.SetActive(false);
-        //Play
-        scoreText.gameObject.SetActive(true);
-        scoreTextShadow.gameObject.SetActive(true);
-        //pauseButton.gameObject.SetActive(false);
-        //resumeButton.gameObject.SetActive(false);
         //Menu
         menuManager.FadeInMenu();
         tapToStartText.text = "TAP TO RESTART";
@@ -95,8 +89,6 @@ public class UIManager : MonoBehaviour
         //Play
         scoreText.gameObject.SetActive(false);
         scoreTextShadow.gameObject.SetActive(false);
-        //pauseButton.gameObject.SetActive(false);
-        //resumeButton.gameObject.SetActive(false);
         //Menu
         menuManager.SetSound(_isSoundOn);
         menuManager.FadeInStart();
@@ -111,12 +103,6 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.5f);
         gameManager.ReadyToStartGameCallback();
         yield return null;
-    }
-
-    public void OnHomeButtonClick()
-    {
-        ShowReturningMenuUI();
-        gameManager.ResetToStart();
     }
 
 
@@ -158,30 +144,37 @@ public class UIManager : MonoBehaviour
         soundOnButton.SetActive(true);
         menuManager.SetSound(true);
         _isSoundOn = true;
-        //TODO()
+        gameManager.SetSound(false);
     }
 
     public void OnWebsiteButtonClick()
     {
         if (_isPlaying) return;
-        //TODO()
+        Application.OpenURL("https://poorskill.com/");
     }
 
     public void OnGitHubButtonClick()
     {
         if (_isPlaying) return;
-        //TODO()
+        Application.OpenURL("https://github.com/PoorSkill/tap-heading-unity");
     }
 
     public void OnYouTubeButtonClick()
     {
         if (_isPlaying) return;
-        //TODO()
+        Application.OpenURL("https://www.youtube.com/channel/UCgMifJ1aQnFFkwGgrxHSPjg");
     }
 
     public void OnPlayStoreButtonClick()
     {
         if (_isPlaying) return;
-        //TODO()
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.poorskill.tapheading");
+    }
+
+    internal bool isAboutOn()
+    {
+        var result = aboutPanel.activeSelf;
+        aboutPanel.SetActive(false);
+        return result;
     }
 }

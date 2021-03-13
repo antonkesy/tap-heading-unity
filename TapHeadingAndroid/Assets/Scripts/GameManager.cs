@@ -35,6 +35,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //DEBUG----------------------------------------------
+
+        if (Input.GetKeyDown("space"))
+        {
+            if (_isRunning)
+            {
+                playerManager.CallChangeDirection();
+            }
+            else if (_waitingToStartFreshGame)
+            {
+                if (uiManager.isAboutOn()) return;
+                StartGame();
+            }
+            else if (_waitingToRestartGame)
+            {
+                if (uiManager.isAboutOn()) return;
+                RestartGame();
+            }
+        }
+
+        //-------------------------------------------------
+
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             // if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetButtonDown("Fire1"))
         {
@@ -50,10 +72,12 @@ public class GameManager : MonoBehaviour
             }
             else if (_waitingToStartFreshGame)
             {
+                if (uiManager.isAboutOn()) return;
                 StartGame();
             }
             else if (_waitingToRestartGame)
             {
+                if (uiManager.isAboutOn()) return;
                 RestartGame();
             }
         }
@@ -132,5 +156,13 @@ public class GameManager : MonoBehaviour
     public void ResetToStart()
     {
         //Todo();
+        levelManager.ResetGame();
+        playerManager.ResetPlayer();
+        _waitingToRestartGame = true;
+    }
+
+    public void SetSound(bool soundOn)
+    {
+        //throw new System.NotImplementedException();
     }
 }

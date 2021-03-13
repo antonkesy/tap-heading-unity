@@ -103,6 +103,13 @@ public class PlayerManager : MonoBehaviour
         GameObject o;
         (o = gameObject).SetActive(true);
         o.transform.position = startPosition;
-        thrusterParticleSystem.Play();
+        StartMoving();
+    }
+
+    public void ResetPlayer()
+    {
+        GameObject o;
+        (o = gameObject).SetActive(true);
+        o.transform.position = startPosition;
     }
 }

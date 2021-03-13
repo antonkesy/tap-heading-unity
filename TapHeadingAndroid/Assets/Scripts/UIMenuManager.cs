@@ -6,7 +6,6 @@ using UnityEngine;
 public class UIMenuManager : MonoBehaviour
 {
     [SerializeField] private UIFader[] faders;
-    [SerializeField] private UIFader homeButtonFader;
     [SerializeField] private UIFader gameTitleFader;
     [SerializeField] private Transform gameTitleTransform;
     private Vector3 _titlePosition;
@@ -42,8 +41,6 @@ public class UIMenuManager : MonoBehaviour
             soundOffFader.Fade(true, fadeInOutDuration);
             soundOnFader.gameObject.SetActive(false);
         }
-
-        homeButtonFader.Fade(true, fadeInOutDuration);
     }
 
     internal void FadeOutMenu()
@@ -62,8 +59,6 @@ public class UIMenuManager : MonoBehaviour
         {
             soundOffFader.Fade(false, fadeInOutDuration * 2);
         }
-
-        homeButtonFader.Fade(false, fadeInOutDuration * 2);
     }
 
     internal void FadeInStart()
@@ -78,7 +73,6 @@ public class UIMenuManager : MonoBehaviour
             fader.Fade(false, 0);
         }
 
-        homeButtonFader.Fade(false, 0);
         soundOffFader.Fade(false, 0);
         soundOnFader.Fade(false, 0);
 
