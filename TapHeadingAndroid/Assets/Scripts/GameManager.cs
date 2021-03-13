@@ -33,21 +33,42 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-      /*  if (Application.isEditor && Input.GetMouseButtonDown(0))
+        /*  if (Application.isEditor && Input.GetMouseButtonDown(0))
+          {
+              if (_isRunning)
+              {
+                  uiManager.ShowReturningMenuUI();
+              }
+              else
+              {
+                  uiManager.ShowPlayUI();
+              }
+  
+              _isRunning = !_isRunning;
+              return;
+          }*/
+
+
+        foreach (var touch in Input.touches)
         {
-            if (_isRunning)
+            if (touch.phase == TouchPhase.Began)
             {
-                uiManager.ShowReturningMenuUI();
+                if (_isRunning)
+                {
+                    playerManager.CallChangeDirection();
+                }
+                else if (_waitingToStartFreshGame)
+                {
+                    StartGame();
+                }
+                else if (_waitingToRestartGame)
+                {
+                    RestartGame();
+                }
             }
-            else
-            {
-                uiManager.ShowPlayUI();
-            }
+        }
 
-            _isRunning = !_isRunning;
-            return;
-        }*/
-
+/*
         //TODO("to touch")
         if (Input.GetMouseButtonDown(0))
             if (_isRunning)
@@ -61,7 +82,7 @@ public class GameManager : MonoBehaviour
             else if (_waitingToRestartGame)
             {
                 RestartGame();
-            }
+            }*/
     }
 
     private void RestartGame()
@@ -127,5 +148,10 @@ public class GameManager : MonoBehaviour
         levelManager.Resume();
         playerManager.SetResume();
         _isRunning = true;
+    }
+
+    public void ResetToStart()
+    {
+        //Todo();
     }
 }

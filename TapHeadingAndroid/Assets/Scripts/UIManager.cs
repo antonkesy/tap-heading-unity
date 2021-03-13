@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameTitleText;
     private UIFader _gameTitleTextFader;
     [SerializeField] private TextMeshProUGUI tapToStartText;
+
     private void Start()
     {
         _scoreTextFader = scoreText.GetComponent<UIFader>();
@@ -84,5 +85,11 @@ public class UIManager : MonoBehaviour
         tapToStartText.text = "TAP TO START";
         menuManager.SlideInGameTitle();
         highScoreText.gameObject.SetActive(false);
+    }
+
+    public void OnHomeButtonClick()
+    {
+        ShowReturningMenuUI();
+        gameManager.ResetToStart();
     }
 }

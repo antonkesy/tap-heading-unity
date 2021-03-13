@@ -2364,6 +2364,8 @@ GameObject:
   - component: {fileID: 1432498940}
   - component: {fileID: 1432498939}
   - component: {fileID: 1432498938}
+  - component: {fileID: 1432498942}
+  - component: {fileID: 1432498941}
   m_Layer: 5
   m_Name: HomeButton
   m_TagString: Untagged
@@ -2434,7 +2436,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1432498939}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1781529468}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnHomeButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1432498939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2473,6 +2487,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432498936}
   m_CullTransparentMesh: 1
+--- !u!225 &1432498941
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432498936}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1432498942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432498936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1437524543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3853,11 +3891,13 @@ MonoBehaviour:
   - {fileID: 500859733}
   - {fileID: 1437524548}
   - {fileID: 364520998}
+  homeButtonFader: {fileID: 1432498942}
   gameTitleFader: {fileID: 1340031192}
   gameTitleTransform: {fileID: 1340031189}
   titleStartTransform: {fileID: 1961674711}
   titleLerpDuration: 4
   titleMenuDelay: 0.8
+  fadeInOutDuration: 0.5
 --- !u!225 &2097025357
 CanvasGroup:
   m_ObjectHideFlags: 0
