@@ -9,6 +9,7 @@ public class CameraManager : MonoBehaviour
     private Transform _transform;
 
     [SerializeField] private float shakeDuration = 1f;
+    private float _shakeDuration;
 
     public float shakeAmount = 0.05f;
     [SerializeField] private float decreaseFactor = 1.0f;
@@ -17,14 +18,13 @@ public class CameraManager : MonoBehaviour
 
     private bool _isShaking;
 
-    void Start()
+    private void Start()
     {
         _transform = GetComponent<Transform>();
         ScaleCameraToWidth();
     }
 
-    // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
         if (_isShaking)
         {
@@ -43,14 +43,13 @@ public class CameraManager : MonoBehaviour
 
     private void Shake()
     {
-        if (shakeDuration > 0)
+        if (_shakeDuration > 0)
         {
             _transform.localPosition = _originalPos + Random.insideUnitSphere * shakeAmount;
-            shakeDuration -= decreaseFactor * Time.deltaTime;
+            _shakeDuration -= decreaseFactor * Time.deltaTime;
         }
         else
         {
-            shakeDuration = 0f;
             _transform.localPosition = _originalPos;
             _isShaking = false;
         }
@@ -58,6 +57,7 @@ public class CameraManager : MonoBehaviour
 
     internal void StartShaking()
     {
+        _shakeDuration = shakeDuration;
         _originalPos = gameObject.transform.position;
         _isShaking = true;
     }

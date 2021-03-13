@@ -167,7 +167,6 @@ public class LevelManager : MonoBehaviour
                 }
 
                 _isFirstChunkGroupBottom = !_isFirstChunkGroupBottom;
-                Debug.Log("ResetChunks");
                 _fistChunkYPosition = 0; //not called in GenerateChunk for easyRead
             }
         }
