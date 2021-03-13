@@ -130,7 +130,13 @@ public class GameManager : MonoBehaviour
         _isRunning = false;
         uiManager.ShowReturningMenuUI();
         StartCoroutine(WaitToRestart());
-        _highScore = _highScore < _score ? _score : _highScore;
+
+        if (_highScore < _score)
+        {
+            _highScore = _score;
+            uiManager.UpdateHighScoreText(_highScore);
+            PlayerPrefs.SetInt("highScore", _highScore);
+        }
     }
 
     private IEnumerator WaitToRestart()

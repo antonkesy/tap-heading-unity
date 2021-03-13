@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject soundOffButton;
     [SerializeField] private GameObject soundOnButton;
-    
+
     private bool _isPlaying;
     private bool _isSoundOn;
 
@@ -36,12 +36,19 @@ public class UIManager : MonoBehaviour
         _gameTitleTextFader = gameTitleText.GetComponent<UIFader>();
 
         _isSoundOn = PlayerPrefs.GetInt("soundOn", 1) == 1;
+
+        UpdateHighScoreText(PlayerPrefs.GetInt("highScore", 0));
     }
-    
+
     internal void UpdateScoreText(int newScore)
     {
         scoreText.text = newScore.ToString();
         scoreTextShadow.text = newScore.ToString();
+    }
+
+    internal void UpdateHighScoreText(int newScore)
+    {
+        highScoreText.text = "BEST: " + newScore;
     }
 
     public void OnClickPauseButton()
