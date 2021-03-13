@@ -50,16 +50,17 @@ public class GameManager : MonoBehaviour
         levelManager.AddSpeed();
     }
 
-    internal void WallCollisionCallback()
+    internal void DestroyPlayerCallback()
     {
-        //TODO()
-        cameraManager.StartShaking();
+        OnPlayerDestroy();
     }
 
-    internal void BarCollisionCallback()
+    private void OnPlayerDestroy()
     {
         //TODO()
         cameraManager.StartShaking();
+        levelManager.Pause();
+        _isRunning = false;
     }
 
     public void OnPause()

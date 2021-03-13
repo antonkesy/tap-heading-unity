@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private ParticleSystem thrusterParticleSystem;
+    [SerializeField] private ParticleSystem destroyParticleSystem;
 
     private GameManager _gameManager;
 
@@ -40,13 +41,9 @@ public class PlayerManager : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         var og = other.gameObject;
-        if (og.CompareTag("Wall"))
+        if (og.CompareTag("Wall") || og.CompareTag("Bar"))
         {
-            OnWallCollision();
-        }
-        else if (og.CompareTag("Bar"))
-        {
-            OnBarCollision();
+            DestroyPlayer();
         }
     }
 
@@ -64,15 +61,15 @@ public class PlayerManager : MonoBehaviour
         coinGameObject.SetActive(false);
         _gameManager.CoinPickedUpCallback();
     }
-
-    private void OnWallCollision()
+    
+    private void DestroyPlayer()
     {
-        _gameManager.WallCollisionCallback();
-    }
-
-    private void OnBarCollision()
-    {
-        _gameManager.BarCollisionCallback();
+        _rb.velocity = Vector2.zero;
+        thrusterParticleSystem.Stop();
+        destroyParticleSystem.transform.position = transform.position;
+        destroyParticleSystem.Play();
+        _gameManager.DestroyPlayerCallback();
+        gameObject.SetActive(false);
     }
 
     internal void SetManager(GameManager gameManager)
