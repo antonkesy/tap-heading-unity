@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,14 +8,22 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
     [Header("Play")] [SerializeField] private TextMeshProUGUI scoreText;
+    private UIFader _scoreTextFader;
     [SerializeField] private TextMeshProUGUI scoreTextShadow;
+    private UIFader _scoreTextShadowFader;
     [SerializeField] private Button pauseButton;
     [SerializeField] private Button resumeButton;
     [Header("Menu")] [SerializeField] private GameObject menu;
+    [SerializeField] private UIMenuManager menuManager;
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI gameTitleText;
     [SerializeField] private TextMeshProUGUI tapToStartText;
 
+    private void Start()
+    {
+        _scoreTextFader = scoreText.GetComponent<UIFader>();
+        _scoreTextShadowFader = scoreTextShadow.GetComponent<UIFader>();
+    }
 
     internal void UpdateScoreText(int newScore)
     {
@@ -37,11 +47,11 @@ public class UIManager : MonoBehaviour
 
     internal void ShowPlayUI()
     {
-        scoreText.gameObject.SetActive(true);
-        scoreTextShadow.gameObject.SetActive(true);
+        _scoreTextFader.Fade(true);
+        _scoreTextShadowFader.Fade(true);
         pauseButton.gameObject.SetActive(true);
         resumeButton.gameObject.SetActive(false);
-        menu.SetActive(false);
+        menuManager.FadeOut();
         gameTitleText.gameObject.SetActive(false);
         highScoreText.gameObject.SetActive(false);
     }
@@ -54,7 +64,9 @@ public class UIManager : MonoBehaviour
         pauseButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(false);
         //Menu
-        menu.SetActive(true);
+        //menu.SetActive(true);
+        //_menuFader.Fade(true);
+        menuManager.FadeIn();
         tapToStartText.text = "TAP TO RESTART";
         gameTitleText.gameObject.SetActive(false);
         highScoreText.gameObject.SetActive(true);

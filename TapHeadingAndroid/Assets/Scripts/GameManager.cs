@@ -32,6 +32,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+      /*  if (Application.isEditor && Input.GetMouseButtonDown(0))
+        {
+            if (_isRunning)
+            {
+                uiManager.ShowReturningMenuUI();
+            }
+            else
+            {
+                uiManager.ShowPlayUI();
+            }
+
+            _isRunning = !_isRunning;
+            return;
+        }*/
+
         //TODO("to touch")
         if (Input.GetMouseButtonDown(0))
             if (_isRunning)
@@ -61,6 +76,8 @@ public class GameManager : MonoBehaviour
 
     private void StartGame()
     {
+        _score = 0;
+        uiManager.UpdateScoreText(_score);
         _isRunning = true;
         _waitingToStartFreshGame = false;
         levelManager.StartGame();
