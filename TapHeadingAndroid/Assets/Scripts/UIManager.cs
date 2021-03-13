@@ -17,12 +17,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIMenuManager menuManager;
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI gameTitleText;
+    private UIFader _gameTitleTextFader;
     [SerializeField] private TextMeshProUGUI tapToStartText;
 
     private void Start()
     {
         _scoreTextFader = scoreText.GetComponent<UIFader>();
         _scoreTextShadowFader = scoreTextShadow.GetComponent<UIFader>();
+
+        _gameTitleTextFader = gameTitleText.GetComponent<UIFader>();
     }
 
     internal void UpdateScoreText(int newScore)
@@ -51,7 +54,7 @@ public class UIManager : MonoBehaviour
         _scoreTextShadowFader.Fade(true);
         pauseButton.gameObject.SetActive(true);
         resumeButton.gameObject.SetActive(false);
-        menuManager.FadeOut();
+        menuManager.FadeOutMenu();
         gameTitleText.gameObject.SetActive(false);
         highScoreText.gameObject.SetActive(false);
     }
@@ -66,7 +69,7 @@ public class UIManager : MonoBehaviour
         //Menu
         //menu.SetActive(true);
         //_menuFader.Fade(true);
-        menuManager.FadeIn();
+        menuManager.FadeInMenu();
         tapToStartText.text = "TAP TO RESTART";
         gameTitleText.gameObject.SetActive(false);
         highScoreText.gameObject.SetActive(true);
@@ -81,8 +84,9 @@ public class UIManager : MonoBehaviour
         resumeButton.gameObject.SetActive(false);
         //Menu
         menu.SetActive(true);
+        menuManager.FadeInMenu();
         tapToStartText.text = "TAP TO START";
-        gameTitleText.gameObject.SetActive(true);
+        menuManager.SlideInGameTitle();
         highScoreText.gameObject.SetActive(false);
     }
 }

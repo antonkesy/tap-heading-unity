@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         playerManager.SetManager(this);
+        uiManager.ShowStartMenuUI();
     }
 
     // Update is called once per frame

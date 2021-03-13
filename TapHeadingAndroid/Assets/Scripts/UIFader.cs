@@ -10,6 +10,7 @@ public class UIFader : MonoBehaviour
     private void Start()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
+        Debug.Log(_canvasGroup);
     }
 
     public void Fade(bool fadeIn)
