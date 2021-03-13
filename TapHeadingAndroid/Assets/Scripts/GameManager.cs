@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
@@ -49,24 +51,29 @@ public class GameManager : MonoBehaviour
           }*/
 
 
-        foreach (var touch in Input.touches)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            //if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetButtonDown("Fire1"))
         {
-            if (touch.phase == TouchPhase.Began)
+            if (Input.touches.Select(touch => touch.fingerId)
+                .Any(id => EventSystem.current.IsPointerOverGameObject(id)))
             {
-                if (_isRunning)
-                {
-                    playerManager.CallChangeDirection();
-                }
-                else if (_waitingToStartFreshGame)
-                {
-                    StartGame();
-                }
-                else if (_waitingToRestartGame)
-                {
-                    RestartGame();
-                }
+                return;
+            }
+
+            if (_isRunning)
+            {
+                playerManager.CallChangeDirection();
+            }
+            else if (_waitingToStartFreshGame)
+            {
+                StartGame();
+            }
+            else if (_waitingToRestartGame)
+            {
+                RestartGame();
             }
         }
+
 
 /*
         //TODO("to touch")
