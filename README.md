@@ -9,3 +9,7 @@
  - sounds/soundtrack
  - other font
  - change sprites -> add shadows?
+
+# Thanks
+
+Sound effects obtained from https://www.zapsplat.com
