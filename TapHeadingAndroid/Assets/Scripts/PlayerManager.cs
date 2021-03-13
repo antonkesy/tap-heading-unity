@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = System.Random;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -24,6 +25,12 @@ public class PlayerManager : MonoBehaviour
 
     internal void StartMoving()
     {
+        ChangeDirection();
+        if (UnityEngine.Random.Range(0f, 1f) > .5f)
+        {
+            ChangeDirection();
+        }
+
         thrusterParticleSystem.Play();
     }
 

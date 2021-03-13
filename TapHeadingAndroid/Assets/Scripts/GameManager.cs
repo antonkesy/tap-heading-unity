@@ -35,24 +35,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        /*  if (Application.isEditor && Input.GetMouseButtonDown(0))
-          {
-              if (_isRunning)
-              {
-                  uiManager.ShowReturningMenuUI();
-              }
-              else
-              {
-                  uiManager.ShowPlayUI();
-              }
-  
-              _isRunning = !_isRunning;
-              return;
-          }*/
-
-
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-            //if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetButtonDown("Fire1"))
+        // if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetButtonDown("Fire1"))
         {
             if (Input.touches.Select(touch => touch.fingerId)
                 .Any(id => EventSystem.current.IsPointerOverGameObject(id)))
@@ -73,23 +57,6 @@ public class GameManager : MonoBehaviour
                 RestartGame();
             }
         }
-
-
-/*
-        //TODO("to touch")
-        if (Input.GetMouseButtonDown(0))
-            if (_isRunning)
-            {
-                playerManager.CallChangeDirection();
-            }
-            else if (_waitingToStartFreshGame)
-            {
-                StartGame();
-            }
-            else if (_waitingToRestartGame)
-            {
-                RestartGame();
-            }*/
     }
 
     private void RestartGame()
