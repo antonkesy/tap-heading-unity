@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
 
     private void OnCoinCollision(GameObject coinGameObject)
     {
-        Destroy(coinGameObject);
+        coinGameObject.SetActive(false);
         _gameManager.CoinPickedUpCallback();
     }
 

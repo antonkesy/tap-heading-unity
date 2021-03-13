@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LevelGeneratorScript : MonoBehaviour
 {
-    [SerializeField] private float maxRandomOffset = 5f;
+    [SerializeField] [Range(0, 1f)] private float maxRandomOffset;
     [SerializeField] private float coinOffsetToBar = .25f;
     [SerializeField] private Transform chunkGroupTransform0;
     [SerializeField] private Transform chunkGroupTransform1;
@@ -12,6 +12,7 @@ public class LevelGeneratorScript : MonoBehaviour
 
     [SerializeField] private GameObject chunkPrefab;
     private float _chunkHeight;
+    private float _halfChunkWidth;
     [SerializeField] private float chunkSpeedBase;
     private float _chunkSpeed;
     private float _chunkYStart;
@@ -53,6 +54,10 @@ public class LevelGeneratorScript : MonoBehaviour
 
         _amountOfChunksToBuffer = (int) (_chunkYStart * 2 / (_chunkHeight + yOffsetToChunks) * .65f) + 1;
 
+        maxRandomOffset = (chunkPrefab.transform.localScale.x - xOffset) * maxRandomOffset;
+
+        _halfChunkWidth = chunkPrefab.transform.localScale.x / 2f;
+
         GenerateWalls();
     }
 
@@ -74,14 +79,14 @@ public class LevelGeneratorScript : MonoBehaviour
     private void GenerateChunks()
     {
         var yOffset = 0f;
-        for (int i = 0; i < _amountOfChunksToBuffer; ++i)
+        for (var i = 0; i < _amountOfChunksToBuffer; ++i)
         {
             GenerateChunk(yOffset);
             yOffset += yOffsetToChunks + _chunkHeight;
         }
 
         _isFirstChunkGroup = false;
-        for (int i = 0; i < _amountOfChunksToBuffer; ++i)
+        for (var i = 0; i < _amountOfChunksToBuffer; ++i)
         {
             GenerateChunk(yOffset);
             yOffset += yOffsetToChunks + _chunkHeight;
@@ -94,8 +99,19 @@ public class LevelGeneratorScript : MonoBehaviour
         var chunk = Instantiate(chunkPrefab, _isFirstChunkGroup ? chunkGroupTransform0 : chunkGroupTransform1);
         chunk.transform.position = GetNewChunkPosition(yOffset);
 
+
         var chunkManager = chunk.GetComponent<ChunkManager>();
         _chunks.Add(new KeyValuePair<Transform, ChunkManager>(chunk.transform, chunkManager));
+
+        //TODO("fix coin pos -> Random despawn and wrong group")
+        var coinPosition = chunk.transform.position + Vector3.right *
+            (_isRight
+                ? -coinOffsetToBar - _halfChunkWidth
+                : coinOffsetToBar + _halfChunkWidth);
+
+        chunkManager.SetUp(_isFirstChunkGroup ? chunkGroupTransform0 : chunkGroupTransform1);
+        chunkManager.SpawnCoin(coinPosition);
+        //prepare Next
         _isRight = !_isRight;
     }
 
@@ -142,10 +158,12 @@ public class LevelGeneratorScript : MonoBehaviour
                     var newChunkPosition = GetNewChunkPosition(yOffset);
                     _chunks[i].Key.position = newChunkPosition;
 
-                    var coinPosition = newChunkPosition.x * (_isRight ? -1 : 1) *
-                                       (chunkPrefab.transform.localScale.x / 2f + coinOffsetToBar);
-                    _chunks[i].Value.SpawnCoin(_isFirstChunkGroup ? chunkGroupTransform0 : chunkGroupTransform1,
-                        coinPosition);
+                    var coinPosition = newChunkPosition + Vector3.right *
+                        (_isRight
+                            ? -coinOffsetToBar - _halfChunkWidth
+                            : coinOffsetToBar + _halfChunkWidth);
+
+                    _chunks[i].Value.SpawnCoin(coinPosition);
                     //prepare for next
                     _isRight = !_isRight;
                     yOffset += yOffsetToChunks + _chunkHeight;
