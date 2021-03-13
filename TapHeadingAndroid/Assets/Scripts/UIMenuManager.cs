@@ -16,6 +16,10 @@ public class UIMenuManager : MonoBehaviour
 
     [SerializeField] private float fadeInOutDuration = .5f;
 
+    private bool _isSoundOn;
+    [SerializeField] private UIFader soundOnFader;
+    [SerializeField] private UIFader soundOffFader;
+
     private void Start()
     {
         _titlePosition = gameTitleTransform.position;
@@ -28,6 +32,17 @@ public class UIMenuManager : MonoBehaviour
             fader.Fade(true, fadeInOutDuration);
         }
 
+        if (_isSoundOn)
+        {
+            soundOnFader.Fade(true, fadeInOutDuration);
+            soundOffFader.gameObject.SetActive(false);
+        }
+        else
+        {
+            soundOffFader.Fade(true, fadeInOutDuration);
+            soundOnFader.gameObject.SetActive(false);
+        }
+
         homeButtonFader.Fade(true, fadeInOutDuration);
     }
 
@@ -37,6 +52,15 @@ public class UIMenuManager : MonoBehaviour
         foreach (var fader in faders)
         {
             fader.Fade(false, fadeInOutDuration * 2);
+        }
+
+        if (_isSoundOn)
+        {
+            soundOnFader.Fade(false, fadeInOutDuration * 2);
+        }
+        else
+        {
+            soundOffFader.Fade(false, fadeInOutDuration * 2);
         }
 
         homeButtonFader.Fade(false, fadeInOutDuration * 2);
@@ -55,12 +79,25 @@ public class UIMenuManager : MonoBehaviour
         }
 
         homeButtonFader.Fade(false, 0);
+        soundOffFader.Fade(false, 0);
+        soundOnFader.Fade(false, 0);
 
 
         yield return new WaitForSecondsRealtime(titleMenuDelay);
         foreach (var fader in faders)
         {
             fader.Fade(true, fadeInOutDuration);
+        }
+
+        if (_isSoundOn)
+        {
+            soundOnFader.Fade(true, fadeInOutDuration);
+            soundOffFader.gameObject.SetActive(false);
+        }
+        else
+        {
+            soundOffFader.Fade(true, fadeInOutDuration);
+            soundOnFader.gameObject.SetActive(false);
         }
 
         yield return null;
@@ -85,5 +122,10 @@ public class UIMenuManager : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    internal void SetSound(bool isSoundOn)
+    {
+        _isSoundOn = isSoundOn;
     }
 }

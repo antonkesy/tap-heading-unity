@@ -17,9 +17,9 @@ public class GameManager : MonoBehaviour
 
     private bool _isRunning;
 
-    private bool _waitingToStartFreshGame = true;
+    private bool _waitingToStartFreshGame;
 
-    private bool _waitingToRestartGame = false;
+    private bool _waitingToRestartGame;
 
     private int _score;
 
@@ -35,8 +35,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetButtonDown("Fire1"))
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            // if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetButtonDown("Fire1"))
         {
             if (Input.touches.Select(touch => touch.fingerId)
                 .Any(id => EventSystem.current.IsPointerOverGameObject(id)))
@@ -57,6 +57,11 @@ public class GameManager : MonoBehaviour
                 RestartGame();
             }
         }
+    }
+
+    internal void ReadyToStartGameCallback()
+    {
+        _waitingToStartFreshGame = true;
     }
 
     private void RestartGame()
