@@ -1,6 +1,5 @@
-using System;
+using System.Collections;
 using UnityEngine;
-using Random = System.Random;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -24,15 +23,41 @@ public class PlayerManager : MonoBehaviour
 
     private Vector2 _pauseVelocity;
 
+    private float _spawnStartPositionY = 20;
+
+    [SerializeField] private float spawnTime;
+
+    private Coroutine _spawnCoroutine = null;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+
+        SetSpawnStartPositionY();
+    }
+
+    private void SetSpawnStartPositionY()
+    {
+        var mainCam = Camera.main;
+        if (mainCam is { })
+        {
+            var frustumHeight = 2.0f * mainCam.orthographicSize *
+                                Mathf.Tan(mainCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+            _spawnStartPositionY = (frustumHeight) * -1f;
+        }
     }
 
     internal void StartMoving()
     {
+        if (_spawnCoroutine != null)
+        {
+            StopCoroutine(_spawnCoroutine);
+            transform.position = Vector3.up * startPosition;
+            _spawnCoroutine = null;
+        }
+
         ChangeDirection();
-        if (UnityEngine.Random.Range(0f, 1f) > .5f)
+        if (Random.Range(0f, 1f) > .5f)
         {
             ChangeDirection();
         }
@@ -126,5 +151,34 @@ public class PlayerManager : MonoBehaviour
         GameObject o;
         (o = gameObject).SetActive(true);
         o.transform.position = startPosition;
+    }
+
+    internal void SpawnPlayer()
+    {
+        _spawnCoroutine = StartCoroutine(MovePlayerToSpawn());
+    }
+
+    private IEnumerator MovePlayerToSpawn()
+    {
+        float time = 0;
+        var targetPosition = Vector3.up * startPosition;
+        transform.position = Vector3.up * _spawnStartPositionY;
+        thrusterParticleSystem.Play();
+
+        while (time < spawnTime)
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPosition, time / spawnTime);
+            time += Time.deltaTime;
+            if (Vector3.Distance(transform.position, targetPosition) <= 0.5f)
+            {
+                thrusterParticleSystem.Stop();
+            }
+
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+
+        yield return null;
     }
 }

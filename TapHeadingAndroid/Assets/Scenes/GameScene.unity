@@ -9039,6 +9039,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2104483253, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104483253, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
+      propertyPath: lengthInSec
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 6764534175411120628, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -9086,6 +9094,10 @@ PrefabInstance:
     - target: {fileID: 8364433527196952822, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
+      propertyPath: spawnTime
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: pickupParticleSystem

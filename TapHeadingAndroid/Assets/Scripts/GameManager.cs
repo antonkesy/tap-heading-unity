@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         audioManager.SetSound(PlayerPrefs.GetInt("soundOff", 1) == 0);
         SignInToGooglePlayServices();
         audioManager.PlayStartApplication();
+        playerManager.SpawnPlayer(); //TODO("change value")
     }
 
     private void SignInToGooglePlayServices()
