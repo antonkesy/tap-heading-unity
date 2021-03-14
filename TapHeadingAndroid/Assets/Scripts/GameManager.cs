@@ -155,8 +155,8 @@ public class GameManager : MonoBehaviour
         _isRunning = false;
         uiManager.ShowReturningMenuUI();
         StartCoroutine(WaitToRestart());
-
         CheckNewHighScore();
+        CheckAchievement(_score);
     }
 
     private void CheckNewHighScore()
@@ -169,7 +169,6 @@ public class GameManager : MonoBehaviour
             if (PlayGamesPlatform.Instance.IsAuthenticated())
             {
                 Social.ReportScore(_highScore, GPGSIds.leaderboard_high_score, success => { });
-                CheckAchievement(_highScore);
             }
         }
     }
@@ -180,20 +179,24 @@ public class GameManager : MonoBehaviour
         {
             Social.ReportProgress(GPGSIds.achievement_oof, 0.0f, null);
         }
-        else if (highScore >= 100)
+
+        if (highScore >= 100)
         {
             Social.ReportProgress(GPGSIds.achievement_triple_digest, 0.0f, null);
         }
-        else if (highScore >= 69)
+
+        if (highScore >= 69)
         {
             Social.ReportProgress(GPGSIds.achievement_nice, 0.0f, null);
         }
-        else if (highScore >= 42)
+
+        if (highScore >= 42)
         {
             Social.ReportProgress(
                 GPGSIds.achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything, 0.0f, null);
         }
-        else if (highScore >= 10)
+
+        if (highScore >= 10)
         {
             Social.ReportProgress(GPGSIds.achievement_double_digest, 0.0f, null);
         }
