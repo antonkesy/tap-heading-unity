@@ -4,13 +4,14 @@
  # todo / ideas
 
  - more user feedback for picking up coins (Score update with effects ...)
- - combo/strike for not missing coins
+ - combo/strike for not missing coins -> nah
  - GooglePlay leaderboard/archivments -> done
- - sounds/soundtrack
- - other font
- - change sprites -> add shadows? 
+ - sounds/soundtrack -> done
+ - other font -> done
+ - change sprites -> add shadows? -> done
  - background particle
-- more UI Effects 
+ - more UI Effects 
+ - change colors
 
 # Thanks
 

@@ -4881,7 +4881,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 35f0aad1cc060d541b61a9788570976c, type: 3}
-  m_Color: {r: 0.9490196, g: 0.77254903, b: 0.23921569, a: 1}
+  m_Color: {r: 0.9490196, g: 0.7176471, b: 0.019607844, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4911,6 +4911,7 @@ MonoBehaviour:
   shadowTransform: {fileID: 4311883836868389164}
   shadowOffset: 0.05
   sideSpeed: 6
+  spawnTime: 0
 --- !u!50 &906787709
 Rigidbody2D:
   serializedVersion: 4

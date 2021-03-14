@@ -207,9 +207,9 @@ public class LevelManager : MonoBehaviour
         StartGame();
     }
 
-    public void ResetGame()
+    private void ResetGame()
     {
-        //TODO("Same side generate sometimes -> probably fixed -> nope")
+        //TODO("Same side generate sometimes -> probably fixed -> nope" -> also on fresh start)
         chunkGroupTransform0.position = Vector3.zero;
         chunkGroupTransform1.position = Vector3.zero;
         foreach (var keyValuePair in _chunks)

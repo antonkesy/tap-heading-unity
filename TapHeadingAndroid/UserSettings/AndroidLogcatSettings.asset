@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "1cc9c5cc",
         "name": "com.poorskill.tapheading",
-        "processId": 8398,
+        "processId": 18054,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -138,6 +138,24 @@
             "deviceId": "1cc9c5cc",
             "name": "com.poorskill.tapheading",
             "processId": 8398,
+            "exited": false
+        },
+        {
+            "deviceId": "1cc9c5cc",
+            "name": "com.poorskill.tapheading",
+            "processId": 15880,
+            "exited": false
+        },
+        {
+            "deviceId": "1cc9c5cc",
+            "name": "com.poorskill.tapheading",
+            "processId": 17118,
+            "exited": false
+        },
+        {
+            "deviceId": "1cc9c5cc",
+            "name": "com.poorskill.tapheading",
+            "processId": 18054,
             "exited": false
         }
     ],
