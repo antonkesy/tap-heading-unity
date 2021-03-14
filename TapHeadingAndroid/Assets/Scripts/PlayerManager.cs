@@ -27,8 +27,6 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private float spawnTime;
 
-    private Coroutine _spawnCoroutine = null;
-
     private bool _isDirectionChangeable;
 
     private void Start()
@@ -144,7 +142,7 @@ public class PlayerManager : MonoBehaviour
     {
         transform.position = Vector3.up * _spawnStartPositionY;
         gameObject.SetActive(true);
-        _spawnCoroutine = StartCoroutine(MovePlayerToSpawn(isRespawn));
+        StartCoroutine(MovePlayerToSpawn(isRespawn));
     }
 
     private IEnumerator MovePlayerToSpawn(bool isRespawn)

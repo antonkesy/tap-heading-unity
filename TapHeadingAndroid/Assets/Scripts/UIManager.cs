@@ -13,8 +13,6 @@ public class UIManager : MonoBehaviour
     private UIFader _scoreTextFader;
     [SerializeField] private TextMeshProUGUI scoreTextShadow;
     private UIFader _scoreTextShadowFader;
-    [SerializeField] private Button pauseButton;
-    [SerializeField] private Button resumeButton;
     [Header("Menu")] [SerializeField] private GameObject menu;
     [SerializeField] private UIMenuManager menuManager;
     [SerializeField] private TextMeshProUGUI highScoreText;
@@ -48,24 +46,7 @@ public class UIManager : MonoBehaviour
 
     internal void UpdateHighScoreText(int newScore)
     {
-        //TODO("sound and effect")
         highScoreText.text = "BEST: " + newScore;
-    }
-
-    public void OnClickPauseButton()
-    {
-        gameManager.OnPause();
-        audioManager.PlayTapUI();
-        pauseButton.gameObject.SetActive(false);
-        resumeButton.gameObject.SetActive(true);
-    }
-
-    public void OnClickResumeButton()
-    {
-        gameManager.OnResume();
-        audioManager.PlayTapUI();
-        pauseButton.gameObject.SetActive(true);
-        resumeButton.gameObject.SetActive(false);
     }
 
     internal void ShowPlayUI()
