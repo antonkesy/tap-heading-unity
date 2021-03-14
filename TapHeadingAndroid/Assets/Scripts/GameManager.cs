@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
 
     private int _highScore;
 
-    private bool _isSoundOn;
 
     [SerializeField] private AudioManager audioManager;
 
@@ -41,7 +40,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         playerManager.SetManager(this);
         uiManager.ShowStartMenuUI();
-        _isSoundOn = PlayerPrefs.GetInt("soundOff", 1) == 0;
+        audioManager.SetSound(PlayerPrefs.GetInt("soundOff", 1) == 0);
         SignInToGooglePlayServices();
     }
 
@@ -59,22 +58,19 @@ public class GameManager : MonoBehaviour
         {
             if (_isRunning)
             {
-                if (_isSoundOn)
-                    audioManager.PlayTapPlayer();
+                audioManager.PlayTapPlayer();
                 playerManager.CallChangeDirection();
             }
             else if (_waitingToStartFreshGame)
             {
                 if (uiManager.isAboutOn()) return;
-                if (_isSoundOn)
-                    audioManager.PlayTapPlayer();
+                audioManager.PlayTapPlayer();
                 StartGame();
             }
             else if (_waitingToRestartGame)
             {
                 if (uiManager.isAboutOn()) return;
-                if (_isSoundOn)
-                    audioManager.PlayTapPlayer();
+                audioManager.PlayTapPlayer();
                 RestartGame();
             }
         }
@@ -92,22 +88,19 @@ public class GameManager : MonoBehaviour
 
             if (_isRunning)
             {
-                if (_isSoundOn)
-                    audioManager.PlayTapPlayer();
+                audioManager.PlayTapPlayer();
                 playerManager.CallChangeDirection();
             }
             else if (_waitingToStartFreshGame)
             {
                 if (uiManager.isAboutOn()) return;
-                if (_isSoundOn)
-                    audioManager.PlayTapPlayer();
+                audioManager.PlayTapPlayer();
                 StartGame();
             }
             else if (_waitingToRestartGame)
             {
                 if (uiManager.isAboutOn()) return;
-                if (_isSoundOn)
-                    audioManager.PlayTapPlayer();
+                audioManager.PlayTapPlayer();
                 RestartGame();
             }
         }
@@ -143,8 +136,7 @@ public class GameManager : MonoBehaviour
     internal void CoinPickedUpCallback()
     {
         //Todo()
-        if (_isSoundOn)
-            audioManager.PlayCollectCoin();
+        audioManager.PlayCollectCoin();
         uiManager.UpdateScoreText(++_score);
         levelManager.AddSpeed();
     }
@@ -157,8 +149,7 @@ public class GameManager : MonoBehaviour
     private void OnPlayerDestroy()
     {
         //TODO()
-        if (_isSoundOn)
-            audioManager.PlayDestroyPlayer();
+        audioManager.PlayDestroyPlayer();
         cameraManager.StartShaking();
         levelManager.Pause();
         _isRunning = false;
@@ -226,10 +217,5 @@ public class GameManager : MonoBehaviour
         levelManager.Resume();
         playerManager.SetResume();
         _isRunning = true;
-    }
-
-    public void SetSound(bool soundOn)
-    {
-        _isSoundOn = soundOn;
     }
 }

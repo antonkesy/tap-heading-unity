@@ -53,7 +53,6 @@ public class UIMenuManager : MonoBehaviour
             fader.Fade(false, fadeInOutDuration * 3);
         }
 
-        Debug.Log("isSound?" + _isSoundOff);
         if (_isSoundOff)
         {
             soundOffFader.Fade(false, 0f);

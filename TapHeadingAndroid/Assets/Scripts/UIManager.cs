@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     private bool _isSoundOn;
 
 
+    [SerializeField] private AudioManager audioManager;
+
     private void Start()
     {
         _scoreTextFader = scoreText.GetComponent<UIFader>();
@@ -46,12 +48,14 @@ public class UIManager : MonoBehaviour
 
     internal void UpdateHighScoreText(int newScore)
     {
+        //TODO("sound and effect")
         highScoreText.text = "BEST: " + newScore;
     }
 
     public void OnClickPauseButton()
     {
         gameManager.OnPause();
+        audioManager.PlayTapUI();
         pauseButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(true);
     }
@@ -59,6 +63,7 @@ public class UIManager : MonoBehaviour
     public void OnClickResumeButton()
     {
         gameManager.OnResume();
+        audioManager.PlayTapUI();
         pauseButton.gameObject.SetActive(true);
         resumeButton.gameObject.SetActive(false);
     }
@@ -116,6 +121,7 @@ public class UIManager : MonoBehaviour
     public void OnAboutButtonClick()
     {
         if (_isPlaying) return;
+        audioManager.PlayTapUI();
         Social.ReportProgress(GPGSIds.achievement_thank_you, 0.0f, null);
         aboutPanel.SetActive(!aboutPanel.activeSelf);
         tapToStartText.gameObject.SetActive(!aboutPanel.activeSelf);
@@ -124,6 +130,7 @@ public class UIManager : MonoBehaviour
     public void OnLeaderboardButtonClick()
     {
         if (_isPlaying) return;
+        audioManager.PlayTapUI();
         if (!PlayGamesPlatform.Instance.IsAuthenticated())
         {
             PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
@@ -147,6 +154,7 @@ public class UIManager : MonoBehaviour
     public void OnAchievementsButtonClick()
     {
         if (_isPlaying) return;
+        audioManager.PlayTapUI();
         if (!PlayGamesPlatform.Instance.IsAuthenticated())
         {
             PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
@@ -170,42 +178,48 @@ public class UIManager : MonoBehaviour
     public void OnSoundOnButtonClick()
     {
         if (_isPlaying) return;
+        audioManager.SetSound(true);
+        audioManager.PlayTapUI();
         PlayerPrefs.SetInt("soundOff", 0);
         _isSoundOn = false;
         menuManager.SetSound(false);
-        gameManager.SetSound(true);
     }
 
     public void OnSoundOffButtonClick()
     {
         if (_isPlaying) return;
+        audioManager.SetSound(false);
+        audioManager.PlayTapUI();
         PlayerPrefs.SetInt("soundOff", 1);
         menuManager.SetSound(true);
         _isSoundOn = true;
-        gameManager.SetSound(false);
     }
 
     public void OnWebsiteButtonClick()
     {
         if (_isPlaying) return;
+        audioManager.PlayTapUI();
         Application.OpenURL("https://poorskill.com/");
     }
 
     public void OnGitHubButtonClick()
     {
         if (_isPlaying) return;
+        audioManager.PlayTapUI();
         Application.OpenURL("https://github.com/PoorSkill/tap-heading-unity");
     }
 
     public void OnYouTubeButtonClick()
     {
         if (_isPlaying) return;
+        audioManager.PlayTapUI();
         Application.OpenURL("https://www.youtube.com/channel/UCgMifJ1aQnFFkwGgrxHSPjg");
     }
 
     public void OnPlayStoreButtonClick()
     {
         if (_isPlaying) return;
+        audioManager.PlayTapUI();
         Application.OpenURL("https://play.google.com/store/apps/details?id=com.poorskill.tapheading");
     }
 

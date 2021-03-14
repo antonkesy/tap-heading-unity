@@ -12,13 +12,21 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip tapUIAudioClip;
     [SerializeField] private float uiVolume;
 
+    private bool _isSoundOn;
+
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
     }
 
+    internal void SetSound(bool isSoundOn)
+    {
+        _isSoundOn = isSoundOn;
+    }
+
     private void PlayClip(AudioClip clip, float volume)
     {
+        if (!_isSoundOn) return;
         _audioSource.PlayOneShot(clip, volume);
     }
 
