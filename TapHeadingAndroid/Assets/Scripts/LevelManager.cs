@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,6 +36,8 @@ public class LevelManager : MonoBehaviour
     private float _pauseChunkSpeed;
 
     private bool _isFirstChunkGroupBottom = true;
+
+    [SerializeField] private float chunkDespawnTime = 4f;
 
     private void Start()
     {
@@ -105,14 +108,13 @@ public class LevelManager : MonoBehaviour
         var chunkManager = chunk.GetComponent<ChunkManager>();
         _chunks.Add(new KeyValuePair<Transform, ChunkManager>(chunk.transform, chunkManager));
 
-        //TODO("fix coin pos -> Random despawn and wrong group")
         var coinPosition = chunk.transform.position + Vector3.right *
             (_isRight
                 ? -coinOffsetToBar - _halfChunkWidth
                 : coinOffsetToBar + _halfChunkWidth);
 
         chunkManager.SetUp(_isFirstChunkGroupBottom ? chunkGroupTransform0 : chunkGroupTransform1);
-        chunkManager.SpawnCoin(coinPosition);
+        chunkManager.SpawnCoin(coinPosition, _isRight);
         //prepare Next
         _isRight = !_isRight;
     }
@@ -160,7 +162,7 @@ public class LevelManager : MonoBehaviour
                             ? -coinOffsetToBar - _halfChunkWidth
                             : coinOffsetToBar + _halfChunkWidth);
 
-                    _chunks[i].Value.SpawnCoin(coinPosition);
+                    _chunks[i].Value.SpawnCoin(coinPosition, _isRight);
                     //prepare for next
                     _isRight = !_isRight;
                     yOffset += yOffsetToChunks + _chunkHeight;
@@ -200,12 +202,21 @@ public class LevelManager : MonoBehaviour
         _chunkSpeed = _pauseChunkSpeed;
     }
 
-    public void RestartGame()
+    internal void RestartGame()
     {
         ResetGame();
         _isPause = false;
         StartGame();
     }
+
+    internal void LostGame()
+    {
+        foreach (var keyValuePair in _chunks)
+        {
+            keyValuePair.Value.MoveOutCall(chunkDespawnTime);
+        }
+    }
+
 
     private void ResetGame()
     {

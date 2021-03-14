@@ -21,8 +21,6 @@ public class PlayerManager : MonoBehaviour
 
     private bool _isDirectionRight;
 
-    private Vector2 _pauseVelocity;
-
     private float _spawnStartPositionY = -20;
 
     [SerializeField] private float spawnTime;
@@ -111,8 +109,8 @@ public class PlayerManager : MonoBehaviour
         thrusterParticleSystem.Stop();
         destroyParticleSystem.transform.position = transform.position;
         destroyParticleSystem.Play();
-        _gameManager.DestroyPlayerCallback();
         gameObject.SetActive(false);
+        _gameManager.DestroyPlayerCallback();
     }
 
     internal void SetManager(GameManager gameManager)
@@ -120,32 +118,14 @@ public class PlayerManager : MonoBehaviour
         _gameManager = gameManager;
     }
 
-    internal void SetPause()
-    {
-        _pauseVelocity = _rb.velocity;
-        _rb.velocity = Vector2.zero;
-        thrusterParticleSystem.Pause();
-    }
-
-    internal void SetResume()
-    {
-        _rb.velocity = _pauseVelocity;
-        thrusterParticleSystem.Play();
-    }
-
-    public void Restart()
-    {
-        SpawnPlayer(true);
-    }
-
-    internal void SpawnPlayer(bool isRespawn)
+    internal void SpawnPlayer()
     {
         transform.position = Vector3.up * _spawnStartPositionY;
         gameObject.SetActive(true);
-        StartCoroutine(MovePlayerToSpawn(isRespawn));
+        StartCoroutine(MovePlayerToSpawn());
     }
 
-    private IEnumerator MovePlayerToSpawn(bool isRespawn)
+    private IEnumerator MovePlayerToSpawn()
     {
         _isDirectionChangeable = false;
         var time = 0f;
@@ -158,8 +138,7 @@ public class PlayerManager : MonoBehaviour
             time += Time.deltaTime;
             if (Vector2.Distance(_rb.position, targetPosition) <= 0.5f)
             {
-                if (!isRespawn)
-                    thrusterParticleSystem.Stop();
+                thrusterParticleSystem.Stop();
             }
 
             if (Vector2.Distance(_rb.position, targetPosition) <= 0.05f)
@@ -172,11 +151,6 @@ public class PlayerManager : MonoBehaviour
 
         _rb.position = targetPosition;
         _isDirectionChangeable = true;
-        if (isRespawn)
-        {
-            //todo("feedback when player gets control")
-            StartMoving();
-        }
 
         yield return null;
     }

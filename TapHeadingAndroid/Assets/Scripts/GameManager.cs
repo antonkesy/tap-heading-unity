@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         audioManager.SetSound(PlayerPrefs.GetInt("soundOff", 1) == 0);
         SignInToGooglePlayServices();
         audioManager.PlayStartApplication();
-        playerManager.SpawnPlayer(false);
+        playerManager.SpawnPlayer();
     }
 
     private void SignInToGooglePlayServices()
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
         _waitingToRestartGame = false;
         levelManager.RestartGame();
         uiManager.ShowPlayUI();
-        playerManager.Restart();
+        playerManager.StartMoving();
     }
 
 
@@ -142,7 +142,6 @@ public class GameManager : MonoBehaviour
 
     internal void CoinPickedUpCallback()
     {
-        //Todo()
         audioManager.PlayCollectCoin();
         uiManager.UpdateScoreText(++_score);
         levelManager.AddSpeed();
@@ -155,7 +154,6 @@ public class GameManager : MonoBehaviour
 
     private void OnPlayerDestroy()
     {
-        //TODO()
         audioManager.PlayDestroyPlayer();
         cameraManager.StartShaking();
         levelManager.Pause();
@@ -164,6 +162,8 @@ public class GameManager : MonoBehaviour
         StartCoroutine(WaitToRestart());
         CheckNewHighScore();
         CheckAchievement(_score);
+        levelManager.LostGame();
+        playerManager.SpawnPlayer();
     }
 
     private void CheckNewHighScore()
@@ -216,19 +216,5 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1f);
         _waitingToRestartGame = true;
-    }
-
-    public void OnPause()
-    {
-        levelManager.Pause();
-        playerManager.SetPause();
-        _isRunning = false;
-    }
-
-    public void OnResume()
-    {
-        levelManager.Resume();
-        playerManager.SetResume();
-        _isRunning = true;
     }
 }

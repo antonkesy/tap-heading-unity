@@ -11,7 +11,7 @@
  - change sprites -> add shadows? -> done
  - background particle
  - more UI Effects 
- - change colors
+ - change colors -> done
 
 # Thanks
 
