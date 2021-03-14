@@ -29,10 +29,7 @@ public class GameManager : MonoBehaviour
 
     private bool _isSoundOn;
 
-    private AudioSource _audioSource;
-    [SerializeField] private AudioClip collectCoinAudioClip;
-    [SerializeField] private AudioClip destroyPlayerAudioClip;
-    [SerializeField] private AudioClip tapPlayerAudioClip;
+    [SerializeField] private AudioManager audioManager;
 
     private void Awake()
     {
@@ -44,7 +41,6 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         playerManager.SetManager(this);
         uiManager.ShowStartMenuUI();
-        _audioSource = GetComponent<AudioSource>();
         _isSoundOn = PlayerPrefs.GetInt("soundOff", 1) == 0;
         SignInToGooglePlayServices();
     }
@@ -64,21 +60,21 @@ public class GameManager : MonoBehaviour
             if (_isRunning)
             {
                 if (_isSoundOn)
-                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
+                    audioManager.PlayTapPlayer();
                 playerManager.CallChangeDirection();
             }
             else if (_waitingToStartFreshGame)
             {
                 if (uiManager.isAboutOn()) return;
                 if (_isSoundOn)
-                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
+                    audioManager.PlayTapPlayer();
                 StartGame();
             }
             else if (_waitingToRestartGame)
             {
                 if (uiManager.isAboutOn()) return;
                 if (_isSoundOn)
-                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
+                    audioManager.PlayTapPlayer();
                 RestartGame();
             }
         }
@@ -97,21 +93,21 @@ public class GameManager : MonoBehaviour
             if (_isRunning)
             {
                 if (_isSoundOn)
-                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
+                    audioManager.PlayTapPlayer();
                 playerManager.CallChangeDirection();
             }
             else if (_waitingToStartFreshGame)
             {
                 if (uiManager.isAboutOn()) return;
                 if (_isSoundOn)
-                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
+                    audioManager.PlayTapPlayer();
                 StartGame();
             }
             else if (_waitingToRestartGame)
             {
                 if (uiManager.isAboutOn()) return;
                 if (_isSoundOn)
-                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
+                    audioManager.PlayTapPlayer();
                 RestartGame();
             }
         }
@@ -148,7 +144,7 @@ public class GameManager : MonoBehaviour
     {
         //Todo()
         if (_isSoundOn)
-            _audioSource.PlayOneShot(collectCoinAudioClip, 1f);
+            audioManager.PlayCollectCoin();
         uiManager.UpdateScoreText(++_score);
         levelManager.AddSpeed();
     }
@@ -162,7 +158,7 @@ public class GameManager : MonoBehaviour
     {
         //TODO()
         if (_isSoundOn)
-            _audioSource.PlayOneShot(destroyPlayerAudioClip, 1f);
+            audioManager.PlayDestroyPlayer();
         cameraManager.StartShaking();
         levelManager.Pause();
         _isRunning = false;
