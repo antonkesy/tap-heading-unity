@@ -9100,6 +9100,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 1180965302}
+    - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: pickupParticleSystem
       value: 
       objectReference: {fileID: 1625987653460930415}

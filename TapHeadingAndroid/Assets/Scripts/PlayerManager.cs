@@ -29,6 +29,8 @@ public class PlayerManager : MonoBehaviour
 
     private Coroutine _spawnCoroutine = null;
 
+    private bool _isDirectionChangeable;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -49,12 +51,12 @@ public class PlayerManager : MonoBehaviour
 
     internal void StartMoving()
     {
-        if (_spawnCoroutine != null)
+        /*if (_spawnCoroutine != null)
         {
             StopCoroutine(_spawnCoroutine);
-            transform.position = Vector3.up * startPosition;
+            _rb.position = Vector3.up * startPosition;
             _spawnCoroutine = null;
-        }
+        }*/
 
         ChangeDirection();
         if (Random.Range(0f, 1f) > .5f)
@@ -65,17 +67,19 @@ public class PlayerManager : MonoBehaviour
         thrusterParticleSystem.Play();
     }
 
-    internal void CallChangeDirection()
+    internal bool CallChangeDirection()
     {
-        ChangeDirection();
+        return ChangeDirection();
     }
 
-    private void ChangeDirection()
+    private bool ChangeDirection()
     {
+        if (!_isDirectionChangeable) return false;
         _isDirectionRight = !_isDirectionRight;
         _rb.velocity = Vector2.zero;
         _rb.AddForce(_isDirectionRight ? Vector2.right * sideSpeed : Vector2.left * sideSpeed, ForceMode2D.Impulse);
         ChangeShadowPosition();
+        return true;
     }
 
     private void ChangeShadowPosition()
@@ -140,44 +144,48 @@ public class PlayerManager : MonoBehaviour
 
     public void Restart()
     {
-        GameObject o;
-        (o = gameObject).SetActive(true);
-        o.transform.position = startPosition;
-        StartMoving();
+        SpawnPlayer(true);
     }
 
-    public void ResetPlayer()
+    internal void SpawnPlayer(bool isRespawn)
     {
-        GameObject o;
-        (o = gameObject).SetActive(true);
-        o.transform.position = startPosition;
+        gameObject.SetActive(true);
+        _spawnCoroutine = StartCoroutine(MovePlayerToSpawn(isRespawn));
     }
 
-    internal void SpawnPlayer()
+    private IEnumerator MovePlayerToSpawn(bool isRespawn)
     {
-        _spawnCoroutine = StartCoroutine(MovePlayerToSpawn());
-    }
-
-    private IEnumerator MovePlayerToSpawn()
-    {
-        float time = 0;
+        _isDirectionChangeable = false;
+        var time = 0f;
         var targetPosition = Vector3.up * startPosition;
-        transform.position = Vector3.up * _spawnStartPositionY;
+        _rb.position = Vector3.up * _spawnStartPositionY;
         thrusterParticleSystem.Play();
-
         while (time < spawnTime)
         {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, time / spawnTime);
+            //_rb.velocity = new Vector2(_rb.velocity.x, Mathf.Lerp(_rb.velocity.y, 0, time / spawnTime));
+            _rb.MovePosition(Vector3.Lerp(_rb.position, targetPosition, time / spawnTime));
             time += Time.deltaTime;
-            if (Vector3.Distance(transform.position, targetPosition) <= 0.5f)
+            if (Vector3.Distance(_rb.position, targetPosition) <= 0.5f)
             {
-                thrusterParticleSystem.Stop();
+                if (!isRespawn)
+                    thrusterParticleSystem.Stop();
+            }
+
+            if (Vector3.Distance(_rb.position, targetPosition) <= 0.05f)
+            {
+                break;
             }
 
             yield return null;
         }
 
-        transform.position = targetPosition;
+        if (isRespawn)
+        {
+            StartMoving();
+        }
+
+        _rb.position = targetPosition;
+        _isDirectionChangeable = true;
 
         yield return null;
     }
