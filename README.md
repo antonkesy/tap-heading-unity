@@ -5,10 +5,12 @@
 
  - more user feedback for picking up coins (Score update with effects ...)
  - combo/strike for not missing coins
- - GooglePlay leaderboard/archivments
+ - GooglePlay leaderboard/archivments -> done
  - sounds/soundtrack
  - other font
- - change sprites -> add shadows?
+ - change sprites -> add shadows? 
+ - background particle
+- more UI Effects 
 
 # Thanks
 

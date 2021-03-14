@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     private AudioSource _audioSource;
     [SerializeField] private AudioClip collectCoinAudioClip;
     [SerializeField] private AudioClip destroyPlayerAudioClip;
+    [SerializeField] private AudioClip tapPlayerAudioClip;
 
     private void Awake()
     {
@@ -62,16 +63,22 @@ public class GameManager : MonoBehaviour
         {
             if (_isRunning)
             {
+                if (_isSoundOn)
+                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
                 playerManager.CallChangeDirection();
             }
             else if (_waitingToStartFreshGame)
             {
                 if (uiManager.isAboutOn()) return;
+                if (_isSoundOn)
+                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
                 StartGame();
             }
             else if (_waitingToRestartGame)
             {
                 if (uiManager.isAboutOn()) return;
+                if (_isSoundOn)
+                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
                 RestartGame();
             }
         }
@@ -89,16 +96,22 @@ public class GameManager : MonoBehaviour
 
             if (_isRunning)
             {
+                if (_isSoundOn)
+                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
                 playerManager.CallChangeDirection();
             }
             else if (_waitingToStartFreshGame)
             {
                 if (uiManager.isAboutOn()) return;
+                if (_isSoundOn)
+                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
                 StartGame();
             }
             else if (_waitingToRestartGame)
             {
                 if (uiManager.isAboutOn()) return;
+                if (_isSoundOn)
+                    _audioSource.PlayOneShot(tapPlayerAudioClip, .35f);
                 RestartGame();
             }
         }
