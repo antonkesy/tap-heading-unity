@@ -19,7 +19,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIMenuManager menuManager;
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI gameTitleText;
-    private UIFader _gameTitleTextFader;
     [SerializeField] private TextMeshProUGUI tapToStartText;
 
     [SerializeField] private GameObject aboutPanel;
@@ -27,14 +26,12 @@ public class UIManager : MonoBehaviour
     private bool _isPlaying;
     private bool _isSoundOn;
 
-    private bool _isConnectedToGps;
 
     private void Start()
     {
         _scoreTextFader = scoreText.GetComponent<UIFader>();
         _scoreTextShadowFader = scoreTextShadow.GetComponent<UIFader>();
 
-        _gameTitleTextFader = gameTitleText.GetComponent<UIFader>();
 
         _isSoundOn = PlayerPrefs.GetInt("soundOff", 1) == 1;
 
@@ -119,6 +116,7 @@ public class UIManager : MonoBehaviour
     public void OnAboutButtonClick()
     {
         if (_isPlaying) return;
+        Social.ReportProgress(GPGSIds.achievement_thank_you, 0.0f, null);
         aboutPanel.SetActive(!aboutPanel.activeSelf);
         tapToStartText.gameObject.SetActive(!aboutPanel.activeSelf);
     }
@@ -126,18 +124,16 @@ public class UIManager : MonoBehaviour
     public void OnLeaderboardButtonClick()
     {
         if (_isPlaying) return;
-        if (!_isConnectedToGps)
+        if (!PlayGamesPlatform.Instance.IsAuthenticated())
         {
             PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
             {
                 switch (result)
                 {
                     case SignInStatus.Success:
-                        _isConnectedToGps = true;
                         PlayGamesPlatform.Instance.ShowLeaderboardUI();
                         return;
                     default:
-                        _isConnectedToGps = false;
                         return;
                 }
             });
@@ -151,18 +147,16 @@ public class UIManager : MonoBehaviour
     public void OnAchievementsButtonClick()
     {
         if (_isPlaying) return;
-        if (!_isConnectedToGps)
+        if (!PlayGamesPlatform.Instance.IsAuthenticated())
         {
             PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
             {
                 switch (result)
                 {
                     case SignInStatus.Success:
-                        _isConnectedToGps = true;
                         PlayGamesPlatform.Instance.ShowAchievementsUI();
                         return;
                     default:
-                        _isConnectedToGps = false;
                         return;
                 }
             });
@@ -220,11 +214,5 @@ public class UIManager : MonoBehaviour
         var result = aboutPanel.activeSelf;
         aboutPanel.SetActive(false);
         return result;
-    }
-
-    // ReSharper disable once InconsistentNaming
-    internal void SetGPSConnection(bool isConnectedToGps)
-    {
-        _isConnectedToGps = isConnectedToGps;
     }
 }

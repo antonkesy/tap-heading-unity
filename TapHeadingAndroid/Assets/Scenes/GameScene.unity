@@ -3001,8 +3001,6 @@ MonoBehaviour:
   gameTitleText: {fileID: 1340031190}
   tapToStartText: {fileID: 980880119}
   aboutPanel: {fileID: 72142198}
-  soundOffButton: {fileID: 1826263788}
-  soundOnButton: {fileID: 2015256191}
 --- !u!4 &1781529469
 Transform:
   m_ObjectHideFlags: 0
