@@ -92,8 +92,10 @@ public class GameManager : MonoBehaviour
 
             if (_isRunning)
             {
-                audioManager.PlayTapPlayer();
-                playerManager.CallChangeDirection();
+                if (playerManager.CallChangeDirection())
+                {
+                    audioManager.PlayTapPlayer();
+                }
             }
             else if (_waitingToStartFreshGame)
             {
