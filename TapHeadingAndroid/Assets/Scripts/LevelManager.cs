@@ -75,8 +75,6 @@ public class LevelManager : MonoBehaviour
         _isRight = Random.Range(0f, 1f) > 0.5f;
         _chunkSpeed = chunkSpeedBase;
         GenerateChunks();
-        //just for first generation
-        _isRight = !_isRight;
     }
 
     private void GenerateChunks()
@@ -93,6 +91,11 @@ public class LevelManager : MonoBehaviour
         {
             GenerateChunk(yOffset);
             yOffset += yOffsetToChunks + _chunkHeight;
+        }
+
+        if (_amountOfChunksToBuffer % 2 != 0)
+        {
+            _isRight = !_isRight;
         }
 
         _isFirstChunkGroupBottom = true;
@@ -232,6 +235,5 @@ public class LevelManager : MonoBehaviour
         _chunks.Clear();
         _fistChunkYPosition = 0;
         _isFirstChunkGroupBottom = true;
-        _isRight = !_isRight;
     }
 }
