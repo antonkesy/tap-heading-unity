@@ -51,14 +51,21 @@ public class UIMenuManager : MonoBehaviour
             fader.Fade(false, fadeInOutDuration * 2);
         }
 
+        Debug.Log("FadeOutMenu");
+        soundOffFader.Fade(false, 0);
+        soundOnFader.Fade(false, 0);
+
+        /*
         if (_isSoundOn)
         {
-            soundOnFader.Fade(false, fadeInOutDuration * 2);
+            soundOnFader.gameObject.SetActive(false);
+            soundOffFader.Fade(false, fadeInOutDuration * 2);
         }
         else
         {
-            soundOffFader.Fade(false, fadeInOutDuration * 2);
-        }
+            soundOffFader.gameObject.SetActive(false);
+            soundOnFader.Fade(false, fadeInOutDuration * 2);
+        }*/
     }
 
     internal void FadeInStart()

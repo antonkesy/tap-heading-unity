@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +29,8 @@ public class UIManager : MonoBehaviour
 
     private bool _isPlaying;
     private bool _isSoundOn;
+
+    private bool _isConnectedToGps;
 
     private void Start()
     {
@@ -73,6 +77,7 @@ public class UIManager : MonoBehaviour
         _scoreTextShadowFader.gameObject.SetActive(true);
         _scoreTextFader.Fade(true, 1.5f);
         _scoreTextShadowFader.Fade(true, 1.5f);
+        menuManager.SetSound(_isSoundOn);
         menuManager.FadeOutMenu();
         gameTitleText.gameObject.SetActive(false);
         highScoreText.gameObject.SetActive(false);
@@ -83,6 +88,7 @@ public class UIManager : MonoBehaviour
         _isPlaying = false;
         aboutPanel.SetActive(false);
         //Menu
+        menuManager.SetSound(_isSoundOn);
         menuManager.FadeInMenu();
         tapToStartText.text = "TAP TO RESTART";
         gameTitleText.gameObject.SetActive(false);
@@ -123,13 +129,51 @@ public class UIManager : MonoBehaviour
     public void OnLeaderboardButtonClick()
     {
         if (_isPlaying) return;
-        //TODO()
+        if (!_isConnectedToGps)
+        {
+            PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
+            {
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        _isConnectedToGps = true;
+                        PlayGamesPlatform.Instance.ShowLeaderboardUI();
+                        return;
+                    default:
+                        _isConnectedToGps = false;
+                        return;
+                }
+            });
+        }
+        else
+        {
+            PlayGamesPlatform.Instance.ShowLeaderboardUI();
+        }
     }
 
     public void OnAchievementsButtonClick()
     {
         if (_isPlaying) return;
-        //TODO()
+        if (!_isConnectedToGps)
+        {
+            PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
+            {
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        _isConnectedToGps = true;
+                        PlayGamesPlatform.Instance.ShowAchievementsUI();
+                        return;
+                    default:
+                        _isConnectedToGps = false;
+                        return;
+                }
+            });
+        }
+        else
+        {
+            PlayGamesPlatform.Instance.ShowAchievementsUI();
+        }
     }
 
     public void OnSoundOnButtonClick()
@@ -183,5 +227,11 @@ public class UIManager : MonoBehaviour
         var result = aboutPanel.activeSelf;
         aboutPanel.SetActive(false);
         return result;
+    }
+
+    // ReSharper disable once InconsistentNaming
+    internal void SetGPSConnection(bool isConnectedToGps)
+    {
+        _isConnectedToGps = isConnectedToGps;
     }
 }

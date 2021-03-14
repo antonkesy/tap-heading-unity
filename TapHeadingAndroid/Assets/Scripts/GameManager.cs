@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Linq;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -26,10 +28,16 @@ public class GameManager : MonoBehaviour
     private int _highScore;
 
     private bool _isSoundOn;
+    private bool _isConnectedToGps;
 
     private AudioSource _audioSource;
     [SerializeField] private AudioClip collectCoinAudioClip;
     [SerializeField] private AudioClip destroyPlayerAudioClip;
+
+    private void Awake()
+    {
+        PlayGamesPlatform.Activate();
+    }
 
     private void Start()
     {
@@ -38,6 +46,24 @@ public class GameManager : MonoBehaviour
         uiManager.ShowStartMenuUI();
         _audioSource = GetComponent<AudioSource>();
         _isSoundOn = PlayerPrefs.GetInt("soundOff", 1) == 0;
+        SignInToGooglePlayServices();
+        uiManager.SetGPSConnection(_isConnectedToGps);
+    }
+
+    private void SignInToGooglePlayServices()
+    {
+        PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, result =>
+        {
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    _isConnectedToGps = true;
+                    return;
+                default:
+                    _isConnectedToGps = false;
+                    return;
+            }
+        });
     }
 
     // Update is called once per frame
@@ -143,11 +169,47 @@ public class GameManager : MonoBehaviour
         uiManager.ShowReturningMenuUI();
         StartCoroutine(WaitToRestart());
 
+        CheckNewHighScore();
+    }
+
+    private void CheckNewHighScore()
+    {
         if (_highScore < _score)
         {
             _highScore = _score;
             uiManager.UpdateHighScoreText(_highScore);
             PlayerPrefs.SetInt("highScore", _highScore);
+            //Todo("not checked if logged out")
+            if (_isConnectedToGps)
+            {
+                Social.ReportScore(_highScore, GPGSIds.leaderboard_high_score, success => { });
+                CheckAchievement(_highScore);
+            }
+        }
+    }
+
+    private void CheckAchievement(int highScore)
+    {
+        if (highScore == 0)
+        {
+            Social.ReportProgress(GPGSIds.achievement_oof, 1, null);
+        }
+        else if (highScore >= 100)
+        {
+            Social.ReportProgress(GPGSIds.achievement_triple_digest, 1, null);
+        }
+        else if (highScore >= 69)
+        {
+            Social.ReportProgress(GPGSIds.achievement_nice, 1, null);
+        }
+        else if (highScore >= 42)
+        {
+            Social.ReportProgress(
+                GPGSIds.achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything, 1, null);
+        }
+        else if (highScore >= 10)
+        {
+            Social.ReportProgress(GPGSIds.achievement_double_digest, 1, null);
         }
     }
 
