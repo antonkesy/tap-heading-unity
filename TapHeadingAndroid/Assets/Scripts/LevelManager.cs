@@ -22,6 +22,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float yOffsetToChunks;
 
     [SerializeField] private GameObject wallPrefab;
+
+    [SerializeField] private float xOffsetWall;
     [SerializeField] private float xOffset;
 
     private readonly List<KeyValuePair<Transform, ChunkManager>> _chunks =
@@ -66,8 +68,8 @@ public class LevelManager : MonoBehaviour
 
     private void GenerateWalls()
     {
-        Instantiate(wallPrefab, new Vector3(xOffset, 0, 0), Quaternion.identity);
-        Instantiate(wallPrefab, new Vector3(-xOffset, 0, 0), Quaternion.identity);
+        Instantiate(wallPrefab, new Vector3(xOffsetWall, 0, 0), Quaternion.identity);
+        Instantiate(wallPrefab, new Vector3(-xOffsetWall, 0, 0), Quaternion.identity);
     }
 
     internal void StartGame()

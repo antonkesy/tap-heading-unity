@@ -1150,10 +1150,11 @@ MonoBehaviour:
   chunkGroupTransform1: {fileID: 1316224600}
   speedAdder: 0.1
   chunkPrefab: {fileID: 6131700975251561847, guid: 1c90df38d90fa3341b144718578afd83, type: 3}
-  chunkSpeedBase: 8
+  chunkSpeedBase: 9
   yOffsetToChunks: 8
   wallPrefab: {fileID: 5264863158843826151, guid: 2800482348f09184f99d13a441827f75, type: 3}
-  xOffset: 5.5
+  xOffsetWall: 5.5
+  xOffset: 5
   chunkDespawnTime: 4
 --- !u!4 &836582973
 Transform:
