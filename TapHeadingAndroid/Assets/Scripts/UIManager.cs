@@ -24,9 +24,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject aboutPanel;
 
-    [SerializeField] private GameObject soundOffButton;
-    [SerializeField] private GameObject soundOnButton;
-
     private bool _isPlaying;
     private bool _isSoundOn;
 
@@ -182,8 +179,6 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetInt("soundOff", 0);
         _isSoundOn = false;
         menuManager.SetSound(false);
-        soundOffButton.SetActive(true);
-        soundOnButton.SetActive(false);
         gameManager.SetSound(true);
     }
 
@@ -191,8 +186,6 @@ public class UIManager : MonoBehaviour
     {
         if (_isPlaying) return;
         PlayerPrefs.SetInt("soundOff", 1);
-        soundOffButton.SetActive(false);
-        soundOnButton.SetActive(true);
         menuManager.SetSound(true);
         _isSoundOn = true;
         gameManager.SetSound(false);

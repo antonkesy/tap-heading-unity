@@ -15,7 +15,7 @@ public class UIMenuManager : MonoBehaviour
 
     [SerializeField] private float fadeInOutDuration = .5f;
 
-    private bool _isSoundOn;
+    private bool _isSoundOff;
     [SerializeField] private UIFader soundOnFader;
     [SerializeField] private UIFader soundOffFader;
 
@@ -26,20 +26,22 @@ public class UIMenuManager : MonoBehaviour
 
     internal void FadeInMenu()
     {
+        soundOffFader.Fade(false, 0);
+        soundOnFader.Fade(false, 0);
         foreach (var fader in faders)
         {
             fader.Fade(true, fadeInOutDuration);
         }
 
-        if (_isSoundOn)
+        if (_isSoundOff)
         {
+            soundOffFader.Fade(false, 0f);
             soundOnFader.Fade(true, fadeInOutDuration);
-            soundOffFader.gameObject.SetActive(false);
         }
         else
         {
+            soundOnFader.Fade(false, 0f);
             soundOffFader.Fade(true, fadeInOutDuration);
-            soundOnFader.gameObject.SetActive(false);
         }
     }
 
@@ -48,24 +50,20 @@ public class UIMenuManager : MonoBehaviour
         gameTitleFader.Fade(false, fadeInOutDuration);
         foreach (var fader in faders)
         {
-            fader.Fade(false, fadeInOutDuration * 2);
+            fader.Fade(false, fadeInOutDuration * 3);
         }
 
-        Debug.Log("FadeOutMenu");
-        soundOffFader.Fade(false, 0);
-        soundOnFader.Fade(false, 0);
-
-        /*
-        if (_isSoundOn)
+        Debug.Log("isSound?" + _isSoundOff);
+        if (_isSoundOff)
         {
-            soundOnFader.gameObject.SetActive(false);
-            soundOffFader.Fade(false, fadeInOutDuration * 2);
+            soundOffFader.Fade(false, 0f);
+            soundOnFader.Fade(false, fadeInOutDuration * 3);
         }
         else
         {
-            soundOffFader.gameObject.SetActive(false);
-            soundOnFader.Fade(false, fadeInOutDuration * 2);
-        }*/
+            soundOnFader.Fade(false, 0f);
+            soundOffFader.Fade(false, fadeInOutDuration * 3);
+        }
     }
 
     internal void FadeInStart()
@@ -90,15 +88,15 @@ public class UIMenuManager : MonoBehaviour
             fader.Fade(true, fadeInOutDuration);
         }
 
-        if (_isSoundOn)
+        if (_isSoundOff)
         {
+            soundOffFader.Fade(false, 0f);
             soundOnFader.Fade(true, fadeInOutDuration);
-            soundOffFader.gameObject.SetActive(false);
         }
         else
         {
+            soundOnFader.Fade(false, 0f);
             soundOffFader.Fade(true, fadeInOutDuration);
-            soundOnFader.gameObject.SetActive(false);
         }
 
         yield return null;
@@ -107,6 +105,7 @@ public class UIMenuManager : MonoBehaviour
     internal void SlideInGameTitle()
     {
         gameTitleTransform.position = titleStartTransform.position;
+        gameTitleFader.Fade(true, 0);
         StartCoroutine(SlideIn(gameTitleTransform, _titlePosition, titleLerpDuration));
     }
 
@@ -117,9 +116,9 @@ public class UIMenuManager : MonoBehaviour
         while (counter < duration)
         {
             counter += Time.deltaTime;
-            var position = gameTitleTransform.position;
+            var position = transformSlideObject.position;
             position = Vector3.Lerp(position, toPosition, counter / duration);
-            gameTitleTransform.position = position;
+            transformSlideObject.position = position;
 
             yield return null;
         }
@@ -127,6 +126,16 @@ public class UIMenuManager : MonoBehaviour
 
     internal void SetSound(bool isSoundOn)
     {
-        _isSoundOn = isSoundOn;
+        _isSoundOff = isSoundOn;
+        if (!_isSoundOff)
+        {
+            soundOffFader.Fade(true, 0f);
+            soundOnFader.Fade(false, 0f);
+        }
+        else
+        {
+            soundOnFader.Fade(true, 0f);
+            soundOffFader.Fade(false, 0f);
+        }
     }
 }
