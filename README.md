@@ -9,7 +9,7 @@
  - sounds/soundtrack -> done
  - other font -> done
  - change sprites -> add shadows? -> done
- - background particle
+ - background particle -> nah
  - more UI Effects 
  - change colors -> done
 

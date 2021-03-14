@@ -53,14 +53,10 @@ public class UIManager : MonoBehaviour
     {
         _isPlaying = true;
         aboutPanel.SetActive(false);
-        _scoreTextFader.gameObject.SetActive(true);
-        _scoreTextShadowFader.gameObject.SetActive(true);
-        _scoreTextFader.Fade(true, 1.5f);
-        _scoreTextShadowFader.Fade(true, 1.5f);
+        _scoreTextFader.Fade(true, .15f);
+        _scoreTextShadowFader.Fade(true, .15f);
         menuManager.SetSound(_isSoundOn);
         menuManager.FadeOutMenu();
-        gameTitleText.gameObject.SetActive(false);
-        highScoreText.gameObject.SetActive(false);
     }
 
     internal void ShowReturningMenuUI()
@@ -71,8 +67,6 @@ public class UIManager : MonoBehaviour
         menuManager.SetSound(_isSoundOn);
         menuManager.FadeInMenu();
         tapToStartText.text = "TAP TO RESTART";
-        gameTitleText.gameObject.SetActive(false);
-        highScoreText.gameObject.SetActive(true);
     }
 
     internal void ShowStartMenuUI()
@@ -80,15 +74,14 @@ public class UIManager : MonoBehaviour
         _isPlaying = false;
         aboutPanel.SetActive(false);
         //Play
-        scoreText.gameObject.SetActive(false);
-        scoreTextShadow.gameObject.SetActive(false);
+        _scoreTextFader.Fade(false, 0);
+        _scoreTextShadowFader.Fade(false, 0);
         //Menu
         menuManager.SetSound(_isSoundOn);
         menuManager.FadeInStart();
         StartCoroutine(WaitForStartCallback());
         tapToStartText.text = "TAP TO START";
         menuManager.SlideInGameTitle();
-        highScoreText.gameObject.SetActive(false);
     }
 
     private IEnumerator WaitForStartCallback()
