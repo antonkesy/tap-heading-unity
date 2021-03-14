@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         uiManager.ShowStartMenuUI();
         audioManager.SetSound(PlayerPrefs.GetInt("soundOff", 1) == 0);
         SignInToGooglePlayServices();
+        audioManager.PlayStartApplication();
     }
 
     private void SignInToGooglePlayServices()
@@ -166,6 +167,8 @@ public class GameManager : MonoBehaviour
             _highScore = _score;
             uiManager.UpdateHighScoreText(_highScore);
             PlayerPrefs.SetInt("highScore", _highScore);
+            audioManager.PlayNewHighScore();
+            //TODO("UI Effects")
             if (PlayGamesPlatform.Instance.IsAuthenticated())
             {
                 Social.ReportScore(_highScore, GPGSIds.leaderboard_high_score, success => { });

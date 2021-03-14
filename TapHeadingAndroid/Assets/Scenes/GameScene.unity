@@ -1978,6 +1978,10 @@ MonoBehaviour:
   tapVolume: 0.5
   tapUIAudioClip: {fileID: 8300000, guid: bb8f45291d165774fa576fbe23db6404, type: 3}
   uiVolume: 1
+  newHighSoreAudioClip: {fileID: 8300000, guid: f0cc75bb32512c84cbadb23f466581f1, type: 3}
+  newHighScoreVolume: 1
+  startApplicationAudioClip: {fileID: 8300000, guid: df53c588a34f80c4791bd6c35a8a2497, type: 3}
+  startApplicationVolume: 0.5
 --- !u!4 &1180965303
 Transform:
   m_ObjectHideFlags: 0
@@ -2059,8 +2063,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 500}
-  m_SizeDelta: {x: 600, y: 300}
+  m_AnchoredPosition: {x: 0, y: 550}
+  m_SizeDelta: {x: 800, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1340031190
 MonoBehaviour:
@@ -2111,7 +2115,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 131.95
+  m_fontSize: 175.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

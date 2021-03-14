@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AudioManager : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private float tapVolume;
     [SerializeField] private AudioClip tapUIAudioClip;
     [SerializeField] private float uiVolume;
+    [SerializeField] private AudioClip newHighSoreAudioClip;
+    [SerializeField] private float newHighScoreVolume;
+    [SerializeField] private AudioClip startApplicationAudioClip;
+    [SerializeField] private float startApplicationVolume;
+
 
     private bool _isSoundOn;
 
@@ -48,5 +54,15 @@ public class AudioManager : MonoBehaviour
     internal void PlayTapUI()
     {
         PlayClip(tapUIAudioClip, uiVolume);
+    }
+
+    internal void PlayNewHighScore()
+    {
+        PlayClip(newHighSoreAudioClip, newHighScoreVolume);
+    }
+
+    internal void PlayStartApplication()
+    {
+        PlayClip(startApplicationAudioClip, startApplicationVolume);
     }
 }
