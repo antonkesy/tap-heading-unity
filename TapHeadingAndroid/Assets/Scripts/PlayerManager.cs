@@ -23,7 +23,7 @@ public class PlayerManager : MonoBehaviour
 
     private Vector2 _pauseVelocity;
 
-    private float _spawnStartPositionY = 20;
+    private float _spawnStartPositionY = -20;
 
     [SerializeField] private float spawnTime;
 
@@ -51,13 +51,6 @@ public class PlayerManager : MonoBehaviour
 
     internal void StartMoving()
     {
-        /*if (_spawnCoroutine != null)
-        {
-            StopCoroutine(_spawnCoroutine);
-            _rb.position = Vector3.up * startPosition;
-            _spawnCoroutine = null;
-        }*/
-
         ChangeDirection();
         if (Random.Range(0f, 1f) > .5f)
         {
@@ -149,6 +142,7 @@ public class PlayerManager : MonoBehaviour
 
     internal void SpawnPlayer(bool isRespawn)
     {
+        transform.position = Vector3.up * _spawnStartPositionY;
         gameObject.SetActive(true);
         _spawnCoroutine = StartCoroutine(MovePlayerToSpawn(isRespawn));
     }
@@ -157,21 +151,20 @@ public class PlayerManager : MonoBehaviour
     {
         _isDirectionChangeable = false;
         var time = 0f;
-        var targetPosition = Vector3.up * startPosition;
-        _rb.position = Vector3.up * _spawnStartPositionY;
+        var targetPosition = Vector2.up * startPosition;
+        _rb.position = Vector2.up * _spawnStartPositionY;
         thrusterParticleSystem.Play();
         while (time < spawnTime)
         {
-            //_rb.velocity = new Vector2(_rb.velocity.x, Mathf.Lerp(_rb.velocity.y, 0, time / spawnTime));
-            _rb.MovePosition(Vector3.Lerp(_rb.position, targetPosition, time / spawnTime));
+            _rb.MovePosition(Vector2.Lerp(_rb.position, targetPosition, time / spawnTime));
             time += Time.deltaTime;
-            if (Vector3.Distance(_rb.position, targetPosition) <= 0.5f)
+            if (Vector2.Distance(_rb.position, targetPosition) <= 0.5f)
             {
                 if (!isRespawn)
                     thrusterParticleSystem.Stop();
             }
 
-            if (Vector3.Distance(_rb.position, targetPosition) <= 0.05f)
+            if (Vector2.Distance(_rb.position, targetPosition) <= 0.05f)
             {
                 break;
             }
@@ -179,13 +172,13 @@ public class PlayerManager : MonoBehaviour
             yield return null;
         }
 
-        if (isRespawn)
-        {
-            StartMoving();
-        }
-
         _rb.position = targetPosition;
         _isDirectionChangeable = true;
+        if (isRespawn)
+        {
+            //todo("feedback when player gets control")
+            StartMoving();
+        }
 
         yield return null;
     }
