@@ -19,6 +19,8 @@ public class UIMenuManager : MonoBehaviour
     [SerializeField] private UIFader soundOnFader;
     [SerializeField] private UIFader soundOffFader;
 
+    [SerializeField] private UIFader newHighScoreFader;
+
     private void Start()
     {
         _titlePosition = gameTitleTransform.position;
@@ -53,6 +55,8 @@ public class UIMenuManager : MonoBehaviour
             fader.Fade(false, fadeInOutDuration * 3);
         }
 
+        newHighScoreFader.Fade(false, fadeInOutDuration * 3);
+
         if (_isSoundOff)
         {
             soundOffFader.Fade(false, 0f);
@@ -79,6 +83,7 @@ public class UIMenuManager : MonoBehaviour
 
         soundOffFader.Fade(false, 0);
         soundOnFader.Fade(false, 0);
+        newHighScoreFader.Fade(false, 0);
 
 
         yield return new WaitForSecondsRealtime(titleMenuDelay);
@@ -136,5 +141,10 @@ public class UIMenuManager : MonoBehaviour
             soundOnFader.Fade(true, 0f);
             soundOffFader.Fade(false, 0f);
         }
+    }
+
+    internal void FadeInNewHighScore()
+    {
+        newHighScoreFader.Fade(true, fadeInOutDuration);
     }
 }

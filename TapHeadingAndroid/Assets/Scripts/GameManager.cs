@@ -168,6 +168,7 @@ public class GameManager : MonoBehaviour
             uiManager.UpdateHighScoreText(_highScore);
             PlayerPrefs.SetInt("highScore", _highScore);
             audioManager.PlayNewHighScore();
+            uiManager.FadeInNewHighScore();
             //TODO("UI Effects")
             if (PlayGamesPlatform.Instance.IsAuthenticated())
             {

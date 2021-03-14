@@ -10,6 +10,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject pickupParticleSystemGameObject;
     [SerializeField] private ParticleSystem pickupParticleSystem;
 
+    [SerializeField] private Transform shadowTransform;
+    [SerializeField] private float shadowOffset;
+
 
     private GameManager _gameManager;
 
@@ -47,6 +50,13 @@ public class PlayerManager : MonoBehaviour
         _isDirectionRight = !_isDirectionRight;
         _rb.velocity = Vector2.zero;
         _rb.AddForce(_isDirectionRight ? Vector2.right * sideSpeed : Vector2.left * sideSpeed, ForceMode2D.Impulse);
+        ChangeShadowPosition();
+    }
+
+    private void ChangeShadowPosition()
+    {
+        shadowTransform.localPosition = Vector3.right * (_isDirectionRight ? -shadowOffset : shadowOffset) +
+                                        Vector3.up * -shadowOffset;
     }
 
     private void OnCollisionEnter2D(Collision2D other)

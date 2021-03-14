@@ -229,4 +229,9 @@ public class UIManager : MonoBehaviour
         aboutPanel.SetActive(false);
         return result;
     }
+
+    internal void FadeInNewHighScore()
+    {
+        menuManager.FadeInNewHighScore();
+    }
 }
