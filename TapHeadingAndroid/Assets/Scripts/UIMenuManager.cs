@@ -23,8 +23,12 @@ using UnityEngine;
 
 public class UIMenuManager : MonoBehaviour
 {
-    [SerializeField] private UIFader[] faders;
-    [SerializeField] private UIFader gameTitleFader;
+    [Header("Non-Special Fader")] [SerializeField]
+    private UIFader[] faders;
+
+    [Header("Game Title")] [SerializeField]
+    private UIFader gameTitleFader;
+
     [SerializeField] private Transform gameTitleTransform;
     private Vector3 _titlePosition;
     [SerializeField] private Transform titleStartTransform;
@@ -33,11 +37,12 @@ public class UIMenuManager : MonoBehaviour
 
     [SerializeField] private float fadeInOutDuration = .5f;
 
-    private bool _isSoundOff;
+    [Header("Sound Buttons")] private bool _isSoundOff;
     [SerializeField] private UIFader soundOnFader;
     [SerializeField] private UIFader soundOffFader;
 
-    [SerializeField] private UIFader newHighScoreFader;
+    [Header("New HighScore")] [SerializeField]
+    private UIFader newHighScoreFader;
 
     private void Start()
     {
