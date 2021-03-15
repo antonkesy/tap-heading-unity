@@ -22,14 +22,20 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+/**
+ * Manages Coin, Despawn-Movement of Single Chunk
+ */
 public class ChunkManager : MonoBehaviour
 {
-    [SerializeField] private GameObject coinGameObject;
+    [Header("Coin")] [SerializeField] private GameObject coinGameObject;
     [SerializeField] private float coinSpawnProbability;
 
     private bool _isRight;
 
 
+    /**
+     * Sets the coin by probability to spawn or deactivates it
+     */
     internal void SpawnCoin(Vector3 position, bool isRight)
     {
         _isRight = isRight;
@@ -44,17 +50,26 @@ public class ChunkManager : MonoBehaviour
         }
     }
 
-    internal void DestroyCall()
+    /**
+     * Hides Coin
+     */
+    private void DestroyCall()
     {
         coinGameObject.SetActive(false);
     }
 
+    /**
+     * Starts Chunk MoveOut
+     */
     internal void MoveOutCall(float duration)
     {
         DestroyCall();
         StartCoroutine(MoveOut(duration));
     }
 
+    /**
+     * Moves out this Chunk
+     */
     private IEnumerator MoveOut(float duration)
     {
         var time = 0f;
@@ -65,6 +80,7 @@ public class ChunkManager : MonoBehaviour
             transform.position = Vector3.LerpUnclamped(transform.position, targetPosition, time / duration);
             time += Time.deltaTime;
             yield return null;
+            //early stop of Lerp
             if (!(Mathf.Abs(targetPosition.x) - Mathf.Abs(transform.position.x) < 1)) continue;
             transform.position = targetPosition;
             break;

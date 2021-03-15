@@ -89,12 +89,12 @@ public class UIManager : MonoBehaviour
         ShowMenu("TAP TO START");
         menuManager.FadeInStart();
         StartCoroutine(WaitForStartCallback());
-        menuManager.SlideInGameTitle();
     }
 
     private IEnumerator WaitForStartCallback()
     {
-        yield return new WaitForSecondsRealtime(1.5f);
+        menuManager.SlideInGameTitle();
+        yield return new WaitForSecondsRealtime(2f);
         gameManager.ReadyToStartGameCallback();
         yield return null;
     }

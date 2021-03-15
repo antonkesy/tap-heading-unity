@@ -131,6 +131,7 @@ public class LevelManager : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private void GenerateChunk(float yOffset)
     {
+        //TODO("reuse chunks after first spawn")
         var chunk = Instantiate(chunkPrefab, _isFirstChunkGroupBottom ? chunkGroupTransform0 : chunkGroupTransform1);
         var chunkManager = chunk.GetComponent<ChunkManager>();
         _chunks.Add(new KeyValuePair<Transform, ChunkManager>(chunk.transform, chunkManager));
@@ -229,7 +230,6 @@ public class LevelManager : MonoBehaviour
         chunkGroupTransform1.position = Vector3.zero;
         foreach (var keyValuePair in _chunks)
         {
-            keyValuePair.Value.DestroyCall();
             Destroy(keyValuePair.Key.gameObject);
         }
 

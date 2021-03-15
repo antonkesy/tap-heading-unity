@@ -21,6 +21,9 @@ SOFTWARE.
 using System.Collections;
 using UnityEngine;
 
+/**
+ * UI Game Menu Manager
+ */
 public class UIMenuManager : MonoBehaviour
 {
     [Header("Non-Special Fader")] [SerializeField]
@@ -52,6 +55,9 @@ public class UIMenuManager : MonoBehaviour
         _titlePosition = gameTitleTransform.position;
     }
 
+    /**
+     * Fades In Game Menu
+     */
     internal void FadeInMenu()
     {
         soundOffFader.Fade(false, 0);
@@ -60,6 +66,9 @@ public class UIMenuManager : MonoBehaviour
         FadeInSound();
     }
 
+    /**
+     * Fades Out Game Menu
+     */
     internal void FadeOutMenu()
     {
         gameTitleFader.Fade(false, fadeOutDuration);
@@ -77,11 +86,17 @@ public class UIMenuManager : MonoBehaviour
         }
     }
 
+    /**
+     * Fades In Start Menu
+     */
     internal void FadeInStart()
     {
         StartCoroutine(WaitForGameTitle());
     }
 
+    /**
+     * Waits for Game Title to slides in, then starts fading in Start Menu
+     */
     private IEnumerator WaitForGameTitle()
     {
         FadeAll(false, 0);
@@ -89,11 +104,15 @@ public class UIMenuManager : MonoBehaviour
         soundOnFader.Fade(false, 0);
         newHighScoreFader.Fade(false, 0);
         yield return new WaitForSecondsRealtime(titleMenuDelay);
+        //Fades in Menu
         FadeAll(true, fadeInDuration);
         FadeInSound();
         yield return null;
     }
 
+    /**
+     * Iterates over all unspecific fader and fades them
+     */
     private void FadeAll(bool fadeIn, float duration)
     {
         foreach (var fader in faders)
@@ -102,6 +121,9 @@ public class UIMenuManager : MonoBehaviour
         }
     }
 
+    /**
+     * Fades sound depending if sound on/off
+     */
     private void FadeInSound()
     {
         if (_isSoundOff)
@@ -116,6 +138,9 @@ public class UIMenuManager : MonoBehaviour
         }
     }
 
+    /**
+     * Starts Game Title slide in
+     */
     internal void SlideInGameTitle()
     {
         gameTitleTransform.position = titleStartTransform.position;
@@ -123,6 +148,9 @@ public class UIMenuManager : MonoBehaviour
         StartCoroutine(SlideIn(gameTitleTransform, _titlePosition, titleLerpDuration));
     }
 
+    /**
+     * Slides in GameTitle
+     */
     private static IEnumerator SlideIn(Transform transformSlideObject, Vector3 toPosition, float duration)
     {
         var counter = 0f;
@@ -138,13 +166,19 @@ public class UIMenuManager : MonoBehaviour
         }
     }
 
-    internal void SetSound(bool isSoundOn)
+    /**
+     * Sets _isSoundOff Flag and fades in/out buttons
+     */
+    internal void SetSound(bool isSoundOff)
     {
-        _isSoundOff = isSoundOn;
+        _isSoundOff = isSoundOff;
         soundOffFader.Fade(!_isSoundOff, 0f);
         soundOnFader.Fade(_isSoundOff, 0f);
     }
 
+    /**
+     * Fades in new highScore text
+     */
     internal void FadeInNewHighScore()
     {
         newHighScoreFader.Fade(true, fadeInDuration);
