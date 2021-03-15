@@ -886,8 +886,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneWidth: 10
   shakeDuration: 0.4
-  shakeAmount: 0.15
   decreaseFactor: 1
+  shakeAmount: 0.15
 --- !u!1001 &586790483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7900,15 +7900,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 190944114}
+  menuManager: {fileID: 2097025356}
+  audioManager: {fileID: 1180965302}
   scoreText: {fileID: 1508997207}
   scoreTextShadow: {fileID: 704849378}
-  menu: {fileID: 2097025354}
-  menuManager: {fileID: 2097025356}
   highScoreText: {fileID: 1516585966}
-  gameTitleText: {fileID: 1340031190}
   tapToStartText: {fileID: 980880119}
   aboutPanel: {fileID: 72142198}
-  audioManager: {fileID: 1180965302}
 --- !u!4 &1781529469
 Transform:
   m_ObjectHideFlags: 0
@@ -8694,6 +8692,10 @@ PrefabInstance:
       propertyPath: spawnTime
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 190944114}
     - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: pickupParticleSystem
       value: 

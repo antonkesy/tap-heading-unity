@@ -23,32 +23,27 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private Vector2 startPosition;
-    [SerializeField] private ParticleSystem thrusterParticleSystem;
+    [Header("Manager")] [SerializeField] private GameManager gameManager;
+    [Header("Particles")] [SerializeField] private ParticleSystem thrusterParticleSystem;
     [SerializeField] private ParticleSystem destroyParticleSystem;
     [SerializeField] private GameObject pickupParticleSystemGameObject;
     [SerializeField] private ParticleSystem pickupParticleSystem;
-
-    [SerializeField] private Transform shadowTransform;
+    [Header("Shadow")] [SerializeField] private Transform shadowTransform;
     [SerializeField] private float shadowOffset;
 
-
-    private GameManager _gameManager;
-
-    [SerializeField] private float sideSpeed;
-
-    private Rigidbody2D _rb;
-
-    private bool _isDirectionRight;
-
-    private float _spawnStartPositionY = -20;
+    [Header("Properties")] [SerializeField]
+    private float sideSpeed;
 
     [SerializeField] private float spawnTime;
-
+    private Vector2 _startPosition;
+    private Rigidbody2D _rb;
+    private bool _isDirectionRight;
+    private float _spawnStartPositionY = -20;
     private bool _isDirectionChangeable;
 
     private void Start()
     {
+        _startPosition = transform.position;
         _rb = GetComponent<Rigidbody2D>();
 
         SetSpawnStartPositionY();
@@ -57,12 +52,10 @@ public class PlayerManager : MonoBehaviour
     private void SetSpawnStartPositionY()
     {
         var mainCam = Camera.main;
-        if (mainCam is { })
-        {
-            var frustumHeight = 2.0f * mainCam.orthographicSize *
-                                Mathf.Tan(mainCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-            _spawnStartPositionY = (frustumHeight) * -1f;
-        }
+        if (mainCam is null) return;
+        var frustumHeight = 2.0f * mainCam.orthographicSize *
+                            Mathf.Tan(mainCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        _spawnStartPositionY = frustumHeight * -1f;
     }
 
     internal void StartMoving()
@@ -120,7 +113,7 @@ public class PlayerManager : MonoBehaviour
         coinGameObject.SetActive(false);
         pickupParticleSystemGameObject.transform.position = coinGameObject.transform.position;
         pickupParticleSystem.Play();
-        _gameManager.CoinPickedUpCallback();
+        gameManager.CoinPickedUpCallback();
     }
 
     private void DestroyPlayer()
@@ -130,12 +123,7 @@ public class PlayerManager : MonoBehaviour
         destroyParticleSystem.transform.position = transform.position;
         destroyParticleSystem.Play();
         gameObject.SetActive(false);
-        _gameManager.DestroyPlayerCallback();
-    }
-
-    internal void SetManager(GameManager gameManager)
-    {
-        _gameManager = gameManager;
+        gameManager.DestroyPlayerCallback();
     }
 
     internal void SpawnPlayer()
@@ -149,7 +137,7 @@ public class PlayerManager : MonoBehaviour
     {
         _isDirectionChangeable = false;
         var time = 0f;
-        var targetPosition = Vector2.up * startPosition;
+        var targetPosition = Vector2.up * _startPosition;
         _rb.position = Vector2.up * _spawnStartPositionY;
         thrusterParticleSystem.Play();
         while (time < spawnTime)
@@ -161,7 +149,8 @@ public class PlayerManager : MonoBehaviour
                 thrusterParticleSystem.Stop();
             }
 
-            if (Vector2.Distance(_rb.position, targetPosition) <= 0.05f)
+            //Stop Lerp early
+            if (Vector2.Distance(_rb.position, targetPosition) <= 0.001f)
             {
                 break;
             }

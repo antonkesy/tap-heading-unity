@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
-        playerManager.SetManager(this);
         uiManager.ShowStartMenuUI();
         audioManager.SetSound(PlayerPrefs.GetInt("soundOff", 1) == 0);
         SignInToGooglePlayServices();
