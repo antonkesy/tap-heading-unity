@@ -23,17 +23,32 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     private AudioSource _audioSource;
-    [SerializeField] private AudioClip collectCoinAudioClip;
+
+    [Header("Collect Coin")] [SerializeField]
+    private AudioClip collectCoinAudioClip;
+
     [SerializeField] private float coinVolume;
-    [SerializeField] private AudioClip destroyPlayerAudioClip;
+
+    [Header("Destroy Player")] [SerializeField]
+    private AudioClip destroyPlayerAudioClip;
+
     [SerializeField] private float destroyVolume;
-    [SerializeField] private AudioClip tapPlayerAudioClip;
+
+    [Header("Tap Player")] [SerializeField]
+    private AudioClip tapPlayerAudioClip;
+
     [SerializeField] private float tapVolume;
-    [SerializeField] private AudioClip tapUIAudioClip;
+    [Header("Tap UI")] [SerializeField] private AudioClip tapUIAudioClip;
     [SerializeField] private float uiVolume;
-    [SerializeField] private AudioClip newHighSoreAudioClip;
+
+    [Header("New HighScore")] [SerializeField]
+    private AudioClip newHighSoreAudioClip;
+
     [SerializeField] private float newHighScoreVolume;
-    [SerializeField] private AudioClip startApplicationAudioClip;
+
+    [Header("Start Application")] [SerializeField]
+    private AudioClip startApplicationAudioClip;
+
     [SerializeField] private float startApplicationVolume;
 
 
