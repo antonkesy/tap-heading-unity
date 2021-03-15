@@ -24,35 +24,29 @@ using Random = UnityEngine.Random;
 
 public class ChunkManager : MonoBehaviour
 {
-    [SerializeField] private GameObject coinPrefab;
+    [SerializeField] private GameObject coinGameObject;
     [SerializeField] private float coinSpawnProbability;
-    private GameObject _coin;
 
     private bool _isRight;
 
-    internal void SetUp(Transform parentTransform)
-    {
-        //TODO("remove instantiate")
-        _coin = Instantiate(coinPrefab, parentTransform);
-    }
 
     internal void SpawnCoin(Vector3 position, bool isRight)
     {
         _isRight = isRight;
         if (coinSpawnProbability > Random.Range(0, 1f))
         {
-            _coin.transform.position = position;
-            _coin.SetActive(true);
+            coinGameObject.transform.position = position;
+            coinGameObject.SetActive(true);
         }
         else
         {
-            _coin.SetActive(false);
+            coinGameObject.SetActive(false);
         }
     }
 
     internal void DestroyCall()
     {
-        Destroy(_coin);
+        coinGameObject.SetActive(false);
     }
 
     internal void MoveOutCall(float duration)

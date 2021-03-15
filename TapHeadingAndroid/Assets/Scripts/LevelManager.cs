@@ -137,7 +137,6 @@ public class LevelManager : MonoBehaviour
                 ? -coinOffsetToBar - _halfChunkWidth
                 : coinOffsetToBar + _halfChunkWidth);
 
-        chunkManager.SetUp(_isFirstChunkGroupBottom ? chunkGroupTransform0 : chunkGroupTransform1);
         chunkManager.SpawnCoin(coinPosition, _isRight);
         //prepare Next
         _isRight = !_isRight;
