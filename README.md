@@ -13,6 +13,7 @@
  - more UI Effects 
  - change colors -> done
  - change launcher icon
+ - random distance between bars
 
 # Thanks
 

@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
     {
         audioManager.PlayDestroyPlayer();
         cameraManager.StartShaking();
-        levelManager.Pause();
+        levelManager.StopGame();
         _isRunning = false;
         uiManager.ShowReturningMenuUI();
         StartCoroutine(WaitToRestart());

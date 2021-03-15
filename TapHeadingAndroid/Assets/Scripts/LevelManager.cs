@@ -23,38 +23,35 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] [Range(0, 1f)] private float maxRandomOffset;
+    [Header("Chunk & Chunk Groups")] [SerializeField] [Range(0, 1f)]
+    private float maxRandomOffset;
+
     [SerializeField] private float coinOffsetToBar = .25f;
     [SerializeField] private Transform chunkGroupTransform0;
     [SerializeField] private Transform chunkGroupTransform1;
-
-    [SerializeField] private float speedAdder;
-
     [SerializeField] private GameObject chunkPrefab;
     private float _chunkHeight;
     private float _halfChunkWidth;
-    [SerializeField] private float chunkSpeedBase;
     private float _chunkSpeed;
     private float _chunkYStart;
     private int _amountOfChunksToBuffer;
-
     [SerializeField] private float yOffsetToChunks;
-
-    [SerializeField] private GameObject wallPrefab;
-
-    [SerializeField] private float xOffsetWall;
     [SerializeField] private float xOffset;
 
     private readonly List<KeyValuePair<Transform, ChunkManager>> _chunks =
         new List<KeyValuePair<Transform, ChunkManager>>();
 
     private bool _isRight;
-
     private float _fistChunkYPosition;
 
-    private bool _isPause;
+    [Header("Level Properties")] [SerializeField]
+    private float speedAdder;
 
-    private float _pauseChunkSpeed;
+    [SerializeField] private float chunkSpeedBase;
+
+    [Header("Walls")] [SerializeField] private GameObject[] wallGameObjects;
+
+    [SerializeField] private float xOffsetWall;
 
     private bool _isFirstChunkGroupBottom = true;
 
@@ -62,13 +59,21 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        SetChunkVars();
+        GenerateWalls();
+    }
+
+    private void SetChunkVars()
+    {
+        //Chunk Height
         _chunkHeight = chunkPrefab.transform.localScale.y;
+        //SetChunkStart
         var mainCam = Camera.main;
         if (mainCam is { })
         {
             var frustumHeight = 2.0f * mainCam.orthographicSize *
                                 Mathf.Tan(mainCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-            _chunkYStart = frustumHeight + _chunkHeight + yOffsetToChunks;
+            _chunkYStart = frustumHeight + _chunkHeight;
         }
         else
         {
@@ -76,19 +81,19 @@ public class LevelManager : MonoBehaviour
             _chunkYStart = _amountOfChunksToBuffer * (_chunkHeight + yOffsetToChunks) / 2f;
         }
 
+        //amountOfChunks
         _amountOfChunksToBuffer = (int) (_chunkYStart * 2 / (_chunkHeight + yOffsetToChunks) * .65f) + 1;
+        //maxRandomOffset
+        var localScale = chunkPrefab.transform.localScale;
+        maxRandomOffset = (localScale.x - xOffset) * maxRandomOffset;
 
-        maxRandomOffset = (chunkPrefab.transform.localScale.x - xOffset) * maxRandomOffset;
-
-        _halfChunkWidth = chunkPrefab.transform.localScale.x / 2f;
-
-        GenerateWalls();
+        _halfChunkWidth = localScale.x / 2f;
     }
 
     private void GenerateWalls()
     {
-        Instantiate(wallPrefab, new Vector3(xOffsetWall, 0, 0), Quaternion.identity);
-        Instantiate(wallPrefab, new Vector3(-xOffsetWall, 0, 0), Quaternion.identity);
+        wallGameObjects[0].transform.position = new Vector3(xOffsetWall, 0, 0);
+        wallGameObjects[1].transform.position = new Vector3(-xOffsetWall, 0, 0);
     }
 
     internal void StartGame()
@@ -101,45 +106,48 @@ public class LevelManager : MonoBehaviour
     private void GenerateChunks()
     {
         var yOffset = 0f;
-        for (var i = 0; i < _amountOfChunksToBuffer; ++i)
+        //LowerChunkGroup && UpperChunkGroup
+        for (var j = 0; j < 2; ++j)
         {
-            GenerateChunk(yOffset);
-            yOffset += yOffsetToChunks + _chunkHeight;
+            for (var i = 0; i < _amountOfChunksToBuffer; ++i)
+            {
+                GenerateChunk(yOffset);
+                yOffset += yOffsetToChunks + _chunkHeight;
+            }
+
+            _isFirstChunkGroupBottom = false;
         }
 
-        _isFirstChunkGroupBottom = false;
-        for (var i = 0; i < _amountOfChunksToBuffer; ++i)
-        {
-            GenerateChunk(yOffset);
-            yOffset += yOffsetToChunks + _chunkHeight;
-        }
+        //SetFirstIsBottom
+        _isFirstChunkGroupBottom = true;
 
+        //Set isRight after Generation
         if (_amountOfChunksToBuffer % 2 != 0)
         {
             _isRight = !_isRight;
         }
-
-        _isFirstChunkGroupBottom = true;
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
     private void GenerateChunk(float yOffset)
     {
         var chunk = Instantiate(chunkPrefab, _isFirstChunkGroupBottom ? chunkGroupTransform0 : chunkGroupTransform1);
-        chunk.transform.position = GetNewChunkPosition(yOffset);
-
-
         var chunkManager = chunk.GetComponent<ChunkManager>();
         _chunks.Add(new KeyValuePair<Transform, ChunkManager>(chunk.transform, chunkManager));
+        ChangeChunk(chunk.transform, chunkManager, yOffset);
+    }
 
-        var coinPosition = chunk.transform.position + Vector3.right *
-            (_isRight
-                ? -coinOffsetToBar - _halfChunkWidth
-                : coinOffsetToBar + _halfChunkWidth);
-
-        chunkManager.SpawnCoin(coinPosition, _isRight);
-        //prepare Next
+    private void ChangeChunk(Transform chunk, ChunkManager chunkManager, float yOffset)
+    {
+        chunk.position = GetNewChunkPosition(yOffset);
+        chunkManager.SpawnCoin(GetNewCoinPosition(chunk.transform.position), _isRight);
         _isRight = !_isRight;
+    }
+
+    private Vector3 GetNewCoinPosition(Vector3 parentChunkPosition)
+    {
+        return parentChunkPosition + Vector3.right *
+            (_isRight ? -coinOffsetToBar - _halfChunkWidth : coinOffsetToBar + _halfChunkWidth);
     }
 
     private Vector3 GetNewChunkPosition(float yOffset)
@@ -148,87 +156,65 @@ public class LevelManager : MonoBehaviour
             0);
     }
 
-    // Update is called once per frame
     private void Update()
     {
         chunkGroupTransform0.position += Vector3.down * (_chunkSpeed * Time.deltaTime);
         chunkGroupTransform1.position += Vector3.down * (_chunkSpeed * Time.deltaTime);
 
-        if (!_isPause)
+        _fistChunkYPosition += _chunkSpeed * Time.deltaTime;
+        if (_fistChunkYPosition > (_chunkHeight + yOffsetToChunks) * _amountOfChunksToBuffer)
         {
-            _fistChunkYPosition += _chunkSpeed * Time.deltaTime;
-            if (_fistChunkYPosition > (_chunkHeight + yOffsetToChunks) * _amountOfChunksToBuffer)
-            {
-                int start, stop;
-                if (_isFirstChunkGroupBottom)
-                {
-                    chunkGroupTransform1.position = Vector3.zero;
-                    start = _amountOfChunksToBuffer;
-                    stop = _chunks.Count;
-                }
-                else
-                {
-                    chunkGroupTransform0.position = Vector3.zero;
-                    start = 0;
-                    stop = _amountOfChunksToBuffer;
-                }
-
-                var yOffset = 0f;
-                //Resets Position of Chunk in ChunkGroup
-                for (var i = start; i < stop; ++i)
-                {
-                    var newChunkPosition = GetNewChunkPosition(yOffset);
-                    _chunks[i].Key.position = newChunkPosition;
-
-                    var coinPosition = newChunkPosition + Vector3.right *
-                        (_isRight
-                            ? -coinOffsetToBar - _halfChunkWidth
-                            : coinOffsetToBar + _halfChunkWidth);
-
-                    _chunks[i].Value.SpawnCoin(coinPosition, _isRight);
-                    //prepare for next
-                    _isRight = !_isRight;
-                    yOffset += yOffsetToChunks + _chunkHeight;
-                }
-
-                _isFirstChunkGroupBottom = !_isFirstChunkGroupBottom;
-                _fistChunkYPosition = 0; //not called in GenerateChunk for easyRead
-            }
+            ResetChunk();
         }
     }
+
+    private void ResetChunk()
+    {
+        int start, stop;
+        if (_isFirstChunkGroupBottom)
+        {
+            chunkGroupTransform1.position = Vector3.zero;
+            start = _amountOfChunksToBuffer;
+            stop = _chunks.Count;
+        }
+        else
+        {
+            chunkGroupTransform0.position = Vector3.zero;
+            start = 0;
+            stop = _amountOfChunksToBuffer;
+        }
+
+        var yOffset = 0f;
+        //Resets Position of Chunk in ChunkGroup
+        for (var i = start; i < stop; ++i)
+        {
+            ChangeChunk(_chunks[i].Key, _chunks[i].Value, yOffset);
+            yOffset += yOffsetToChunks + _chunkHeight;
+        }
+
+        _isFirstChunkGroupBottom = !_isFirstChunkGroupBottom;
+        _fistChunkYPosition = 0; //not called in GenerateChunk for easyRead
+    }
+
 
     internal void AddSpeed()
     {
         _chunkSpeed += speedAdder;
     }
 
-    public void Pause()
+    public void StopGame()
     {
-        _isPause = true;
-        PauseChunks();
+        StopChunks();
     }
 
-    private void PauseChunks()
+    private void StopChunks()
     {
-        _pauseChunkSpeed = _chunkSpeed;
         _chunkSpeed = 0;
-    }
-
-    public void Resume()
-    {
-        _isPause = false;
-        ResumeChunks();
-    }
-
-    private void ResumeChunks()
-    {
-        _chunkSpeed = _pauseChunkSpeed;
     }
 
     internal void RestartGame()
     {
-        ResetGame();
-        _isPause = false;
+        ResetLevel();
         StartGame();
     }
 
@@ -240,10 +226,8 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
-    private void ResetGame()
+    private void ResetLevel()
     {
-        //TODO("Same side generate sometimes -> probably fixed -> nope" -> also on fresh start)
         chunkGroupTransform0.position = Vector3.zero;
         chunkGroupTransform1.position = Vector3.zero;
         foreach (var keyValuePair in _chunks)
