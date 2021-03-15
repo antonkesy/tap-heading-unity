@@ -18,7 +18,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -66,16 +65,6 @@ public class GameManager : MonoBehaviour
         ProcessEditorInput();
         //-------------------------------------------------
         ProcessUserInput();
-    }
-
-    private void OnApplicationFocus(bool hasFocus)
-    {
-        Debug.Log("FOCUS" + hasFocus);
-        if (hasFocus && _isRunning)
-        {
-            Debug.Log("ResetGame");
-            // OnPlayerDestroy();
-        }
     }
 
     private void ProcessEditorInput()
