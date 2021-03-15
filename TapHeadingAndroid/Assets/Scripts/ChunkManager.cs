@@ -58,7 +58,8 @@ public class ChunkManager : MonoBehaviour
     private IEnumerator MoveOut(float duration)
     {
         var time = 0f;
-        var targetPosition = new Vector3((_isRight ? 15f : -15f), transform.position.y, transform.position.z);
+        var position = transform.position;
+        var targetPosition = new Vector3((_isRight ? 15f : -15f), position.y, position.z);
         while (time < duration)
         {
             transform.position = Vector3.LerpUnclamped(transform.position, targetPosition, time / duration);
