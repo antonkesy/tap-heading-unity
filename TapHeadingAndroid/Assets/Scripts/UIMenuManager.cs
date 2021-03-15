@@ -37,9 +37,11 @@ public class UIMenuManager : MonoBehaviour
 
     [SerializeField] private float fadeInOutDuration = .5f;
 
-    [Header("Sound Buttons")] private bool _isSoundOff;
-    [SerializeField] private UIFader soundOnFader;
+    [Header("Sound Buttons")] [SerializeField]
+    private UIFader soundOnFader;
+
     [SerializeField] private UIFader soundOffFader;
+    private bool _isSoundOff;
 
     [Header("New HighScore")] [SerializeField]
     private UIFader newHighScoreFader;
