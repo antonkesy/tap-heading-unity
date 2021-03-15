@@ -140,12 +140,14 @@ public class PlayerManager : MonoBehaviour
         var targetPosition = Vector2.up * _startPosition;
         _rb.position = Vector2.up * _spawnStartPositionY;
         thrusterParticleSystem.Play();
+        var isThrusterStopped = false;
         while (time < spawnTime)
         {
             _rb.MovePosition(Vector2.Lerp(_rb.position, targetPosition, time / spawnTime));
             time += Time.deltaTime;
-            if (Vector2.Distance(_rb.position, targetPosition) <= 0.5f)
+            if (!isThrusterStopped && Vector2.Distance(_rb.position, targetPosition) <= 0.5f)
             {
+                isThrusterStopped = true;
                 thrusterParticleSystem.Stop();
             }
 
