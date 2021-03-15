@@ -1280,8 +1280,8 @@ MonoBehaviour:
   chunkPrefab: {fileID: 6131700975251561847, guid: 1c90df38d90fa3341b144718578afd83, type: 3}
   yOffsetToChunks: 7
   xOffset: 6
-  speedAdder: 0.2
-  chunkSpeedBase: 8
+  speedAdder: 0.15
+  chunkSpeedBase: 9
   wallGameObjects:
   - {fileID: 1914730787}
   - {fileID: 5058268}
