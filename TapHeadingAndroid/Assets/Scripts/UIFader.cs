@@ -21,6 +21,10 @@ SOFTWARE.
 using System.Collections;
 using UnityEngine;
 
+/**
+ * Lets UIElement Fade in/out via function call
+ * Manages visibility
+ */
 public class UIFader : MonoBehaviour
 {
     private CanvasGroup _canvasGroup;
@@ -31,8 +35,12 @@ public class UIFader : MonoBehaviour
         _canvasGroup = GetComponent<CanvasGroup>();
     }
 
+    /**
+     * Starts Fade in/out if not already in wanted fade-state
+     */
     public void Fade(bool fadeIn, float duration)
     {
+        //Checks if already is faded 
         if (_isFadeIn == fadeIn)
         {
             return;
@@ -41,22 +49,20 @@ public class UIFader : MonoBehaviour
         _isFadeIn = fadeIn;
 
         gameObject.SetActive(true);
-        StartCoroutine(DoFade(_canvasGroup, fadeIn ? 0 : 1, fadeIn ? 1 : 0, fadeIn, duration));
+        StartCoroutine(DoFade(fadeIn ? 0 : 1, fadeIn ? 1 : 0, fadeIn, duration));
     }
 
-    private IEnumerator DoFade(CanvasGroup canvasGroup, float start, float end, bool endState, float duration)
+    /**
+     * Fading of UI-Element by changing canvasGroup-alpha by lerp
+     */
+    private IEnumerator DoFade(float start, float end, bool endState, float duration)
     {
         var counter = 0f;
 
         while (counter < duration)
         {
-            if (!endState)
-            {
-                counter += Time.deltaTime * 6;
-            }
-
             counter += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(start, end, counter / duration);
+            _canvasGroup.alpha = Mathf.Lerp(start, end, counter / duration);
 
             yield return null;
         }

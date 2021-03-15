@@ -8766,7 +8766,8 @@ MonoBehaviour:
   titleStartTransform: {fileID: 1961674711}
   titleLerpDuration: 4
   titleMenuDelay: 0.8
-  fadeInOutDuration: 0.5
+  fadeInDuration: 0.5
+  fadeOutDuration: 0.125
   soundOnFader: {fileID: 2015256196}
   soundOffFader: {fileID: 1826263793}
   newHighScoreFader: {fileID: 313344901}

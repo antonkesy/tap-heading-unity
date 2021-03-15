@@ -35,7 +35,8 @@ public class UIMenuManager : MonoBehaviour
     [SerializeField] private float titleLerpDuration;
     [SerializeField] private float titleMenuDelay;
 
-    [SerializeField] private float fadeInOutDuration = .5f;
+    [SerializeField] private float fadeInDuration = .5f;
+    [SerializeField] private float fadeOutDuration = .5f;
 
     [Header("Sound Buttons")] [SerializeField]
     private UIFader soundOnFader;
@@ -55,24 +56,24 @@ public class UIMenuManager : MonoBehaviour
     {
         soundOffFader.Fade(false, 0);
         soundOnFader.Fade(false, 0);
-        FadeAll(true, fadeInOutDuration);
+        FadeAll(true, fadeInDuration);
         FadeInSound();
     }
 
     internal void FadeOutMenu()
     {
-        gameTitleFader.Fade(false, fadeInOutDuration);
-        FadeAll(false, fadeInOutDuration * 3);
-        newHighScoreFader.Fade(false, fadeInOutDuration * 3);
+        gameTitleFader.Fade(false, fadeOutDuration);
+        FadeAll(false, fadeOutDuration);
+        newHighScoreFader.Fade(false, fadeOutDuration);
         if (_isSoundOff)
         {
             soundOffFader.Fade(false, 0f);
-            soundOnFader.Fade(false, fadeInOutDuration * 3);
+            soundOnFader.Fade(false, fadeOutDuration);
         }
         else
         {
             soundOnFader.Fade(false, 0f);
-            soundOffFader.Fade(false, fadeInOutDuration * 3);
+            soundOffFader.Fade(false, fadeOutDuration);
         }
     }
 
@@ -88,7 +89,7 @@ public class UIMenuManager : MonoBehaviour
         soundOnFader.Fade(false, 0);
         newHighScoreFader.Fade(false, 0);
         yield return new WaitForSecondsRealtime(titleMenuDelay);
-        FadeAll(true, fadeInOutDuration);
+        FadeAll(true, fadeInDuration);
         FadeInSound();
         yield return null;
     }
@@ -106,12 +107,12 @@ public class UIMenuManager : MonoBehaviour
         if (_isSoundOff)
         {
             soundOffFader.Fade(false, 0f);
-            soundOnFader.Fade(true, fadeInOutDuration);
+            soundOnFader.Fade(true, fadeInDuration);
         }
         else
         {
             soundOnFader.Fade(false, 0f);
-            soundOffFader.Fade(true, fadeInOutDuration);
+            soundOffFader.Fade(true, fadeInDuration);
         }
     }
 
@@ -146,6 +147,6 @@ public class UIMenuManager : MonoBehaviour
 
     internal void FadeInNewHighScore()
     {
-        newHighScoreFader.Fade(true, fadeInOutDuration);
+        newHighScoreFader.Fade(true, fadeInDuration);
     }
 }
