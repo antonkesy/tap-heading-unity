@@ -1,0 +1,421 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.0f1 (c7b5465681fb) revision 13088070'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Education; OS build 19042.867; Version 2009; 64bit' Language: 'en' Physical Memory: 16250 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+D:\Program Files (x86)\Unity\2020.3.0f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker2
+-projectPath
+D:/Workspace/Git/tap-heading-unity/tap-heading-unity/TapHeadingAndroid
+-logFile
+Logs/AssetImportWorker2.log
+-srvPort
+50036
+Successfully changed project path to: D:/Workspace/Git/tap-heading-unity/tap-heading-unity/TapHeadingAndroid
+D:/Workspace/Git/tap-heading-unity/tap-heading-unity/TapHeadingAndroid
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 65.35 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.0f1 (c7b5465681fb)
+[Subsystems] Discovering subsystems at path D:/Program Files (x86)/Unity/2020.3.0f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Workspace/Git/tap-heading-unity/tap-heading-unity/TapHeadingAndroid/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1070 (ID=0x1b81)
+    Vendor:   
+    VRAM:     8088 MB
+    Driver:   27.21.14.6172
+Initialize mono
+Mono path[0] = 'D:/Program Files (x86)/Unity/2020.3.0f1/Editor/Data/Managed'
+Mono path[1] = 'D:/Program Files (x86)/Unity/2020.3.0f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'D:/Program Files (x86)/Unity/2020.3.0f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56672
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: D:/Program Files (x86)/Unity/2020.3.0f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: D:/Program Files (x86)/Unity/2020.3.0f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.005801 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 42.02 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.786 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.007373 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 45.63 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+GPGSUpgrader start
+0x00007ff7582749fc (Unity) StackWalker::GetCurrentCallstack
+0x00007ff75827cdd9 (Unity) StackWalker::ShowCallstack
+0x00007ff75974cd9c (Unity) GetStacktrace
+0x00007ff75a83b753 (Unity) DebugStringToFile
+0x00007ff75829f566 (Unity) DebugLogHandler_CUSTOM_Internal_Log
+0x0000021a0269b18b (Mono JIT Code) (wrapper managed-to-native) UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+0x0000021a0269af7b (Mono JIT Code) UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+0x0000021a0269acc0 (Mono JIT Code) UnityEngine.Logger:Log (UnityEngine.LogType,object)
+0x0000021a0269a9ba (Mono JIT Code) UnityEngine.Debug:Log (object)
+0x0000021a02699f13 (Mono JIT Code) [GPGSUpgrader.cs:39] GooglePlayGames.Editor.GPGSUpgrader:.cctor () 
+0x0000021a0269a7bd (Mono JIT Code) (wrapper runtime-invoke) object:runtime_invoke_void (object,intptr,intptr,intptr)
+0x00007ffecc43e480 (mono-2.0-bdwgc) [mini-runtime.c:2812] mono_jit_runtime_invoke 
+0x00007ffecc3c2902 (mono-2.0-bdwgc) [object.c:2921] do_runtime_invoke 
+0x00007ffecc3cb01c (mono-2.0-bdwgc) [object.c:477] mono_runtime_class_init_full 
+0x00007ffecc378c3e (mono-2.0-bdwgc) [icall.c:990] ves_icall_System_Runtime_CompilerServices_RuntimeHelpers_RunClassConstructor 
+0x0000021a026798a0 (Mono JIT Code) (wrapper managed-to-native) System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (intptr)
+0x0000021a0267978b (Mono JIT Code) System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+0x0000021a02679603 (Mono JIT Code) UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+0x0000021868dda990 (Mono JIT Code) (wrapper runtime-invoke) <Module>:runtime_invoke_void_object (object,intptr,intptr,intptr)
+0x00007ffecc43e480 (mono-2.0-bdwgc) [mini-runtime.c:2812] mono_jit_runtime_invoke 
+0x00007ffecc3c2902 (mono-2.0-bdwgc) [object.c:2921] do_runtime_invoke 
+0x00007ffecc3cb95f (mono-2.0-bdwgc) [object.c:2968] mono_runtime_invoke 
+0x00007ff7580f12a4 (Unity) scripting_method_invoke
+0x00007ff7580e9c25 (Unity) ScriptingInvocation::Invoke
+0x00007ff7580e2b25 (Unity) ScriptingInvocation::Invoke<void>
+0x00007ff75679037b (Unity) Scripting::UnityEditor::EditorAssembliesProxy::ProcessInitializeOnLoadAttributes
+0x00007ff7580b7675 (Unity) MonoManager::SetupLoadedEditorAssemblies
+0x00007ff7580ae97c (Unity) MonoManager::EndReloadAssembly
+0x00007ff7580b5859 (Unity) MonoManager::ReloadAssembly
+0x00007ff7594541e1 (Unity) LoadDomainAndUserAssemblies
+0x00007ff75945468e (Unity) LoadUserAssemblies
+0x00007ff758ddfed1 (Unity) Application::InitializeProject
+0x00007ff75975a372 (Unity) WinMain
+0x00007ff75b5cf436 (Unity) __scrt_common_main_seh
+0x00007fff29217034 (KERNEL32) BaseThreadInitThunk
+0x00007fff2afe2651 (ntdll) RtlUserThreadStart
+
+GPGSUpgrader done
+0x00007ff7582749fc (Unity) StackWalker::GetCurrentCallstack
+0x00007ff75827cdd9 (Unity) StackWalker::ShowCallstack
+0x00007ff75974cd9c (Unity) GetStacktrace
+0x00007ff75a83b753 (Unity) DebugStringToFile
+0x00007ff75829f566 (Unity) DebugLogHandler_CUSTOM_Internal_Log
+0x0000021a0269b18b (Mono JIT Code) (wrapper managed-to-native) UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+0x0000021a0269af7b (Mono JIT Code) UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+0x0000021a0269acc0 (Mono JIT Code) UnityEngine.Logger:Log (UnityEngine.LogType,object)
+0x0000021a0269a9ba (Mono JIT Code) UnityEngine.Debug:Log (object)
+0x0000021a0269a2eb (Mono JIT Code) [GPGSUpgrader.cs:106] GooglePlayGames.Editor.GPGSUpgrader:.cctor () 
+0x0000021a0269a7bd (Mono JIT Code) (wrapper runtime-invoke) object:runtime_invoke_void (object,intptr,intptr,intptr)
+0x00007ffecc43e480 (mono-2.0-bdwgc) [mini-runtime.c:2812] mono_jit_runtime_invoke 
+0x00007ffecc3c2902 (mono-2.0-bdwgc) [object.c:2921] do_runtime_invoke 
+0x00007ffecc3cb01c (mono-2.0-bdwgc) [object.c:477] mono_runtime_class_init_full 
+0x00007ffecc378c3e (mono-2.0-bdwgc) [icall.c:990] ves_icall_System_Runtime_CompilerServices_RuntimeHelpers_RunClassConstructor 
+0x0000021a026798a0 (Mono JIT Code) (wrapper managed-to-native) System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (intptr)
+0x0000021a0267978b (Mono JIT Code) System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+0x0000021a02679603 (Mono JIT Code) UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+0x0000021868dda990 (Mono JIT Code) (wrapper runtime-invoke) <Module>:runtime_invoke_void_object (object,intptr,intptr,intptr)
+0x00007ffecc43e480 (mono-2.0-bdwgc) [mini-runtime.c:2812] mono_jit_runtime_invoke 
+0x00007ffecc3c2902 (mono-2.0-bdwgc) [object.c:2921] do_runtime_invoke 
+0x00007ffecc3cb95f (mono-2.0-bdwgc) [object.c:2968] mono_runtime_invoke 
+0x00007ff7580f12a4 (Unity) scripting_method_invoke
+0x00007ff7580e9c25 (Unity) ScriptingInvocation::Invoke
+0x00007ff7580e2b25 (Unity) ScriptingInvocation::Invoke<void>
+0x00007ff75679037b (Unity) Scripting::UnityEditor::EditorAssembliesProxy::ProcessInitializeOnLoadAttributes
+0x00007ff7580b7675 (Unity) MonoManager::SetupLoadedEditorAssemblies
+0x00007ff7580ae97c (Unity) MonoManager::EndReloadAssembly
+0x00007ff7580b5859 (Unity) MonoManager::ReloadAssembly
+0x00007ff7594541e1 (Unity) LoadDomainAndUserAssemblies
+0x00007ff75945468e (Unity) LoadUserAssemblies
+0x00007ff758ddfed1 (Unity) Application::InitializeProject
+0x00007ff75975a372 (Unity) WinMain
+0x00007ff75b5cf436 (Unity) __scrt_common_main_seh
+0x00007fff29217034 (KERNEL32) BaseThreadInitThunk
+0x00007fff2afe2651 (ntdll) RtlUserThreadStart
+
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  6.337 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.10 seconds
+Refreshing native plugins compatible for Editor in 0.95 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1987 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 93.0 MB.
+System memory in use after: 93.1 MB.
+
+Unloading 62 unused Assets to reduce memory usage. Loaded Objects now: 2412.
+Total: 1.959100 ms (FindLiveObjects: 0.211700 ms CreateObjectMapping: 0.121600 ms MarkObjects: 1.549800 ms  DeleteObjects: 0.075200 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Sprites/SquareSprite.png
+  artifactKey: Guid(35f0aad1cc060d541b61a9788570976c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/SquareSprite.png using Guid(35f0aad1cc060d541b61a9788570976c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84ef755e925d248648663b77e13d8ecb') in 0.265552 seconds
+  Import took 0.285370 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000189 seconds.
+  path: Assets/Sprites/Launcher.png
+  artifactKey: Guid(1acc2ca9c89800b42b68500dd452667d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Launcher.png using Guid(1acc2ca9c89800b42b68500dd452667d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a720cd5b92120c0403148ba52ebe493e') in 0.013583 seconds
+  Import took 0.016652 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.008864 seconds.
+  path: Assets/Sprites/Launcher.png
+  artifactKey: Guid(1acc2ca9c89800b42b68500dd452667d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Launcher.png using Guid(1acc2ca9c89800b42b68500dd452667d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a720cd5b92120c0403148ba52ebe493e') in 0.010147 seconds
+  Import took 0.013070 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.252488 seconds.
+  path: Assets/Sprites/UI/MuteIcon.png
+  artifactKey: Guid(531a4cf1e51e829448538b75e72b836d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI/MuteIcon.png using Guid(531a4cf1e51e829448538b75e72b836d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a235d4cf349d0e32a222663083f06828') in 0.040765 seconds
+  Import took 0.064852 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000287 seconds.
+  path: Assets/Sprites/UI/pause.png
+  artifactKey: Guid(c18e02a0ccbd4b846adcc4e7b56a4d27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI/pause.png using Guid(c18e02a0ccbd4b846adcc4e7b56a4d27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '50568ede1ddffcddb2ba1af161ed5403') in 0.053892 seconds
+  Import took 0.086498 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000194 seconds.
+  path: Assets/Sprites/UI/MuteIcon.png
+  artifactKey: Guid(531a4cf1e51e829448538b75e72b836d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI/MuteIcon.png using Guid(531a4cf1e51e829448538b75e72b836d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a235d4cf349d0e32a222663083f06828') in 0.010845 seconds
+  Import took 0.013335 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000201 seconds.
+  path: Assets/Sprites/UI/pause.png
+  artifactKey: Guid(c18e02a0ccbd4b846adcc4e7b56a4d27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI/pause.png using Guid(c18e02a0ccbd4b846adcc4e7b56a4d27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '50568ede1ddffcddb2ba1af161ed5403') in 0.012630 seconds
+  Import took 0.015401 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000185 seconds.
+  path: Assets/Sprites/UI/UnMuteIcon.png
+  artifactKey: Guid(18aa11852d5c39f4ba2ed5800f5f51b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI/UnMuteIcon.png using Guid(18aa11852d5c39f4ba2ed5800f5f51b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b619fad8aad3b2e52b4f5a767d03a98c') in 0.010133 seconds
+  Import took 0.039695 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000196 seconds.
+  path: Assets/Sprites/UI/youtube-logo.png
+  artifactKey: Guid(0ab86ffa8972e4e43b920ee0f9b7e252) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI/youtube-logo.png using Guid(0ab86ffa8972e4e43b920ee0f9b7e252) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0fc8218120c408ff3b974c9dba575f9a') in 0.023258 seconds
+  Import took 0.045802 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000217 seconds.
+  path: Assets/Sprites/UI/toppng.com-achievement-icon-icon-376x399.png
+  artifactKey: Guid(27913eb92e4c5724683d134a8fde555a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI/toppng.com-achievement-icon-icon-376x399.png using Guid(27913eb92e4c5724683d134a8fde555a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0e4217c8d25cf6db11b2a3917fec0d0') in 0.026456 seconds
+  Import took 0.061450 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000192 seconds.
+  path: Assets/Sprites/UI/play-button-arrowhead.png
+  artifactKey: Guid(ba6d061ca0d821c4ab75936775ab37a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI/play-button-arrowhead.png using Guid(ba6d061ca0d821c4ab75936775ab37a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36acfe830bcd5ce7164fa9c839ecca87') in 0.023179 seconds
+  Import took 0.039406 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000187 seconds.
+  path: Assets/Sprites/UI/round-info-button.png
+  artifactKey: Guid(eb3e88a10f8946946a078da43fd88cd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI/round-info-button.png using Guid(eb3e88a10f8946946a078da43fd88cd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c261ad68b7602daae8e71dca7f3d1c2') in 0.018291 seconds
+  Import took 0.029657 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 156.873282 seconds.
+  path: Assets/Sprites/LauncherBackground.png
+  artifactKey: Guid(a01abc7f323502046973461a8acbd532) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/LauncherBackground.png using Guid(a01abc7f323502046973461a8acbd532) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '802f412d3f81f333c381d8c05d90991e') in 0.011935 seconds
+  Import took 0.026375 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000195 seconds.
+  path: Assets/Sprites/LauncherForeground.png
+  artifactKey: Guid(57c59305f7cb0d044921c948721ea4a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/LauncherForeground.png using Guid(57c59305f7cb0d044921c948721ea4a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1280a7ec803d7b361b5d30e13bcecf13') in 0.011564 seconds
+  Import took 0.046588 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.520669 seconds.
+  path: Assets/Sprites/Launcher
+  artifactKey: Guid(a76bf1309575ee34bbc4bd7163d7ad02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Launcher using Guid(a76bf1309575ee34bbc4bd7163d7ad02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0118988aaee140601a29e8cec9874a11') in 0.003471 seconds
+  Import took 0.005879 seconds .
+
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 27.14 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 48 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 56.6 MB.
+System memory in use after: 56.7 MB.
+
+Unloading 48 unused Assets to reduce memory usage. Loaded Objects now: 2420.
+Total: 2.361200 ms (FindLiveObjects: 0.184500 ms CreateObjectMapping: 0.097000 ms MarkObjects: 2.049500 ms  DeleteObjects: 0.028800 ms)
+
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 26.96 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 48 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 56.6 MB.
+System memory in use after: 56.7 MB.
+
+Unloading 48 unused Assets to reduce memory usage. Loaded Objects now: 2420.
+Total: 2.760700 ms (FindLiveObjects: 0.185200 ms CreateObjectMapping: 0.066200 ms MarkObjects: 2.474500 ms  DeleteObjects: 0.032900 ms)
+
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 25.39 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 48 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 56.6 MB.
+System memory in use after: 56.7 MB.
+
+Unloading 48 unused Assets to reduce memory usage. Loaded Objects now: 2420.
+Total: 18.233600 ms (FindLiveObjects: 0.434000 ms CreateObjectMapping: 0.109800 ms MarkObjects: 17.661100 ms  DeleteObjects: 0.027400 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006708 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+GPGSUpgrader start
+0x00007ff7582749fc (Unity) StackWalker::GetCurrentCallstack
+0x00007ff75827cdd9 (Unity) StackWalker::ShowCallstack
+0x00007ff75974cd9c (Unity) GetStacktrace
+0x00007ff75a83b753 (Unity) DebugStringToFile
+0x00007ff75829f566 (Unity) DebugLogHandler_CUSTOM_Internal_Log
+0x0000021a0dd313fb (Mono JIT Code) (wrapper managed-to-native) UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+0x0000021a0dd311eb (Mono JIT Code) UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+0x0000021a0dd30f30 (Mono JIT Code) UnityEngine.Logger:Log (UnityEngine.LogType,object)
+0x0000021a0dd30c2a (Mono JIT Code) UnityEngine.Debug:Log (object)
+0x0000021a0dd30183 (Mono JIT Code) [GPGSUpgrader.cs:39] GooglePlayGames.Editor.GPGSUpgrader:.cctor () 
+0x0000021a0dd30a2d (Mono JIT Code) (wrapper runtime-invoke) object:runtime_invoke_void (object,intptr,intptr,intptr)
+0x00007ffecc43e480 (mono-2.0-bdwgc) [mini-runtime.c:2812] mono_jit_runtime_invoke 
+0x00007ffecc3c2902 (mono-2.0-bdwgc) [object.c:2921] do_runtime_invoke 
+0x00007ffecc3cb01c (mono-2.0-bdwgc) [object.c:477] mono_runtime_class_init_full 
+0x00007ffecc378c3e (mono-2.0-bdwgc) [icall.c:990] ves_icall_System_Runtime_CompilerServices_RuntimeHelpers_RunClassConstructor 
+0x0000021a02699b50 (Mono JIT Code) (wrapper managed-to-native) System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (intptr)
+0x0000021a02699a3b (Mono JIT Code) System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+0x0000021a026998b3 (Mono JIT Code) UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+0x0000021a0265b950 (Mono JIT Code) (wrapper runtime-invoke) <Module>:runtime_invoke_void_object (object,intptr,intptr,intptr)
+0x00007ffecc43e480 (mono-2.0-bdwgc) [mini-runtime.c:2812] mono_jit_runtime_invoke 
+0x00007ffecc3c2902 (mono-2.0-bdwgc) [object.c:2921] do_runtime_invoke 
+0x00007ffecc3cb95f (mono-2.0-bdwgc) [object.c:2968] mono_runtime_invoke 
+0x00007ff7580f12a4 (Unity) scripting_method_invoke
+0x00007ff7580e9c25 (Unity) ScriptingInvocation::Invoke
+0x00007ff7580e2b25 (Unity) ScriptingInvocation::Invoke<void>
+0x00007ff75679037b (Unity) Scripting::UnityEditor::EditorAssembliesProxy::ProcessInitializeOnLoadAttributes
+0x00007ff7580b7675 (Unity) MonoManager::SetupLoadedEditorAssemblies
+0x00007ff7580ae97c (Unity) MonoManager::EndReloadAssembly
+0x00007ff7580b5859 (Unity) MonoManager::ReloadAssembly
+0x00007ff7594541e1 (Unity) LoadDomainAndUserAssemblies
+0x00007ff75945468e (Unity) LoadUserAssemblies
+0x00007ff7598870b8 (Unity) <lambda_79a3ebc38cb5166d44d10a16a21fca24>::operator()
+0x00007ff759952132 (Unity) asio::detail::completion_handler<core::mutable_function<void __cdecl(void)> >::do_complete
+0x00007ff759954290 (Unity) asio::detail::win_iocp_io_service::do_one
+0x00007ff759957a1e (Unity) asio::io_service::run
+0x00007ff7598cdc10 (Unity) RunAssetImportWorkerClientV2
+0x00007ff7598cdc60 (Unity) RunAssetImporterV2
+0x00007ff758ddfed6 (Unity) Application::InitializeProject
+0x00007ff75975a372 (Unity) WinMain
+0x00007ff75b5cf436 (Unity) __scrt_common_main_seh
+0x00007fff29217034 (KERNEL32) BaseThreadInitThunk
+0x00007fff2afe2651 (ntdll) RtlUserThreadStart
+
+GPGSUpgrader done
+0x00007ff7582749fc (Unity) StackWalker::GetCurrentCallstack
+0x00007ff75827cdd9 (Unity) StackWalker::ShowCallstack
+0x00007ff75974cd9c (Unity) GetStacktrace
+0x00007ff75a83b753 (Unity) DebugStringToFile
+0x00007ff75829f566 (Unity) DebugLogHandler_CUSTOM_Internal_Log
+0x0000021a0dd313fb (Mono JIT Code) (wrapper managed-to-native) UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+0x0000021a0dd311eb (Mono JIT Code) UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+0x0000021a0dd30f30 (Mono JIT Code) UnityEngine.Logger:Log (UnityEngine.LogType,object)
+0x0000021a0dd30c2a (Mono JIT Code) UnityEngine.Debug:Log (object)
+0x0000021a0dd3055b (Mono JIT Code) [GPGSUpgrader.cs:106] GooglePlayGames.Editor.GPGSUpgrader:.cctor () 
+0x0000021a0dd30a2d (Mono JIT Code) (wrapper runtime-invoke) object:runtime_invoke_void (object,intptr,intptr,intptr)
+0x00007ffecc43e480 (mono-2.0-bdwgc) [mini-runtime.c:2812] mono_jit_runtime_invoke 
+0x00007ffecc3c2902 (mono-2.0-bdwgc) [object.c:2921] do_runtime_invoke 
+0x00007ffecc3cb01c (mono-2.0-bdwgc) [object.c:477] mono_runtime_class_init_full 
+0x00007ffecc378c3e (mono-2.0-bdwgc) [icall.c:990] ves_icall_System_Runtime_CompilerServices_RuntimeHelpers_RunClassConstructor 
+0x0000021a02699b50 (Mono JIT Code) (wrapper managed-to-native) System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (intptr)
+0x0000021a02699a3b (Mono JIT Code) System.Runtime.CompilerServices.RuntimeHelpers:RunClassConstructor (System.RuntimeTypeHandle)
+0x0000021a026998b3 (Mono JIT Code) UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+0x0000021a0265b950 (Mono JIT Code) (wrapper runtime-invoke) <Module>:runtime_invoke_void_object (object,intptr,intptr,intptr)
+0x00007ffecc43e480 (mono-2.0-bdwgc) [mini-runtime.c:2812] mono_jit_runtime_invoke 
+0x00007ffecc3c2902 (mono-2.0-bdwgc) [object.c:2921] do_runtime_invoke 
+0x00007ffecc3cb95f (mono-2.0-bdwgc) [object.c:2968] mono_runtime_invoke 
+0x00007ff7580f12a4 (Unity) scripting_method_invoke
+0x00007ff7580e9c25 (Unity) ScriptingInvocation::Invoke
+0x00007ff7580e2b25 (Unity) ScriptingInvocation::Invoke<void>
+0x00007ff75679037b (Unity) Scripting::UnityEditor::EditorAssembliesProxy::ProcessInitializeOnLoadAttributes
+0x00007ff7580b7675 (Unity) MonoManager::SetupLoadedEditorAssemblies
+0x00007ff7580ae97c (Unity) MonoManager::EndReloadAssembly
+0x00007ff7580b5859 (Unity) MonoManager::ReloadAssembly
+0x00007ff7594541e1 (Unity) LoadDomainAndUserAssemblies
+0x00007ff75945468e (Unity) LoadUserAssemblies
+0x00007ff7598870b8 (Unity) <lambda_79a3ebc38cb5166d44d10a16a21fca24>::operator()
+0x00007ff759952132 (Unity) asio::detail::completion_handler<core::mutable_function<void __cdecl(void)> >::do_complete
+0x00007ff759954290 (Unity) asio::detail::win_iocp_io_service::do_one
+0x00007ff759957a1e (Unity) asio::io_service::run
+0x00007ff7598cdc10 (Unity) RunAssetImportWorkerClientV2
+0x00007ff7598cdc60 (Unity) RunAssetImporterV2
+0x00007ff758ddfed6 (Unity) Application::InitializeProject
+0x00007ff75975a372 (Unity) WinMain
+0x00007ff75b5cf436 (Unity) __scrt_common_main_seh
+0x00007fff29217034 (KERNEL32) BaseThreadInitThunk
+0x00007fff2afe2651 (ntdll) RtlUserThreadStart
+
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.032 seconds
+Platform modules already initialized, skipping
+Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 0.52 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1967 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.4 MB.
+System memory in use after: 94.5 MB.
+
+Unloading 50 unused Assets to reduce memory usage. Loaded Objects now: 2424.
+Total: 6.579600 ms (FindLiveObjects: 0.363100 ms CreateObjectMapping: 0.188300 ms MarkObjects: 5.979100 ms  DeleteObjects: 0.047300 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000

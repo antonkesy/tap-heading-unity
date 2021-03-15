@@ -12,6 +12,7 @@
  - background particle -> nah
  - more UI Effects 
  - change colors -> done
+ - change launcher icon
 
 # Thanks
 
