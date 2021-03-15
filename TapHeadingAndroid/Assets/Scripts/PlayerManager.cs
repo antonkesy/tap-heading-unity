@@ -40,6 +40,8 @@ public class PlayerManager : MonoBehaviour
     private bool _isDirectionRight;
     private float _spawnStartPositionY = -20;
     private bool _isDirectionChangeable;
+    private bool _isWaitingForRespawn;
+    private bool _isRespawning;
 
     private void Start()
     {
@@ -60,6 +62,12 @@ public class PlayerManager : MonoBehaviour
 
     internal void StartMoving()
     {
+        if (_isRespawning)
+        {
+            _isWaitingForRespawn = true;
+            return;
+        }
+
         ChangeDirection();
         if (Random.Range(0f, 1f) > .5f)
         {
@@ -135,6 +143,7 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator MovePlayerToSpawn()
     {
+        _isRespawning = true;
         _isDirectionChangeable = false;
         var time = 0f;
         var targetPosition = Vector2.up * _startPosition;
@@ -162,6 +171,12 @@ public class PlayerManager : MonoBehaviour
 
         _rb.position = targetPosition;
         _isDirectionChangeable = true;
+        _isRespawning = false;
+        if (_isWaitingForRespawn)
+        {
+            _isWaitingForRespawn = false;
+            StartMoving();
+        }
 
         yield return null;
     }
