@@ -19,8 +19,6 @@ SOFTWARE.
  */
 
 using System.Collections;
-using GooglePlayGames;
-using GooglePlayGames.BasicApi;
 using TMPro;
 using UnityEngine;
 
@@ -115,37 +113,14 @@ public class UIManager : MonoBehaviour
     {
         if (_isPlaying) return;
         audioManager.PlayTapUI();
-        if (!PlayGamesPlatform.Instance.IsAuthenticated())
-        {
-            PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
-            {
-                if (result == SignInStatus.Success)
-
-                    PlayGamesPlatform.Instance.ShowLeaderboardUI();
-            });
-        }
-        else
-        {
-            PlayGamesPlatform.Instance.ShowLeaderboardUI();
-        }
+        GPSManager.ShowLeaderboardUI();
     }
 
     public void OnAchievementsButtonClick()
     {
         if (_isPlaying) return;
         audioManager.PlayTapUI();
-        if (!PlayGamesPlatform.Instance.IsAuthenticated())
-        {
-            PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
-            {
-                if (result == SignInStatus.Success)
-                    PlayGamesPlatform.Instance.ShowAchievementsUI();
-            });
-        }
-        else
-        {
-            PlayGamesPlatform.Instance.ShowAchievementsUI();
-        }
+        GPSManager.ShowAchievementsUI();
     }
 
     public void OnSoundOnButtonClick()

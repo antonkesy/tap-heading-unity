@@ -96,7 +96,7 @@ public class LevelManager : MonoBehaviour
         wallGameObjects[1].transform.position = new Vector3(-xOffsetWall, 0, 0);
     }
 
-    internal void StartGame()
+    internal void StartFreshGame()
     {
         _isRight = Random.Range(0f, 1f) > 0.5f;
         _chunkSpeed = chunkSpeedBase;
@@ -202,10 +202,6 @@ public class LevelManager : MonoBehaviour
         _chunkSpeed += speedAdder;
     }
 
-    public void StopGame()
-    {
-        StopChunks();
-    }
 
     private void StopChunks()
     {
@@ -215,11 +211,12 @@ public class LevelManager : MonoBehaviour
     internal void RestartGame()
     {
         ResetLevel();
-        StartGame();
+        StartFreshGame();
     }
 
     internal void LostGame()
     {
+        StopChunks();
         foreach (var keyValuePair in _chunks)
         {
             keyValuePair.Value.MoveOutCall(chunkDespawnTime);
