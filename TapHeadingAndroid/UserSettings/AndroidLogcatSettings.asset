@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "1cc9c5cc",
         "name": "com.poorskill.tapheading",
-        "processId": 20160,
+        "processId": 1463,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,79 +11,37 @@
         {
             "deviceId": "1cc9c5cc",
             "name": "com.poorskill.tapheading",
-            "processId": 32563,
-            "exited": true
-        },
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
-            "processId": 6938,
-            "exited": true
-        },
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
-            "processId": 7860,
-            "exited": true
-        },
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
-            "processId": 9923,
-            "exited": true
-        },
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
-            "processId": 12371,
-            "exited": true
-        },
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
-            "processId": 21835,
-            "exited": false
-        },
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
-            "processId": 22398,
-            "exited": false
-        },
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
-            "processId": 25763,
-            "exited": false
-        },
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
-            "processId": 32418,
-            "exited": false
-        },
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
-            "processId": 2086,
-            "exited": false
-        },
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
-            "processId": 3125,
-            "exited": false
-        },
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
             "processId": 18262,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "1cc9c5cc",
             "name": "com.poorskill.tapheading",
             "processId": 20160,
+            "exited": true
+        },
+        {
+            "deviceId": "1cc9c5cc",
+            "name": "com.poorskill.tapheading",
+            "processId": 21134,
+            "exited": true
+        },
+        {
+            "deviceId": "1cc9c5cc",
+            "name": "com.poorskill.tapheading",
+            "processId": 30807,
+            "exited": true
+        },
+        {
+            "deviceId": "1cc9c5cc",
+            "name": "com.poorskill.tapheading",
+            "processId": 32216,
+            "exited": true
+        },
+        {
+            "deviceId": "1cc9c5cc",
+            "name": "com.poorskill.tapheading",
+            "processId": 1463,
             "exited": false
         }
     ],
