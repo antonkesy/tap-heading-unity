@@ -13,6 +13,12 @@ public static class GPSManager
      */
     internal static void Activate()
     {
+        var config = new PlayGamesClientConfiguration.Builder().Build();
+
+        PlayGamesPlatform.InitializeInstance(config);
+        // recommended for debugging:
+        PlayGamesPlatform.DebugLogEnabled = true;
+        // Activate the Google Play Games platform
         PlayGamesPlatform.Activate();
     }
 
@@ -40,7 +46,7 @@ public static class GPSManager
      */
     internal static void SignInToGooglePlayServices()
     {
-        PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, null);
+        PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result => { });
     }
 
     /**
@@ -52,28 +58,28 @@ public static class GPSManager
 
         if (highScore == 0)
         {
-            Social.ReportProgress(GPGSIds.achievement_oof, .0f, null);
+            Social.ReportProgress(GPGSIds.achievement_oof, .0f, result => { });
         }
 
         if (highScore >= 100)
         {
-            Social.ReportProgress(GPGSIds.achievement_triple_digest, .0f, null);
+            Social.ReportProgress(GPGSIds.achievement_triple_digest, .0f, result => { });
         }
 
         if (highScore >= 69)
         {
-            Social.ReportProgress(GPGSIds.achievement_nice, .0f, null);
+            Social.ReportProgress(GPGSIds.achievement_nice, .0f, result => { });
         }
 
         if (highScore >= 42)
         {
             Social.ReportProgress(
-                GPGSIds.achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything, .0f, null);
+                GPGSIds.achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything, .0f, result => { });
         }
 
         if (highScore >= 10)
         {
-            Social.ReportProgress(GPGSIds.achievement_double_digest, .0f, null);
+            Social.ReportProgress(GPGSIds.achievement_double_digest, .0f, result => { });
         }
     }
 
@@ -83,7 +89,7 @@ public static class GPSManager
     internal static void ThankYouAchievement()
     {
         if (!IsAuthenticated()) return;
-        Social.ReportProgress(GPGSIds.achievement_thank_you, .0f, null);
+        Social.ReportProgress(GPGSIds.achievement_thank_you, .0f, result => { });
     }
 
     /**

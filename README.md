@@ -15,6 +15,9 @@
  - change launcher icon -> done
  - random distance between bars
  - comments 
+ - pause game on lostFocus application, onFocus wait for click
+ - check if playerprefs are working
+ - gps load score
 
 # Thanks
 
