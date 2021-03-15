@@ -22,18 +22,13 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    [SerializeField] private float sceneWidth = 10;
-
-    private Transform _transform;
-
-    [SerializeField] private float shakeDuration = 1f;
-    private float _shakeDuration;
-
-    public float shakeAmount = 0.05f;
+    [Header("Scene")] [SerializeField] private float sceneWidth = 10;
+    [Header("Shaking")] [SerializeField] private float shakeDuration = 1f;
     [SerializeField] private float decreaseFactor = 1.0f;
-
+    private float _shakeDuration;
+    private Transform _transform;
+    [SerializeField] private float shakeAmount = 0.05f;
     private Vector3 _originalPos;
-
     private bool _isShaking;
 
     private void Start()
