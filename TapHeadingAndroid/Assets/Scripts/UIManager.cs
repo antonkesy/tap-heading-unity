@@ -172,6 +172,7 @@ public class UIManager : MonoBehaviour
 
     internal bool isAboutOn()
     {
+        GPSManager.ThankYouAchievement();
         var result = aboutPanel.activeSelf;
         aboutPanel.SetActive(false);
         return result;

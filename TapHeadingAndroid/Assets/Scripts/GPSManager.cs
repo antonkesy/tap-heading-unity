@@ -3,18 +3,30 @@ using GooglePlayGames.BasicApi;
 using UnityEngine;
 
 // ReSharper disable once InconsistentNaming
+/**
+ * GooglePlayServices Manager
+ */
 public static class GPSManager
 {
+    /**
+     * Activates PlayGamesPlatform
+     */
     internal static void Activate()
     {
         PlayGamesPlatform.Activate();
     }
 
+    /**
+     * Returns isAuthenticated from PlayGamesPlatform
+     */
     private static bool IsAuthenticated()
     {
         return PlayGamesPlatform.Instance.IsAuthenticated();
     }
 
+    /**
+     * Tries to Add HighScore if User is Logged in to GooglePlayPlatform
+     */
     internal static void AddHighScore(long highScore)
     {
         if (IsAuthenticated())
@@ -23,42 +35,60 @@ public static class GPSManager
         }
     }
 
+    /**
+     * Start OnlyOnce Prompt to SignIn to GooglePlayPlatform
+     */
     internal static void SignInToGooglePlayServices()
     {
         PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, null);
     }
 
+    /**
+     * Tries to Report Progress of Achievements to GooglePlayService
+     */
     internal static void CheckAchievement(int highScore)
     {
         if (!IsAuthenticated()) return;
 
         if (highScore == 0)
         {
-            Social.ReportProgress(GPGSIds.achievement_oof, 0.0f, null);
+            Social.ReportProgress(GPGSIds.achievement_oof, .0f, null);
         }
 
         if (highScore >= 100)
         {
-            Social.ReportProgress(GPGSIds.achievement_triple_digest, 0.0f, null);
+            Social.ReportProgress(GPGSIds.achievement_triple_digest, .0f, null);
         }
 
         if (highScore >= 69)
         {
-            Social.ReportProgress(GPGSIds.achievement_nice, 0.0f, null);
+            Social.ReportProgress(GPGSIds.achievement_nice, .0f, null);
         }
 
         if (highScore >= 42)
         {
             Social.ReportProgress(
-                GPGSIds.achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything, 0.0f, null);
+                GPGSIds.achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything, .0f, null);
         }
 
         if (highScore >= 10)
         {
-            Social.ReportProgress(GPGSIds.achievement_double_digest, 0.0f, null);
+            Social.ReportProgress(GPGSIds.achievement_double_digest, .0f, null);
         }
     }
 
+    /**
+     * Tries to Report Progress of ThankYou Achievement to GooglePlayService
+     */
+    internal static void ThankYouAchievement()
+    {
+        if (!IsAuthenticated()) return;
+        Social.ReportProgress(GPGSIds.achievement_thank_you, .0f, null);
+    }
+
+    /**
+     * Tries to open LeaderboardUI and log in, if not logged in
+     */
     public static void ShowLeaderboardUI()
     {
         if (!IsAuthenticated())
@@ -76,6 +106,9 @@ public static class GPSManager
         }
     }
 
+    /**
+     * Tries to open AchievementsUI and log in, if not logged in
+     */
     public static void ShowAchievementsUI()
     {
         if (!IsAuthenticated())

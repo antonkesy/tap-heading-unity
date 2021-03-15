@@ -12,8 +12,9 @@
  - background particle -> nah
  - more UI Effects 
  - change colors -> done
- - change launcher icon
+ - change launcher icon -> done
  - random distance between bars
+ - comments 
 
 # Thanks
 
