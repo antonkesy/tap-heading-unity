@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = -1;
+        Application.targetFrameRate = 60;
         uiManager.ShowStartMenuUI();
         audioManager.SetSound(PlayerPrefs.GetInt("soundOff", 1) == 0);
         GPSManager.SignInToGooglePlayServices();
