@@ -62,13 +62,13 @@ public static class GPSManager
 
     private static void SignInCanceled()
     {
-        PlayerPrefs.SetInt("autologin", 0);
+        PlayerPrefsManager.SetAutoLogin(false);
         GameManager.SetHighScoreFromLocal();
     }
 
     private static void SignInSuccess()
     {
-        PlayerPrefs.SetInt("autologin", 1);
+        PlayerPrefsManager.SetAutoLogin(true);
         GameManager.OverwriteGPSHighScore();
         LoadLeaderboardFromGPS();
     }

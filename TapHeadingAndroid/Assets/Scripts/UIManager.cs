@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
     {
         _scoreTextFader = scoreText.GetComponent<UIFader>();
         _scoreTextShadowFader = scoreTextShadow.GetComponent<UIFader>();
-        _isSoundOn = PlayerPrefs.GetInt("soundOff", 1) == 1;
+        _isSoundOn = !PlayerPrefsManager.IsSoundOn();
     }
 
     internal void UpdateScoreText(int newScore)
@@ -137,7 +137,7 @@ public class UIManager : MonoBehaviour
         if (_isPlaying) return;
         audioManager.SetSound(soundOn);
         audioManager.PlayTapUI();
-        PlayerPrefs.SetInt("soundOff", soundOn ? 0 : 1);
+        PlayerPrefsManager.SetSoundOn(soundOn);
         _isSoundOn = !soundOn;
         menuManager.SetSound(!soundOn);
     }

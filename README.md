@@ -8,6 +8,7 @@
  - pause game on lostFocus application, onFocus wait for click
  - About Open/Close popup animation
  - inapp rating
+ - HighScoreManager
 
  # Done / Nah:
  - About UI not scaling -> done

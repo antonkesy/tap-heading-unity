@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour
     private bool _waitingToRestartGame;
     private bool _waitingToStartFreshGame;
 
+    private bool _isIarPopUpPossible;
+    private const int TimesToOpenB4IarCall = 10;
+    private const int TimesToPlayB4IarCall = 50;
+
     private void Awake()
     {
         GPSManager.Activate();
@@ -65,19 +69,22 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //DEBUG----------------------------------------------
-        //ProcessEditorInput();
+        ProcessEditorInput();
         //-------------------------------------------------
         ProcessUserInput();
     }
 
     private void LoadFlagsFromPlayerPrefs()
     {
-        if (PlayerPrefs.GetInt("autologin", 1) == 1)
+        _isIarPopUpPossible = PlayerPrefsManager.GetTimesOpen() < TimesToOpenB4IarCall &&
+                              PlayerPrefsManager.GetTimesPlayed() < TimesToPlayB4IarCall;
+
+        if (PlayerPrefsManager.IsAutoLogin())
         {
             GPSManager.SignInToGooglePlayServices();
         }
 
-        audioManager.SetSound(PlayerPrefs.GetInt("soundOff", 1) == 0);
+        audioManager.SetSound(PlayerPrefsManager.IsSoundOn());
     }
 
     public static void SetHighScoreFromLocal()
@@ -89,18 +96,18 @@ public class GameManager : MonoBehaviour
     {
         _highScore = value;
         uiManager.UpdateHighScoreText(_highScore);
-        PlayerPrefs.SetInt("localHighScore", _highScore);
+        PlayerPrefsManager.SetLocalHighScore(_highScore);
     }
 
     private void SetHighScoreLocal()
     {
-        SetHighScore(PlayerPrefs.GetInt("localHighScore", 0));
+        SetHighScore(PlayerPrefsManager.GetLocalHighScore());
     }
 
     // ReSharper disable once InconsistentNaming
     internal static void OverwriteGPSHighScore()
     {
-        GPSManager.SubmitScore(PlayerPrefs.GetInt("localHighScore", 0));
+        GPSManager.SubmitScore(PlayerPrefsManager.GetLocalHighScore());
     }
 
     // ReSharper disable once InconsistentNaming
@@ -202,6 +209,7 @@ public class GameManager : MonoBehaviour
         GPSManager.CheckAchievement(_score);
         levelManager.LostGame();
         playerManager.SpawnPlayer();
+        CheckForIARPopUp();
     }
 
     private void CheckNewHighScore()
@@ -217,5 +225,19 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1f);
         _waitingToRestartGame = true;
+    }
+
+    // ReSharper disable once InconsistentNaming
+    private void CheckForIARPopUp()
+    {
+        if (!_isIarPopUpPossible) return;
+        if (PlayerPrefsManager.GetTimesPlayed() > TimesToPlayB4IarCall ||
+            PlayerPrefsManager.GetTimesOpen() > TimesToOpenB4IarCall)
+        {
+            StartCoroutine(IAReviewManager.RequestReview());
+        }
+
+        PlayerPrefsManager.AddTimesOpen();
+        PlayerPrefsManager.AddTimesPlayed();
     }
 }
