@@ -4,7 +4,6 @@
  # todo / ideas
  - more user feedback for picking up coins (Score update with effects ...)
  - more UI Effects 
- - random distance between bars
  - comments 
  - pause game on lostFocus application, onFocus wait for click
  - check if playerprefs are working
@@ -21,6 +20,7 @@
  - change colors -> done
  - combo/strike for not missing coins -> nah
  - background particle -> nah
+ - random distance between bars -> nah?
 
 # Thanks
 
