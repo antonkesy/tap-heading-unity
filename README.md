@@ -7,10 +7,10 @@
  - comments 
  - pause game on lostFocus application, onFocus wait for click
  - About Open/Close popup animation
- - inapp rating
  - HighScoreManager
 
  # Done / Nah:
+ - inapp rating -> done (I hope so)
  - About UI not scaling -> done
  - check if playerprefs are working -> done
  - local highscore amd get highscore from gps -> done
