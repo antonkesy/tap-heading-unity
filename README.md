@@ -5,7 +5,6 @@
  - more user feedback for picking up coins (Score update with effects ...)
  - more UI Effects 
  - comments 
- - pause game on lostFocus application, onFocus wait for click
  - About Open/Close popup animation
  - HighScoreManager
 
@@ -24,6 +23,7 @@
  - combo/strike for not missing coins -> nah
  - background particle -> nah
  - random distance between bars -> nah?
+ - pause game on lostFocus application, onFocus wait for click -> nah
 
 # Thanks
 

@@ -80,14 +80,14 @@ public static class GPSManager
     {
         if (!IsAuthenticated()) return;
 
-        if (highScore == 0)
+        if (highScore >= 200)
         {
             UnlockAchievement(GPGSIds.achievement_oof);
         }
 
         if (highScore >= 100)
         {
-            UnlockAchievement(GPGSIds.achievement_triple_digest);
+            UnlockAchievement(GPGSIds.achievement_100);
         }
 
         if (highScore >= 69)
@@ -95,14 +95,14 @@ public static class GPSManager
             UnlockAchievement(GPGSIds.achievement_nice);
         }
 
+        if (highScore >= 50)
+        {
+            UnlockAchievement(GPGSIds.achievement_50);
+        }
+
         if (highScore >= 42)
         {
             UnlockAchievement(GPGSIds.achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything);
-        }
-
-        if (highScore >= 10)
-        {
-            UnlockAchievement(GPGSIds.achievement_double_digest);
         }
     }
 

@@ -26,11 +26,11 @@ public static class GPGSIds
 {
         public const string leaderboard_high_score = "CgkIzIXHzaEXEAIQBg"; // <GPGSID>
         public const string achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything = "CgkIzIXHzaEXEAIQAQ"; // <GPGSID>
-        public const string achievement_thank_you = "CgkIzIXHzaEXEAIQBQ"; // <GPGSID>
+        public const string achievement_100 = "CgkIzIXHzaEXEAIQBA"; // <GPGSID>
+        public const string achievement_50 = "CgkIzIXHzaEXEAIQAw"; // <GPGSID>
         public const string achievement_nice = "CgkIzIXHzaEXEAIQAg"; // <GPGSID>
         public const string achievement_oof = "CgkIzIXHzaEXEAIQAA"; // <GPGSID>
-        public const string achievement_double_digest = "CgkIzIXHzaEXEAIQAw"; // <GPGSID>
-        public const string achievement_triple_digest = "CgkIzIXHzaEXEAIQBA"; // <GPGSID>
+        public const string achievement_thank_you = "CgkIzIXHzaEXEAIQBQ"; // <GPGSID>
 
 }
 
