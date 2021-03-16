@@ -38,7 +38,7 @@ public static class GPSManager
     {
         if (IsAuthenticated())
         {
-            Social.ReportScore(highScore, GPGSIds.leaderboard_high_score, success => { });
+            Social.ReportScore(highScore, GPGSIds.leaderboard_high_score, null);
         }
     }
 
@@ -47,7 +47,18 @@ public static class GPSManager
      */
     internal static void SignInToGooglePlayServices()
     {
-        PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result => { });
+        PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
+        {
+            switch (result)
+            {
+                case SignInStatus.Canceled:
+                    PlayerPrefs.SetInt("autologin", 0);
+                    break;
+                case SignInStatus.Success:
+                    PlayerPrefs.SetInt("autologin", 1);
+                    break;
+            }
+        });
     }
 
     /**

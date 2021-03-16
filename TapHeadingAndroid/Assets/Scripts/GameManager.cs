@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     private bool _waitingToRestartGame;
     private bool _waitingToStartFreshGame;
 
+    private bool _isAutoLoginEnabled;
 
     private void Awake()
     {
@@ -50,10 +51,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        LoadFlagsFromPlayerPrefs();
         Application.targetFrameRate = 60;
         uiManager.ShowStartMenuUI();
-        audioManager.SetSound(PlayerPrefs.GetInt("soundOff", 1) == 0);
-        GPSManager.SignInToGooglePlayServices();
+        if (_isAutoLoginEnabled) GPSManager.SignInToGooglePlayServices();
         audioManager.PlayStartApplication();
         playerManager.SpawnPlayer();
     }
@@ -65,6 +66,12 @@ public class GameManager : MonoBehaviour
         ProcessEditorInput();
         //-------------------------------------------------
         ProcessUserInput();
+    }
+
+    private void LoadFlagsFromPlayerPrefs()
+    {
+        _isAutoLoginEnabled = PlayerPrefs.GetInt("autologin", 1) == 1;
+        audioManager.SetSound(PlayerPrefs.GetInt("soundOff", 1) == 0);
     }
 
     private void ProcessEditorInput()
