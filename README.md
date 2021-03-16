@@ -8,9 +8,9 @@
  - comments 
  - pause game on lostFocus application, onFocus wait for click
  - check if playerprefs are working
- - gps load score
  - Safe user no sign in star
  - About UI not scaling
+ - local highscore amd get highscore from gps -> local can overwrite gps but vice versa
 
  # Done / Nah:
  - GooglePlay leaderboard/archivments -> done

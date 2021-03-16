@@ -1,3 +1,4 @@
+using System;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine;
@@ -58,28 +59,27 @@ public static class GPSManager
 
         if (highScore == 0)
         {
-            Social.ReportProgress(GPGSIds.achievement_oof, .0f, result => { });
+            UnlockAchievement(GPGSIds.achievement_oof);
         }
 
         if (highScore >= 100)
         {
-            Social.ReportProgress(GPGSIds.achievement_triple_digest, .0f, result => { });
+            UnlockAchievement(GPGSIds.achievement_triple_digest);
         }
 
         if (highScore >= 69)
         {
-            Social.ReportProgress(GPGSIds.achievement_nice, .0f, result => { });
+            UnlockAchievement(GPGSIds.achievement_nice);
         }
 
         if (highScore >= 42)
         {
-            Social.ReportProgress(
-                GPGSIds.achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything, .0f, result => { });
+            UnlockAchievement(GPGSIds.achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything);
         }
 
         if (highScore >= 10)
         {
-            Social.ReportProgress(GPGSIds.achievement_double_digest, .0f, result => { });
+            UnlockAchievement(GPGSIds.achievement_double_digest);
         }
     }
 
@@ -89,7 +89,12 @@ public static class GPSManager
     internal static void ThankYouAchievement()
     {
         if (!IsAuthenticated()) return;
-        Social.ReportProgress(GPGSIds.achievement_thank_you, .0f, result => { });
+        UnlockAchievement(GPGSIds.achievement_thank_you);
+    }
+
+    private static void UnlockAchievement(string id)
+    {
+        Social.ReportProgress(id, 100.0f, null);
     }
 
     /**
