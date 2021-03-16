@@ -7,6 +7,7 @@
  - comments 
  - pause game on lostFocus application, onFocus wait for click
  - About UI not scaling
+ - About Open/Close popup animation
 
  # Done / Nah:
  - check if playerprefs are working -> done
