@@ -20,18 +20,21 @@ SOFTWARE.
 
 using System.Collections;
 using System.Linq;
+using GooglePlayGames;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager Instance { get; set; }
+
     [Header("Manager")] [SerializeField] private PlayerManager playerManager;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private CameraManager cameraManager;
 
     [SerializeField] private AudioManager audioManager;
-    private int _highScore;
+    private static int _highScore;
 
     //Flags
     private bool _isRunning;
@@ -42,8 +45,6 @@ public class GameManager : MonoBehaviour
     private bool _waitingToRestartGame;
     private bool _waitingToStartFreshGame;
 
-    private bool _isAutoLoginEnabled;
-
     private void Awake()
     {
         GPSManager.Activate();
@@ -51,10 +52,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Instance = this;
+        SetHighScoreLocal();
         LoadFlagsFromPlayerPrefs();
         Application.targetFrameRate = 60;
         uiManager.ShowStartMenuUI();
-        if (_isAutoLoginEnabled) GPSManager.SignInToGooglePlayServices();
         audioManager.PlayStartApplication();
         playerManager.SpawnPlayer();
     }
@@ -63,15 +65,48 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //DEBUG----------------------------------------------
-        ProcessEditorInput();
+        //ProcessEditorInput();
         //-------------------------------------------------
         ProcessUserInput();
     }
 
     private void LoadFlagsFromPlayerPrefs()
     {
-        _isAutoLoginEnabled = PlayerPrefs.GetInt("autologin", 1) == 1;
+        if (PlayerPrefs.GetInt("autologin", 1) == 1)
+        {
+            GPSManager.SignInToGooglePlayServices();
+        }
+
         audioManager.SetSound(PlayerPrefs.GetInt("soundOff", 1) == 0);
+    }
+
+    public static void SetHighScoreFromLocal()
+    {
+        Instance.SetHighScoreLocal();
+    }
+
+    private void SetHighScore(int value)
+    {
+        _highScore = value;
+        uiManager.UpdateHighScoreText(_highScore);
+        PlayerPrefs.SetInt("localHighScore", _highScore);
+    }
+
+    private void SetHighScoreLocal()
+    {
+        SetHighScore(PlayerPrefs.GetInt("localHighScore", 0));
+    }
+
+    // ReSharper disable once InconsistentNaming
+    internal static void OverwriteGPSHighScore()
+    {
+        GPSManager.SubmitScore(PlayerPrefs.GetInt("localHighScore", 0));
+    }
+
+    // ReSharper disable once InconsistentNaming
+    internal static void SetHighScoreFromGPS(long highScore)
+    {
+        Instance.SetHighScore((int) highScore);
     }
 
     private void ProcessEditorInput()
@@ -88,6 +123,7 @@ public class GameManager : MonoBehaviour
 
         OnUserClick();
     }
+
 
     private void OnUserClick()
     {
@@ -162,6 +198,7 @@ public class GameManager : MonoBehaviour
         uiManager.ShowReturningMenuUI();
         StartCoroutine(WaitToRestart());
         CheckNewHighScore();
+        GPSManager.SubmitScore(_score);
         GPSManager.CheckAchievement(_score);
         levelManager.LostGame();
         playerManager.SpawnPlayer();
@@ -170,12 +207,9 @@ public class GameManager : MonoBehaviour
     private void CheckNewHighScore()
     {
         if (_highScore >= _score) return;
-        _highScore = _score;
-        uiManager.UpdateHighScoreText(_highScore);
-        PlayerPrefs.SetInt("highScore", _highScore);
+        SetHighScore(_score);
         audioManager.PlayNewHighScore();
         uiManager.FadeInNewHighScore();
-        GPSManager.AddHighScore(_highScore);
     }
 
 

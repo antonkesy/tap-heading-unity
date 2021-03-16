@@ -6,12 +6,12 @@
  - more UI Effects 
  - comments 
  - pause game on lostFocus application, onFocus wait for click
- - check if playerprefs are working
- - Safe user no sign in star
  - About UI not scaling
- - local highscore amd get highscore from gps -> local can overwrite gps but vice versa
 
  # Done / Nah:
+ - check if playerprefs are working -> done
+ - local highscore amd get highscore from gps -> done
+ - Safe user no sign in start -> done
  - GooglePlay leaderboard/archivments -> done
  - sounds/soundtrack -> done
  - other font -> done

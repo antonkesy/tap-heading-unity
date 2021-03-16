@@ -1,4 +1,3 @@
-using System;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine;
@@ -18,7 +17,7 @@ public static class GPSManager
 
         PlayGamesPlatform.InitializeInstance(config);
         // recommended for debugging:
-        PlayGamesPlatform.DebugLogEnabled = true;
+        //PlayGamesPlatform.DebugLogEnabled = true;
         // Activate the Google Play Games platform
         PlayGamesPlatform.Activate();
     }
@@ -34,7 +33,7 @@ public static class GPSManager
     /**
      * Tries to Add HighScore if User is Logged in to GooglePlayPlatform
      */
-    internal static void AddHighScore(long highScore)
+    internal static void SubmitScore(long highScore)
     {
         if (IsAuthenticated())
         {
@@ -52,13 +51,26 @@ public static class GPSManager
             switch (result)
             {
                 case SignInStatus.Canceled:
-                    PlayerPrefs.SetInt("autologin", 0);
+                    SignInCanceled();
                     break;
                 case SignInStatus.Success:
-                    PlayerPrefs.SetInt("autologin", 1);
+                    SignInSuccess();
                     break;
             }
         });
+    }
+
+    private static void SignInCanceled()
+    {
+        PlayerPrefs.SetInt("autologin", 0);
+        GameManager.SetHighScoreFromLocal();
+    }
+
+    private static void SignInSuccess()
+    {
+        PlayerPrefs.SetInt("autologin", 1);
+        GameManager.OverwriteGPSHighScore();
+        LoadLeaderboardFromGPS();
     }
 
     /**
@@ -117,9 +129,16 @@ public static class GPSManager
         {
             PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
             {
-                if (result == SignInStatus.Success)
-
-                    PlayGamesPlatform.Instance.ShowLeaderboardUI();
+                switch (result)
+                {
+                    case SignInStatus.Canceled:
+                        SignInCanceled();
+                        break;
+                    case SignInStatus.Success:
+                        SignInSuccess();
+                        PlayGamesPlatform.Instance.ShowLeaderboardUI();
+                        break;
+                }
             });
         }
         else
@@ -137,13 +156,37 @@ public static class GPSManager
         {
             PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
             {
-                if (result == SignInStatus.Success)
-                    PlayGamesPlatform.Instance.ShowAchievementsUI();
+                switch (result)
+                {
+                    case SignInStatus.Canceled:
+                        SignInCanceled();
+                        break;
+                    case SignInStatus.Success:
+                        SignInSuccess();
+                        PlayGamesPlatform.Instance.ShowAchievementsUI();
+                        break;
+                }
             });
         }
         else
         {
             PlayGamesPlatform.Instance.ShowAchievementsUI();
         }
+    }
+
+    // ReSharper disable once InconsistentNaming
+    private static void LoadLeaderboardFromGPS()
+    {
+        PlayGamesPlatform.Instance.LoadScores(
+            GPGSIds.leaderboard_high_score,
+            LeaderboardStart.PlayerCentered,
+            1,
+            LeaderboardCollection.Public,
+            LeaderboardTimeSpan.AllTime,
+            data =>
+            {
+                if (!data.Valid) return;
+                GameManager.SetHighScoreFromGPS(data.PlayerScore.value);
+            });
     }
 }

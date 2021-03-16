@@ -44,7 +44,6 @@ public class UIManager : MonoBehaviour
         _scoreTextFader = scoreText.GetComponent<UIFader>();
         _scoreTextShadowFader = scoreTextShadow.GetComponent<UIFader>();
         _isSoundOn = PlayerPrefs.GetInt("soundOff", 1) == 1;
-        UpdateHighScoreText(PlayerPrefs.GetInt("highScore", 0));
     }
 
     internal void UpdateScoreText(int newScore)
