@@ -6,10 +6,11 @@
  - more UI Effects 
  - comments 
  - pause game on lostFocus application, onFocus wait for click
- - About UI not scaling
  - About Open/Close popup animation
+ - inapp rating
 
  # Done / Nah:
+ - About UI not scaling -> done
  - check if playerprefs are working -> done
  - local highscore amd get highscore from gps -> done
  - Safe user no sign in start -> done
