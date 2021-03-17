@@ -1,30 +1,57 @@
 # tap-heading-unity
- Hyper casual game in Unity
+Hyper Casual Android Game in Unity
 
- # todo / ideas
- - more user feedback for picking up coins (Score update with effects ...)
- - more UI Effects 
- - comments 
- - About Open/Close popup animation
- - HighScoreManager
+Quick weekend project with Unity.
 
- # Done / Nah:
- - inapp rating -> done (I hope so)
- - About UI not scaling -> done
- - check if playerprefs are working -> done
- - local highscore amd get highscore from gps -> done
- - Safe user no sign in start -> done
- - GooglePlay leaderboard/archivments -> done
- - sounds/soundtrack -> done
- - other font -> done
- - change sprites -> add shadows? -> done
- - change launcher icon -> done
- - change colors -> done
- - combo/strike for not missing coins -> nah
- - background particle -> nah
- - random distance between bars -> nah?
- - pause game on lostFocus application, onFocus wait for click -> nah
+## Table of Contents
 
-# Thanks
+- [tap-heading-unity](#tap-heading-unity)
+  - [Table of Contents](#table-of-contents)
+  - [How To Play](#how-to-play)
+  - [Features](#features)
+  - [Screenshots](#screenshots)
+  - [Install](#install)
+  - [Background](#background)
+  - [Known-Bugs-And-TODO](#known-bugs-and-todo)
+  - [License](#license)
 
-Sound effects obtained from https://www.zapsplat.com
+## How To Play
+
+Simply touch the screen to change the movement direction of the cube to the opposite direction. Avoid hitting the walls or the bars which are moving toward you. Collect coins to gain score.
+
+## Features
+
+- Google Play Service integration
+  - Leaderboard
+  - Achievements
+  - Load highscore
+- Optimised for mobile
+
+## Screenshots
+
+<p float="left">
+<img src="Store/Screenshots/Phone/Screenshot3.png?raw=true" width="200" />
+<img src="Store/Screenshots/Phone/Screenshot0.png?raw=true" width="200" />
+<img src="Store/Screenshots/Phone/Screenshot1.png?raw=true" width="200" />
+</p>
+
+
+## Install
+
+[GooglePlayStore](https://play.google.com/store/apps/details?id=com.poorskill.tapheading "PoorPassword on GooglePlayStore")
+
+## Background
+Last weekend before lectures starting again. Time to do some small project. Haven't touched Unity in nearly a year.
+
+## Known-Bugs-And-TODO
+
+Bugs
+* none (found yet :P)
+
+Todo
+* UI Animations
+
+## License
+
+[MIT](LICENSE) © Anton Kesy
+
