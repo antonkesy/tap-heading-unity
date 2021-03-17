@@ -51,6 +51,9 @@ public class PlayerManager : MonoBehaviour
         SetSpawnStartPositionY();
     }
 
+    /**
+     * Sets spawn y position of player depending on Camera
+     */
     private void SetSpawnStartPositionY()
     {
         var mainCam = Camera.main;
@@ -60,6 +63,9 @@ public class PlayerManager : MonoBehaviour
         _spawnStartPositionY = frustumHeight * -1f;
     }
 
+    /**
+     * Starts player moving in random direction
+     */
     internal void StartMoving()
     {
         if (_isRespawning)
@@ -77,11 +83,18 @@ public class PlayerManager : MonoBehaviour
         thrusterParticleSystem.Play();
     }
 
+    /**
+     * Call to change direction return if ChangeDirection is doable
+     */
     internal bool CallChangeDirection()
     {
         return ChangeDirection();
     }
 
+    /**
+     * Returns if player direction is changeable
+     * changes player direction
+     */
     private bool ChangeDirection()
     {
         if (!_isDirectionChangeable) return false;
@@ -92,6 +105,9 @@ public class PlayerManager : MonoBehaviour
         return true;
     }
 
+    /**
+     * Sets player shadow position according to direction is heading to
+     */
     private void ChangeShadowPosition()
     {
         shadowTransform.localPosition = Vector3.right * (_isDirectionRight ? -shadowOffset : shadowOffset) +
@@ -116,6 +132,9 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    /**
+     * Handles coin collision
+     */
     private void OnCoinCollision(GameObject coinGameObject)
     {
         coinGameObject.SetActive(false);
@@ -124,6 +143,9 @@ public class PlayerManager : MonoBehaviour
         gameManager.CoinPickedUpCallback();
     }
 
+    /**
+    * Destroys Player
+    */
     private void DestroyPlayer()
     {
         _rb.velocity = Vector2.zero;
@@ -134,6 +156,9 @@ public class PlayerManager : MonoBehaviour
         gameManager.DestroyPlayerCallback();
     }
 
+    /*
+    * Spawns Player
+    */
     internal void SpawnPlayer()
     {
         transform.position = Vector3.up * _spawnStartPositionY;
@@ -141,6 +166,9 @@ public class PlayerManager : MonoBehaviour
         StartCoroutine(MovePlayerToSpawn());
     }
 
+    /**
+     * Moves Player to the spawn 
+     */
     private IEnumerator MovePlayerToSpawn()
     {
         _isRespawning = true;
