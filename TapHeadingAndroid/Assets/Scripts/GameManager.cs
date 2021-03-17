@@ -165,14 +165,14 @@ public class GameManager : MonoBehaviour
     {
         _waitingToRestartGame = false;
         StartGame();
-        levelManager.RestartGame();
+        levelManager.RestartLevel();
     }
 
 
     private void StartFreshGame()
     {
         _waitingToStartFreshGame = false;
-        levelManager.StartFreshGame();
+        levelManager.StartFreshLevel();
         StartGame();
     }
 
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
         CheckNewHighScore();
         GPSManager.SubmitScore(_score);
         GPSManager.CheckAchievement(_score);
-        levelManager.LostGame();
+        levelManager.EndLevel();
         playerManager.SpawnPlayer();
         CheckForIARPopUp();
     }

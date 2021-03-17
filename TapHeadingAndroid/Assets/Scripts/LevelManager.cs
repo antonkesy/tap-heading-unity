@@ -21,6 +21,11 @@ SOFTWARE.
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Level Manager
+ *
+ * Generates, moves and deletes Chunks
+ */
 public class LevelManager : MonoBehaviour
 {
     [Header("Chunk & Chunk Groups")] [SerializeField] [Range(0, 1f)]
@@ -60,9 +65,12 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         SetChunkVars();
-        GenerateWalls();
+        SetsWalls();
     }
 
+    /**
+     * Sets the chunk variables (height, amount, start position,...) according to mainCam
+     */
     private void SetChunkVars()
     {
         //Chunk Height
@@ -90,20 +98,29 @@ public class LevelManager : MonoBehaviour
         _halfChunkWidth = localScale.x / 2f;
     }
 
-    private void GenerateWalls()
+    /**
+     * Sets the walls according to the xOffsetWall
+     */
+    private void SetsWalls()
     {
         wallGameObjects[0].transform.position = new Vector3(xOffsetWall, 0, 0);
         wallGameObjects[1].transform.position = new Vector3(-xOffsetWall, 0, 0);
     }
 
-    internal void StartFreshGame()
+    /**
+     * Resets Level to Start -> Resets Chunks & Speed
+     */
+    internal void StartFreshLevel()
     {
         _isRight = Random.Range(0f, 1f) > 0.5f;
         _chunkSpeed = chunkSpeedBase;
-        GenerateChunks();
+        SetChunks();
     }
 
-    private void GenerateChunks()
+    /**
+     * Sets all Chunks to start position
+     */
+    private void SetChunks()
     {
         var yOffset = 0f;
         //LowerChunkGroup && UpperChunkGroup
@@ -129,6 +146,9 @@ public class LevelManager : MonoBehaviour
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
+    /**
+     * Generates Chunk and Sets it to position in ChunkGroup
+     */
     private void GenerateChunk(float yOffset)
     {
         //TODO("reuse chunks after first spawn")
@@ -138,6 +158,9 @@ public class LevelManager : MonoBehaviour
         ChangeChunk(chunk.transform, chunkManager, yOffset);
     }
 
+    /**
+     * Sets Position of Chunk, Lets Chunk Spawn Coin
+     */
     private void ChangeChunk(Transform chunk, ChunkManager chunkManager, float yOffset)
     {
         chunk.position = GetNewChunkPosition(yOffset);
@@ -145,12 +168,18 @@ public class LevelManager : MonoBehaviour
         _isRight = !_isRight;
     }
 
+    /**
+     * Return new position of coin in Chunk
+     */
     private Vector3 GetNewCoinPosition(Vector3 parentChunkPosition)
     {
         return parentChunkPosition + Vector3.right *
             (_isRight ? -coinOffsetToBar - _halfChunkWidth : coinOffsetToBar + _halfChunkWidth);
     }
 
+    /**
+     * Return new position of chunk
+     */
     private Vector3 GetNewChunkPosition(float yOffset)
     {
         return new Vector3((Random.Range(0, maxRandomOffset) + xOffset) * (_isRight ? 1 : -1), _chunkYStart + yOffset,
@@ -159,17 +188,36 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
+        MoveChunkGroups();
+    }
+
+    /**
+     * Moves Chunk Groups & firstChunkYPosition according to speed and checks if chunk needs reset 
+     */
+    private void MoveChunkGroups()
+    {
         chunkGroupTransform0.position += Vector3.down * (_chunkSpeed * Time.deltaTime);
         chunkGroupTransform1.position += Vector3.down * (_chunkSpeed * Time.deltaTime);
 
         _fistChunkYPosition += _chunkSpeed * Time.deltaTime;
+        CheckChunkReset();
+    }
+
+    /**
+     * Checks if Chunk needs reset and calls reset
+     */
+    private void CheckChunkReset()
+    {
         if (_fistChunkYPosition > (_chunkHeight + yOffsetToChunks) * _amountOfChunksToBuffer)
         {
-            ResetChunk();
+            ResetChunks();
         }
     }
 
-    private void ResetChunk()
+    /**
+     * Resets ChunkGroup
+     */
+    private void ResetChunks()
     {
         int start, stop;
         if (_isFirstChunkGroupBottom)
@@ -198,24 +246,38 @@ public class LevelManager : MonoBehaviour
     }
 
 
+    /**
+     * Adds speedAdder to chunkSpeed
+     */
     internal void AddSpeed()
     {
         _chunkSpeed += speedAdder;
     }
 
 
+    /**
+     * Stops all chunk movement
+     */
     private void StopChunks()
     {
         _chunkSpeed = 0;
     }
 
-    internal void RestartGame()
+    /**
+     * Restarts Level
+     */
+    internal void RestartLevel()
     {
         ResetLevel();
-        StartFreshGame();
+        StartFreshLevel();
     }
 
-    internal void LostGame()
+    /**
+     * Ends Level
+     *
+     * Stops movement and calls chunks to move out
+     */
+    internal void EndLevel()
     {
         StopChunks();
         foreach (var keyValuePair in _chunks)
@@ -224,6 +286,9 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    /**
+     * Resets Level completely
+     */
     private void ResetLevel()
     {
         chunkGroupTransform0.position = Vector3.zero;
