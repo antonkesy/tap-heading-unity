@@ -20,10 +20,12 @@ SOFTWARE.
 
 using System.Collections;
 using System.Linq;
-using GooglePlayGames;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/**
+ * Manages the game loop as god class 
+ */
 public class GameManager : MonoBehaviour
 {
     private static GameManager Instance { get; set; }
@@ -36,18 +38,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioManager audioManager;
     private static int _highScore;
 
-    //Flags
-    private bool _isRunning;
-
     //Score
     private int _score;
-
-    private bool _waitingToRestartGame;
-    private bool _waitingToStartFreshGame;
 
     private bool _isIarPopUpPossible;
     private const int TimesToOpenB4IarCall = 10;
     private const int TimesToPlayB4IarCall = 50;
+
+    private GameState _currentGameState = GameState.Waiting;
+
+    private enum GameState
+    {
+        Running,
+        WaitingForFreshGame,
+        WaitingToRestart,
+        Waiting
+    }
 
     private void Awake()
     {
@@ -74,6 +80,9 @@ public class GameManager : MonoBehaviour
         ProcessUserInput();
     }
 
+    /**
+     * Loads flags from the player prefs
+     */
     private void LoadFlagsFromPlayerPrefs()
     {
         _isIarPopUpPossible = PlayerPrefsManager.GetTimesOpen() < TimesToOpenB4IarCall &&
@@ -87,11 +96,17 @@ public class GameManager : MonoBehaviour
         audioManager.SetSound(PlayerPrefsManager.IsSoundOn());
     }
 
+    /**
+     * Sets game high score as static call
+     */
     public static void SetHighScoreFromLocal()
     {
         Instance.SetHighScoreLocal();
     }
 
+    /**
+     * Sets game highScore and calls ui/save
+     */
     private void SetHighScore(int value)
     {
         _highScore = value;
@@ -99,28 +114,43 @@ public class GameManager : MonoBehaviour
         PlayerPrefsManager.SetLocalHighScore(_highScore);
     }
 
+    /**
+     * Sets local highScore
+     */
     private void SetHighScoreLocal()
     {
         SetHighScore(PlayerPrefsManager.GetLocalHighScore());
     }
 
     // ReSharper disable once InconsistentNaming
+    /**
+     * Overwrites GPS highScore with local highScore 
+     */
     internal static void OverwriteGPSHighScore()
     {
         GPSManager.SubmitScore(PlayerPrefsManager.GetLocalHighScore());
     }
 
     // ReSharper disable once InconsistentNaming
+    /**
+     * Sets LocalHighScore
+     */
     internal static void SetHighScoreFromGPS(long highScore)
     {
         Instance.SetHighScore((int) highScore);
     }
 
+    /**
+     * Debug Editor Input
+     */
     private void ProcessEditorInput()
     {
         if (Input.GetKeyDown("space")) OnUserClick();
     }
 
+    /**
+     * Processes touch input
+     */
     private void ProcessUserInput()
     {
         if (Input.touchCount <= 0 || Input.GetTouch(0).phase != TouchPhase.Began) return;
@@ -131,24 +161,28 @@ public class GameManager : MonoBehaviour
         OnUserClick();
     }
 
-
+    /**
+    * Calls Actions by user click depending on game state
+    */
     private void OnUserClick()
     {
-        if (_isRunning)
+        switch (_currentGameState)
         {
-            if (playerManager.CallChangeDirection()) audioManager.PlayTapPlayer();
-        }
-        else if (_waitingToStartFreshGame)
-        {
-            if (IsClickForGame()) StartFreshGame();
-        }
-
-        else if (_waitingToRestartGame)
-        {
-            if (IsClickForGame()) RestartGame();
+            case GameState.Running:
+                if (playerManager.CallChangeDirection()) audioManager.PlayTapPlayer();
+                break;
+            case GameState.WaitingToRestart:
+                if (IsClickForGame()) RestartGame();
+                break;
+            case GameState.WaitingForFreshGame:
+                if (IsClickForGame()) StartFreshGame();
+                break;
         }
     }
 
+    /**
+     * Returns if the touch click should be processed as game tap
+     */
     private bool IsClickForGame()
     {
         if (uiManager.isAboutOn()) return false;
@@ -156,35 +190,50 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    /**
+     * Sets currentGameState to waiting for fresh game
+     */
     internal void ReadyToStartGameCallback()
     {
-        _waitingToStartFreshGame = true;
+        _currentGameState = GameState.WaitingForFreshGame;
     }
 
+    /**
+     * Restarts Game
+     */
     private void RestartGame()
     {
-        _waitingToRestartGame = false;
+        _currentGameState = GameState.Running;
         StartGame();
         levelManager.RestartLevel();
     }
 
 
+    /**
+     * Starts Fresh Game
+     */
     private void StartFreshGame()
     {
-        _waitingToStartFreshGame = false;
+        _currentGameState = GameState.Running;
         levelManager.StartFreshLevel();
         StartGame();
     }
 
+    /**
+     * Starts Game
+     */
     private void StartGame()
     {
         _score = 0;
         uiManager.UpdateScoreText(_score);
-        _isRunning = true;
+        _currentGameState = GameState.Running;
         uiManager.ShowPlayUI();
         playerManager.StartMoving();
     }
 
+    /**
+     * Callback when coin is picked up
+     */
     internal void CoinPickedUpCallback()
     {
         audioManager.PlayCollectCoin();
@@ -192,16 +241,22 @@ public class GameManager : MonoBehaviour
         levelManager.AddSpeed();
     }
 
+    /**
+    * Callback when player is destroyed    
+    */
     internal void DestroyPlayerCallback()
     {
         OnPlayerDestroy();
     }
 
+    /**
+     * Ends game
+     */
     private void OnPlayerDestroy()
     {
         audioManager.PlayDestroyPlayer();
         cameraManager.StartShaking();
-        _isRunning = false;
+        _currentGameState = GameState.Waiting;
         uiManager.ShowReturningMenuUI();
         StartCoroutine(WaitToRestart());
         CheckNewHighScore();
@@ -212,6 +267,9 @@ public class GameManager : MonoBehaviour
         CheckForIARPopUp();
     }
 
+    /**
+     * Checks if current score is new highScore
+     */
     private void CheckNewHighScore()
     {
         if (_highScore >= _score) return;
@@ -220,14 +278,19 @@ public class GameManager : MonoBehaviour
         uiManager.FadeInNewHighScore();
     }
 
-
+    /**
+     * Waits fixed time then sets currentGameState to WaitingToRestart 
+     */
     private IEnumerator WaitToRestart()
     {
         yield return new WaitForSecondsRealtime(1f);
-        _waitingToRestartGame = true;
+        _currentGameState = GameState.WaitingToRestart;
     }
 
     // ReSharper disable once InconsistentNaming
+    /**
+     * Checks if IARPopUp should be shown
+     */
     private void CheckForIARPopUp()
     {
         if (!_isIarPopUpPossible) return;
