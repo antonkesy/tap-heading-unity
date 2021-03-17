@@ -175,6 +175,9 @@ public static class GPSManager
     }
 
     // ReSharper disable once InconsistentNaming
+    /**
+     * Tries to load highScore of user from google play services and sets it as local highscore  
+     */
     private static void LoadLeaderboardFromGPS()
     {
         PlayGamesPlatform.Instance.LoadScores(
