@@ -38,5 +38,6 @@ sysinfo.txt
 
 # Custom
 *.log
-[Ll]ogs/
+**/[Ll]ogs/
+**/[Uu]serSettings/
 TapHeadingAndroid/Logs/shadercompiler-UnityShaderCompiler.exe0.log
