@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     private const int TimesToPlayB4IarCall = 50;
 
     private GameState _currentGameState = GameState.Waiting;
+    [SerializeField] private bool isSingleClick = true;
 
     private enum GameState
     {
@@ -149,8 +150,9 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space)) OnUserClick(Vector2.zero);
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) OnUserLeftClick();
-        if (Input.GetKeyDown(KeyCode.RightArrow)) OnUserRightClick();
+        //without sound!!!
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) playerManager.CallChangeDirectionLeft();
+        if (Input.GetKeyDown(KeyCode.RightArrow)) playerManager.CallChangeDirectionRight();
     }
 
     /**
@@ -163,7 +165,7 @@ public class GameManager : MonoBehaviour
             .Any(id => EventSystem.current.IsPointerOverGameObject(id)))
             return;
 
-        OnUserClick(Input.GetTouch(0).position);
+        OnUserClick(Input.GetTouch(Input.touchCount - 1).position);
     }
 
     /**
@@ -188,21 +190,17 @@ public class GameManager : MonoBehaviour
 
     private void UserInteractionWhilePlaying(Vector2 position)
     {
-        Debug.Log(position);
-        if (playerManager.CallChangeDirection())
+        bool changedDirection = isSingleClick
+            ? playerManager.ChangeDirection()
+            : position.x > Screen.width / 2
+                ? playerManager.CallChangeDirectionRight()
+                : playerManager.CallChangeDirectionLeft();
+
+        //play click audio if changed direction
+        if (changedDirection)
         {
             audioManager.PlayTapPlayer();
         }
-    }
-
-    private void OnUserRightClick()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void OnUserLeftClick()
-    {
-        throw new System.NotImplementedException();
     }
 
     /**

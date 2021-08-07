@@ -305,6 +305,7 @@ MonoBehaviour:
   uiManager: {fileID: 1781529468}
   cameraManager: {fileID: 519420033}
   audioManager: {fileID: 1180965302}
+  isSingleClick: 0
 --- !u!4 &190944115
 Transform:
   m_ObjectHideFlags: 0

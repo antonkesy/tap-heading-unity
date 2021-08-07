@@ -83,19 +83,22 @@ public class PlayerManager : MonoBehaviour
         thrusterParticleSystem.Play();
     }
 
-    /**
-     * Call to change direction return if ChangeDirection is doable
-     */
-    internal bool CallChangeDirection()
+    internal bool CallChangeDirectionRight()
     {
-        return ChangeDirection();
+        return !_isDirectionRight && ChangeDirection();
     }
 
+    internal bool CallChangeDirectionLeft()
+    {
+        return _isDirectionRight && ChangeDirection();
+    }
+
+   
     /**
      * Returns if player direction is changeable
      * changes player direction
      */
-    private bool ChangeDirection()
+    internal bool ChangeDirection()
     {
         if (!_isDirectionChangeable) return false;
         _isDirectionRight = !_isDirectionRight;
