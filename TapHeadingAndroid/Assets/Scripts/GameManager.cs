@@ -75,7 +75,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //DEBUG----------------------------------------------
-        //ProcessEditorInput();
+#if UNITY_EDITOR
+        ProcessEditorInput();
+#endif
         //-------------------------------------------------
         ProcessUserInput();
     }
@@ -137,7 +139,7 @@ public class GameManager : MonoBehaviour
      */
     internal static void SetHighScoreFromGPS(long highScore)
     {
-        Instance.SetHighScore((int) highScore);
+        Instance.SetHighScore((int)highScore);
     }
 
     /**
