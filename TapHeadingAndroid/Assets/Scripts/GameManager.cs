@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     private const int TimesToPlayB4IarCall = 50;
 
     private GameState _currentGameState = GameState.Waiting;
-    [SerializeField] private bool isSingleClick = true;
+    [SerializeField] internal bool isSingleClick = true;
 
     private enum GameState
     {

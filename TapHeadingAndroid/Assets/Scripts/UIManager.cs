@@ -21,6 +21,7 @@ SOFTWARE.
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class UIManager : MonoBehaviour
     [Header("Menu")] [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI tapToStartText;
     [SerializeField] private GameObject aboutPanel;
+    [SerializeField] private Toggle inputToggle;
 
     private bool _isPlaying;
     private bool _isSoundOn;
@@ -236,5 +238,10 @@ public class UIManager : MonoBehaviour
     internal void FadeInNewHighScore()
     {
         menuManager.FadeInNewHighScore();
+    }
+
+    public void ToggleInputSettings()
+    {
+        gameManager.isSingleClick = inputToggle.isOn;
     }
 }
