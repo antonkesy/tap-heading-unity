@@ -147,7 +147,10 @@ public class GameManager : MonoBehaviour
      */
     private void ProcessEditorInput()
     {
-        if (Input.GetKeyDown("space")) OnUserClick();
+        if (Input.GetKeyDown(KeyCode.Space)) OnUserClick(Vector2.zero);
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) OnUserLeftClick();
+        if (Input.GetKeyDown(KeyCode.RightArrow)) OnUserRightClick();
     }
 
     /**
@@ -160,18 +163,19 @@ public class GameManager : MonoBehaviour
             .Any(id => EventSystem.current.IsPointerOverGameObject(id)))
             return;
 
-        OnUserClick();
+        OnUserClick(Input.GetTouch(0).position);
     }
 
     /**
-    * Calls Actions by user click depending on game state
-    */
-    private void OnUserClick()
+     * Calls Actions by user click depending on game state
+     * <param name="position"></param>
+     */
+    private void OnUserClick(Vector2 position)
     {
         switch (_currentGameState)
         {
             case GameState.Running:
-                if (playerManager.CallChangeDirection()) audioManager.PlayTapPlayer();
+                UserInteractionWhilePlaying(position);
                 break;
             case GameState.WaitingToRestart:
                 if (IsClickForGame()) RestartGame();
@@ -180,6 +184,25 @@ public class GameManager : MonoBehaviour
                 if (IsClickForGame()) StartFreshGame();
                 break;
         }
+    }
+
+    private void UserInteractionWhilePlaying(Vector2 position)
+    {
+        Debug.Log(position);
+        if (playerManager.CallChangeDirection())
+        {
+            audioManager.PlayTapPlayer();
+        }
+    }
+
+    private void OnUserRightClick()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void OnUserLeftClick()
+    {
+        throw new System.NotImplementedException();
     }
 
     /**
