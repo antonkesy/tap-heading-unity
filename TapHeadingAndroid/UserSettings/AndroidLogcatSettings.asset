@@ -1,19 +1,13 @@
 {
     "m_SelectedDeviceId": "1cc9c5cc",
     "m_SelectedPackage": {
-        "deviceId": "1cc9c5cc",
-        "name": "com.poorskill.tapheading",
-        "processId": 1463,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "1cc9c5cc",
-            "name": "com.poorskill.tapheading",
-            "processId": 18262,
-            "exited": true
-        },
         {
             "deviceId": "1cc9c5cc",
             "name": "com.poorskill.tapheading",
@@ -42,6 +36,12 @@
             "deviceId": "1cc9c5cc",
             "name": "com.poorskill.tapheading",
             "processId": 1463,
+            "exited": true
+        },
+        {
+            "deviceId": "1cc9c5cc",
+            "name": "net.oneplus.launcher",
+            "processId": 1481,
             "exited": false
         }
     ],
