@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     private const int TimesToPlayB4IarCall = 50;
 
     private GameState _currentGameState = GameState.Waiting;
+    [SerializeField] internal bool isSingleClick = true;
 
     private enum GameState
     {
@@ -75,7 +76,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //DEBUG----------------------------------------------
-        //ProcessEditorInput();
+#if UNITY_EDITOR
+        ProcessEditorInput();
+#endif
         //-------------------------------------------------
         ProcessUserInput();
     }
@@ -137,7 +140,7 @@ public class GameManager : MonoBehaviour
      */
     internal static void SetHighScoreFromGPS(long highScore)
     {
-        Instance.SetHighScore((int) highScore);
+        Instance.SetHighScore((int)highScore);
     }
 
     /**
@@ -145,7 +148,11 @@ public class GameManager : MonoBehaviour
      */
     private void ProcessEditorInput()
     {
-        if (Input.GetKeyDown("space")) OnUserClick();
+        if (Input.GetKeyDown(KeyCode.Space)) OnUserClick(Vector2.zero);
+
+        //without sound!!!
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) playerManager.CallChangeDirectionLeft();
+        if (Input.GetKeyDown(KeyCode.RightArrow)) playerManager.CallChangeDirectionRight();
     }
 
     /**
@@ -158,18 +165,19 @@ public class GameManager : MonoBehaviour
             .Any(id => EventSystem.current.IsPointerOverGameObject(id)))
             return;
 
-        OnUserClick();
+        OnUserClick(Input.GetTouch(Input.touchCount - 1).position);
     }
 
     /**
-    * Calls Actions by user click depending on game state
-    */
-    private void OnUserClick()
+     * Calls Actions by user click depending on game state
+     * <param name="position"></param>
+     */
+    private void OnUserClick(Vector2 position)
     {
         switch (_currentGameState)
         {
             case GameState.Running:
-                if (playerManager.CallChangeDirection()) audioManager.PlayTapPlayer();
+                UserInteractionWhilePlaying(position);
                 break;
             case GameState.WaitingToRestart:
                 if (IsClickForGame()) RestartGame();
@@ -177,6 +185,21 @@ public class GameManager : MonoBehaviour
             case GameState.WaitingForFreshGame:
                 if (IsClickForGame()) StartFreshGame();
                 break;
+        }
+    }
+
+    private void UserInteractionWhilePlaying(Vector2 position)
+    {
+        bool changedDirection = isSingleClick
+            ? playerManager.ChangeDirection()
+            : position.x > Screen.width / 2
+                ? playerManager.CallChangeDirectionRight()
+                : playerManager.CallChangeDirectionLeft();
+
+        //play click audio if changed direction
+        if (changedDirection)
+        {
+            audioManager.PlayTapPlayer();
         }
     }
 
