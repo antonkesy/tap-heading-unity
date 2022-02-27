@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using tap_heading.Game.chunk;
 using UnityEngine;
 
 namespace tap_heading.Game
@@ -28,7 +29,7 @@ namespace tap_heading.Game
         private readonly List<KeyValuePair<Transform, ChunkManager>> _chunks =
             new List<KeyValuePair<Transform, ChunkManager>>();
 
-        private bool _isRight;
+        private IChunkManager.Side _side;
         private float _fistChunkYPosition;
 
         [Header("Level Properties")] [SerializeField]
@@ -42,7 +43,6 @@ namespace tap_heading.Game
 
         private bool _isFirstChunkGroupBottom = true;
 
-        [SerializeField] private float chunkDespawnTime = 4f;
 
         private void Start()
         {
@@ -94,7 +94,7 @@ namespace tap_heading.Game
      */
         internal void StartFreshLevel()
         {
-            _isRight = Random.Range(0f, 1f) > 0.5f;
+            _side = Random.Range(0f, 1f) > 0.5f ? IChunkManager.Side.Right : IChunkManager.Side.Left;
             _chunkSpeed = chunkSpeedBase;
             SetChunks();
         }
@@ -123,7 +123,7 @@ namespace tap_heading.Game
             //Set isRight after Generation
             if (_amountOfChunksToBuffer % 2 != 0)
             {
-                _isRight = !_isRight;
+                _side = _side == IChunkManager.Side.Left ? IChunkManager.Side.Right : IChunkManager.Side.Left;
             }
         }
 
@@ -134,7 +134,8 @@ namespace tap_heading.Game
         private void GenerateChunk(float yOffset)
         {
             //TODO("reuse chunks after first spawn")
-            var chunk = Instantiate(chunkPrefab, _isFirstChunkGroupBottom ? chunkGroupTransform0 : chunkGroupTransform1);
+            var chunk = Instantiate(chunkPrefab,
+                _isFirstChunkGroupBottom ? chunkGroupTransform0 : chunkGroupTransform1);
             var chunkManager = chunk.GetComponent<ChunkManager>();
             _chunks.Add(new KeyValuePair<Transform, ChunkManager>(chunk.transform, chunkManager));
             ChangeChunk(chunk.transform, chunkManager, yOffset);
@@ -146,8 +147,8 @@ namespace tap_heading.Game
         private void ChangeChunk(Transform chunk, ChunkManager chunkManager, float yOffset)
         {
             chunk.position = GetNewChunkPosition(yOffset);
-            chunkManager.SpawnCoin(GetNewCoinPosition(chunk.transform.position), _isRight);
-            _isRight = !_isRight;
+            chunkManager.SpawnCoin(GetNewCoinPosition(chunk.transform.position), _side);
+            _side = SwitchSide(_side);
         }
 
         /**
@@ -156,7 +157,9 @@ namespace tap_heading.Game
         private Vector3 GetNewCoinPosition(Vector3 parentChunkPosition)
         {
             return parentChunkPosition + Vector3.right *
-                (_isRight ? -coinOffsetToBar - _halfChunkWidth : coinOffsetToBar + _halfChunkWidth);
+                (_side == IChunkManager.Side.Right
+                    ? -coinOffsetToBar - _halfChunkWidth
+                    : coinOffsetToBar + _halfChunkWidth);
         }
 
         /**
@@ -164,7 +167,9 @@ namespace tap_heading.Game
      */
         private Vector3 GetNewChunkPosition(float yOffset)
         {
-            return new Vector3((Random.Range(0, maxRandomOffset) + xOffset) * (_isRight ? 1 : -1), _chunkYStart + yOffset,
+            return new Vector3(
+                (Random.Range(0, maxRandomOffset) + xOffset) * (_side == IChunkManager.Side.Right ? 1 : -1),
+                _chunkYStart + yOffset,
                 0);
         }
 
@@ -264,7 +269,7 @@ namespace tap_heading.Game
             StopChunks();
             foreach (var keyValuePair in _chunks)
             {
-                keyValuePair.Value.MoveOutCall(chunkDespawnTime);
+                keyValuePair.Value.MoveOut();
             }
         }
 
@@ -283,6 +288,11 @@ namespace tap_heading.Game
             _chunks.Clear();
             _fistChunkYPosition = 0;
             _isFirstChunkGroupBottom = true;
+        }
+
+        private IChunkManager.Side SwitchSide(IChunkManager.Side input)
+        {
+            return input == IChunkManager.Side.Left ? IChunkManager.Side.Right : IChunkManager.Side.Left;
         }
     }
 }

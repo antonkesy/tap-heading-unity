@@ -2,25 +2,20 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace tap_heading.Game
+namespace tap_heading.Game.chunk
 {
-    /**
- * Manages Coin, Despawn-Movement of Single Chunk
- */
-    public class ChunkManager : MonoBehaviour
+    public class ChunkManager : MonoBehaviour, IChunkManager
     {
         [Header("Coin")] [SerializeField] private GameObject coinGameObject;
         [SerializeField] private float coinSpawnProbability;
 
-        private bool _isRight;
+        private IChunkManager.Side _side;
 
+        [SerializeField] private float despawnTime = 4f;
 
-        /**
-     * Sets the coin by probability to spawn or deactivates it
-     */
-        internal void SpawnCoin(Vector3 position, bool isRight)
+        public void SpawnCoin(Vector3 position, IChunkManager.Side side)
         {
-            _isRight = isRight;
+            _side = side;
             if (coinSpawnProbability > Random.Range(0, 1f))
             {
                 coinGameObject.transform.position = position;
@@ -32,31 +27,16 @@ namespace tap_heading.Game
             }
         }
 
-        /**
-     * Hides Coin
-     */
-        private void DestroyCall()
+        private void HideCoin()
         {
             coinGameObject.SetActive(false);
         }
 
-        /**
-     * Starts Chunk MoveOut
-     */
-        internal void MoveOutCall(float duration)
-        {
-            DestroyCall();
-            StartCoroutine(MoveOut(duration));
-        }
-
-        /**
-     * Moves out this Chunk
-     */
         private IEnumerator MoveOut(float duration)
         {
             var time = 0f;
             var position = transform.position;
-            var targetPosition = new Vector3((_isRight ? 15f : -15f), position.y, position.z);
+            var targetPosition = new Vector3((_side == IChunkManager.Side.Right ? 15f : -15f), position.y, position.z);
             while (time < duration)
             {
                 transform.position = Vector3.LerpUnclamped(transform.position, targetPosition, time / duration);
@@ -67,6 +47,12 @@ namespace tap_heading.Game
                 transform.position = targetPosition;
                 break;
             }
+        }
+
+        public void MoveOut()
+        {
+            HideCoin();
+            StartCoroutine(MoveOut(despawnTime));
         }
     }
 }
