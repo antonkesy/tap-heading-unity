@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using tap_heading.Audio;
 using tap_heading.Camera;
+using tap_heading.Game.level;
 using tap_heading.Player;
 using tap_heading.Services.Google;
 using tap_heading.Settings;
@@ -19,7 +20,7 @@ namespace tap_heading.Game
         private static GameManager Instance { get; set; }
 
         [Header("Manager")] [SerializeField] private PlayerManager playerManager;
-        [SerializeField] private LevelManager levelManager;
+        private ILevelManager _levelManager;
         [SerializeField] private UIManager uiManager;
         [SerializeField] private GameObject cameraManagerHolder;
         private ICameraManager _cameraManager;
@@ -55,6 +56,7 @@ namespace tap_heading.Game
             //workaround getting reference of interface implementation
             _audioManager = gameObject.transform.parent.GetComponentInChildren<IAudioManager>();
             _cameraManager = cameraManagerHolder.GetComponent<ICameraManager>();
+            _levelManager = gameObject.transform.parent.GetComponentInChildren<ILevelManager>();
             Instance = this;
             SetHighScoreLocal();
             LoadFlagsFromPlayerPrefs();
@@ -220,7 +222,7 @@ namespace tap_heading.Game
         {
             _currentGameState = GameState.Running;
             StartGame();
-            levelManager.RestartLevel();
+            _levelManager.RestartLevel();
         }
 
 
@@ -230,7 +232,7 @@ namespace tap_heading.Game
         private void StartFreshGame()
         {
             _currentGameState = GameState.Running;
-            levelManager.StartFreshLevel();
+            _levelManager.StartFreshLevel();
             StartGame();
         }
 
@@ -253,7 +255,7 @@ namespace tap_heading.Game
         {
             _audioManager.PlayCollectCoin();
             uiManager.UpdateScoreText(++_score);
-            levelManager.AddSpeed();
+            _levelManager.IncreaseSpeed();
         }
 
         /**
@@ -277,7 +279,7 @@ namespace tap_heading.Game
             CheckNewHighScore();
             GPSManager.SubmitScore(_score);
             GPSManager.CheckAchievement(_score);
-            levelManager.EndLevel();
+            _levelManager.EndLevel();
             playerManager.SpawnPlayer();
             CheckForIARPopUp();
         }

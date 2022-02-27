@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using tap_heading.Game.chunk;
 using UnityEngine;
 
-namespace tap_heading.Game
+namespace tap_heading.Game.level
 {
     /**
  * Level Manager
  *
  * Generates, moves and deletes Chunks
  */
-    public class LevelManager : MonoBehaviour
+    public class LevelManager : MonoBehaviour,ILevelManager
     {
         [Header("Chunk & Chunk Groups")] [SerializeField] [Range(0, 1f)]
         private float maxRandomOffset;
@@ -92,7 +92,7 @@ namespace tap_heading.Game
         /**
      * Resets Level to Start -> Resets Chunks & Speed
      */
-        internal void StartFreshLevel()
+        public void StartFreshLevel()
         {
             _side = Random.Range(0f, 1f) > 0.5f ? IChunkManager.Side.Right : IChunkManager.Side.Left;
             _chunkSpeed = chunkSpeedBase;
@@ -236,7 +236,7 @@ namespace tap_heading.Game
         /**
      * Adds speedAdder to chunkSpeed
      */
-        internal void AddSpeed()
+        public void IncreaseSpeed()
         {
             _chunkSpeed += speedAdder;
         }
@@ -253,7 +253,7 @@ namespace tap_heading.Game
         /**
      * Restarts Level
      */
-        internal void RestartLevel()
+        public void RestartLevel()
         {
             ResetLevel();
             StartFreshLevel();
@@ -264,7 +264,7 @@ namespace tap_heading.Game
      *
      * Stops movement and calls chunks to move out
      */
-        internal void EndLevel()
+        public void EndLevel()
         {
             StopChunks();
             foreach (var keyValuePair in _chunks)
