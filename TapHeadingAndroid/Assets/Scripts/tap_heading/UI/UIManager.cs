@@ -30,7 +30,8 @@ namespace tap_heading.UI
 
         private void Start()
         {
-            _audioManager = gameManager.GetComponent<IAudioManager>();
+            //workaround for manager hierarchy
+            _audioManager = gameManager.transform.parent.GetComponentInChildren<IAudioManager>();
             _scoreTextFader = scoreText.GetComponent<UIFader>();
             _scoreTextShadowFader = scoreTextShadow.GetComponent<UIFader>();
             _isSoundOn = !PlayerPrefsManager.IsSoundOn();
