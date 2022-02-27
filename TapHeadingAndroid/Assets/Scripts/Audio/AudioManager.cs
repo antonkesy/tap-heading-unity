@@ -20,7 +20,7 @@ SOFTWARE.
 
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoBehaviour, IAudioManager
 {
     private AudioSource _audioSource;
 
@@ -59,44 +59,44 @@ public class AudioManager : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    internal void SetSound(bool isSoundOn)
-    {
-        _isSoundOn = isSoundOn;
-    }
-
     private void PlayClip(AudioClip clip, float volume)
     {
         if (!_isSoundOn) return;
         _audioSource.PlayOneShot(clip, volume);
     }
 
-    internal void PlayCollectCoin()
+    public void SetSound(bool isActive)
     {
-        PlayClip(collectCoinAudioClip, coinVolume);
+        _isSoundOn = isActive;
     }
 
-    internal void PlayDestroyPlayer()
+    public void PlayStartApplication()
+    {
+        PlayClip(startApplicationAudioClip, startApplicationVolume);
+    }
+
+    public void PlayPlayerDeath()
     {
         PlayClip(destroyPlayerAudioClip, destroyVolume);
     }
 
-    internal void PlayTapPlayer()
+    public void PlayPlayerTap()
     {
         PlayClip(tapPlayerAudioClip, tapVolume);
     }
 
-    internal void PlayTapUI()
+    public void PlayUITap()
     {
         PlayClip(tapUIAudioClip, uiVolume);
     }
 
-    internal void PlayNewHighScore()
+    public void PlayNewHighScore()
     {
         PlayClip(newHighSoreAudioClip, newHighScoreVolume);
     }
 
-    internal void PlayStartApplication()
+    public void PlayCollectCoin()
     {
-        PlayClip(startApplicationAudioClip, startApplicationVolume);
+        PlayClip(collectCoinAudioClip, coinVolume);
     }
 }

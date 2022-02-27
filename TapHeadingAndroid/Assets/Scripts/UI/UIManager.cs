@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
 {
     [Header("Manager")] [SerializeField] private GameManager gameManager;
     [SerializeField] private UIMenuManager menuManager;
-    [SerializeField] private AudioManager audioManager;
+    private IAudioManager _audioManager;
     [Header("Play")] [SerializeField] private TextMeshProUGUI scoreText;
     private UIFader _scoreTextFader;
     [SerializeField] private TextMeshProUGUI scoreTextShadow;
@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        _audioManager = gameManager.GetComponent<IAudioManager>();
         _scoreTextFader = scoreText.GetComponent<UIFader>();
         _scoreTextShadowFader = scoreTextShadow.GetComponent<UIFader>();
         _isSoundOn = !PlayerPrefsManager.IsSoundOn();
@@ -124,7 +125,7 @@ public class UIManager : MonoBehaviour
     public void OnAboutButtonClick()
     {
         if (_isPlaying) return;
-        audioManager.PlayTapUI();
+        _audioManager.PlayUITap();
         Social.ReportProgress(GPGSIds.achievement_thank_you, 0.0f, null);
         aboutPanel.SetActive(!aboutPanel.activeSelf);
         tapToStartText.gameObject.SetActive(!aboutPanel.activeSelf);
@@ -137,7 +138,7 @@ public class UIManager : MonoBehaviour
     public void OnLeaderboardButtonClick()
     {
         if (_isPlaying) return;
-        audioManager.PlayTapUI();
+        _audioManager.PlayUITap();
         GPSManager.ShowLeaderboardUI();
     }
 
@@ -147,7 +148,7 @@ public class UIManager : MonoBehaviour
     public void OnAchievementsButtonClick()
     {
         if (_isPlaying) return;
-        audioManager.PlayTapUI();
+        _audioManager.PlayUITap();
         GPSManager.ShowAchievementsUI();
     }
 
@@ -173,8 +174,8 @@ public class UIManager : MonoBehaviour
     private void OnSoundButtonClick(bool soundOn)
     {
         if (_isPlaying) return;
-        audioManager.SetSound(soundOn);
-        audioManager.PlayTapUI();
+        _audioManager.SetSound(soundOn);
+        _audioManager.PlayUITap();
         PlayerPrefsManager.SetSoundOn(soundOn);
         _isSoundOn = !soundOn;
         menuManager.SetSound(!soundOn);
@@ -186,7 +187,7 @@ public class UIManager : MonoBehaviour
     private void OpenWebsite(string url)
     {
         if (_isPlaying) return;
-        audioManager.PlayTapUI();
+        _audioManager.PlayUITap();
         Application.OpenURL(url);
     }
 

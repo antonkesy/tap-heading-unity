@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     [SerializeField] private CameraManager cameraManager;
 
-    [SerializeField] private AudioManager audioManager;
+    private IAudioManager _audioManager;
     private static int _highScore;
 
     //Score
@@ -63,12 +63,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //workaround getting reference of interface implementation
+        _audioManager = gameObject.transform.parent.GetComponentInChildren<IAudioManager>();
         Instance = this;
         SetHighScoreLocal();
         LoadFlagsFromPlayerPrefs();
         Application.targetFrameRate = 60;
         uiManager.ShowStartMenuUI();
-        audioManager.PlayStartApplication();
+        _audioManager.PlayStartApplication();
         playerManager.SpawnPlayer();
     }
 
@@ -96,7 +98,7 @@ public class GameManager : MonoBehaviour
             GPSManager.SignInToGooglePlayServices();
         }
 
-        audioManager.SetSound(PlayerPrefsManager.IsSoundOn());
+        _audioManager.SetSound(PlayerPrefsManager.IsSoundOn());
     }
 
     /**
@@ -140,7 +142,7 @@ public class GameManager : MonoBehaviour
      */
     internal static void SetHighScoreFromGPS(long highScore)
     {
-        Instance.SetHighScore((int)highScore);
+        Instance.SetHighScore((int) highScore);
     }
 
     /**
@@ -199,7 +201,7 @@ public class GameManager : MonoBehaviour
         //play click audio if changed direction
         if (changedDirection)
         {
-            audioManager.PlayTapPlayer();
+            _audioManager.PlayPlayerTap();
         }
     }
 
@@ -209,7 +211,7 @@ public class GameManager : MonoBehaviour
     private bool IsClickForGame()
     {
         if (uiManager.isAboutOn()) return false;
-        audioManager.PlayTapPlayer();
+        _audioManager.PlayPlayerTap();
         return true;
     }
 
@@ -259,7 +261,7 @@ public class GameManager : MonoBehaviour
      */
     internal void CoinPickedUpCallback()
     {
-        audioManager.PlayCollectCoin();
+        _audioManager.PlayCollectCoin();
         uiManager.UpdateScoreText(++_score);
         levelManager.AddSpeed();
     }
@@ -277,7 +279,7 @@ public class GameManager : MonoBehaviour
      */
     private void OnPlayerDestroy()
     {
-        audioManager.PlayDestroyPlayer();
+        _audioManager.PlayPlayerDeath();
         cameraManager.StartShaking();
         _currentGameState = GameState.Waiting;
         uiManager.ShowReturningMenuUI();
@@ -297,7 +299,7 @@ public class GameManager : MonoBehaviour
     {
         if (_highScore >= _score) return;
         SetHighScore(_score);
-        audioManager.PlayNewHighScore();
+        _audioManager.PlayNewHighScore();
         uiManager.FadeInNewHighScore();
     }
 
