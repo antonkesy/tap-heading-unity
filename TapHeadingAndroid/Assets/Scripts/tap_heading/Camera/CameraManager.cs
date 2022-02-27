@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace tap_heading.Camera
 {
-    public class CameraManager : MonoBehaviour
+    public class CameraManager : MonoBehaviour, ICameraManager
     {
         [Header("Scene")] [SerializeField] private float sceneWidth = 10;
         [Header("Shaking")] [SerializeField] private float shakeDuration = 1f;
@@ -50,7 +50,8 @@ namespace tap_heading.Camera
             }
         }
 
-        internal void StartShaking()
+
+        public void StartShaking()
         {
             _shakeDuration = shakeDuration;
             _originalPos = gameObject.transform.position;

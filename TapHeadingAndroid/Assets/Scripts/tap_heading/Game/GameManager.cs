@@ -21,7 +21,8 @@ namespace tap_heading.Game
         [Header("Manager")] [SerializeField] private PlayerManager playerManager;
         [SerializeField] private LevelManager levelManager;
         [SerializeField] private UIManager uiManager;
-        [SerializeField] private CameraManager cameraManager;
+        [SerializeField] private GameObject cameraManagerHolder;
+        private ICameraManager _cameraManager;
 
         private IAudioManager _audioManager;
         private static int _highScore;
@@ -53,6 +54,7 @@ namespace tap_heading.Game
         {
             //workaround getting reference of interface implementation
             _audioManager = gameObject.transform.parent.GetComponentInChildren<IAudioManager>();
+            _cameraManager = cameraManagerHolder.GetComponent<ICameraManager>();
             Instance = this;
             SetHighScoreLocal();
             LoadFlagsFromPlayerPrefs();
@@ -268,7 +270,7 @@ namespace tap_heading.Game
         private void OnPlayerDestroy()
         {
             _audioManager.PlayPlayerDeath();
-            cameraManager.StartShaking();
+            _cameraManager.StartShaking();
             _currentGameState = GameState.Waiting;
             uiManager.ShowReturningMenuUI();
             StartCoroutine(WaitToRestart());
