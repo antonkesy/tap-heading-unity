@@ -26,8 +26,8 @@ namespace tap_heading.Game
         [SerializeField] private float yOffsetToChunks;
         [SerializeField] private float xOffset;
 
-        private readonly List<KeyValuePair<Transform, ChunkManager>> _chunks =
-            new List<KeyValuePair<Transform, ChunkManager>>();
+        private readonly List<KeyValuePair<Transform, IChunkManager>> _chunks =
+            new List<KeyValuePair<Transform, IChunkManager>>();
 
         private IChunkManager.Side _side;
         private float _fistChunkYPosition;
@@ -136,15 +136,15 @@ namespace tap_heading.Game
             //TODO("reuse chunks after first spawn")
             var chunk = Instantiate(chunkPrefab,
                 _isFirstChunkGroupBottom ? chunkGroupTransform0 : chunkGroupTransform1);
-            var chunkManager = chunk.GetComponent<ChunkManager>();
-            _chunks.Add(new KeyValuePair<Transform, ChunkManager>(chunk.transform, chunkManager));
+            var chunkManager = chunk.GetComponent<IChunkManager>();
+            _chunks.Add(new KeyValuePair<Transform, IChunkManager>(chunk.transform, chunkManager));
             ChangeChunk(chunk.transform, chunkManager, yOffset);
         }
 
         /**
      * Sets Position of Chunk, Lets Chunk Spawn Coin
      */
-        private void ChangeChunk(Transform chunk, ChunkManager chunkManager, float yOffset)
+        private void ChangeChunk(Transform chunk, IChunkManager chunkManager, float yOffset)
         {
             chunk.position = GetNewChunkPosition(yOffset);
             chunkManager.SpawnCoin(GetNewCoinPosition(chunk.transform.position), _side);
