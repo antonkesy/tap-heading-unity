@@ -34,7 +34,7 @@ namespace tap_heading.UI
             _audioManager = gameManager.transform.parent.GetComponentInChildren<IAudioManager>();
             _scoreTextFader = scoreText.GetComponent<UIFader>();
             _scoreTextShadowFader = scoreTextShadow.GetComponent<UIFader>();
-            _isSoundOn = !PlayerPrefsManager.IsSoundOn();
+            _isSoundOn = !new PlayerPrefsManager().IsSoundOn();
         }
 
         /**
@@ -164,7 +164,7 @@ namespace tap_heading.UI
             if (_isPlaying) return;
             _audioManager.SetSound(soundOn);
             _audioManager.PlayUITap();
-            PlayerPrefsManager.SetSoundOn(soundOn);
+            new PlayerPrefsManager().SetSoundOn(soundOn);
             _isSoundOn = !soundOn;
             menuManager.SetSound(!soundOn);
         }

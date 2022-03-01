@@ -66,18 +66,18 @@ namespace tap_heading.Services.Google
 
         private void SignInCanceled()
         {
-            PlayerPrefsManager.SetAutoLogin(false);
+            new PlayerPrefsManager().SetAutoLogin(false);
             GameManager.SetHighScoreFromLocal();
         }
 
         private void SignInSuccess()
         {
-            PlayerPrefsManager.SetAutoLogin(true);
-            GameManager.OverwriteGPSHighScore();
+            new PlayerPrefsManager().SetAutoLogin(true);
+            GameManager.Instance.OverwriteGPSHighScore();
             LoadLeaderboardFromGPS();
         }
 
-      
+
         public void CheckAchievement(int highScore)
         {
             if (!IsAuthenticated()) return;

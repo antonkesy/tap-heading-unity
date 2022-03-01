@@ -2,98 +2,62 @@
 
 namespace tap_heading.Settings
 {
-    /**
- * Manages Getter/Setter for PlayerPrefs
- */
-    public static class PlayerPrefsManager
+    public class PlayerPrefsManager : ISettings
     {
-        //Keys
         private const string TimesPlayKey = "p";
         private const string TimesOpenKey = "o";
         private const string AutoLoginKey = "l";
         private const string SoundOnKey = "s";
         private const string LocalHighScoreKey = "h";
 
-        /**
-     * Returns times game was played
-     */
-        internal static int GetTimesPlayed()
+        public int GetTimesPlayed()
         {
             return PlayerPrefs.GetInt(TimesPlayKey, 0);
         }
 
-        /**
-    * Increments times game play
-    */
-        internal static void AddTimesPlayed()
+        public void IncrementTimesPlayed()
         {
             var timesPlayed = PlayerPrefs.GetInt(TimesPlayKey, 0);
             PlayerPrefs.SetInt(TimesPlayKey, ++timesPlayed);
         }
 
-        /**
-     * Returns times application opened
-     */
-        internal static int GetTimesOpen()
+        public int GetTimesOpen()
         {
             return PlayerPrefs.GetInt(TimesOpenKey, 0);
         }
 
-        /**
-     * Increments times application opened
-     */
-        internal static void AddTimesOpen()
+        public void IncrementTimesOpen()
         {
             var timeOpened = PlayerPrefs.GetInt(TimesOpenKey, 0);
             PlayerPrefs.SetInt(TimesOpenKey, ++timeOpened);
         }
 
-        /*
-     * Returns isAutoLoginOn
-     */
-        internal static bool IsAutoLogin()
+        public bool IsAutoLogin()
         {
             return PlayerPrefs.GetInt(AutoLoginKey, 1) == 1;
         }
 
-        /**
-     * Sets isAutoLoginOn
-     */
-        internal static void SetAutoLogin(bool isAutoLogin)
+        public void SetAutoLogin(bool isAutoLogin)
         {
             PlayerPrefs.SetInt(AutoLoginKey, isAutoLogin ? 1 : 0);
         }
 
-        /**
-     * Returns if Sound is on
-     */
-        internal static bool IsSoundOn()
+        public bool IsSoundOn()
         {
             return PlayerPrefs.GetInt(SoundOnKey, 0) == 0;
         }
 
-        /**
-     * Sets soundOn
-     */
-        internal static void SetSoundOn(bool isOn)
+        public void SetSoundOn(bool isOn)
         {
             PlayerPrefs.SetInt(SoundOnKey, isOn ? 0 : 1);
         }
 
-
-        /**
-     * Sets local highScore
-     */
-        internal static void SetLocalHighScore(int value)
+        public void SetLocalHighScore(int value)
         {
             PlayerPrefs.SetInt(LocalHighScoreKey, value);
         }
 
-
-        /**
-     * Returns localHighScore
-     */
-        internal static int GetLocalHighScore()
+        public int GetLocalHighScore()
         {
             return PlayerPrefs.GetInt(LocalHighScoreKey, 0);
         }

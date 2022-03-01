@@ -7,6 +7,7 @@ using tap_heading.Player;
 using tap_heading.Services.Google;
 using tap_heading.Settings;
 using tap_heading.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -17,7 +18,7 @@ namespace tap_heading.Game
  */
     public class GameManager : MonoBehaviour
     {
-        private static GameManager Instance { get; set; }
+        public static GameManager Instance { get; private set; }
 
         [Header("Manager")] [SerializeField] private PlayerManager playerManager;
         private ILevelManager _levelManager;
@@ -38,6 +39,8 @@ namespace tap_heading.Game
         private GameState _currentGameState = GameState.Waiting;
         [SerializeField] internal bool isSingleClick = true;
 
+        private ISettings _settings;
+
         private enum GameState
         {
             Running,
@@ -48,11 +51,12 @@ namespace tap_heading.Game
 
         private void Start()
         {
+            Instance = this;
             //workaround getting reference of interface implementation
             _audioManager = gameObject.transform.parent.GetComponentInChildren<IAudioManager>();
             _cameraManager = cameraManagerHolder.GetComponent<ICameraManager>();
             _levelManager = gameObject.transform.parent.GetComponentInChildren<ILevelManager>();
-            Instance = this;
+            _settings = new PlayerPrefsManager();
             SetHighScoreLocal();
             LoadFlagsFromPlayerPrefs();
             Application.targetFrameRate = 60;
@@ -77,10 +81,10 @@ namespace tap_heading.Game
      */
         private void LoadFlagsFromPlayerPrefs()
         {
-            _isIarPopUpPossible = PlayerPrefsManager.GetTimesOpen() < TimesToOpenB4IarCall &&
-                                  PlayerPrefsManager.GetTimesPlayed() < TimesToPlayB4IarCall;
+            _isIarPopUpPossible = _settings.GetTimesOpen() < TimesToOpenB4IarCall &&
+                                  _settings.GetTimesPlayed() < TimesToPlayB4IarCall;
 
-            _audioManager.SetSound(PlayerPrefsManager.IsSoundOn());
+            _audioManager.SetSound(_settings.IsSoundOn());
         }
 
         /**
@@ -98,7 +102,7 @@ namespace tap_heading.Game
         {
             _highScore = value;
             uiManager.UpdateHighScoreText(_highScore);
-            PlayerPrefsManager.SetLocalHighScore(_highScore);
+            _settings.SetLocalHighScore(_highScore);
         }
 
         /**
@@ -106,16 +110,16 @@ namespace tap_heading.Game
      */
         private void SetHighScoreLocal()
         {
-            SetHighScore(PlayerPrefsManager.GetLocalHighScore());
+            SetHighScore(_settings.GetLocalHighScore());
         }
 
         // ReSharper disable once InconsistentNaming
         /**
      * Overwrites GPS highScore with local highScore 
      */
-        internal static void OverwriteGPSHighScore()
+        internal void OverwriteGPSHighScore()
         {
-            GPSManager.Instance.SubmitScore(PlayerPrefsManager.GetLocalHighScore());
+            GPSManager.Instance.SubmitScore(_settings.GetLocalHighScore());
         }
 
         // ReSharper disable once InconsistentNaming
@@ -301,14 +305,14 @@ namespace tap_heading.Game
         private void CheckForIARPopUp()
         {
             if (!_isIarPopUpPossible) return;
-            if (PlayerPrefsManager.GetTimesPlayed() > TimesToPlayB4IarCall ||
-                PlayerPrefsManager.GetTimesOpen() > TimesToOpenB4IarCall)
+            if (_settings.GetTimesPlayed() > TimesToPlayB4IarCall ||
+                _settings.GetTimesOpen() > TimesToOpenB4IarCall)
             {
                 IAReviewManager.Instance.RequestReview();
             }
 
-            PlayerPrefsManager.AddTimesOpen();
-            PlayerPrefsManager.AddTimesPlayed();
+            _settings.IncrementTimesOpen();
+            _settings.IncrementTimesPlayed();
         }
     }
 }
