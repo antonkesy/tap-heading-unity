@@ -1,33 +1,72 @@
-﻿using UnityEngine;
+﻿using tap_heading.manager;
+using UnityEngine;
 
 namespace tap_heading.Game.States
 {
     public interface IGameState
     {
-        public void OnUserClick(IGameManager manager, Vector2 clickPosition);
+        public void OnUserClick(IManagerCollector manager, Vector2 clickPosition);
+        public void OnNewHighScore(IManagerCollector managers, int score);
+        public void OnScoreUpdate(IManagerCollector managers, int score);
     }
 
     public class Running : IGameState
     {
-        public void OnUserClick(IGameManager manager, Vector2 clickPosition)
+        public void OnUserClick(IManagerCollector manager, Vector2 clickPosition)
         {
-            manager.PlayerChangeDirection(clickPosition);
+            manager.GetGameManager().PlayerChangeDirection(clickPosition);
+        }
+
+        public void OnNewHighScore(IManagerCollector managers, int score)
+        {
+            //nothing
+        }
+
+        public void OnScoreUpdate(IManagerCollector managers, int score)
+        {
+            managers.GetAudioManager().PlayCollectCoin();
+            managers.GetUIManager().UpdateScoreText(score);
+            managers.GetLevelManager().IncreaseSpeed();
         }
     }
 
     public class WaitingRestart : IGameState
     {
-        public void OnUserClick(IGameManager manager, Vector2 clickPosition)
+        public void OnUserClick(IManagerCollector manager, Vector2 clickPosition)
         {
-            if (manager.IsClickForGame()) manager.Restart();
+            if (manager.GetGameManager().IsClickForGame()) manager.GetGameManager().Restart();
+        }
+
+        public void OnNewHighScore(IManagerCollector managers, int score)
+        {
+            managers.GetAudioManager().PlayNewHighScore();
+            managers.GetUIManager().FadeInNewHighScore();
+        }
+
+        public void OnScoreUpdate(IManagerCollector managers, int score)
+        {
+            //TODO update ui
+            managers.GetUIManager().UpdateHighScoreText(score);
         }
     }
 
     public class WaitForAnimation : IGameState
     {
-        public void OnUserClick(IGameManager manager, Vector2 clickPosition)
+        public void OnUserClick(IManagerCollector manager, Vector2 clickPosition)
         {
             //nothing
+        }
+
+        public void OnNewHighScore(IManagerCollector managers, int score)
+        {
+            managers.GetAudioManager().PlayNewHighScore();
+            managers.GetUIManager().FadeInNewHighScore();
+        }
+
+        public void OnScoreUpdate(IManagerCollector managers, int score)
+        {
+            //TODO update ui
+            managers.GetUIManager().UpdateHighScoreText(score);
         }
     }
 }

@@ -1,22 +1,18 @@
 using System.Collections;
 using tap_heading.Game.States;
+using tap_heading.input;
 using tap_heading.manager;
 using tap_heading.Player;
-using tap_heading.Services;
+using tap_heading.Score;
 using tap_heading.Services.Google;
-using tap_heading.input;
 using UnityEngine;
 
 namespace tap_heading.Game
 {
-    public class GameManager : MonoBehaviour, IGameManager, ISignInListener, IPlayerInputListener
+    public class GameManager : MonoBehaviour, IGameManager, IPlayerInputListener, IScoreListener
 
     {
         [SerializeField] private ManagerCollector managers;
-
-        private static int _highScore;
-
-        private int _score;
 
         private bool _isIarPopUpPossible;
         private const int TimesToOpenB4IarCall = 10;
@@ -26,9 +22,11 @@ namespace tap_heading.Game
 
         private IGameState _gameState = new Running();
 
+        private IScore _score;
+
         private void Start()
         {
-            SetHighScoreLocal();
+            _score = new Score.Score(this, managers.GetSettings());
             LoadFlagsFromPlayerPrefs();
             managers.GetUIManager().ShowStartMenuUI();
             managers.GetAudioManager().PlayStartApplication();
@@ -50,32 +48,6 @@ namespace tap_heading.Game
             managers.GetAudioManager().SetSound(managers.GetSettings().IsSoundOn());
         }
 
-        private void SetHighScore(int value)
-        {
-            _highScore = value;
-            managers.GetUIManager().UpdateHighScoreText(_highScore);
-            managers.GetSettings().SetLocalHighScore(_highScore);
-        }
-
-        private void SetHighScoreLocal()
-        {
-            SetHighScore(managers.GetSettings().GetLocalHighScore());
-        }
-
-        private void OverwriteGPSHighScore()
-        {
-            GooglePlayServicesManager.Instance.SubmitScore(managers.GetSettings().GetLocalHighScore());
-        }
-
-        private void SetHighScoreFromGPS(long highScore)
-        {
-            SetHighScore((int) highScore);
-        }
-
-
-        private void OnUserClick(Vector2 position)
-        {
-        }
 
         private void UserInteractionWhilePlaying(Vector2 position)
         {
@@ -118,20 +90,21 @@ namespace tap_heading.Game
 
         public void Restart()
         {
-            _score = 0;
-            var uiManager = managers.GetUIManager();
-            uiManager.UpdateScoreText(_score);
+            _score.Reset();
             _gameState = new Running();
-            uiManager.ShowPlayUI();
+            managers.GetUIManager().ShowPlayUI();
             managers.GetPlayerManager().StartMoving();
             managers.GetLevelManager().Restart();
         }
 
+        public void OnScoreUpdate(int score)
+        {
+            _gameState.OnScoreUpdate(managers, score);
+        }
+
         public void CoinPickedUpCallback()
         {
-            managers.GetAudioManager().PlayCollectCoin();
-            managers.GetUIManager().UpdateScoreText(++_score);
-            managers.GetLevelManager().IncreaseSpeed();
+            _score.Add(1);
         }
 
         public void DestroyPlayerCallback()
@@ -146,20 +119,11 @@ namespace tap_heading.Game
             _gameState = new WaitForAnimation();
             managers.GetUIManager().ShowReturningMenuUI();
             StartCoroutine(WaitToRestart());
-            CheckNewHighScore();
-            GooglePlayServicesManager.Instance.SubmitScore(_score);
-            GooglePlayServicesManager.Instance.CheckAchievement(_score);
+
+
             managers.GetLevelManager().EndLevel();
             managers.GetPlayerManager().Spawn();
             CheckForIARPopUp();
-        }
-
-        private void CheckNewHighScore()
-        {
-            if (_highScore >= _score) return;
-            SetHighScore(_score);
-            managers.GetAudioManager().PlayNewHighScore();
-            managers.GetUIManager().FadeInNewHighScore();
         }
 
         private IEnumerator WaitToRestart()
@@ -181,20 +145,14 @@ namespace tap_heading.Game
             managers.GetSettings().IncrementTimesPlayed();
         }
 
-        public void OnSignInSuccess(long playerScoreValue)
-        {
-            OverwriteGPSHighScore();
-            SetHighScoreFromGPS(playerScoreValue);
-        }
-
-        public void OnSignInFailed()
-        {
-            SetHighScoreLocal();
-        }
-
         public void OnClick(Vector2 position)
         {
-            _gameState.OnUserClick(this, position);
+            _gameState.OnUserClick(managers, position);
+        }
+
+        public void OnNewHighScore(int highScore)
+        {
+            _gameState.OnNewHighScore(managers, highScore);
         }
     }
 }

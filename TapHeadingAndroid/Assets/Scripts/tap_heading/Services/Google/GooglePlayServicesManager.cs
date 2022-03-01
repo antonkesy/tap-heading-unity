@@ -30,7 +30,7 @@ namespace tap_heading.Services.Google
             return PlayGamesPlatform.Instance.IsAuthenticated();
         }
 
-        public void SubmitScore(long highScore)
+        public void SubmitScore(int highScore)
         {
             if (IsAuthenticated())
             {
@@ -47,7 +47,7 @@ namespace tap_heading.Services.Google
         private void SignInSuccess(ISignInListener listener)
         {
             new PlayerPrefsManager().SetAutoLogin(true);
-            LoadLeaderboardFromGPS(listener);
+            GetHighScore(listener);
         }
 
 
@@ -141,7 +141,7 @@ namespace tap_heading.Services.Google
             }
         }
 
-        private void LoadLeaderboardFromGPS(ISignInListener listener)
+        public void GetHighScore(ISignInListener listener)
         {
             PlayGamesPlatform.Instance.LoadScores(
                 GPGSIds.LeaderboardHighScore,
@@ -152,7 +152,7 @@ namespace tap_heading.Services.Google
                 data =>
                 {
                     if (!data.Valid) return;
-                    listener.OnSignInSuccess(data.PlayerScore.value);
+                    listener.OnSignInSuccess((int) data.PlayerScore.value);
                 });
         }
     }
