@@ -31,7 +31,6 @@ namespace tap_heading.Game
         {
             SetHighScoreLocal();
             LoadFlagsFromPlayerPrefs();
-            Application.targetFrameRate = 60;
             managers.GetUIManager().ShowStartMenuUI();
             managers.GetAudioManager().PlayStartApplication();
             managers.GetPlayerManager().Spawn();
@@ -78,6 +77,7 @@ namespace tap_heading.Game
             SetHighScore((int) highScore);
         }
 
+#if UNITY_EDITOR
         private void ProcessEditorInput()
         {
             if (Input.GetKeyDown(KeyCode.Space)) OnUserClick(Vector2.zero);
@@ -87,6 +87,7 @@ namespace tap_heading.Game
             else if (Input.GetKeyDown(KeyCode.RightArrow))
                 managers.GetPlayerManager().ChangeDirection(IPlayerManager.Direction.Right);
         }
+#endif
 
         private void ProcessUserInput()
         {
