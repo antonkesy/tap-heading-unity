@@ -76,12 +76,12 @@ namespace tap_heading.Game
             SetHighScore(managers.GetSettings().GetLocalHighScore());
         }
 
-        internal void OverwriteGPSHighScore()
+        private void OverwriteGPSHighScore()
         {
             GooglePlayServicesManager.Instance.SubmitScore(managers.GetSettings().GetLocalHighScore());
         }
 
-        internal void SetHighScoreFromGPS(long highScore)
+        private void SetHighScoreFromGPS(long highScore)
         {
             SetHighScore((int) highScore);
         }
