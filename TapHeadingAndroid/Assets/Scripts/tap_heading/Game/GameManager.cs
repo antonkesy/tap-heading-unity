@@ -144,9 +144,9 @@ namespace tap_heading.Game
             _gameState = new WaitingRestart();
         }
 
-        public void SetSingleClick(bool isSingleClick)
+        public void SetSingleClick(bool isSingle)
         {
-            this.isSingleClick = isSingleClick;
+            isSingleClick = isSingle;
         }
 
 

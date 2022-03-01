@@ -7,7 +7,7 @@ namespace tap_heading.Game
         void CoinPickedUpCallback();
         void DestroyPlayerCallback();
         void ReadyToStartGameCallback();
-        void SetSingleClick(bool isSingleClick);
+        void SetSingleClick(bool isSingle);
         void PlayerChangeDirection(Vector2 clickPosition);
         public bool IsClickForGame();
         public void Restart();
