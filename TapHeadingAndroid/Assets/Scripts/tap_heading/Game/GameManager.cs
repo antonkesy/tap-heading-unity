@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using tap_heading.Game.States;
 using tap_heading.manager;
 using tap_heading.Player;
 using tap_heading.Services.Google;
@@ -21,8 +22,9 @@ namespace tap_heading.Game
         private const int TimesToOpenB4IarCall = 10;
         private const int TimesToPlayB4IarCall = 50;
 
-        private GameState _currentGameState = GameState.Waiting;
         [SerializeField] internal bool isSingleClick = true;
+
+        private IGameState _gameState = new Running();
 
         private enum GameState
         {
@@ -111,18 +113,7 @@ namespace tap_heading.Game
 
         private void OnUserClick(Vector2 position)
         {
-            switch (_currentGameState)
-            {
-                case GameState.Running:
-                    UserInteractionWhilePlaying(position);
-                    break;
-                case GameState.WaitingToRestart:
-                    if (IsClickForGame()) RestartGame();
-                    break;
-                case GameState.WaitingForFreshGame:
-                    if (IsClickForGame()) StartFreshGame();
-                    break;
-            }
+            _gameState.OnUserClick(this, position);
         }
 
         private void UserInteractionWhilePlaying(Vector2 position)
@@ -141,7 +132,12 @@ namespace tap_heading.Game
             }
         }
 
-        private bool IsClickForGame()
+        public void PlayerChangeDirection(Vector2 clickPosition)
+        {
+            UserInteractionWhilePlaying(clickPosition);
+        }
+
+        public bool IsClickForGame()
         {
             if (managers.GetUIManager().isAboutOn()) return false;
             managers.GetAudioManager().PlayPlayerTap();
@@ -150,7 +146,7 @@ namespace tap_heading.Game
 
         public void ReadyToStartGameCallback()
         {
-            _currentGameState = GameState.WaitingForFreshGame;
+            _gameState = new WaitingRestart();
         }
 
         public void SetSingleClick(bool isSingleClick)
@@ -158,27 +154,13 @@ namespace tap_heading.Game
             this.isSingleClick = isSingleClick;
         }
 
-        private void RestartGame()
-        {
-            _currentGameState = GameState.Running;
-            StartGame();
-            managers.GetLevelManager().RestartLevel();
-        }
 
-
-        private void StartFreshGame()
-        {
-            _currentGameState = GameState.Running;
-            managers.GetLevelManager().StartFreshLevel();
-            StartGame();
-        }
-
-        private void StartGame()
+        public void Restart()
         {
             _score = 0;
             var uiManager = managers.GetUIManager();
             uiManager.UpdateScoreText(_score);
-            _currentGameState = GameState.Running;
+            _gameState = new Running();
             uiManager.ShowPlayUI();
             managers.GetPlayerManager().StartMoving();
         }
@@ -199,7 +181,7 @@ namespace tap_heading.Game
         {
             managers.GetAudioManager().PlayPlayerDeath();
             managers.GetCameraManager().StartShaking();
-            _currentGameState = GameState.Waiting;
+            _gameState = new WaitingRestart();
             managers.GetUIManager().ShowReturningMenuUI();
             StartCoroutine(WaitToRestart());
             CheckNewHighScore();
@@ -221,7 +203,7 @@ namespace tap_heading.Game
         private IEnumerator WaitToRestart()
         {
             yield return new WaitForSecondsRealtime(1f);
-            _currentGameState = GameState.WaitingToRestart;
+            _gameState = new WaitingRestart();
         }
 
         private void CheckForIARPopUp()

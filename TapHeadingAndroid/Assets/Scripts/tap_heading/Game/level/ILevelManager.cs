@@ -2,9 +2,8 @@
 {
     public interface ILevelManager
     {
-        public void StartFreshLevel();
         public void IncreaseSpeed();
-        public void RestartLevel();
+        public void Restart();
         public void EndLevel();
     }
 }

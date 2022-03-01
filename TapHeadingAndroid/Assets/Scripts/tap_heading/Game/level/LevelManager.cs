@@ -253,7 +253,7 @@ namespace tap_heading.Game.level
         /**
      * Restarts Level
      */
-        public void RestartLevel()
+        public void Restart()
         {
             ResetLevel();
             StartFreshLevel();
