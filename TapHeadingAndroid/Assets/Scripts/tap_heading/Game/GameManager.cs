@@ -4,7 +4,6 @@ using tap_heading.Audio;
 using tap_heading.Camera;
 using tap_heading.Game.level;
 using tap_heading.Player;
-using tap_heading.Services;
 using tap_heading.Services.Google;
 using tap_heading.Settings;
 using tap_heading.UI;
