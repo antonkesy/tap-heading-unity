@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using tap_heading.Game.level;
 using tap_heading.Game.States;
 using tap_heading.manager;
 using tap_heading.Player;
@@ -26,14 +27,6 @@ namespace tap_heading.Game
         [SerializeField] internal bool isSingleClick = true;
 
         private IGameState _gameState = new Running();
-
-        private enum GameState
-        {
-            Running,
-            WaitingForFreshGame,
-            WaitingToRestart,
-            Waiting
-        }
 
         private void Start()
         {
@@ -158,6 +151,7 @@ namespace tap_heading.Game
             _gameState = new Running();
             uiManager.ShowPlayUI();
             managers.GetPlayerManager().StartMoving();
+            managers.GetLevelManager().Restart();
         }
 
         public void CoinPickedUpCallback()
