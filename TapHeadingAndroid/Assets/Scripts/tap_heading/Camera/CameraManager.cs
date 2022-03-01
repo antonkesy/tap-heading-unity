@@ -13,7 +13,7 @@ namespace tap_heading.Camera
         private Vector3 _originalPos;
         private bool _isShaking;
 
-        private void Start()
+        private void Awake()
         {
             _transform = GetComponent<Transform>();
             ScaleCameraToWidth();

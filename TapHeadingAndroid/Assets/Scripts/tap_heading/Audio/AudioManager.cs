@@ -36,7 +36,7 @@ namespace tap_heading.Audio
 
         private bool _isSoundOn;
 
-        private void Start()
+        private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
         }

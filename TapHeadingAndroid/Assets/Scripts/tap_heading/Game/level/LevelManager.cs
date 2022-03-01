@@ -44,7 +44,7 @@ namespace tap_heading.Game.level
         private bool _isFirstChunkGroupBottom = true;
 
 
-        private void Start()
+        private void Awake()
         {
             SetChunkVars();
             SetsWalls();

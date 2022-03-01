@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using tap_heading.UI.utility;
 using UnityEngine;
@@ -33,14 +34,11 @@ namespace tap_heading.UI
         [Header("New HighScore")] [SerializeField]
         private UIFader newHighScoreFader;
 
-        private void Start()
+        private void Awake()
         {
             _titlePosition = gameTitleTransform.position;
         }
 
-        /**
-     * Fades In Game Menu
-     */
         internal void FadeInMenu()
         {
             soundOffFader.Fade(false, 0);
@@ -49,9 +47,6 @@ namespace tap_heading.UI
             FadeInSound();
         }
 
-        /**
-     * Fades Out Game Menu
-     */
         internal void FadeOutMenu()
         {
             gameTitleFader.Fade(false, fadeOutDuration);
@@ -69,9 +64,6 @@ namespace tap_heading.UI
             }
         }
 
-        /**
-     * Fades In Start Menu
-     */
         internal void FadeInStart()
         {
             StartCoroutine(WaitForGameTitle());

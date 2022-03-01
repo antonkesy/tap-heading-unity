@@ -300,9 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b906f14a2c68b58498ad3556dc40162b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 906787710}
-  uiManager: {fileID: 1781529468}
-  cameraManagerHolder: {fileID: 519420028}
+  managers: {fileID: 1386425711}
   isSingleClick: 1
 --- !u!4 &190944115
 Transform:
@@ -2847,6 +2845,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1386425710}
+  - component: {fileID: 1386425711}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -2872,6 +2871,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1386425711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386425709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49254dd207e45bfb33be6ca4bb92efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioManager: {fileID: 1180965302}
+  cameraManager: {fileID: 519420033}
+  chunkManager: {fileID: 0}
+  levelManager: {fileID: 836582972}
+  playerManager: {fileID: 906787710}
+  gameManager: {fileID: 190944114}
+  uiManager: {fileID: 1781529468}
+  inAppReviewService: {fileID: 786270578}
 --- !u!1 &1437524543
 GameObject:
   m_ObjectHideFlags: 0
@@ -8514,7 +8533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ce3d43c414fc345adc517c58f61f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 190944114}
+  managers: {fileID: 1386425711}
   menuManager: {fileID: 2097025356}
   scoreText: {fileID: 1508997207}
   scoreTextShadow: {fileID: 704849378}
@@ -9401,6 +9420,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
+      propertyPath: managers
+      value: 
+      objectReference: {fileID: 1386425711}
     - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: gameManager
       value: 

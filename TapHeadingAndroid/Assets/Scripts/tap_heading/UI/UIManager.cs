@@ -1,6 +1,5 @@
 using System.Collections;
-using tap_heading.Audio;
-using tap_heading.Game;
+using tap_heading.manager;
 using tap_heading.Services.Google;
 using tap_heading.Settings;
 using tap_heading.UI.utility;
@@ -12,9 +11,8 @@ namespace tap_heading.UI
 {
     public class UIManager : MonoBehaviour
     {
-        [Header("Manager")] [SerializeField] private GameManager gameManager;
+        [SerializeField] private ManagerCollector managers;
         [SerializeField] private UIMenuManager menuManager;
-        private IAudioManager _audioManager;
         [Header("Play")] [SerializeField] private TextMeshProUGUI scoreText;
         private UIFader _scoreTextFader;
         [SerializeField] private TextMeshProUGUI scoreTextShadow;
@@ -25,16 +23,11 @@ namespace tap_heading.UI
         [SerializeField] private Toggle inputToggle;
 
         private bool _isPlaying;
-        private bool _isSoundOn;
 
-
-        private void Start()
+        private void Awake()
         {
-            //workaround for manager hierarchy
-            _audioManager = gameManager.transform.parent.GetComponentInChildren<IAudioManager>();
             _scoreTextFader = scoreText.GetComponent<UIFader>();
             _scoreTextShadowFader = scoreTextShadow.GetComponent<UIFader>();
-            _isSoundOn = !new PlayerPrefsManager().IsSoundOn();
         }
 
         /**
@@ -63,7 +56,7 @@ namespace tap_heading.UI
             aboutPanel.SetActive(false);
             _scoreTextFader.Fade(true, .15f);
             _scoreTextShadowFader.Fade(true, .15f);
-            menuManager.SetSound(_isSoundOn);
+            menuManager.SetSound(managers.GetSettings().IsSoundOn());
             menuManager.FadeOutMenu();
         }
 
@@ -80,7 +73,7 @@ namespace tap_heading.UI
         {
             _isPlaying = false;
             aboutPanel.SetActive(false);
-            menuManager.SetSound(_isSoundOn);
+            menuManager.SetSound(managers.GetSettings().IsSoundOn());
             tapToStartText.text = tapToText;
         }
 
@@ -103,7 +96,7 @@ namespace tap_heading.UI
         {
             menuManager.SlideInGameTitle();
             yield return new WaitForSecondsRealtime(2f);
-            gameManager.ReadyToStartGameCallback();
+            managers.GetGameManager().ReadyToStartGameCallback();
             yield return null;
         }
 
@@ -113,7 +106,7 @@ namespace tap_heading.UI
         public void OnAboutButtonClick()
         {
             if (_isPlaying) return;
-            _audioManager.PlayUITap();
+            managers.GetAudioManager().PlayUITap();
             Social.ReportProgress(GPGSIds.AchievementThankYou, 0.0f, null);
             aboutPanel.SetActive(!aboutPanel.activeSelf);
             tapToStartText.gameObject.SetActive(!aboutPanel.activeSelf);
@@ -126,7 +119,7 @@ namespace tap_heading.UI
         public void OnLeaderboardButtonClick()
         {
             if (_isPlaying) return;
-            _audioManager.PlayUITap();
+            managers.GetAudioManager().PlayUITap();
             GooglePlayServicesManager.Instance.ShowLeaderBoardUI();
         }
 
@@ -136,7 +129,7 @@ namespace tap_heading.UI
         public void OnAchievementsButtonClick()
         {
             if (_isPlaying) return;
-            _audioManager.PlayUITap();
+            managers.GetAudioManager().PlayUITap();
             GooglePlayServicesManager.Instance.ShowAchievementsUI();
         }
 
@@ -159,14 +152,13 @@ namespace tap_heading.UI
         /*
      * Switches sound on/off buttons and flags
      */
-        private void OnSoundButtonClick(bool soundOn)
+        private void OnSoundButtonClick(bool setOn)
         {
             if (_isPlaying) return;
-            _audioManager.SetSound(soundOn);
-            _audioManager.PlayUITap();
-            new PlayerPrefsManager().SetSoundOn(soundOn);
-            _isSoundOn = !soundOn;
-            menuManager.SetSound(!soundOn);
+            managers.GetAudioManager().SetSound(setOn);
+            managers.GetAudioManager().PlayUITap();
+            managers.GetSettings().SetSoundOn(setOn);
+            menuManager.SetSound(!setOn);
         }
 
         /**
@@ -175,7 +167,7 @@ namespace tap_heading.UI
         private void OpenWebsite(string url)
         {
             if (_isPlaying) return;
-            _audioManager.PlayUITap();
+            managers.GetAudioManager().PlayUITap();
             Application.OpenURL(url);
         }
 
@@ -184,7 +176,7 @@ namespace tap_heading.UI
     */
         public void OnWebsiteButtonClick()
         {
-            OpenWebsite("https://poorskill.com/");
+            OpenWebsite("https://antonkesy.de/");
         }
 
         /**
@@ -192,7 +184,7 @@ namespace tap_heading.UI
     */
         public void OnGitHubButtonClick()
         {
-            OpenWebsite("https://github.com/PoorSkill/tap-heading-unity");
+            OpenWebsite("https://github.com/antonkesy/tap-heading-unity");
         }
 
         /**
@@ -208,7 +200,7 @@ namespace tap_heading.UI
     */
         public void OnPlayStoreButtonClick()
         {
-            OpenWebsite("https://play.google.com/store/apps/details?id=com.poorskill.tapheading");
+            OpenWebsite("https://play.google.com/store/apps/details?id=de.antonkesy.tapheading");
         }
 
         /**
@@ -231,7 +223,7 @@ namespace tap_heading.UI
 
         public void ToggleInputSettings()
         {
-            gameManager.isSingleClick = inputToggle.isOn;
+            managers.GetGameManager().SetSingleClick(inputToggle.isOn);
         }
     }
 }

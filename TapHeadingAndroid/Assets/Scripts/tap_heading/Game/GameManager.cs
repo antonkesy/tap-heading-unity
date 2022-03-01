@@ -1,32 +1,20 @@
 using System.Collections;
 using System.Linq;
-using tap_heading.Audio;
-using tap_heading.Camera;
-using tap_heading.Game.level;
+using tap_heading.manager;
 using tap_heading.Player;
 using tap_heading.Services.Google;
-using tap_heading.Settings;
-using tap_heading.UI;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace tap_heading.Game
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviour, IGameManager
     {
+        [SerializeField] private ManagerCollector managers;
         public static GameManager Instance { get; private set; }
 
-        [Header("Manager")] [SerializeField] private PlayerManager playerManager;
-        private ILevelManager _levelManager;
-        [SerializeField] private UIManager uiManager;
-        [SerializeField] private GameObject cameraManagerHolder;
-        private ICameraManager _cameraManager;
-
-        private IAudioManager _audioManager;
         private static int _highScore;
 
-        //Score
         private int _score;
 
         private bool _isIarPopUpPossible;
@@ -35,8 +23,6 @@ namespace tap_heading.Game
 
         private GameState _currentGameState = GameState.Waiting;
         [SerializeField] internal bool isSingleClick = true;
-
-        private ISettings _settings;
 
         private enum GameState
         {
@@ -49,17 +35,12 @@ namespace tap_heading.Game
         private void Start()
         {
             Instance = this;
-            //workaround getting reference of interface implementation
-            _audioManager = gameObject.transform.parent.GetComponentInChildren<IAudioManager>();
-            _cameraManager = cameraManagerHolder.GetComponent<ICameraManager>();
-            _levelManager = gameObject.transform.parent.GetComponentInChildren<ILevelManager>();
-            _settings = new PlayerPrefsManager();
             SetHighScoreLocal();
             LoadFlagsFromPlayerPrefs();
             Application.targetFrameRate = 60;
-            uiManager.ShowStartMenuUI();
-            _audioManager.PlayStartApplication();
-            playerManager.SpawnPlayer();
+            managers.GetUIManager().ShowStartMenuUI();
+            managers.GetAudioManager().PlayStartApplication();
+            managers.GetPlayerManager().Spawn();
         }
 
 
@@ -73,76 +54,51 @@ namespace tap_heading.Game
             ProcessUserInput();
         }
 
-        /**
-     * Loads flags from the player prefs
-     */
         private void LoadFlagsFromPlayerPrefs()
         {
-            _isIarPopUpPossible = _settings.GetTimesOpen() < TimesToOpenB4IarCall &&
-                                  _settings.GetTimesPlayed() < TimesToPlayB4IarCall;
+            _isIarPopUpPossible = managers.GetSettings().GetTimesOpen() < TimesToOpenB4IarCall &&
+                                  managers.GetSettings().GetTimesPlayed() < TimesToPlayB4IarCall;
 
-            _audioManager.SetSound(_settings.IsSoundOn());
+            managers.GetAudioManager().SetSound(managers.GetSettings().IsSoundOn());
         }
 
-        /**
-     * Sets game high score as static call
-     */
         public static void SetHighScoreFromLocal()
         {
             Instance.SetHighScoreLocal();
         }
 
-        /**
-     * Sets game highScore and calls ui/save
-     */
         private void SetHighScore(int value)
         {
             _highScore = value;
-            uiManager.UpdateHighScoreText(_highScore);
-            _settings.SetLocalHighScore(_highScore);
+            managers.GetUIManager().UpdateHighScoreText(_highScore);
+            managers.GetSettings().SetLocalHighScore(_highScore);
         }
 
-        /**
-     * Sets local highScore
-     */
         private void SetHighScoreLocal()
         {
-            SetHighScore(_settings.GetLocalHighScore());
+            SetHighScore(managers.GetSettings().GetLocalHighScore());
         }
 
-        // ReSharper disable once InconsistentNaming
-        /**
-     * Overwrites GPS highScore with local highScore 
-     */
         internal void OverwriteGPSHighScore()
         {
-            GooglePlayServicesManager.Instance.SubmitScore(_settings.GetLocalHighScore());
+            GooglePlayServicesManager.Instance.SubmitScore(managers.GetSettings().GetLocalHighScore());
         }
 
-        // ReSharper disable once InconsistentNaming
-        /**
-     * Sets LocalHighScore
-     */
         internal static void SetHighScoreFromGPS(long highScore)
         {
             Instance.SetHighScore((int) highScore);
         }
 
-        /**
-     * Debug Editor Input
-     */
         private void ProcessEditorInput()
         {
             if (Input.GetKeyDown(KeyCode.Space)) OnUserClick(Vector2.zero);
 
-            //without sound!!!
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) playerManager.CallChangeDirectionLeft();
-            if (Input.GetKeyDown(KeyCode.RightArrow)) playerManager.CallChangeDirectionRight();
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                managers.GetPlayerManager().ChangeDirection(IPlayerManager.Direction.Left);
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+                managers.GetPlayerManager().ChangeDirection(IPlayerManager.Direction.Right);
         }
 
-        /**
-     * Processes touch input
-     */
         private void ProcessUserInput()
         {
             if (Input.touchCount <= 0 || Input.GetTouch(0).phase != TouchPhase.Began) return;
@@ -153,10 +109,6 @@ namespace tap_heading.Game
             OnUserClick(Input.GetTouch(Input.touchCount - 1).position);
         }
 
-        /**
-     * Calls Actions by user click depending on game state
-     * <param name="position"></param>
-     */
         private void OnUserClick(Vector2 position)
         {
             switch (_currentGameState)
@@ -175,141 +127,114 @@ namespace tap_heading.Game
 
         private void UserInteractionWhilePlaying(Vector2 position)
         {
+            var playerManager = managers.GetPlayerManager();
             var changedDirection = isSingleClick
                 ? playerManager.ChangeDirection()
                 : position.x > Screen.width / 2.0f
-                    ? playerManager.CallChangeDirectionRight()
-                    : playerManager.CallChangeDirectionLeft();
+                    ? playerManager.ChangeDirection(IPlayerManager.Direction.Right)
+                    : playerManager.ChangeDirection(IPlayerManager.Direction.Left);
 
             //play click audio if changed direction
             if (changedDirection)
             {
-                _audioManager.PlayPlayerTap();
+                managers.GetAudioManager().PlayPlayerTap();
             }
         }
 
-        /**
-     * Returns if the touch click should be processed as game tap
-     */
         private bool IsClickForGame()
         {
-            if (uiManager.isAboutOn()) return false;
-            _audioManager.PlayPlayerTap();
+            if (managers.GetUIManager().isAboutOn()) return false;
+            managers.GetAudioManager().PlayPlayerTap();
             return true;
         }
 
-        /**
-     * Sets currentGameState to waiting for fresh game
-     */
-        internal void ReadyToStartGameCallback()
+        public void ReadyToStartGameCallback()
         {
             _currentGameState = GameState.WaitingForFreshGame;
         }
 
-        /**
-     * Restarts Game
-     */
+        public void SetSingleClick(bool isSingleClick)
+        {
+            this.isSingleClick = isSingleClick;
+        }
+
         private void RestartGame()
         {
             _currentGameState = GameState.Running;
             StartGame();
-            _levelManager.RestartLevel();
+            managers.GetLevelManager().RestartLevel();
         }
 
 
-        /**
-     * Starts Fresh Game
-     */
         private void StartFreshGame()
         {
             _currentGameState = GameState.Running;
-            _levelManager.StartFreshLevel();
+            managers.GetLevelManager().StartFreshLevel();
             StartGame();
         }
 
-        /**
-     * Starts Game
-     */
         private void StartGame()
         {
             _score = 0;
+            var uiManager = managers.GetUIManager();
             uiManager.UpdateScoreText(_score);
             _currentGameState = GameState.Running;
             uiManager.ShowPlayUI();
-            playerManager.StartMoving();
+            managers.GetPlayerManager().StartMoving();
         }
 
-        /**
-     * Callback when coin is picked up
-     */
-        internal void CoinPickedUpCallback()
+        public void CoinPickedUpCallback()
         {
-            _audioManager.PlayCollectCoin();
-            uiManager.UpdateScoreText(++_score);
-            _levelManager.IncreaseSpeed();
+            managers.GetAudioManager().PlayCollectCoin();
+            managers.GetUIManager().UpdateScoreText(++_score);
+            managers.GetLevelManager().IncreaseSpeed();
         }
 
-        /**
-    * Callback when player is destroyed    
-    */
-        internal void DestroyPlayerCallback()
+        public void DestroyPlayerCallback()
         {
             OnPlayerDestroy();
         }
 
-        /**
-     * Ends game
-     */
         private void OnPlayerDestroy()
         {
-            _audioManager.PlayPlayerDeath();
-            _cameraManager.StartShaking();
+            managers.GetAudioManager().PlayPlayerDeath();
+            managers.GetCameraManager().StartShaking();
             _currentGameState = GameState.Waiting;
-            uiManager.ShowReturningMenuUI();
+            managers.GetUIManager().ShowReturningMenuUI();
             StartCoroutine(WaitToRestart());
             CheckNewHighScore();
             GooglePlayServicesManager.Instance.SubmitScore(_score);
             GooglePlayServicesManager.Instance.CheckAchievement(_score);
-            _levelManager.EndLevel();
-            playerManager.SpawnPlayer();
+            managers.GetLevelManager().EndLevel();
+            managers.GetPlayerManager().Spawn();
             CheckForIARPopUp();
         }
 
-        /**
-     * Checks if current score is new highScore
-     */
         private void CheckNewHighScore()
         {
             if (_highScore >= _score) return;
             SetHighScore(_score);
-            _audioManager.PlayNewHighScore();
-            uiManager.FadeInNewHighScore();
+            managers.GetAudioManager().PlayNewHighScore();
+            managers.GetUIManager().FadeInNewHighScore();
         }
 
-        /**
-     * Waits fixed time then sets currentGameState to WaitingToRestart 
-     */
         private IEnumerator WaitToRestart()
         {
             yield return new WaitForSecondsRealtime(1f);
             _currentGameState = GameState.WaitingToRestart;
         }
 
-        // ReSharper disable once InconsistentNaming
-        /**
-     * Checks if IARPopUp should be shown
-     */
         private void CheckForIARPopUp()
         {
             if (!_isIarPopUpPossible) return;
-            if (_settings.GetTimesPlayed() > TimesToPlayB4IarCall ||
-                _settings.GetTimesOpen() > TimesToOpenB4IarCall)
+            if (managers.GetSettings().GetTimesPlayed() > TimesToPlayB4IarCall ||
+                managers.GetSettings().GetTimesOpen() > TimesToOpenB4IarCall)
             {
                 IAReviewManager.Instance.RequestReview();
             }
 
-            _settings.IncrementTimesOpen();
-            _settings.IncrementTimesPlayed();
+            managers.GetSettings().IncrementTimesOpen();
+            managers.GetSettings().IncrementTimesPlayed();
         }
     }
 }

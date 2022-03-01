@@ -12,7 +12,7 @@ namespace tap_heading.UI.utility
         private CanvasGroup _canvasGroup;
         private bool _isFadeIn = true;
 
-        private void Start()
+        private void Awake()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
         }

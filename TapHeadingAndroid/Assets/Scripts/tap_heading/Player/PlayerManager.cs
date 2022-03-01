@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
-using tap_heading.Game;
+using tap_heading.manager;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace tap_heading.Player
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : MonoBehaviour, IPlayerManager
     {
-        [Header("Manager")] [SerializeField] private GameManager gameManager;
+        [SerializeField] private ManagerCollector managers;
+
         [Header("Particles")] [SerializeField] private ParticleSystem thrusterParticleSystem;
         [SerializeField] private ParticleSystem destroyParticleSystem;
         [SerializeField] private GameObject pickupParticleSystemGameObject;
@@ -20,17 +23,21 @@ namespace tap_heading.Player
         [SerializeField] private float spawnTime;
         private Vector2 _startPosition;
         private Rigidbody2D _rb;
-        private bool _isDirectionRight;
         private float _spawnStartPositionY = -20;
         private bool _isDirectionChangeable;
         private bool _isWaitingForRespawn;
         private bool _isRespawning;
 
-        private void Start()
+        private IPlayerManager.Direction _direction = IPlayerManager.Direction.Left;
+
+        private void Awake()
         {
             _startPosition = transform.position;
             _rb = GetComponent<Rigidbody2D>();
+        }
 
+        private void Start()
+        {
             SetSpawnStartPositionY();
         }
 
@@ -49,7 +56,7 @@ namespace tap_heading.Player
         /**
      * Starts player moving in random direction
      */
-        internal void StartMoving()
+        public void StartMoving()
         {
             if (_isRespawning)
             {
@@ -66,27 +73,25 @@ namespace tap_heading.Player
             thrusterParticleSystem.Play();
         }
 
-        internal bool CallChangeDirectionRight()
+        public bool ChangeDirection(IPlayerManager.Direction direction)
         {
-            return !_isDirectionRight && ChangeDirection();
+            return direction == _direction && ChangeDirection();
         }
 
-        internal bool CallChangeDirectionLeft()
-        {
-            return _isDirectionRight && ChangeDirection();
-        }
-
-   
         /**
      * Returns if player direction is changeable
      * changes player direction
      */
-        internal bool ChangeDirection()
+        public bool ChangeDirection()
         {
             if (!_isDirectionChangeable) return false;
-            _isDirectionRight = !_isDirectionRight;
+            _direction = _direction == IPlayerManager.Direction.Left
+                ? IPlayerManager.Direction.Right
+                : IPlayerManager.Direction.Left;
             _rb.velocity = Vector2.zero;
-            _rb.AddForce(_isDirectionRight ? Vector2.right * sideSpeed : Vector2.left * sideSpeed, ForceMode2D.Impulse);
+            _rb.AddForce(
+                _direction == IPlayerManager.Direction.Right ? Vector2.right * sideSpeed : Vector2.left * sideSpeed,
+                ForceMode2D.Impulse);
             ChangeShadowPosition();
             return true;
         }
@@ -96,7 +101,10 @@ namespace tap_heading.Player
      */
         private void ChangeShadowPosition()
         {
-            shadowTransform.localPosition = Vector3.right * (_isDirectionRight ? -shadowOffset : shadowOffset) +
+            shadowTransform.localPosition = Vector3.right *
+                                            (_direction == IPlayerManager.Direction.Right
+                                                ? -shadowOffset
+                                                : shadowOffset) +
                                             Vector3.up * -shadowOffset;
         }
 
@@ -126,7 +134,7 @@ namespace tap_heading.Player
             coinGameObject.SetActive(false);
             pickupParticleSystemGameObject.transform.position = coinGameObject.transform.position;
             pickupParticleSystem.Play();
-            gameManager.CoinPickedUpCallback();
+            managers.GetGameManager().CoinPickedUpCallback();
         }
 
         /**
@@ -139,22 +147,16 @@ namespace tap_heading.Player
             destroyParticleSystem.transform.position = transform.position;
             destroyParticleSystem.Play();
             gameObject.SetActive(false);
-            gameManager.DestroyPlayerCallback();
+            managers.GetGameManager().DestroyPlayerCallback();
         }
 
-        /*
-    * Spawns Player
-    */
-        internal void SpawnPlayer()
+        public void Spawn()
         {
             transform.position = Vector3.up * _spawnStartPositionY;
             gameObject.SetActive(true);
             StartCoroutine(MovePlayerToSpawn());
         }
 
-        /**
-     * Moves Player to the spawn 
-     */
         private IEnumerator MovePlayerToSpawn()
         {
             _isRespawning = true;
