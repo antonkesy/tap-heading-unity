@@ -1,16 +1,15 @@
 using System.Collections;
-using System.Linq;
 using tap_heading.Game.States;
 using tap_heading.manager;
 using tap_heading.Player;
 using tap_heading.Services;
 using tap_heading.Services.Google;
+using tap_heading.input;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace tap_heading.Game
 {
-    public class GameManager : MonoBehaviour, IGameManager, ISignInListener
+    public class GameManager : MonoBehaviour, IGameManager, ISignInListener, IPlayerInputListener
 
     {
         [SerializeField] private ManagerCollector managers;
@@ -34,17 +33,13 @@ namespace tap_heading.Game
             managers.GetUIManager().ShowStartMenuUI();
             managers.GetAudioManager().PlayStartApplication();
             managers.GetPlayerManager().Spawn();
-        }
 
-
-        private void Update()
-        {
-            //DEBUG----------------------------------------------
+            var input = gameObject.AddComponent<TouchInput>();
+            input.AddListener(this);
 #if UNITY_EDITOR
-            ProcessEditorInput();
+            var inputDebug = gameObject.AddComponent<DebugEditorInput>();
+            inputDebug.AddListener(this);
 #endif
-            //-------------------------------------------------
-            ProcessUserInput();
         }
 
         private void LoadFlagsFromPlayerPrefs()
@@ -77,31 +72,9 @@ namespace tap_heading.Game
             SetHighScore((int) highScore);
         }
 
-#if UNITY_EDITOR
-        private void ProcessEditorInput()
-        {
-            if (Input.GetKeyDown(KeyCode.Space)) OnUserClick(Vector2.zero);
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-                managers.GetPlayerManager().ChangeDirection(IPlayerManager.Direction.Left);
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-                managers.GetPlayerManager().ChangeDirection(IPlayerManager.Direction.Right);
-        }
-#endif
-
-        private void ProcessUserInput()
-        {
-            if (Input.touchCount <= 0 || Input.GetTouch(0).phase != TouchPhase.Began) return;
-            if (Input.touches.Select(touch => touch.fingerId)
-                .Any(id => EventSystem.current.IsPointerOverGameObject(id)))
-                return;
-
-            OnUserClick(Input.GetTouch(Input.touchCount - 1).position);
-        }
 
         private void OnUserClick(Vector2 position)
         {
-            _gameState.OnUserClick(this, position);
         }
 
         private void UserInteractionWhilePlaying(Vector2 position)
@@ -217,6 +190,11 @@ namespace tap_heading.Game
         public void OnSignInFailed()
         {
             SetHighScoreLocal();
+        }
+
+        public void OnClick(Vector2 position)
+        {
+            _gameState.OnUserClick(this, position);
         }
     }
 }
