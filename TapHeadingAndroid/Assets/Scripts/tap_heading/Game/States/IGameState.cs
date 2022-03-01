@@ -22,4 +22,12 @@ namespace tap_heading.Game.States
             if (manager.IsClickForGame()) manager.Restart();
         }
     }
+
+    public class WaitForAnimation : IGameState
+    {
+        public void OnUserClick(IGameManager manager, Vector2 clickPosition)
+        {
+            //nothing
+        }
+    }
 }

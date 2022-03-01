@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Linq;
-using tap_heading.Game.level;
 using tap_heading.Game.States;
 using tap_heading.manager;
 using tap_heading.Player;
@@ -170,7 +169,7 @@ namespace tap_heading.Game
         {
             managers.GetAudioManager().PlayPlayerDeath();
             managers.GetCameraManager().StartShaking();
-            _gameState = new WaitingRestart();
+            _gameState = new WaitForAnimation();
             managers.GetUIManager().ShowReturningMenuUI();
             StartCoroutine(WaitToRestart());
             CheckNewHighScore();
