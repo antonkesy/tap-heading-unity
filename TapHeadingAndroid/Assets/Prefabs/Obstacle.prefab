@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2134104492306136833}
   - component: {fileID: 1351267317349626119}
   m_Layer: 0
-  m_Name: ChunckPrefab
+  m_Name: Obstacle
   m_TagString: Bar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

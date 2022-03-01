@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace tap_heading.Game.chunk
 {
-    public class ChunkManager : MonoBehaviour, IChunkManager
+    public class ObstacleManager : MonoBehaviour, IChunkManager
     {
         [Header("Coin")] [SerializeField] private GameObject coinGameObject;
         [SerializeField] private float coinSpawnProbability;

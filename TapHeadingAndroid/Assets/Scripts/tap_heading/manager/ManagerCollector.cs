@@ -16,7 +16,7 @@ namespace tap_heading.manager
     {
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private CameraManager cameraManager;
-        [SerializeField] private ChunkManager chunkManager;
+        [SerializeField] private ObstacleManager obstacleManager;
         [SerializeField] private LevelManager levelManager;
         [SerializeField] private PlayerManager playerManager;
         [SerializeField] private GameManager gameManager;
@@ -43,7 +43,7 @@ namespace tap_heading.manager
 
         public IChunkManager GetChunkManager()
         {
-            return chunkManager;
+            return obstacleManager;
         }
 
         public ILevelManager GetLevelManager()
