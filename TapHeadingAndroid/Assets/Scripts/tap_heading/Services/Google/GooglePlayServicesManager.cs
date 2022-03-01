@@ -1,6 +1,5 @@
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using tap_heading.Game;
 using tap_heading.Settings;
 using UnityEngine;
 
@@ -9,6 +8,7 @@ namespace tap_heading.Services.Google
     public class GooglePlayServicesManager : IScoreService
     {
         private static GooglePlayServicesManager _instance;
+
 
         private GooglePlayServicesManager()
         {
@@ -25,7 +25,7 @@ namespace tap_heading.Services.Google
             PlayGamesPlatform.Activate();
         }
 
-        private static bool IsAuthenticated()
+        private bool IsAuthenticated()
         {
             return PlayGamesPlatform.Instance.IsAuthenticated();
         }
@@ -38,36 +38,16 @@ namespace tap_heading.Services.Google
             }
         }
 
-        private void SignInToGooglePlayServices()
-        {
-            PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
-            {
-                switch (result)
-                {
-                    case SignInStatus.Canceled:
-                        SignInCanceled();
-                        break;
-                    case SignInStatus.Success:
-                        SignInSuccess();
-                        break;
-                    default:
-                        //ignore
-                        break;
-                }
-            });
-        }
-
-        private void SignInCanceled()
+        private void SignInCanceled(ISignInListener listener)
         {
             new PlayerPrefsManager().SetAutoLogin(false);
-            GameManager.SetHighScoreFromLocal();
+            listener?.OnSignInFailed();
         }
 
-        private void SignInSuccess()
+        private void SignInSuccess(ISignInListener listener)
         {
             new PlayerPrefsManager().SetAutoLogin(true);
-            GameManager.Instance.OverwriteGPSHighScore();
-            LoadLeaderboardFromGPS();
+            LoadLeaderboardFromGPS(listener);
         }
 
 
@@ -113,7 +93,7 @@ namespace tap_heading.Services.Google
             Social.ReportProgress(id, 100.0f, null);
         }
 
-        public void ShowLeaderBoardUI()
+        public void ShowLeaderBoardUI(ISignInListener listener)
         {
             if (!IsAuthenticated())
             {
@@ -122,10 +102,10 @@ namespace tap_heading.Services.Google
                     switch (result)
                     {
                         case SignInStatus.Canceled:
-                            SignInCanceled();
+                            SignInCanceled(listener);
                             break;
                         case SignInStatus.Success:
-                            SignInSuccess();
+                            SignInSuccess(listener);
                             PlayGamesPlatform.Instance.ShowLeaderboardUI();
                             break;
                     }
@@ -137,7 +117,7 @@ namespace tap_heading.Services.Google
             }
         }
 
-        public void ShowAchievementsUI()
+        public void ShowAchievementsUI(ISignInListener listener)
         {
             if (!IsAuthenticated())
             {
@@ -146,10 +126,10 @@ namespace tap_heading.Services.Google
                     switch (result)
                     {
                         case SignInStatus.Canceled:
-                            SignInCanceled();
+                            SignInCanceled(listener);
                             break;
                         case SignInStatus.Success:
-                            SignInSuccess();
+                            SignInSuccess(listener);
                             PlayGamesPlatform.Instance.ShowAchievementsUI();
                             break;
                     }
@@ -161,7 +141,7 @@ namespace tap_heading.Services.Google
             }
         }
 
-        private static void LoadLeaderboardFromGPS()
+        private void LoadLeaderboardFromGPS(ISignInListener listener)
         {
             PlayGamesPlatform.Instance.LoadScores(
                 GPGSIds.LeaderboardHighScore,
@@ -172,7 +152,7 @@ namespace tap_heading.Services.Google
                 data =>
                 {
                     if (!data.Valid) return;
-                    GameManager.SetHighScoreFromGPS(data.PlayerScore.value);
+                    listener.OnSignInSuccess(data.PlayerScore.value);
                 });
         }
     }

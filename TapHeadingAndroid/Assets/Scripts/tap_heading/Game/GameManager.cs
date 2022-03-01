@@ -3,16 +3,17 @@ using System.Linq;
 using tap_heading.Game.States;
 using tap_heading.manager;
 using tap_heading.Player;
+using tap_heading.Services;
 using tap_heading.Services.Google;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace tap_heading.Game
 {
-    public class GameManager : MonoBehaviour, IGameManager
+    public class GameManager : MonoBehaviour, IGameManager, ISignInListener
+
     {
         [SerializeField] private ManagerCollector managers;
-        public static GameManager Instance { get; private set; }
 
         private static int _highScore;
 
@@ -36,7 +37,6 @@ namespace tap_heading.Game
 
         private void Start()
         {
-            Instance = this;
             SetHighScoreLocal();
             LoadFlagsFromPlayerPrefs();
             Application.targetFrameRate = 60;
@@ -64,11 +64,6 @@ namespace tap_heading.Game
             managers.GetAudioManager().SetSound(managers.GetSettings().IsSoundOn());
         }
 
-        public static void SetHighScoreFromLocal()
-        {
-            Instance.SetHighScoreLocal();
-        }
-
         private void SetHighScore(int value)
         {
             _highScore = value;
@@ -86,9 +81,9 @@ namespace tap_heading.Game
             GooglePlayServicesManager.Instance.SubmitScore(managers.GetSettings().GetLocalHighScore());
         }
 
-        internal static void SetHighScoreFromGPS(long highScore)
+        internal void SetHighScoreFromGPS(long highScore)
         {
-            Instance.SetHighScore((int) highScore);
+            SetHighScore((int) highScore);
         }
 
         private void ProcessEditorInput()
@@ -217,6 +212,17 @@ namespace tap_heading.Game
 
             managers.GetSettings().IncrementTimesOpen();
             managers.GetSettings().IncrementTimesPlayed();
+        }
+
+        public void OnSignInSuccess(long playerScoreValue)
+        {
+            OverwriteGPSHighScore();
+            SetHighScoreFromGPS(playerScoreValue);
+        }
+
+        public void OnSignInFailed()
+        {
+            SetHighScoreLocal();
         }
     }
 }

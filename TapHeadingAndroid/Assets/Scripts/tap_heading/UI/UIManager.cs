@@ -120,7 +120,7 @@ namespace tap_heading.UI
         {
             if (_isPlaying) return;
             managers.GetAudioManager().PlayUITap();
-            GooglePlayServicesManager.Instance.ShowLeaderBoardUI();
+            GooglePlayServicesManager.Instance.ShowLeaderBoardUI(null);
         }
 
         /**
@@ -130,7 +130,7 @@ namespace tap_heading.UI
         {
             if (_isPlaying) return;
             managers.GetAudioManager().PlayUITap();
-            GooglePlayServicesManager.Instance.ShowAchievementsUI();
+            GooglePlayServicesManager.Instance.ShowAchievementsUI(null);
         }
 
         /**

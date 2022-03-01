@@ -6,7 +6,13 @@ namespace tap_heading.Services
     {
         public void SubmitScore(long highScore);
         public void UnlockAchievement(string id);
-        public void ShowLeaderBoardUI();
-        public void ShowAchievementsUI();
+        public void ShowLeaderBoardUI(ISignInListener listener);
+        public void ShowAchievementsUI(ISignInListener listener);
+    }
+
+    public interface ISignInListener
+    {
+        void OnSignInSuccess(long playerScoreValue);
+        void OnSignInFailed();
     }
 }
