@@ -4,6 +4,7 @@ using tap_heading.Audio;
 using tap_heading.Camera;
 using tap_heading.Game.level;
 using tap_heading.Player;
+using tap_heading.Services;
 using tap_heading.Services.Google;
 using tap_heading.Settings;
 using tap_heading.UI;
@@ -46,11 +47,6 @@ namespace tap_heading.Game
             Waiting
         }
 
-        private void Awake()
-        {
-            GPSManager.Activate();
-        }
-
         private void Start()
         {
             //workaround getting reference of interface implementation
@@ -84,11 +80,6 @@ namespace tap_heading.Game
         {
             _isIarPopUpPossible = PlayerPrefsManager.GetTimesOpen() < TimesToOpenB4IarCall &&
                                   PlayerPrefsManager.GetTimesPlayed() < TimesToPlayB4IarCall;
-
-            if (PlayerPrefsManager.IsAutoLogin())
-            {
-                GPSManager.SignInToGooglePlayServices();
-            }
 
             _audioManager.SetSound(PlayerPrefsManager.IsSoundOn());
         }
@@ -125,7 +116,7 @@ namespace tap_heading.Game
      */
         internal static void OverwriteGPSHighScore()
         {
-            GPSManager.SubmitScore(PlayerPrefsManager.GetLocalHighScore());
+            GPSManager.Instance.SubmitScore(PlayerPrefsManager.GetLocalHighScore());
         }
 
         // ReSharper disable once InconsistentNaming
@@ -184,9 +175,9 @@ namespace tap_heading.Game
 
         private void UserInteractionWhilePlaying(Vector2 position)
         {
-            bool changedDirection = isSingleClick
+            var changedDirection = isSingleClick
                 ? playerManager.ChangeDirection()
-                : position.x > Screen.width / 2
+                : position.x > Screen.width / 2.0f
                     ? playerManager.CallChangeDirectionRight()
                     : playerManager.CallChangeDirectionLeft();
 
@@ -277,8 +268,8 @@ namespace tap_heading.Game
             uiManager.ShowReturningMenuUI();
             StartCoroutine(WaitToRestart());
             CheckNewHighScore();
-            GPSManager.SubmitScore(_score);
-            GPSManager.CheckAchievement(_score);
+            GPSManager.Instance.SubmitScore(_score);
+            GPSManager.Instance.CheckAchievement(_score);
             _levelManager.EndLevel();
             playerManager.SpawnPlayer();
             CheckForIARPopUp();
@@ -314,7 +305,7 @@ namespace tap_heading.Game
             if (PlayerPrefsManager.GetTimesPlayed() > TimesToPlayB4IarCall ||
                 PlayerPrefsManager.GetTimesOpen() > TimesToOpenB4IarCall)
             {
-                StartCoroutine(IAReviewManager.RequestReview());
+                IAReviewManager.Instance.RequestReview();
             }
 
             PlayerPrefsManager.AddTimesOpen();

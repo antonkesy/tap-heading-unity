@@ -10,19 +10,22 @@ namespace tap_heading.Services.Google
     /**
  * GooglePlayServices Manager
  */
-    public static class GPSManager
+    public class GPSManager : IScoreService
     {
-        /**
-     * Activates PlayGamesPlatform
-     */
-        internal static void Activate()
+        private static GPSManager _instance;
+
+        private GPSManager()
+        {
+            Activate();
+        }
+
+        public static GPSManager Instance => _instance ??= new GPSManager();
+
+        private static void Activate()
         {
             var config = new PlayGamesClientConfiguration.Builder().Build();
 
             PlayGamesPlatform.InitializeInstance(config);
-            // recommended for debugging:
-            //PlayGamesPlatform.DebugLogEnabled = true;
-            // Activate the Google Play Games platform
             PlayGamesPlatform.Activate();
         }
 
@@ -34,10 +37,7 @@ namespace tap_heading.Services.Google
             return PlayGamesPlatform.Instance.IsAuthenticated();
         }
 
-        /**
-     * Tries to Add HighScore if User is Logged in to GooglePlayPlatform
-     */
-        internal static void SubmitScore(long highScore)
+        public void SubmitScore(long highScore)
         {
             if (IsAuthenticated())
             {
@@ -45,10 +45,7 @@ namespace tap_heading.Services.Google
             }
         }
 
-        /**
-     * Start OnlyOnce Prompt to SignIn to GooglePlayPlatform
-     */
-        internal static void SignInToGooglePlayServices()
+        private void SignInToGooglePlayServices()
         {
             PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
             {
@@ -60,27 +57,28 @@ namespace tap_heading.Services.Google
                     case SignInStatus.Success:
                         SignInSuccess();
                         break;
+                    default:
+                        //ignore
+                        break;
                 }
             });
         }
 
-        private static void SignInCanceled()
+        private void SignInCanceled()
         {
             PlayerPrefsManager.SetAutoLogin(false);
             GameManager.SetHighScoreFromLocal();
         }
 
-        private static void SignInSuccess()
+        private void SignInSuccess()
         {
             PlayerPrefsManager.SetAutoLogin(true);
             GameManager.OverwriteGPSHighScore();
             LoadLeaderboardFromGPS();
         }
 
-        /**
-     * Tries to Report Progress of Achievements to GooglePlayService
-     */
-        internal static void CheckAchievement(int highScore)
+      
+        public void CheckAchievement(int highScore)
         {
             if (!IsAuthenticated()) return;
 
@@ -106,20 +104,21 @@ namespace tap_heading.Services.Google
 
             if (highScore >= 42)
             {
-                UnlockAchievement(GPGSIds.achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything);
+                UnlockAchievement(GPGSIds
+                    .achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything);
             }
         }
 
         /**
      * Tries to Report Progress of ThankYou Achievement to GooglePlayService
      */
-        internal static void ThankYouAchievement()
+        internal void ThankYouAchievement()
         {
             if (!IsAuthenticated()) return;
             UnlockAchievement(GPGSIds.achievement_thank_you);
         }
 
-        private static void UnlockAchievement(string id)
+        public void UnlockAchievement(string id)
         {
             Social.ReportProgress(id, 100.0f, null);
         }
@@ -127,7 +126,7 @@ namespace tap_heading.Services.Google
         /**
      * Tries to open LeaderboardUI and log in, if not logged in
      */
-        public static void ShowLeaderboardUI()
+        public void ShowLeaderBoardUI()
         {
             if (!IsAuthenticated())
             {
@@ -154,7 +153,7 @@ namespace tap_heading.Services.Google
         /**
      * Tries to open AchievementsUI and log in, if not logged in
      */
-        public static void ShowAchievementsUI()
+        public void ShowAchievementsUI()
         {
             if (!IsAuthenticated())
             {
@@ -182,7 +181,7 @@ namespace tap_heading.Services.Google
         /**
      * Tries to load highScore of user from google play services and sets it as local highscore  
      */
-        private static void LoadLeaderboardFromGPS()
+        private void LoadLeaderboardFromGPS()
         {
             PlayGamesPlatform.Instance.LoadScores(
                 GPGSIds.leaderboard_high_score,

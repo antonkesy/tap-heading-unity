@@ -8,22 +8,21 @@ namespace tap_heading.Services.Google
     /**
  * InAppReviewManager for Google Play Core IAR
  */
-    public class IAReviewManager : MonoBehaviour
+    public class IAReviewManager : MonoBehaviour, IReviewService
     {
+        private static IReviewService _instance;
         private static ReviewManager _reviewManager;
         private static PlayReviewInfo _playReviewInfo;
 
-        /**
-     * Requests new Review and if no error shows banner
-     */
-        internal static IEnumerator RequestReview()
+        public static IReviewService Instance => _instance ??= new IAReviewManager();
+
+        private static IEnumerator _RequestReview()
         {
             _reviewManager = new ReviewManager();
             var requestFlowOperation = _reviewManager.RequestReviewFlow();
             yield return requestFlowOperation;
             if (requestFlowOperation.Error != ReviewErrorCode.NoError)
             {
-                // Log error. For example, using requestFlowOperation.Error.ToString().
                 yield break;
             }
 
@@ -34,9 +33,13 @@ namespace tap_heading.Services.Google
             _playReviewInfo = null; // Reset the object
             if (launchFlowOperation.Error != ReviewErrorCode.NoError)
             {
-                // Log error. For example, using requestFlowOperation.Error.ToString().
                 yield break;
             }
+        }
+
+        public void RequestReview()
+        {
+            StartCoroutine(_RequestReview());
         }
     }
 }
