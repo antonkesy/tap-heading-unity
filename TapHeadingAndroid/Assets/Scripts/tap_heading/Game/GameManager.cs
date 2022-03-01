@@ -13,9 +13,6 @@ using UnityEngine.EventSystems;
 
 namespace tap_heading.Game
 {
-    /**
- * Manages the game loop as god class 
- */
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
@@ -119,7 +116,7 @@ namespace tap_heading.Game
      */
         internal void OverwriteGPSHighScore()
         {
-            GPSManager.Instance.SubmitScore(_settings.GetLocalHighScore());
+            GooglePlayServicesManager.Instance.SubmitScore(_settings.GetLocalHighScore());
         }
 
         // ReSharper disable once InconsistentNaming
@@ -271,8 +268,8 @@ namespace tap_heading.Game
             uiManager.ShowReturningMenuUI();
             StartCoroutine(WaitToRestart());
             CheckNewHighScore();
-            GPSManager.Instance.SubmitScore(_score);
-            GPSManager.Instance.CheckAchievement(_score);
+            GooglePlayServicesManager.Instance.SubmitScore(_score);
+            GooglePlayServicesManager.Instance.CheckAchievement(_score);
             _levelManager.EndLevel();
             playerManager.SpawnPlayer();
             CheckForIARPopUp();

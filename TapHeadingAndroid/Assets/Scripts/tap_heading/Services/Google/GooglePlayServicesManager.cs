@@ -4,22 +4,18 @@ using tap_heading.Game;
 using tap_heading.Settings;
 using UnityEngine;
 
-// ReSharper disable once InconsistentNaming
 namespace tap_heading.Services.Google
 {
-    /**
- * GooglePlayServices Manager
- */
-    public class GPSManager : IScoreService
+    public class GooglePlayServicesManager : IScoreService
     {
-        private static GPSManager _instance;
+        private static GooglePlayServicesManager _instance;
 
-        private GPSManager()
+        private GooglePlayServicesManager()
         {
             Activate();
         }
 
-        public static GPSManager Instance => _instance ??= new GPSManager();
+        public static GooglePlayServicesManager Instance => _instance ??= new GooglePlayServicesManager();
 
         private static void Activate()
         {
@@ -29,9 +25,6 @@ namespace tap_heading.Services.Google
             PlayGamesPlatform.Activate();
         }
 
-        /**
-     * Returns isAuthenticated from PlayGamesPlatform
-     */
         private static bool IsAuthenticated()
         {
             return PlayGamesPlatform.Instance.IsAuthenticated();
@@ -109,9 +102,6 @@ namespace tap_heading.Services.Google
             }
         }
 
-        /**
-     * Tries to Report Progress of ThankYou Achievement to GooglePlayService
-     */
         internal void ThankYouAchievement()
         {
             if (!IsAuthenticated()) return;
@@ -123,9 +113,6 @@ namespace tap_heading.Services.Google
             Social.ReportProgress(id, 100.0f, null);
         }
 
-        /**
-     * Tries to open LeaderboardUI and log in, if not logged in
-     */
         public void ShowLeaderBoardUI()
         {
             if (!IsAuthenticated())
@@ -150,9 +137,6 @@ namespace tap_heading.Services.Google
             }
         }
 
-        /**
-     * Tries to open AchievementsUI and log in, if not logged in
-     */
         public void ShowAchievementsUI()
         {
             if (!IsAuthenticated())
@@ -177,11 +161,7 @@ namespace tap_heading.Services.Google
             }
         }
 
-        // ReSharper disable once InconsistentNaming
-        /**
-     * Tries to load highScore of user from google play services and sets it as local highscore  
-     */
-        private void LoadLeaderboardFromGPS()
+        private static void LoadLeaderboardFromGPS()
         {
             PlayGamesPlatform.Instance.LoadScores(
                 GPGSIds.LeaderboardHighScore,

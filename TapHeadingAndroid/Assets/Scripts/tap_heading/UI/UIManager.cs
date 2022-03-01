@@ -117,7 +117,7 @@ namespace tap_heading.UI
             Social.ReportProgress(GPGSIds.AchievementThankYou, 0.0f, null);
             aboutPanel.SetActive(!aboutPanel.activeSelf);
             tapToStartText.gameObject.SetActive(!aboutPanel.activeSelf);
-            GPSManager.Instance.ThankYouAchievement();
+            GooglePlayServicesManager.Instance.ThankYouAchievement();
         }
 
         /**
@@ -127,7 +127,7 @@ namespace tap_heading.UI
         {
             if (_isPlaying) return;
             _audioManager.PlayUITap();
-            GPSManager.Instance.ShowLeaderBoardUI();
+            GooglePlayServicesManager.Instance.ShowLeaderBoardUI();
         }
 
         /**
@@ -137,7 +137,7 @@ namespace tap_heading.UI
         {
             if (_isPlaying) return;
             _audioManager.PlayUITap();
-            GPSManager.Instance.ShowAchievementsUI();
+            GooglePlayServicesManager.Instance.ShowAchievementsUI();
         }
 
         /**
