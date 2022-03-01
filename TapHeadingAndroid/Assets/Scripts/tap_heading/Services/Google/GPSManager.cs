@@ -41,7 +41,7 @@ namespace tap_heading.Services.Google
         {
             if (IsAuthenticated())
             {
-                Social.ReportScore(highScore, GPGSIds.leaderboard_high_score, null);
+                Social.ReportScore(highScore, GPGSIds.LeaderboardHighScore, null);
             }
         }
 
@@ -84,28 +84,28 @@ namespace tap_heading.Services.Google
 
             if (highScore >= 200)
             {
-                UnlockAchievement(GPGSIds.achievement_oof);
+                UnlockAchievement(GPGSIds.AchievementOof);
             }
 
             if (highScore >= 100)
             {
-                UnlockAchievement(GPGSIds.achievement_100);
+                UnlockAchievement(GPGSIds.Achievement100);
             }
 
             if (highScore >= 69)
             {
-                UnlockAchievement(GPGSIds.achievement_nice);
+                UnlockAchievement(GPGSIds.AchievementNice);
             }
 
             if (highScore >= 50)
             {
-                UnlockAchievement(GPGSIds.achievement_50);
+                UnlockAchievement(GPGSIds.Achievement50);
             }
 
             if (highScore >= 42)
             {
                 UnlockAchievement(GPGSIds
-                    .achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything);
+                    .AchievementAnswerToTheUltimateQuestionOfLifeTheUniverseAndEverything);
             }
         }
 
@@ -115,7 +115,7 @@ namespace tap_heading.Services.Google
         internal void ThankYouAchievement()
         {
             if (!IsAuthenticated()) return;
-            UnlockAchievement(GPGSIds.achievement_thank_you);
+            UnlockAchievement(GPGSIds.AchievementThankYou);
         }
 
         public void UnlockAchievement(string id)
@@ -184,7 +184,7 @@ namespace tap_heading.Services.Google
         private void LoadLeaderboardFromGPS()
         {
             PlayGamesPlatform.Instance.LoadScores(
-                GPGSIds.leaderboard_high_score,
+                GPGSIds.LeaderboardHighScore,
                 LeaderboardStart.PlayerCentered,
                 1,
                 LeaderboardCollection.Public,

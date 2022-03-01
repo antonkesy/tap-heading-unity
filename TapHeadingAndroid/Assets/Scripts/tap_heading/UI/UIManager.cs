@@ -114,7 +114,7 @@ namespace tap_heading.UI
         {
             if (_isPlaying) return;
             _audioManager.PlayUITap();
-            Social.ReportProgress(GPGSIds.achievement_thank_you, 0.0f, null);
+            Social.ReportProgress(GPGSIds.AchievementThankYou, 0.0f, null);
             aboutPanel.SetActive(!aboutPanel.activeSelf);
             tapToStartText.gameObject.SetActive(!aboutPanel.activeSelf);
             GPSManager.Instance.ThankYouAchievement();
