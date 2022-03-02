@@ -20,7 +20,7 @@ namespace tap_heading.Game
 
         [SerializeField] internal bool isSingleClick = true;
 
-        private IGameState _gameState = new Running();
+        private IGameState _gameState = new WaitingRestart();
 
         private IScore _score;
 
@@ -119,8 +119,6 @@ namespace tap_heading.Game
             _gameState = new WaitForAnimation();
             managers.GetUIManager().ShowReturningMenuUI();
             StartCoroutine(WaitToRestart());
-
-
             managers.GetLevelManager().EndLevel();
             managers.GetPlayerManager().Spawn();
             CheckForIARPopUp();
