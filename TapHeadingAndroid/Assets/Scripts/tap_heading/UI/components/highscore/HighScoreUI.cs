@@ -1,7 +1,7 @@
 ﻿using tap_heading.UI.utility;
 using UnityEngine;
 
-namespace tap_heading.UI
+namespace tap_heading.UI.components.highscore
 {
     public class HighScoreUI : MonoBehaviour, IHighScoreUI
     {
