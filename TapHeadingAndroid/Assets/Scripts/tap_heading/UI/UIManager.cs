@@ -1,7 +1,6 @@
 using System.Collections;
 using tap_heading.manager;
 using tap_heading.Services.Google;
-using tap_heading.Settings;
 using tap_heading.UI.utility;
 using TMPro;
 using UnityEngine;
@@ -54,8 +53,8 @@ namespace tap_heading.UI
         {
             _isPlaying = true;
             aboutPanel.SetActive(false);
-            _scoreTextFader.Fade(true, .15f);
-            _scoreTextShadowFader.Fade(true, .15f);
+            _scoreTextFader.FadeIn(.15f);
+            _scoreTextShadowFader.FadeIn(.15f);
             menuManager.SetSound(managers.GetSettings().IsSoundOn());
             menuManager.FadeOutMenu();
         }
@@ -82,8 +81,8 @@ namespace tap_heading.UI
      */
         internal void ShowStartMenuUI()
         {
-            _scoreTextFader.Fade(false, 0);
-            _scoreTextShadowFader.Fade(false, 0);
+            _scoreTextFader.FadeOut(0);
+            _scoreTextShadowFader.FadeOut(0);
             ShowMenu("TAP TO START");
             menuManager.FadeInStart();
             StartCoroutine(WaitForStartCallback());

@@ -3,11 +3,7 @@ using UnityEngine;
 
 namespace tap_heading.UI.utility
 {
-    /**
- * Lets UIElement Fade in/out via function call
- * Manages visibility
- */
-    public class UIFader : MonoBehaviour
+    public class UIFader : MonoBehaviour, IFader
     {
         private CanvasGroup _canvasGroup;
         private bool _isFadeIn = true;
@@ -17,10 +13,7 @@ namespace tap_heading.UI.utility
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        /**
-     * Starts Fade in/out if not already in wanted fade-state
-     */
-        public void Fade(bool fadeIn, float duration)
+        private void Fade(bool fadeIn, float duration)
         {
             //Checks if already is faded 
             if (_isFadeIn == fadeIn)
@@ -34,9 +27,6 @@ namespace tap_heading.UI.utility
             StartCoroutine(DoFade(fadeIn ? 0 : 1, fadeIn ? 1 : 0, fadeIn, duration));
         }
 
-        /**
-     * Fading of UI-Element by changing canvasGroup-alpha by lerp
-     */
         private IEnumerator DoFade(float start, float end, bool endState, float duration)
         {
             var counter = 0f;
@@ -50,6 +40,16 @@ namespace tap_heading.UI.utility
             }
 
             gameObject.SetActive(endState);
+        }
+
+        public void FadeIn(float duration)
+        {
+            Fade(true, duration);
+        }
+
+        public void FadeOut(float duration)
+        {
+            Fade(false, duration);
         }
     }
 }
