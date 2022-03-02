@@ -16,6 +16,7 @@ namespace tap_heading.Score
             _settings = settings;
             _listener = listener;
             LoadHighScore();
+            listener.OnNewHighScore(_highScore);
         }
 
         private void LoadHighScore()

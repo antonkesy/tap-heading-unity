@@ -39,14 +39,12 @@ namespace tap_heading.Game.States
 
         public void OnNewHighScore(IManagerCollector managers, int score)
         {
-            managers.GetAudioManager().PlayNewHighScore();
-            managers.GetUIManager().FadeInNewHighScore();
+            managers.GetUIManager().UpdateHighScoreText(score);
         }
 
         public void OnScoreUpdate(IManagerCollector managers, int score)
         {
-            //TODO update ui
-            managers.GetUIManager().UpdateHighScoreText(score);
+            //nothing
         }
     }
 
@@ -61,12 +59,12 @@ namespace tap_heading.Game.States
         {
             managers.GetAudioManager().PlayNewHighScore();
             managers.GetUIManager().FadeInNewHighScore();
+            managers.GetUIManager().UpdateHighScoreText(score);
         }
 
         public void OnScoreUpdate(IManagerCollector managers, int score)
         {
-            //TODO update ui
-            managers.GetUIManager().UpdateHighScoreText(score);
+            //nothing
         }
     }
 }
