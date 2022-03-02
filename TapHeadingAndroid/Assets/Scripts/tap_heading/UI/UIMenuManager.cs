@@ -102,7 +102,7 @@ namespace tap_heading.UI
             }
         }
 
-        internal void SetSound(bool isSoundOff)
+        public void SetSound()
         {
             soundButton.Toggle();
         }

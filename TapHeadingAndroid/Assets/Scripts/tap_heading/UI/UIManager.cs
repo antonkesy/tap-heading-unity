@@ -55,7 +55,7 @@ namespace tap_heading.UI
             aboutPanel.SetActive(false);
             _scoreTextFader.FadeIn(.15f);
             _scoreTextShadowFader.FadeIn(.15f);
-            menuManager.SetSound(managers.GetSettings().IsSoundOn());
+            menuManager.SetSound();
             menuManager.FadeOutMenu();
         }
 
@@ -72,7 +72,7 @@ namespace tap_heading.UI
         {
             _isPlaying = false;
             aboutPanel.SetActive(false);
-            menuManager.SetSound(managers.GetSettings().IsSoundOn());
+            menuManager.SetSound();
             tapToStartText.text = tapToText;
         }
 
@@ -157,7 +157,7 @@ namespace tap_heading.UI
             managers.GetAudioManager().SetSound(setOn);
             managers.GetAudioManager().PlayUITap();
             managers.GetSettings().SetSoundOn(setOn);
-            menuManager.SetSound(!setOn);
+            menuManager.SetSound();
         }
 
         /**
