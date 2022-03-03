@@ -1,8 +1,8 @@
 ﻿using tap_heading.Audio;
 using tap_heading.Camera;
 using tap_heading.Game;
-using tap_heading.Game.chunk;
 using tap_heading.Game.level;
+using tap_heading.Game.level.obstacle;
 using tap_heading.Player;
 using tap_heading.Services;
 using tap_heading.Settings;

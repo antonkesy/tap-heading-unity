@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace tap_heading.Game.chunk
+namespace tap_heading.Game.level.obstacle
 {
     public interface IChunkManager
     {
@@ -10,8 +10,7 @@ namespace tap_heading.Game.chunk
             Right
         }
 
-        public void MoveOut();
+        public void DeSpawn();
 
-        public void SpawnCoin(Vector3 position, Side side);
     }
 }

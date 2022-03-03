@@ -119,7 +119,7 @@ namespace tap_heading.Game
             _gameState = new WaitForAnimation();
             managers.GetUIManager().ShowReturningMenuUI();
             StartCoroutine(WaitToRestart());
-            managers.GetLevelManager().EndLevel();
+            managers.GetLevelManager().Stop();
             managers.GetPlayerManager().Spawn();
             CheckForIARPopUp();
         }

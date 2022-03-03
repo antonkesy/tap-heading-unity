@@ -4,6 +4,6 @@
     {
         public void IncreaseSpeed();
         public void Restart();
-        public void EndLevel();
+        public void Stop();
     }
 }
