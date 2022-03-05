@@ -151,8 +151,14 @@ namespace tap_heading.Services.Google
                 LeaderboardTimeSpan.AllTime,
                 data =>
                 {
-                    if (!data.Valid) return;
-                    listener.OnSignInSuccess((int) data.PlayerScore.value);
+                    if (data.Valid)
+                    {
+                        listener?.OnSignInSuccess((int) data.PlayerScore.value);
+                    }
+                    else
+                    {
+                        listener?.OnSignInFailed();
+                    }
                 });
         }
     }

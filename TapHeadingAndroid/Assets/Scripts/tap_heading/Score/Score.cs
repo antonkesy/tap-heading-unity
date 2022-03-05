@@ -17,7 +17,6 @@ namespace tap_heading.Score
             _settings = settings;
             _listener = listener;
             LoadHighScore();
-            listener.OnNewHighScore(_highScore);
         }
 
         private void LoadHighScore()
@@ -50,13 +49,13 @@ namespace tap_heading.Score
         {
             _highScore = playerScoreValue;
             _settings.SetLocalHighScore(playerScoreValue);
-            _listener.OnScoreUpdate(_highScore);
+            _listener.OnNewHighScore(_highScore);
         }
 
         public void OnSignInFailed()
         {
             _highScore = _settings.GetLocalHighScore();
-            _listener.OnScoreUpdate(_highScore);
+            _listener.OnNewHighScore(_highScore);
         }
 
         private void IsNewHighScore()
