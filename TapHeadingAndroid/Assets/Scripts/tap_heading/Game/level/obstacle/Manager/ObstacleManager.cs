@@ -24,8 +24,7 @@ namespace tap_heading.Game.level.obstacle.Manager
 
         private void Start()
         {
-            SetChunkVars();
-            BuildChunks();
+            Setup();
         }
 
         private void Update()
@@ -33,7 +32,7 @@ namespace tap_heading.Game.level.obstacle.Manager
             MoveObstacles();
         }
 
-        private void SetChunkVars()
+        private void Setup()
         {
             var chunkHeight = obstaclePrefab.transform.localScale.y;
             var mainCam = UnityEngine.Camera.main;
@@ -43,14 +42,15 @@ namespace tap_heading.Game.level.obstacle.Manager
                                     Mathf.Tan(mainCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
                 _yStartHeight = frustumHeight + chunkHeight / 2f;
                 _minSightHeight = -(frustumHeight + chunkHeight / 2f);
+                _amountOfObstaclesBuffer = (int) (frustumHeight * 2 / yOffsetBetweenObstacles);
+            }
+            else
+            {
+                Application.Quit(1);
             }
 
-            _amountOfObstaclesBuffer = (int) (_yStartHeight * 2 / (chunkHeight + yOffsetBetweenObstacles) * .65f) + 1;
             maxRandomOffset = (obstaclePrefab.transform.localScale.x - xOffset) * maxRandomOffset;
-        }
 
-        private void BuildChunks()
-        {
             for (var i = 0; i < _amountOfObstaclesBuffer; ++i)
             {
                 GenerateObstacle();
@@ -62,9 +62,15 @@ namespace tap_heading.Game.level.obstacle.Manager
             var yOffset = 0f;
             foreach (var obstacle in _obstacles)
             {
-                obstacle.Key.transform.position = GetNewChunkPosition(yOffset);
+                ResetObstacle(obstacle.Value, yOffset);
                 yOffset += yOffsetBetweenObstacles + obstaclePrefab.transform.localScale.y;
             }
+        }
+
+        private void ResetObstacle(IObstacle obstacle, float yOffset)
+        {
+            obstacle.Reset(GetNewChunkPosition(yOffset), _nextSide);
+            SwitchSide();
         }
 
         private void GenerateObstacle()
@@ -93,8 +99,7 @@ namespace tap_heading.Game.level.obstacle.Manager
                 obstacle.Key.position += downVector;
                 if (obstacle.Key.position.y <= _minSightHeight + obstacle.Key.transform.localScale.y)
                 {
-                    obstacle.Value.Reset(GetNewChunkPosition(0f), _nextSide);
-                    SwitchSide();
+                    ResetObstacle(obstacle.Value, 0f);
                 }
             }
         }
