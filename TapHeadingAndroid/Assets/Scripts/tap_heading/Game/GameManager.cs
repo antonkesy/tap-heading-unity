@@ -26,6 +26,9 @@ namespace tap_heading.Game
 
         private void Start()
         {
+            Application.targetFrameRate = 200;
+            QualitySettings.vSyncCount = 0;
+
             _score = new Score.Score(this, managers.GetSettings());
             LoadFlagsFromPlayerPrefs();
             managers.GetUIManager().ShowStartMenuUI();
