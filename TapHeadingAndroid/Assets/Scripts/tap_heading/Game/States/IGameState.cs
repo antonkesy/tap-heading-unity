@@ -44,11 +44,6 @@ namespace tap_heading.Game.States
             //nothing
         }
 
-        public void OnNewHighScore(IManagerCollector managers, int score)
-        {
-          
-        }
-
         public void OnScoreUpdate(IManagerCollector managers, int score)
         {
             //nothing
