@@ -20,7 +20,7 @@ namespace tap_heading.Game
 
         [SerializeField] internal bool isSingleClick = true;
 
-        private IGameState _gameState = new WaitingRestart();
+        private IGameState _gameState = new WaitForAnimation();
 
         private IScore _score;
 
