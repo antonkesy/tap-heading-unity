@@ -154,9 +154,9 @@ namespace tap_heading.UI
         private void OnSoundButtonClick(bool setOn)
         {
             if (_isPlaying) return;
+            managers.GetSettings().SetSoundOn(setOn);
             managers.GetAudioManager().SetSound(setOn);
             managers.GetAudioManager().PlayUITap();
-            managers.GetSettings().SetSoundOn(setOn);
             menuManager.SetSound();
         }
 

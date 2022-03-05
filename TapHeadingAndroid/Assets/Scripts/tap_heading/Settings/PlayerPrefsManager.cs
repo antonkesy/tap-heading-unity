@@ -2,7 +2,7 @@
 
 namespace tap_heading.Settings
 {
-    public class PlayerPrefsManager : ISettings
+    public class PlayerPrefsManager : MonoBehaviour, ISettings
     {
         private const string TimesPlayKey = "p";
         private const string TimesOpenKey = "o";

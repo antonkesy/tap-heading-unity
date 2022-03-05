@@ -22,13 +22,12 @@ namespace tap_heading.manager
         [SerializeField] private GameManager gameManager;
         [SerializeField] private UIManager uiManager;
         [SerializeField] IAReviewManager inAppReviewService;
+        [SerializeField] private PlayerPrefsManager settings;
         private GooglePlayServicesManager _googleServiceManager;
-        private ISettings _settings;
 
         private void Awake()
         {
             _googleServiceManager = GooglePlayServicesManager.Instance;
-            _settings = new PlayerPrefsManager();
         }
 
         public IAudioManager GetAudioManager()
@@ -78,7 +77,7 @@ namespace tap_heading.manager
 
         public ISettings GetSettings()
         {
-            return _settings;
+            return settings;
         }
     }
 }
