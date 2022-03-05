@@ -1,6 +1,7 @@
 using System.Collections;
 using tap_heading.manager;
 using tap_heading.Services.Google;
+using tap_heading.UI.components.Title;
 using tap_heading.UI.utility;
 using TMPro;
 using UnityEngine;
@@ -84,7 +85,6 @@ namespace tap_heading.UI
             _scoreTextFader.FadeOut(0);
             _scoreTextShadowFader.FadeOut(0);
             ShowMenu("TAP TO START");
-            menuManager.FadeInStart();
             StartCoroutine(WaitForStartCallback());
         }
 
@@ -93,7 +93,7 @@ namespace tap_heading.UI
      */
         private IEnumerator WaitForStartCallback()
         {
-            menuManager.SlideInGameTitle();
+            menuManager.FadeInStart();
             yield return new WaitForSecondsRealtime(2f);
             managers.GetGameManager().ReadyToStartGameCallback();
             yield return null;

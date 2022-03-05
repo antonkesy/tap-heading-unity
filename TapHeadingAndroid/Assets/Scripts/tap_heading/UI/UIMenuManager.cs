@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using tap_heading.UI.components.highscore;
 using tap_heading.UI.components.sound;
+using tap_heading.UI.components.Title;
 using tap_heading.UI.utility;
 using UnityEngine;
 
@@ -9,21 +10,13 @@ namespace tap_heading.UI
 {
     public class UIMenuManager : MonoBehaviour
     {
-        [Header("Non-Special Fader")] [SerializeField]
-        private UIFader[] serializedFader;
-
-        private readonly List<IFader> faders = new List<IFader>();
-
-        [Header("Game Title")] [SerializeField]
-        private UIFader gameTitleFader;
-
-        [SerializeField] private Transform gameTitleTransform;
-        private Vector3 _titlePosition;
-        [SerializeField] private Transform titleStartTransform;
-        [SerializeField] private float titleLerpDuration;
         [SerializeField] private float titleMenuDelay;
+        [SerializeField] private UIFader[] serializedFader;
+
+        private readonly List<IFader> _faders = new List<IFader>();
 
         [SerializeField] private float fadeInDuration = .5f;
+        [SerializeField] private GameTitle gameTitle;
         [SerializeField] private float fadeOutDuration = .5f;
 
 
@@ -33,25 +26,24 @@ namespace tap_heading.UI
 
         private void Awake()
         {
-            _titlePosition = gameTitleTransform.position;
             foreach (var fader in serializedFader)
             {
-                faders.Add(fader);
+                _faders.Add(fader);
             }
 
-            faders.Add(soundButton);
-            faders.Add(highScoreUI);
+            _faders.Add(soundButton);
+            _faders.Add(highScoreUI);
+            _faders.Add(gameTitle);
         }
 
         internal void FadeInMenu()
         {
-            soundButton.FadeOut(0f);
             FadeAll(true, fadeInDuration);
         }
 
         internal void FadeOutMenu()
         {
-            gameTitleFader.FadeOut(fadeOutDuration);
+            gameTitle.FadeOut(fadeOutDuration);
             FadeAll(false, fadeOutDuration);
         }
 
@@ -63,17 +55,15 @@ namespace tap_heading.UI
         private IEnumerator WaitForGameTitle()
         {
             FadeAll(false, 0);
-            soundButton.FadeOut(0);
-            highScoreUI.FadeOut(0);
+            gameTitle.SlideIn();
             yield return new WaitForSecondsRealtime(titleMenuDelay);
-            //Fades in Menu
             FadeAll(true, fadeInDuration);
             yield return null;
         }
 
         private void FadeAll(bool fadeIn, float duration)
         {
-            foreach (var fader in faders)
+            foreach (var fader in _faders)
             {
                 if (fadeIn)
                     fader.FadeIn(duration);
@@ -82,31 +72,10 @@ namespace tap_heading.UI
             }
         }
 
-        internal void SlideInGameTitle()
-        {
-            gameTitleTransform.position = titleStartTransform.position;
-            gameTitleFader.FadeIn(0);
-            StartCoroutine(SlideIn(gameTitleTransform, _titlePosition, titleLerpDuration));
-        }
-
-        private static IEnumerator SlideIn(Transform transformSlideObject, Vector3 toPosition, float duration)
-        {
-            var counter = 0f;
-
-            while (counter < duration)
-            {
-                counter += Time.deltaTime;
-                var position = transformSlideObject.position;
-                position = Vector3.Lerp(position, toPosition, counter / duration);
-                transformSlideObject.position = position;
-
-                yield return null;
-            }
-        }
 
         public void SetSound()
         {
-            soundButton.Toggle();
+            soundButton.Update();
         }
 
         internal void FadeInNewHighScore()
