@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using tap_heading.Game.level.obstacle;
 using UnityEngine;
 
-namespace tap_heading.Game.level.chunk
+namespace tap_heading.Game.level.obstacle.Manager
 {
     public class ObstacleManager : MonoBehaviour, IObstacleManager
     {

@@ -1,4 +1,4 @@
-using tap_heading.Game.level.chunk;
+using tap_heading.Game.level.obstacle.Manager;
 using UnityEngine;
 
 namespace tap_heading.Game.level
