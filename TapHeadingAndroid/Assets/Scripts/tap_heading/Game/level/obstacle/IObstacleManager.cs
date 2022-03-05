@@ -2,7 +2,7 @@
 
 namespace tap_heading.Game.level.obstacle
 {
-    public interface IChunkManager
+    public interface IObstacleManager
     {
         enum Side
         {
@@ -12,5 +12,6 @@ namespace tap_heading.Game.level.obstacle
 
         public void DeSpawn();
 
+        void SetSide(Side side);
     }
 }

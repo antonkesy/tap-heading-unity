@@ -22,10 +22,10 @@ namespace tap_heading.Game.level.chunk
         [SerializeField] private float yOffsetToChunks;
         [SerializeField] private float xOffset;
 
-        private readonly List<KeyValuePair<Transform, IChunkManager>> _chunks =
-            new List<KeyValuePair<Transform, IChunkManager>>();
+        private readonly List<KeyValuePair<Transform, IObstacleManager>> _chunks =
+            new List<KeyValuePair<Transform, IObstacleManager>>();
 
-        private IChunkManager.Side _side;
+        private IObstacleManager.Side _side;
         private float _fistChunkYPosition;
 
         private bool _isFirstChunkGroupBottom = true;
@@ -89,9 +89,9 @@ namespace tap_heading.Game.level.chunk
             //TODO("reuse chunks after first spawn")
             var chunk = Instantiate(obstaclePrefab,
                 _isFirstChunkGroupBottom ? chunkGroupTransform0 : chunkGroupTransform1);
-            var coin = chunk.GetComponentInChildren<CircleCollider2D>().gameObject;
-            var chunkManager = new ObstacleManager(chunk.transform, coin, _side);
-            _chunks.Add(new KeyValuePair<Transform, IChunkManager>(chunk.transform, chunkManager));
+            var chunkManager = chunk.GetComponent<IObstacleManager>();
+            chunkManager.SetSide(_side);
+            _chunks.Add(new KeyValuePair<Transform, IObstacleManager>(chunk.transform, chunkManager));
             SetPosition(chunk.transform, yOffset);
             SwitchSide();
         }
@@ -105,7 +105,7 @@ namespace tap_heading.Game.level.chunk
         private Vector3 GetNewChunkPosition(float yOffset)
         {
             return new Vector3(
-                (Random.Range(0, maxRandomOffset) + xOffset) * (_side == IChunkManager.Side.Right ? 1 : -1),
+                (Random.Range(0, maxRandomOffset) + xOffset) * (_side == IObstacleManager.Side.Right ? 1 : -1),
                 _chunkYStart + yOffset,
                 0);
         }

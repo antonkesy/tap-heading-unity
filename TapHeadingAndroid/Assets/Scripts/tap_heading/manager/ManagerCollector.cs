@@ -41,7 +41,7 @@ namespace tap_heading.manager
             return cameraManager;
         }
 
-        public IChunkManager GetChunkManager()
+        public IObstacleManager GetChunkManager()
         {
             return obstacleManager;
         }

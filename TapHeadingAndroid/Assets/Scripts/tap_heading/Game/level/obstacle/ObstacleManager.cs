@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace tap_heading.Game.level.obstacle
 {
-    public class ObstacleManager : IChunkManager
+    public class ObstacleManager : MonoBehaviour, IObstacleManager
     {
         private const float CoinOffsetToBar = .25f;
         private const float DeSpawnTime = 4f;
@@ -69,6 +69,9 @@ namespace tap_heading.Game.level.obstacle
         {
             HideCoin();
             //StartCoroutine(MoveOut(despawnTime));
+        public void SetSide(IObstacleManager.Side side)
+        {
+            _side = side;
         }
     }
 }

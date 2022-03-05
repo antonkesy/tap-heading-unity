@@ -14,7 +14,7 @@ namespace tap_heading.manager
     {
         IAudioManager GetAudioManager();
         ICameraManager GetCameraManager();
-        IChunkManager GetChunkManager();
+        IObstacleManager GetChunkManager();
         ILevelManager GetLevelManager();
         IPlayerManager GetPlayerManager();
         IGameManager GetGameManager();
