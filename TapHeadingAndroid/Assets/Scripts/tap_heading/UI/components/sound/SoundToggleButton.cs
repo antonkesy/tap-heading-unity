@@ -12,11 +12,13 @@ namespace tap_heading.UI.components.sound
 
         [SerializeField] private PlayerPrefsManager settings;
 
-        private UIFader _currentActive;
+        private IFader _currentActive;
 
         private void Start()
         {
-            Update();
+            soundOffFader.FadeOut(0f);
+            soundOnFader.FadeOut(0f);
+            _currentActive = settings.IsSoundOn() ? soundOnFader : soundOffFader;
         }
 
         public void FadeIn(float duration)
@@ -29,11 +31,23 @@ namespace tap_heading.UI.components.sound
             _currentActive.FadeOut(duration);
         }
 
-        public void Update()
+        public void Toggle()
         {
-            soundOffFader.gameObject.SetActive(!settings.IsSoundOn());
-            soundOnFader.gameObject.SetActive(settings.IsSoundOn());
-            _currentActive = settings.IsSoundOn() ? soundOnFader : soundOffFader;
+            Debug.Log("update sound btn");
+            if (settings.IsSoundOn())
+            {
+                soundOffFader.FadeOut(0);
+                soundOnFader.FadeIn(0);
+                _currentActive = soundOnFader;
+            }
+            else
+            {
+                soundOffFader.FadeIn(0);
+                soundOnFader.FadeOut(0);
+                _currentActive = soundOffFader;
+            }
+
+            _currentActive.FadeIn(0f);
         }
     }
 }

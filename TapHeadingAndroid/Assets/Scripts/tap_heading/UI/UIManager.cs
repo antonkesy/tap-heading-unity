@@ -1,13 +1,13 @@
-using System.Collections;
 using tap_heading.manager;
 using tap_heading.Services.Google;
+using tap_heading.UI.components.Title;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace tap_heading.UI
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : MonoBehaviour, IGameTitleListener
     {
         [SerializeField] private ManagerCollector managers;
         [SerializeField] private UIMenuManager menuManager;
@@ -17,11 +17,17 @@ namespace tap_heading.UI
         [SerializeField] private GameObject aboutPanel;
         [SerializeField] private Toggle inputToggle;
 
+        [SerializeField] private GameTitle gameTitle;
+        [SerializeField] private float titleMenuDelay = .8f;
+
         private bool _isPlaying;
 
         private void Start()
         {
             score.HideAll();
+            aboutPanel.SetActive(false);
+            score.FadeOut(0f);
+            menuManager.FadeOut(0f);
         }
 
         internal void UpdateScoreText(int newScore)
@@ -41,43 +47,29 @@ namespace tap_heading.UI
             aboutPanel.SetActive(false);
             score.ShowPlaying();
             score.FadeIn(.15f);
-            menuManager.SetSound();
-            menuManager.FadeOutMenu();
+            menuManager.FadeOut(0.5f);
         }
 
         internal void ShowReturningMenuUI()
         {
             ShowMenu("TAP TO RESTART");
-            menuManager.FadeInMenu();
+            menuManager.FadeIn(0);
         }
 
 
         private void ShowMenu(string tapToText)
         {
             _isPlaying = false;
-            aboutPanel.SetActive(false);
-            menuManager.SetSound();
             score.ShowMenu();
+            menuManager.FadeIn(.5f);
             tapToStartText.text = tapToText;
         }
 
 
         internal void ShowStartMenuUI()
         {
-            score.FadeOut(0);
-            ShowMenu("TAP TO START");
-            StartCoroutine(WaitForStartCallback());
+            gameTitle.SlideIn(this);
         }
-
-
-        private IEnumerator WaitForStartCallback()
-        {
-            menuManager.FadeInStart();
-            yield return new WaitForSecondsRealtime(2f);
-            managers.GetGameManager().ReadyToStartGameCallback();
-            yield return null;
-        }
-
 
         public void OnAboutButtonClick()
         {
@@ -160,12 +152,18 @@ namespace tap_heading.UI
 
         internal void FadeInNewHighScore()
         {
-            menuManager.FadeInNewHighScore();
+            menuManager.FadeInNewHighScore(1f);
         }
 
         public void ToggleInputSettings()
         {
             managers.GetGameManager().SetSingleClick(inputToggle.isOn);
+        }
+
+        public void OnSlideInDone()
+        {
+            ShowMenu("TAP TO START");
+            managers.GetGameManager().ReadyToStartGameCallback();
         }
     }
 }

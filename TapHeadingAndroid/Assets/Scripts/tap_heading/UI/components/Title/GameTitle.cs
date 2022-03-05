@@ -26,16 +26,16 @@ namespace tap_heading.UI.components.Title
             _gameTitleFader.FadeOut(duration);
         }
 
-        public void SlideIn()
+        public void SlideIn(IGameTitleListener listener)
         {
             var originalPosition = transform.position;
-            Debug.Log("og " + originalPosition);
             transform.position = titleStartTransform.position;
             _gameTitleFader.FadeIn(0);
-            StartCoroutine(SlideIn(transform, originalPosition, titleLerpDuration));
+            StartCoroutine(SlideIn(transform, originalPosition, titleLerpDuration, listener));
         }
 
-        private static IEnumerator SlideIn(Transform transformSlideObject, Vector3 toPosition, float duration)
+        private static IEnumerator SlideIn(Transform transformSlideObject, Vector3 toPosition, float duration,
+            IGameTitleListener listener)
         {
             var counter = 0f;
 
@@ -48,6 +48,8 @@ namespace tap_heading.UI.components.Title
 
                 yield return null;
             }
+
+            listener?.OnSlideInDone();
         }
     }
 }

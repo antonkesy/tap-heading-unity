@@ -226,7 +226,7 @@ RectTransform:
   - {fileID: 2029730539}
   - {fileID: 1177156442}
   m_Father: {fileID: 1561729873}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -349,7 +349,7 @@ RectTransform:
   - {fileID: 690446060}
   - {fileID: 503507008}
   m_Father: {fileID: 2097025355}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -472,7 +472,7 @@ RectTransform:
   - {fileID: 364520996}
   - {fileID: 1765039356}
   m_Father: {fileID: 2097025355}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -2085,7 +2085,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2097025355}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2622,13 +2622,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340031188}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1961674711}
-  m_Father: {fileID: 2097025355}
-  m_RootOrder: 0
+  m_Father: {fileID: 1561729873}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2789,7 +2789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c3efd59ef96443db21e306f1507a419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titleLerpDuration: 4
+  titleLerpDuration: 2
   titleStartTransform: {fileID: 1961674711}
 --- !u!1 &1341691330
 GameObject:
@@ -3539,7 +3539,7 @@ RectTransform:
   - {fileID: 1516585965}
   - {fileID: 313344899}
   m_Father: {fileID: 2097025355}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3652,6 +3652,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1781529469}
+  - {fileID: 1340031189}
   - {fileID: 2097025355}
   - {fileID: 72142199}
   - {fileID: 1672779191}
@@ -8689,7 +8690,7 @@ RectTransform:
   - {fileID: 522016614}
   - {fileID: 1371396805}
   m_Father: {fileID: 1561729873}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8965,6 +8966,8 @@ MonoBehaviour:
   tapToStartText: {fileID: 980880119}
   aboutPanel: {fileID: 72142198}
   inputToggle: {fileID: 212954459}
+  gameTitle: {fileID: 1340031195}
+  titleMenuDelay: 0.8
 --- !u!4 &1781529469
 Transform:
   m_ObjectHideFlags: 0
@@ -9133,7 +9136,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1826263788}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -9393,7 +9396,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015256191}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -9656,13 +9659,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1340031189}
   - {fileID: 980880118}
   - {fileID: 258433589}
   - {fileID: 212954458}
   - {fileID: 1543269424}
   m_Father: {fileID: 1561729873}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9681,15 +9683,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e53ac0a73504334fbff74c76616d330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titleMenuDelay: 0.8
   serializedFader:
   - {fileID: 500859733}
   - {fileID: 1437524548}
   - {fileID: 364520998}
   - {fileID: 980880121}
-  fadeInDuration: 0.5
-  gameTitle: {fileID: 1340031195}
-  fadeOutDuration: 0.125
   highScoreUI: {fileID: 1543269425}
   soundButton: {fileID: 1765039355}
 --- !u!225 &2097025357
