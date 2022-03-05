@@ -24,11 +24,6 @@ namespace tap_heading.Score
             GooglePlayServicesManager.Instance.GetHighScore(this);
         }
 
-        public int GetScore()
-        {
-            return _score;
-        }
-
         public void Add(int value)
         {
             _score += value;

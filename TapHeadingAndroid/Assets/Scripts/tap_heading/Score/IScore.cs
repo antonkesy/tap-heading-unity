@@ -2,7 +2,6 @@
 {
     public interface IScore
     {
-        int GetScore();
         void Add(int value);
         void Reset();
     }
