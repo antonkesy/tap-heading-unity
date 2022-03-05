@@ -1,6 +1,6 @@
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace tap_heading.Game.level.obstacle
 {
@@ -10,23 +10,19 @@ namespace tap_heading.Game.level.obstacle
         private const float DeSpawnTime = 4f;
         private const float CoinSpawnProbability = 0.5f;
 
-        private readonly Transform _obstacleTransform;
-        private readonly GameObject _coin;
-        private readonly IChunkManager.Side _side;
+        private GameObject _coin;
+        private IObstacleManager.Side _side;
 
-        public ObstacleManager(Transform obstacleTransform, GameObject coin, IChunkManager.Side side)
+        private void Start()
         {
-            _obstacleTransform = obstacleTransform;
-            _coin = coin;
-            _side = side;
-            SetCoin();
+            _coin = GetComponentInChildren<CircleCollider2D>().gameObject;
         }
 
         private void SetCoin()
         {
-            var halfChunkWidth = _obstacleTransform.localScale.x / 2f;
-            var parentChunkPosition = _obstacleTransform.position + Vector3.right *
-                (_side == IChunkManager.Side.Right
+            var halfChunkWidth = transform.localScale.x / 2f;
+            var parentChunkPosition = transform.position + Vector3.right *
+                (_side == IObstacleManager.Side.Right
                     ? -CoinOffsetToBar - halfChunkWidth
                     : CoinOffsetToBar + halfChunkWidth);
 
@@ -50,17 +46,18 @@ namespace tap_heading.Game.level.obstacle
         private IEnumerator MoveOut(float duration)
         {
             var time = 0f;
-            var position = _obstacleTransform.position;
-            var targetPosition = new Vector3((_side == IChunkManager.Side.Right ? 15f : -15f), position.y, position.z);
+            var position = transform.position;
+            var targetPosition =
+                new Vector3((_side == IObstacleManager.Side.Right ? 15f : -15f), position.y, position.z);
             while (time < duration)
             {
-                _obstacleTransform.position =
-                    Vector3.LerpUnclamped(_obstacleTransform.position, targetPosition, time / duration);
+                transform.position =
+                    Vector3.LerpUnclamped(transform.position, targetPosition, time / duration);
                 time += Time.deltaTime;
                 yield return null;
                 //early stop of Lerp
-                if (!(Mathf.Abs(targetPosition.x) - Mathf.Abs(_obstacleTransform.position.x) < 1)) continue;
-                _obstacleTransform.position = targetPosition;
+                if (!(Mathf.Abs(targetPosition.x) - Mathf.Abs(transform.position.x) < 1)) continue;
+                transform.position = targetPosition;
                 break;
             }
         }
@@ -68,7 +65,9 @@ namespace tap_heading.Game.level.obstacle
         public void DeSpawn()
         {
             HideCoin();
-            //StartCoroutine(MoveOut(despawnTime));
+            StartCoroutine(MoveOut(DeSpawnTime));
+        }
+
         public void SetSide(IObstacleManager.Side side)
         {
             _side = side;
