@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall1
       objectReference: {fileID: 0}
+    - target: {fileID: 5264863158843826151, guid: 2800482348f09184f99d13a441827f75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2800482348f09184f99d13a441827f75, type: 3}
 --- !u!4 &5058267 stripped
@@ -8940,6 +8944,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1781529469}
   - component: {fileID: 1781529468}
+  - component: {fileID: 1781529472}
+  - component: {fileID: 1781529471}
+  - component: {fileID: 1781529470}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -8959,15 +8966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ce3d43c414fc345adc517c58f61f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managers: {fileID: 1386425711}
-  menuManager: {fileID: 2097025356}
-  score: {fileID: 1672779192}
-  highScoreText: {fileID: 1516585966}
-  tapToStartText: {fileID: 980880119}
   aboutPanel: {fileID: 72142198}
-  inputToggle: {fileID: 212954459}
-  gameTitle: {fileID: 1340031195}
-  titleMenuDelay: 0.8
 --- !u!4 &1781529469
 Transform:
   m_ObjectHideFlags: 0
@@ -8982,6 +8981,59 @@ Transform:
   m_Father: {fileID: 1561729873}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1781529470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781529467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855aab3d9e9340d5b751f1761cca5382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  managers: {fileID: 1386425711}
+  score: {fileID: 1672779192}
+  highScoreUI: {fileID: 1543269425}
+--- !u!114 &1781529471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781529467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368864366bee4611a3d662baf09a714f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  managers: {fileID: 1386425711}
+  score: {fileID: 1672779192}
+  highScoreUI: {fileID: 1543269425}
+  aboutPanel: {fileID: 72142198}
+  menuManager: {fileID: 2097025356}
+  tapToStartText: {fileID: 980880119}
+  gameTitle: {fileID: 1340031195}
+--- !u!114 &1781529472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781529467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c4cc50980643448c7f1532d8f139df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  managers: {fileID: 1386425711}
+  score: {fileID: 1672779192}
+  highScoreUI: {fileID: 1543269425}
+  menuManager: {fileID: 2097025356}
+  aboutPanel: {fileID: 72142198}
+  tapToStartText: {fileID: 980880119}
+  gameTitle: {fileID: 1340031195}
 --- !u!1 &1826263788
 GameObject:
   m_ObjectHideFlags: 0

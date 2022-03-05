@@ -14,6 +14,11 @@ namespace tap_heading.UI.components.sound
 
         private IFader _currentActive;
 
+        private void Awake()
+        {
+            _currentActive = soundOnFader;
+        }
+
         private void Start()
         {
             soundOffFader.FadeOut(0f);
@@ -33,7 +38,6 @@ namespace tap_heading.UI.components.sound
 
         public void Toggle()
         {
-            Debug.Log("update sound btn");
             if (settings.IsSoundOn())
             {
                 soundOffFader.FadeOut(0);
