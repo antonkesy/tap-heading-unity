@@ -16,9 +16,4 @@ namespace tap_heading.Game.level.obstacle
         void Move(Vector3 moveBy);
         float GetYPos();
     }
-
-    public interface IObstacleListener
-    {
-        void OnOutOfSight(IObstacle manager);
-    }
 }
