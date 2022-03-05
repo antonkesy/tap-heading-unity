@@ -828,7 +828,7 @@ GameObject:
   - component: {fileID: 439363300}
   - component: {fileID: 439363301}
   m_Layer: 0
-  m_Name: Chunks
+  m_Name: Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -844,9 +844,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1565829500}
-  - {fileID: 1316224600}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -862,13 +860,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb08bfae1f0f46938c6a426dc930e473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRandomOffset: 0
-  chunkGroupTransform0: {fileID: 1565829500}
-  chunkGroupTransform1: {fileID: 1316224600}
-  chunkPrefab: {fileID: 6131700975251561847, guid: 1c90df38d90fa3341b144718578afd83, type: 3}
-  yOffsetToChunks: 0
-  xOffset: 0
-  chunkSpeedBase: 1
+  maxRandomOffset: 0.666
+  obstaclePrefab: {fileID: 6131700975251561847, guid: 1c90df38d90fa3341b144718578afd83, type: 3}
+  yOffsetBetweenObstacles: 6
+  xOffset: 5.5
 --- !u!1 &498030354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,7 +1666,8 @@ MonoBehaviour:
   - {fileID: 5058268}
   chunkManager: {fileID: 439363301}
   xOffsetWall: 5.5
-  speedIncreaseBy: 0
+  speedIncreaseBy: 0.5
+  baseSpeed: 7
 --- !u!4 &836582973
 Transform:
   m_ObjectHideFlags: 0
@@ -2504,36 +2500,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251369061}
   m_CullTransparentMesh: 1
---- !u!1 &1316224599
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1316224600}
-  m_Layer: 0
-  m_Name: Chunk1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1316224600
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316224599}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 439363300}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1340031188
 GameObject:
   m_ObjectHideFlags: 0
@@ -2897,6 +2863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 1180965302}
   cameraManager: {fileID: 519420033}
+  obstacleManager: {fileID: 0}
   levelManager: {fileID: 836582972}
   playerManager: {fileID: 906787710}
   gameManager: {fileID: 190944114}
@@ -3535,36 +3502,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1565829499
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1565829500}
-  m_Layer: 0
-  m_Name: Chunk0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1565829500
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1565829499}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 439363300}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1634932191
 GameObject:
   m_ObjectHideFlags: 0

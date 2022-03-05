@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace tap_heading.Game.level.obstacle
 {
-    public class ObstacleManager : MonoBehaviour, IObstacleManager
+    public class Obstacle : MonoBehaviour, IObstacle
     {
         private const float CoinOffsetToBar = .25f;
         private const float DeSpawnTime = 4f;
         private const float CoinSpawnProbability = 0.5f;
 
         private GameObject _coin;
-        private IObstacleManager.Side _side;
+        private IObstacle.Side _side;
 
         private void Start()
         {
@@ -22,7 +22,7 @@ namespace tap_heading.Game.level.obstacle
         {
             var halfChunkWidth = transform.localScale.x / 2f;
             var parentChunkPosition = transform.position + Vector3.right *
-                (_side == IObstacleManager.Side.Right
+                (_side == IObstacle.Side.Right
                     ? -CoinOffsetToBar - halfChunkWidth
                     : CoinOffsetToBar + halfChunkWidth);
 
@@ -48,7 +48,7 @@ namespace tap_heading.Game.level.obstacle
             var time = 0f;
             var position = transform.position;
             var targetPosition =
-                new Vector3((_side == IObstacleManager.Side.Right ? 15f : -15f), position.y, position.z);
+                new Vector3((_side == IObstacle.Side.Right ? 15f : -15f), position.y, position.z);
             while (time < duration)
             {
                 transform.position =
@@ -68,7 +68,7 @@ namespace tap_heading.Game.level.obstacle
             StartCoroutine(MoveOut(DeSpawnTime));
         }
 
-        public void SetSide(IObstacleManager.Side side)
+        public void SetSide(IObstacle.Side side)
         {
             _side = side;
         }

@@ -6,7 +6,7 @@ namespace tap_heading.Game.level
     public class LevelManager : MonoBehaviour, ILevelManager
     {
         [Header("Walls")] [SerializeField] private GameObject[] wallGameObjects;
-        [SerializeField] private ChunkManager chunkManager;
+        [SerializeField] private ObstacleManager obstacleManager;
         [SerializeField] private float xOffsetWall;
 
         [Header("Level Properties")] [SerializeField]
@@ -30,19 +30,19 @@ namespace tap_heading.Game.level
         public void IncreaseSpeed()
         {
             _speed += speedIncreaseBy;
-            chunkManager.SetSpeed(_speed);
+            obstacleManager.SetSpeed(_speed);
         }
 
         public void Restart()
         {
-            chunkManager.Restart();
+            obstacleManager.Restart();
             _speed = baseSpeed;
-            chunkManager.SetSpeed(_speed);
+            obstacleManager.SetSpeed(_speed);
         }
 
         public void Stop()
         {
-            chunkManager.Stop();
+            obstacleManager.Stop();
         }
     }
 }
