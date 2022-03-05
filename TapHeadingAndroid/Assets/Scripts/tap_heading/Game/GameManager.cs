@@ -92,6 +92,7 @@ namespace tap_heading.Game
         {
             _score.Reset();
             _gameState = new Running();
+            managers.GetUIManager().UpdateScoreText(0);
             managers.GetUIManager().ShowPlayUI();
             managers.GetPlayerManager().StartMoving();
             managers.GetLevelManager().Restart();
@@ -122,6 +123,12 @@ namespace tap_heading.Game
             managers.GetLevelManager().Stop();
             managers.GetPlayerManager().Spawn();
             CheckForIARPopUp();
+
+            if (_score.IsHighScore())
+            {
+                managers.GetAudioManager().PlayNewHighScore();
+                managers.GetUIManager().FadeInNewHighScore();
+            }
         }
 
         private IEnumerator WaitToRestart()
@@ -150,7 +157,7 @@ namespace tap_heading.Game
 
         public void OnNewHighScore(int highScore)
         {
-            _gameState.OnNewHighScore(managers, highScore);
+            managers.GetUIManager().UpdateHighScoreText(highScore);
         }
     }
 }
