@@ -65,5 +65,15 @@ namespace tap_heading.Game.level.obstacle
             transform.position = position;
             SetCoin();
         }
+
+        public void Move(Vector3 moveBy)
+        {
+            transform.position += moveBy;
+        }
+
+        public float GetYPos()
+        {
+            return transform.position.y;
+        }
     }
 }

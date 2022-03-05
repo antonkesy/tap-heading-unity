@@ -17,8 +17,7 @@ namespace tap_heading.Game.level.obstacle.Manager
         [SerializeField] private float yOffsetBetweenObstacles = 6f;
         [SerializeField] private float xOffset = 5.5f;
 
-        private readonly List<KeyValuePair<Transform, IObstacle>> _obstacles =
-            new List<KeyValuePair<Transform, IObstacle>>();
+        private readonly List<IObstacle> _obstacles = new List<IObstacle>();
 
         private IObstacle.Side _nextSide;
 
@@ -62,7 +61,7 @@ namespace tap_heading.Game.level.obstacle.Manager
             var yOffset = 0f;
             foreach (var obstacle in _obstacles)
             {
-                ResetObstacle(obstacle.Value, yOffset);
+                ResetObstacle(obstacle, yOffset);
                 yOffset += yOffsetBetweenObstacles + obstaclePrefab.transform.localScale.y;
             }
         }
@@ -78,7 +77,7 @@ namespace tap_heading.Game.level.obstacle.Manager
             var obstacle = Instantiate(obstaclePrefab, transform);
             obstacle.transform.position = Vector3.up * _yStartHeight;
             var obstacleManager = obstacle.GetComponent<IObstacle>();
-            _obstacles.Add(new KeyValuePair<Transform, IObstacle>(obstacle.transform, obstacleManager));
+            _obstacles.Add(obstacleManager);
         }
 
 
@@ -96,10 +95,10 @@ namespace tap_heading.Game.level.obstacle.Manager
             var downVector = Vector3.down * (_chunkSpeed * Time.deltaTime);
             foreach (var obstacle in _obstacles)
             {
-                obstacle.Key.position += downVector;
-                if (obstacle.Key.position.y <= _minSightHeight + obstacle.Key.transform.localScale.y)
+                obstacle.Move(downVector);
+                if (obstacle.GetYPos() <= _minSightHeight)
                 {
-                    ResetObstacle(obstacle.Value, 0f);
+                    ResetObstacle(obstacle, 0f);
                 }
             }
         }
@@ -119,7 +118,7 @@ namespace tap_heading.Game.level.obstacle.Manager
             _chunkSpeed = 0f;
             foreach (var keyValuePair in _obstacles)
             {
-                keyValuePair.Value.DeSpawn();
+                keyValuePair.DeSpawn();
             }
         }
 

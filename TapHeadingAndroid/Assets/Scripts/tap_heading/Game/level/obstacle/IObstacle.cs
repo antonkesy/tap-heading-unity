@@ -13,6 +13,8 @@ namespace tap_heading.Game.level.obstacle
         public void DeSpawn();
 
         void Reset(Vector3 position, Side side);
+        void Move(Vector3 moveBy);
+        float GetYPos();
     }
 
     public interface IObstacleListener
