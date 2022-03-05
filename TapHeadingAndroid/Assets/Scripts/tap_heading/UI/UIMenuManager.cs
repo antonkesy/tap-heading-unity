@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using tap_heading.UI.components.highscore;
 using tap_heading.UI.utility;
+using TMPro;
 using UnityEngine;
 
 namespace tap_heading.UI
@@ -39,6 +40,7 @@ namespace tap_heading.UI
             }
 
             faders.Add(soundButton);
+            faders.Add(highScoreUI);
         }
 
         internal void FadeInMenu()
@@ -51,7 +53,6 @@ namespace tap_heading.UI
         {
             gameTitleFader.FadeOut(fadeOutDuration);
             FadeAll(false, fadeOutDuration);
-            highScoreUI.FadeOut(fadeOutDuration);
         }
 
         internal void FadeInStart()
@@ -110,7 +111,7 @@ namespace tap_heading.UI
 
         internal void FadeInNewHighScore()
         {
-            highScoreUI.FadeIn(fadeInDuration);
+            highScoreUI.FadeInNewHighScore(fadeInDuration);
         }
     }
 }

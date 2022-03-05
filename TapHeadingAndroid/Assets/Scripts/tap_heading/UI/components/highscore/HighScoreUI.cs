@@ -5,16 +5,23 @@ namespace tap_heading.UI.components.highscore
 {
     public class HighScoreUI : MonoBehaviour, IHighScoreUI
     {
-        [SerializeField] private UIFader newHighScoreFader;
+        [SerializeField] private UIFader newHighScore;
+        [SerializeField] private UIFader highScore;
+
+        public void FadeInNewHighScore(float duration)
+        {
+            newHighScore.FadeIn(duration);
+        }
 
         public void FadeIn(float duration)
         {
-            //todo
+            highScore.FadeIn(duration);
         }
 
         public void FadeOut(float duration)
         {
-            //todo
+            newHighScore.FadeOut(duration);
+            highScore.FadeOut(duration);
         }
     }
 }
