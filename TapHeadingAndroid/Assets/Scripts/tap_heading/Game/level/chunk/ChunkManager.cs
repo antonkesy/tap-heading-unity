@@ -114,8 +114,8 @@ namespace tap_heading.Game.level.chunk
         private void MoveChunkGroups()
         {
             var downVector = Vector3.down * (_chunkSpeed * Time.deltaTime);
-            chunkGroupTransform0.position += Vector3.down;
-            chunkGroupTransform1.position += Vector3.down;
+            chunkGroupTransform0.position += downVector;
+            chunkGroupTransform1.position += downVector;
 
             _fistChunkYPosition += downVector.y;
         }
