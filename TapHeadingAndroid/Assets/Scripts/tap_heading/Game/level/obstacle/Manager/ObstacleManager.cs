@@ -72,7 +72,6 @@ namespace tap_heading.Game.level.obstacle.Manager
             var obstacle = Instantiate(obstaclePrefab, transform);
             obstacle.transform.position = Vector3.up * _yStartHeight;
             var obstacleManager = obstacle.GetComponent<IObstacle>();
-            obstacleManager.SetSide(_nextSide);
             _obstacles.Add(new KeyValuePair<Transform, IObstacle>(obstacle.transform, obstacleManager));
         }
 
@@ -94,9 +93,7 @@ namespace tap_heading.Game.level.obstacle.Manager
                 obstacle.Key.position += downVector;
                 if (obstacle.Key.position.y <= _minSightHeight + obstacle.Key.transform.localScale.y)
                 {
-                    //reset pos
-                    obstacle.Key.position = GetNewChunkPosition(0);
-                    obstacle.Value.SetSide(_nextSide);
+                    obstacle.Value.Reset(GetNewChunkPosition(0f), _nextSide);
                     SwitchSide();
                 }
             }

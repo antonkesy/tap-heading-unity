@@ -12,7 +12,7 @@ namespace tap_heading.Game.level.obstacle
 
         public void DeSpawn();
 
-        void SetSide(Side side);
+        void Reset(Vector3 position, Side side);
     }
 
     public interface IObstacleListener

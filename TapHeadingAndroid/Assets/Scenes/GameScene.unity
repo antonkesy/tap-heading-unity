@@ -1664,7 +1664,7 @@ MonoBehaviour:
   wallGameObjects:
   - {fileID: 1914730787}
   - {fileID: 5058268}
-  chunkManager: {fileID: 439363301}
+  obstacleManager: {fileID: 439363301}
   xOffsetWall: 5.5
   speedIncreaseBy: 0.5
   baseSpeed: 7
@@ -2863,7 +2863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 1180965302}
   cameraManager: {fileID: 519420033}
-  obstacleManager: {fileID: 0}
+  obstacle: {fileID: 0}
   levelManager: {fileID: 836582972}
   playerManager: {fileID: 906787710}
   gameManager: {fileID: 190944114}

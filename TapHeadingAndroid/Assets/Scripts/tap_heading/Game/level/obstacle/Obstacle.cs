@@ -1,46 +1,37 @@
 using System.Collections;
-using System.Security.Cryptography;
 using UnityEngine;
 
 namespace tap_heading.Game.level.obstacle
 {
     public class Obstacle : MonoBehaviour, IObstacle
     {
-        private const float CoinOffsetToBar = .25f;
         private const float DeSpawnTime = 4f;
         private const float CoinSpawnProbability = 0.5f;
 
-        private GameObject _coin;
+        [SerializeField] private GameObject[] coins;
         private IObstacle.Side _side;
-
-        private void Start()
-        {
-            _coin = GetComponentInChildren<CircleCollider2D>().gameObject;
-        }
 
         private void SetCoin()
         {
-            var halfChunkWidth = transform.localScale.x / 2f;
-            var parentChunkPosition = transform.position + Vector3.right *
-                (_side == IObstacle.Side.Right
-                    ? -CoinOffsetToBar - halfChunkWidth
-                    : CoinOffsetToBar + halfChunkWidth);
-
-
-            if (CoinSpawnProbability > Random.Range(0, 1f))
+            if (CoinSpawnProbability > Random.Range(0f, 1f))
             {
-                _coin.transform.position = parentChunkPosition;
-                _coin.SetActive(true);
+                foreach (var coin in coins)
+                {
+                    coin.SetActive(true);
+                }
             }
             else
             {
-                _coin.SetActive(false);
+                HideCoins();
             }
         }
 
-        private void HideCoin()
+        private void HideCoins()
         {
-            _coin.SetActive(false);
+            foreach (var coin in coins)
+            {
+                coin.SetActive(false);
+            }
         }
 
         private IEnumerator MoveOut(float duration)
@@ -64,13 +55,15 @@ namespace tap_heading.Game.level.obstacle
 
         public void DeSpawn()
         {
-            HideCoin();
+            HideCoins();
             StartCoroutine(MoveOut(DeSpawnTime));
         }
 
-        public void SetSide(IObstacle.Side side)
+        public void Reset(Vector3 position, IObstacle.Side side)
         {
             _side = side;
+            transform.position = position;
+            SetCoin();
         }
     }
 }
