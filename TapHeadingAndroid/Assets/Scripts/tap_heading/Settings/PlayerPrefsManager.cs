@@ -44,12 +44,12 @@ namespace tap_heading.Settings
 
         public bool IsSoundOn()
         {
-            return PlayerPrefs.GetInt(SoundOnKey, 0) == 0;
+            return PlayerPrefs.GetInt(SoundOnKey, 1) == 1;
         }
 
         public void SetSoundOn(bool isOn)
         {
-            PlayerPrefs.SetInt(SoundOnKey, isOn ? 0 : 1);
+            PlayerPrefs.SetInt(SoundOnKey, isOn ? 1 : 0);
         }
 
         public void SetLocalHighScore(int value)
