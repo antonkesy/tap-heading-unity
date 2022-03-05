@@ -10,11 +10,11 @@ namespace tap_heading.Game.level
         [SerializeField] private float xOffsetWall;
 
         [Header("Level Properties")] [SerializeField]
-        private float speedIncreaseBy;
+        private float speedIncreaseBy = .5f;
 
-        [SerializeField] private float baseSpeed = 0.5f;
+        [SerializeField] private float baseSpeed = 5f;
 
-        private float _speed = 0f;
+        private float _speed;
 
         private void Awake()
         {
