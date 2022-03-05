@@ -4,6 +4,7 @@
     {
         void Add(int value);
         void Reset();
+        bool IsHighScore();
     }
 
     public interface IScoreListener

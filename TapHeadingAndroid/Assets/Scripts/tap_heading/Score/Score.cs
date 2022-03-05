@@ -6,6 +6,7 @@ namespace tap_heading.Score
 {
     public class Score : IScore, ISignInListener
     {
+        private bool _isHighScore;
         private int _highScore;
         private int _score;
         private readonly ISettings _settings;
@@ -36,7 +37,13 @@ namespace tap_heading.Score
         public void Reset()
         {
             _score = 0;
+            _isHighScore = false;
             _listener?.OnScoreUpdate(_score);
+        }
+
+        public bool IsHighScore()
+        {
+            return _isHighScore;
         }
 
         public void OnSignInSuccess(int playerScoreValue)
@@ -56,6 +63,7 @@ namespace tap_heading.Score
         {
             if (_score <= _highScore) return;
 
+            _isHighScore = true;
             _highScore = _score;
             _listener?.OnNewHighScore(_highScore);
         }
