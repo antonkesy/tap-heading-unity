@@ -31,7 +31,6 @@ namespace tap_heading.Game
 
             _score = new Score.Score(this, managers.GetSettings());
             LoadFlagsFromPlayerPrefs();
-            managers.GetUIManager().ShowStartMenuUI();
             managers.GetAudioManager().PlayStartApplication();
             managers.GetPlayerManager().Spawn();
 
@@ -75,7 +74,7 @@ namespace tap_heading.Game
 
         public bool IsClickForGame()
         {
-            if (managers.GetUIManager().isAboutOn()) return false;
+            if (managers.GetUIManager().CancelAbout()) return false;
             managers.GetAudioManager().PlayPlayerTap();
             return true;
         }
@@ -95,7 +94,7 @@ namespace tap_heading.Game
         {
             _score.Reset();
             _gameState = new Running();
-            managers.GetUIManager().UpdateScoreText(0);
+            //managers.GetUIManager().UpdateScoreText(0);
             managers.GetUIManager().ShowPlayUI();
             managers.GetPlayerManager().StartMoving();
             managers.GetLevelManager().Restart();
@@ -121,7 +120,7 @@ namespace tap_heading.Game
             managers.GetAudioManager().PlayPlayerDeath();
             managers.GetCameraManager().StartShaking();
             _gameState = new WaitForAnimation();
-            managers.GetUIManager().ShowReturningMenuUI();
+            managers.GetUIManager().ShowMenu();
             StartCoroutine(WaitToRestart());
             managers.GetLevelManager().Stop();
             managers.GetPlayerManager().Spawn();
@@ -130,7 +129,7 @@ namespace tap_heading.Game
             if (_score.IsHighScore())
             {
                 managers.GetAudioManager().PlayNewHighScore();
-                managers.GetUIManager().FadeInNewHighScore();
+                //managers.GetUIManager().FadeInNewHighScore();
             }
         }
 
@@ -160,7 +159,7 @@ namespace tap_heading.Game
 
         public void OnNewHighScore(int highScore)
         {
-            managers.GetUIManager().UpdateHighScoreText(highScore);
+            //managers.GetUIManager().UpdateHighScoreText(highScore);
         }
     }
 }

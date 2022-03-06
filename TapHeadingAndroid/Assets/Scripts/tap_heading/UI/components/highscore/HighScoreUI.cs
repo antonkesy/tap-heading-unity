@@ -8,6 +8,11 @@ namespace tap_heading.UI.components.highscore
         [SerializeField] private UIFader newHighScore;
         [SerializeField] private UIFader highScore;
 
+        public void SetScore(int score)
+        {
+            //TODO 
+        }
+
         public void FadeInNewHighScore(float duration)
         {
             newHighScore.FadeIn(duration);

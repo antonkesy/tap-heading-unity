@@ -1,4 +1,5 @@
-﻿using tap_heading.Settings;
+﻿using System;
+using tap_heading.Settings;
 using tap_heading.UI.utility;
 using UnityEngine;
 
@@ -11,22 +12,46 @@ namespace tap_heading.UI.components.sound
 
         [SerializeField] private PlayerPrefsManager settings;
 
+        private IFader _currentActive;
+
+        private void Awake()
+        {
+            _currentActive = soundOnFader;
+        }
+
+        private void Start()
+        {
+            soundOffFader.FadeOut(0f);
+            soundOnFader.FadeOut(0f);
+            _currentActive = settings.IsSoundOn() ? soundOnFader : soundOffFader;
+        }
+
         public void FadeIn(float duration)
         {
-            soundOffFader.FadeIn(duration);
-            soundOnFader.FadeIn(duration);
+            _currentActive.FadeIn(duration);
         }
 
         public void FadeOut(float duration)
         {
-            soundOffFader.FadeOut(duration);
-            soundOnFader.FadeOut(duration);
+            _currentActive.FadeOut(duration);
         }
 
         public void Toggle()
         {
-            soundOffFader.gameObject.SetActive(!settings.IsSoundOn());
-            soundOnFader.gameObject.SetActive(settings.IsSoundOn());
+            if (settings.IsSoundOn())
+            {
+                soundOffFader.FadeOut(0);
+                soundOnFader.FadeIn(0);
+                _currentActive = soundOnFader;
+            }
+            else
+            {
+                soundOffFader.FadeIn(0);
+                soundOnFader.FadeOut(0);
+                _currentActive = soundOffFader;
+            }
+
+            _currentActive.FadeIn(0f);
         }
     }
 }
