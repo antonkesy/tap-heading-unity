@@ -1,3 +1,4 @@
+using tap_heading.UI.components.About;
 using tap_heading.UI.components.Title;
 using TMPro;
 using UnityEngine;
@@ -6,7 +7,7 @@ namespace tap_heading.UI.State.States
 {
     public class StartUI : UIState
     {
-        [SerializeField] protected GameObject aboutPanel;
+        [SerializeField] protected AboutUI about;
         [SerializeField] protected UIMenuManager menuManager;
         [SerializeField] protected TextMeshProUGUI tapToStartText;
         [SerializeField] protected GameTitle gameTitle;
@@ -14,7 +15,7 @@ namespace tap_heading.UI.State.States
         public override void OnEntering()
         {
             score.HideAll();
-            aboutPanel.SetActive(false);
+            about.Close();
             score.FadeOut(0f);
             menuManager.FadeOut(0f);
             gameTitle.SlideIn();
@@ -28,10 +29,6 @@ namespace tap_heading.UI.State.States
         {
             menuManager.FadeOut(0.5f);
             gameTitle.SlideOut();
-        }
-
-        public void OnSlideInDone()
-        {
         }
     }
 }
