@@ -6,7 +6,7 @@ namespace tap_heading.UI.utility.Fade
     public class UIFader : MonoBehaviour, IFader
     {
         private CanvasGroup _canvasGroup;
-        private bool _isFadeIn = true;
+        private Coroutine _fading;
 
         private void Awake()
         {
@@ -15,16 +15,13 @@ namespace tap_heading.UI.utility.Fade
 
         private void Fade(bool fadeIn, float duration)
         {
-            //Checks if already is faded 
-            if (_isFadeIn == fadeIn)
+            if (_fading != null)
             {
-                return;
+                StopCoroutine(_fading);
             }
 
-            _isFadeIn = fadeIn;
-
             gameObject.SetActive(true);
-            StartCoroutine(DoFade(fadeIn ? 0 : 1, fadeIn ? 1 : 0, fadeIn, duration));
+            _fading = StartCoroutine(DoFade(fadeIn ? 0 : 1, fadeIn ? 1 : 0, fadeIn, duration));
         }
 
         private IEnumerator DoFade(float start, float end, bool endState, float duration)
@@ -40,6 +37,7 @@ namespace tap_heading.UI.utility.Fade
             }
 
             gameObject.SetActive(endState);
+            _fading = null;
         }
 
         public void FadeIn(float duration)

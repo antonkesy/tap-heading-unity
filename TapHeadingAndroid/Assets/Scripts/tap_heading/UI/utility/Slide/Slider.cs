@@ -13,7 +13,7 @@ namespace tap_heading.UI.utility.Slide
         private void Awake()
         {
             _showPosition = gameObject.transform.localPosition;
-            gameObject.transform.localPosition = hidePosition;
+            transform.localPosition = hidePosition;
         }
 
         private void Slide(bool slideIn)
@@ -51,6 +51,8 @@ namespace tap_heading.UI.utility.Slide
 
                 yield return null;
             }
+
+            _slide = null;
         }
     }
 }
