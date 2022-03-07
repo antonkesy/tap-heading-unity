@@ -9811,7 +9811,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6764534175411120628, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: -2.7
       objectReference: {fileID: 0}
     - target: {fileID: 6764534175411120628, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9853,10 +9853,6 @@ PrefabInstance:
       propertyPath: managers
       value: 
       objectReference: {fileID: 1386425711}
-    - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 190944114}
     - target: {fileID: 8868636497757322871, guid: 4a60e517be7055544822569ef47f51a3, type: 3}
       propertyPath: pickupParticleSystem
       value: 
