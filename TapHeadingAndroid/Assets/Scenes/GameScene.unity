@@ -8931,7 +8931,7 @@ MonoBehaviour:
   managers: {fileID: 1386425711}
   score: {fileID: 1672779192}
   highScoreUI: {fileID: 1543269425}
-  aboutPanel: {fileID: 72142198}
+  about: {fileID: 290838431}
   menuManager: {fileID: 2097025356}
   tapToStartText: {fileID: 980880119}
   gameTitle: {fileID: 1340031195}
@@ -8951,7 +8951,7 @@ MonoBehaviour:
   score: {fileID: 1672779192}
   highScoreUI: {fileID: 1543269425}
   menuManager: {fileID: 2097025356}
-  aboutPanel: {fileID: 72142198}
+  about: {fileID: 290838431}
   tapToStartText: {fileID: 980880119}
   gameTitle: {fileID: 1340031195}
 --- !u!114 &1781529473
