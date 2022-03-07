@@ -4903,7 +4903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae9037e0f9cf6c46afcde0799474ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  managers: {fileID: 0}
   thrusterParticleSystem: {fileID: 2104483253}
   destroyParticleSystem: {fileID: 0}
   pickupParticleSystemGameObject: {fileID: 0}
