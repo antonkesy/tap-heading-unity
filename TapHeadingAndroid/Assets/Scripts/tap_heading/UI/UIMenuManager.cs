@@ -28,11 +28,6 @@ namespace tap_heading.UI
             _faders.Add(highScoreUI);
         }
 
-        public void SetSound()
-        {
-            soundButton.Toggle();
-        }
-
         internal void FadeInNewHighScore(float duration)
         {
             highScoreUI.FadeInNewHighScore(duration);
