@@ -1,4 +1,4 @@
-﻿namespace tap_heading.UI.utility
+﻿namespace tap_heading.UI.utility.Fade
 {
     public interface IFader
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace tap_heading.UI.State.States
 {
-    public class StartUI : UIState, IGameTitleListener
+    public class StartUI : UIState
     {
         [SerializeField] protected GameObject aboutPanel;
         [SerializeField] protected UIMenuManager menuManager;
@@ -17,20 +17,21 @@ namespace tap_heading.UI.State.States
             aboutPanel.SetActive(false);
             score.FadeOut(0f);
             menuManager.FadeOut(0f);
-            gameTitle.SlideIn(this);
+            gameTitle.SlideIn();
+            //wait 1sec 
+            menuManager.FadeIn(.5f);
+            tapToStartText.text = "TAP TO START";
+            managers.GetGameManager().ReadyToStartGameCallback();
         }
 
         public override void OnLeaving()
         {
             menuManager.FadeOut(0.5f);
-            gameTitle.FadeOut(0.5f);
+            gameTitle.SlideOut();
         }
 
         public void OnSlideInDone()
         {
-            menuManager.FadeIn(.5f);
-            tapToStartText.text = "TAP TO START";
-            managers.GetGameManager().ReadyToStartGameCallback();
         }
     }
 }

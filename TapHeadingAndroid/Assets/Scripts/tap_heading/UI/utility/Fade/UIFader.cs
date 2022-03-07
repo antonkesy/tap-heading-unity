@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace tap_heading.UI.utility
+namespace tap_heading.UI.utility.Fade
 {
     public class UIFader : MonoBehaviour, IFader
     {

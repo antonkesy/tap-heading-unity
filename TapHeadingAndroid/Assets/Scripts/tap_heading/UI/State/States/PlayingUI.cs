@@ -5,7 +5,7 @@ namespace tap_heading.UI.State.States
         public override void OnEntering()
         {
             score.ShowPlaying();
-            score.FadeIn(.15f);
+            score.FadeIn(.35f);
         }
 
         public override void OnLeaving()

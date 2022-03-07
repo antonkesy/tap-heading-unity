@@ -14,7 +14,8 @@ namespace tap_heading.UI.State.States
         public override void OnEntering()
         {
             score.ShowMenu();
-            menuManager.FadeIn(.5f);
+            gameTitle.SlideIn();
+            menuManager.FadeIn(.2f);
             tapToStartText.text = "TAP TO RESTART";
             managers.GetGameManager().ReadyToStartGameCallback();
         }
@@ -22,7 +23,8 @@ namespace tap_heading.UI.State.States
         public override void OnLeaving()
         {
             aboutPanel.SetActive(false);
-            menuManager.FadeOut(0.5f);
+            menuManager.FadeOut(0.2f);
+            gameTitle.SlideOut();
         }
     }
 }

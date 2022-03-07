@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using tap_heading.UI.components.highscore;
 using tap_heading.UI.components.sound;
 using tap_heading.UI.utility;
+using tap_heading.UI.utility.Fade;
 using UnityEngine;
 
 namespace tap_heading.UI

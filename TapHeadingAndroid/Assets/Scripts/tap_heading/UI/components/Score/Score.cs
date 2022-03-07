@@ -1,5 +1,6 @@
 using tap_heading.UI.components.Text;
 using tap_heading.UI.utility;
+using tap_heading.UI.utility.Fade;
 using UnityEngine;
 
 namespace tap_heading.UI.components.Score

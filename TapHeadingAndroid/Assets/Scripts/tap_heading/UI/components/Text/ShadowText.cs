@@ -1,4 +1,5 @@
 using tap_heading.UI.utility;
+using tap_heading.UI.utility.Fade;
 using TMPro;
 using UnityEngine;
 
