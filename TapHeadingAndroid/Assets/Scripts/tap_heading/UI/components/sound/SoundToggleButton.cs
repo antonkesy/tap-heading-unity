@@ -14,44 +14,40 @@ namespace tap_heading.UI.components.sound
         [SerializeField] private PlayerPrefsManager settings;
 
         private IFader _currentActive;
+        private IFader _notActive;
 
         private void Awake()
         {
             _currentActive = soundOnFader;
-        }
-
-        private void Start()
-        {
-            soundOffFader.FadeOut(0f);
-            soundOnFader.FadeOut(0f);
-            _currentActive = settings.IsSoundOn() ? soundOnFader : soundOffFader;
+            Toggle();
         }
 
         public void FadeIn(float duration)
         {
             _currentActive.FadeIn(duration);
+            _notActive.FadeOut(0f);
         }
 
         public void FadeOut(float duration)
         {
             _currentActive.FadeOut(duration);
+            _notActive.FadeOut(0f);
         }
 
         public void Toggle()
         {
             if (settings.IsSoundOn())
             {
-                soundOffFader.FadeOut(0);
-                soundOnFader.FadeIn(0);
+                _notActive = soundOffFader;
                 _currentActive = soundOnFader;
             }
             else
             {
-                soundOffFader.FadeIn(0);
-                soundOnFader.FadeOut(0);
+                _notActive = soundOnFader;
                 _currentActive = soundOffFader;
             }
 
+            _notActive.FadeOut(0f);
             _currentActive.FadeIn(0f);
         }
     }
