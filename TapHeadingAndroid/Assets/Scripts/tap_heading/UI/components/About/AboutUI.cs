@@ -9,7 +9,7 @@ namespace tap_heading.UI.components.About
         [SerializeField] private GameObject aboutPanel;
         [SerializeField] private GameObject[] toHide;
 
-        private List<GameObject> _hidden = new List<GameObject>();
+        private readonly List<GameObject> _hidden = new List<GameObject>();
 
         public void Open()
         {
