@@ -1,5 +1,6 @@
 using tap_heading.manager;
 using tap_heading.Services.Google;
+using tap_heading.UI.components.About;
 using tap_heading.UI.components.sound;
 using UnityEngine;
 
@@ -7,18 +8,21 @@ namespace tap_heading.UI
 {
     public class ClickHandler : MonoBehaviour
     {
+        [SerializeField] private AboutUI aboutUI;
         [SerializeField] private ManagerCollector managers;
-        [SerializeField] private GameObject aboutPanel;
-        [SerializeField] private GameObject tapToStartText;
         [SerializeField] private SoundToggleButton soundToggleButton;
 
         public void OnAboutButtonClick()
         {
             managers.GetAudioManager().PlayUITap();
-            Social.ReportProgress(GPGSIds.AchievementThankYou, 0.0f, null);
-            aboutPanel.SetActive(!aboutPanel.activeSelf);
-            tapToStartText.gameObject.SetActive(!aboutPanel.activeSelf);
-            GooglePlayServicesManager.Instance.ThankYouAchievement();
+            if (aboutUI.IsOpen())
+            {
+                aboutUI.Close();
+            }
+            else
+            {
+                aboutUI.Open();
+            }
         }
 
 
@@ -37,12 +41,12 @@ namespace tap_heading.UI
 
         public void OnSoundOnButtonClick()
         {
-            OnSoundButtonClick(true);
+            OnSoundButtonClick(false);
         }
 
         public void OnSoundOffButtonClick()
         {
-            OnSoundButtonClick(false);
+            OnSoundButtonClick(true);
         }
 
         private void OnSoundButtonClick(bool setOn)
