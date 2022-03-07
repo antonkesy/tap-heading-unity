@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using tap_heading.UI.components.highscore;
 using tap_heading.UI.components.sound;
+using tap_heading.UI.components.Text;
 using tap_heading.UI.utility;
 using tap_heading.UI.utility.Fade;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace tap_heading.UI
 
         [SerializeField] private SoundToggleButton soundButton;
 
+        [SerializeField] private ShadowText tapToInfo;
+
         private void Awake()
         {
             foreach (var fader in serializedFader)
@@ -26,6 +29,7 @@ namespace tap_heading.UI
 
             _faders.Add(soundButton);
             _faders.Add(highScoreUI);
+            _faders.Add(tapToInfo);
         }
 
         internal void FadeInNewHighScore(float duration)

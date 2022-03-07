@@ -1,7 +1,8 @@
 using tap_heading.UI.components.About;
+using tap_heading.UI.components.Text;
 using tap_heading.UI.components.Title;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace tap_heading.UI.State.States
 {
@@ -9,7 +10,7 @@ namespace tap_heading.UI.State.States
     {
         [SerializeField] protected AboutUI about;
         [SerializeField] protected UIMenuManager menuManager;
-        [SerializeField] protected TextMeshProUGUI tapToStartText;
+        [SerializeField] protected ShadowText tapToStartText;
         [SerializeField] protected GameTitle gameTitle;
 
         public override void OnEntering()
@@ -21,7 +22,7 @@ namespace tap_heading.UI.State.States
             gameTitle.SlideIn();
             //wait 1sec 
             menuManager.FadeIn(.5f);
-            tapToStartText.text = "TAP TO START";
+            tapToStartText.SetText("TAP TO START");
             managers.GetGameManager().ReadyToStartGameCallback();
         }
 
