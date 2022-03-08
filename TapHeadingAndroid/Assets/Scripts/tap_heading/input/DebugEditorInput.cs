@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace tap_heading.input
 {
@@ -12,6 +13,14 @@ namespace tap_heading.input
                 Notify(Vector2.left);
             else if (Input.GetKeyDown(KeyCode.RightArrow))
                 Notify(Vector2.right);
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    Debug.Log("UI click");
+                }
+            }
         }
     }
 }
