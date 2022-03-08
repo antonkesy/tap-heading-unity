@@ -600,8 +600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 1
-  fadeOutDuration: 1
+  fadeInDuration: 0.25
+  fadeOutDuration: 0.25
 --- !u!114 &313344902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,8 +782,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 1
-  fadeOutDuration: 1
+  fadeInDuration: 0.25
+  fadeOutDuration: 0.25
 --- !u!114 &364520999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1101,8 +1101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 1
-  fadeOutDuration: 1
+  fadeInDuration: 0.25
+  fadeOutDuration: 0.25
 --- !u!225 &500859734
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3204,8 +3204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 1
-  fadeOutDuration: 1
+  fadeInDuration: 0.25
+  fadeOutDuration: 0.25
 --- !u!225 &1437524549
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3578,8 +3578,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 1
-  fadeOutDuration: 1
+  fadeInDuration: 0.25
+  fadeOutDuration: 0.25
 --- !u!225 &1516585969
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -9266,8 +9266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 1
-  fadeOutDuration: 1
+  fadeInDuration: 0.25
+  fadeOutDuration: 0.25
 --- !u!225 &1826263794
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -9662,8 +9662,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 1
-  fadeOutDuration: 1
+  fadeInDuration: 0.25
+  fadeOutDuration: 0.25
 --- !u!225 &2015256197
 CanvasGroup:
   m_ObjectHideFlags: 0
