@@ -1,6 +1,6 @@
-﻿using tap_heading.UI.utility.Transition;
+﻿using tap_heading.UI.components.Text;
+using tap_heading.UI.utility.Transition;
 using tap_heading.UI.utility.Transition.Fade;
-using TMPro;
 using UnityEngine;
 
 namespace tap_heading.UI.components.highscore
@@ -9,7 +9,7 @@ namespace tap_heading.UI.components.highscore
     {
         [SerializeField] private UIFader newHighScore;
         [SerializeField] private UIFader highScore;
-        [SerializeField] private TextMeshProUGUI text;
+        [SerializeField] private ShadowText text;
 
         public void SetScore(int score)
         {
