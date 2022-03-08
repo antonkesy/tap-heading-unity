@@ -39,6 +39,7 @@ namespace tap_heading.UI
 
         public void In()
         {
+            soundButton.Toggle();
             foreach (var trans in _transitions)
             {
                 trans.In();
