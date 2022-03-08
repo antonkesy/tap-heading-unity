@@ -13,17 +13,24 @@ namespace tap_heading.UI.components.Score
         [SerializeField] private ZoomUI menuZoom;
 
         private ITransition _active;
+        private bool isForceReset = false;
 
         public void ShowPlaying()
         {
             _active?.Out();
             _active = playingZoom;
             playing.SetText(0.ToString());
+            isForceReset = true;
             _active.In();
         }
 
         public void ShowMenu()
         {
+            if (isForceReset)
+            {
+                menu.SetText(0.ToString());
+            }
+
             _active?.Out();
             _active = menuZoom;
             _active.In();
@@ -33,6 +40,7 @@ namespace tap_heading.UI.components.Score
         {
             playing.SetText(score.ToString());
             menu.SetText(score.ToString());
+            isForceReset = false;
         }
 
         public void In()
