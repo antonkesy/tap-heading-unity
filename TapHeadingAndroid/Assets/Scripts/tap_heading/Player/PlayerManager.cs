@@ -1,20 +1,16 @@
-using System;
 using System.Collections;
+using tap_heading.Game.level.obstacle;
 using tap_heading.manager;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace tap_heading.Player
 {
     public class PlayerManager : MonoBehaviour, IPlayerManager
     {
         [SerializeField] private ManagerCollector managers;
-
-        [Header("Particles")] [SerializeField] private ParticleSystem thrusterParticleSystem;
+        [SerializeField] private ParticleSystem thrusterParticleSystem;
         [SerializeField] private ParticleSystem destroyParticleSystem;
-        [SerializeField] private GameObject pickupParticleSystemGameObject;
-        [SerializeField] private ParticleSystem pickupParticleSystem;
-        [Header("Shadow")] [SerializeField] private Transform shadowTransform;
+        [SerializeField] private Transform shadowTransform;
         [SerializeField] private float shadowOffset;
 
         [Header("Properties")] [SerializeField]
@@ -131,9 +127,8 @@ namespace tap_heading.Player
      */
         private void OnCoinCollision(GameObject coinGameObject)
         {
-            coinGameObject.SetActive(false);
-            pickupParticleSystemGameObject.transform.position = coinGameObject.transform.position;
-            pickupParticleSystem.Play();
+            var coin = coinGameObject.GetComponent<Coin>();
+            coin.PickUp();
             managers.GetGameManager().CoinPickedUpCallback();
         }
 
@@ -144,16 +139,15 @@ namespace tap_heading.Player
         {
             _rb.velocity = Vector2.zero;
             thrusterParticleSystem.Stop();
-            destroyParticleSystem.transform.position = transform.position;
-            destroyParticleSystem.Play();
+            Instantiate(destroyParticleSystem, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
             managers.GetGameManager().DestroyPlayerCallback();
         }
 
         public void Spawn()
         {
-            transform.position = Vector3.up * _spawnStartPositionY;
             gameObject.SetActive(true);
+            transform.position = Vector3.up * _spawnStartPositionY;
             StartCoroutine(MovePlayerToSpawn());
         }
 

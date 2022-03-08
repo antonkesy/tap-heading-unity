@@ -7,14 +7,14 @@ namespace tap_heading.Game.level.obstacle
     {
         private const float DeSpawnTime = 4f;
 
-        [SerializeField] private GameObject[] coins;
+        [SerializeField] private Coin[] coins;
         private IObstacle.Side _side;
 
         private void SetCoin()
         {
             foreach (var coin in coins)
             {
-                coin.SetActive(true);
+                coin.Reset();
             }
         }
 

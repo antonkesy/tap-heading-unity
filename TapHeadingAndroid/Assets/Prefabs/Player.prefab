@@ -222,7 +222,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.9490196, g: 0.77254903, b: 0.23921569, a: 1}
+      maxColor: {r: 0.9490197, g: 0.8352942, b: 0.019607844, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4905,9 +4905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   managers: {fileID: 0}
   thrusterParticleSystem: {fileID: 2104483253}
-  destroyParticleSystem: {fileID: 0}
-  pickupParticleSystemGameObject: {fileID: 0}
-  pickupParticleSystem: {fileID: 0}
+  destroyParticleSystem: {fileID: 7385562332034086789, guid: 462d80058979b4f45877c88dbd60a476, type: 3}
   shadowTransform: {fileID: 4311883836868389164}
   shadowOffset: 0.05
   sideSpeed: 6
