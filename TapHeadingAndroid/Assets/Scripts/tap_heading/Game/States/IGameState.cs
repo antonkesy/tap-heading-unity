@@ -19,7 +19,7 @@ namespace tap_heading.Game.States
         public void OnScoreUpdate(IManagerCollector managers, int score)
         {
             managers.GetAudioManager().PlayCollectCoin();
-            //managers.GetUIManager().UpdateScoreText(score);
+            managers.GetUIManager().UpdateScoreText(score);
             managers.GetLevelManager().IncreaseSpeed();
         }
     }

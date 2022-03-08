@@ -1,5 +1,4 @@
 using tap_heading.UI.utility.Transition;
-using tap_heading.UI.utility.Transition.Fade;
 using TMPro;
 using UnityEngine;
 
@@ -8,12 +7,12 @@ namespace tap_heading.UI.components.Text
     public class ShadowText : MonoBehaviour, ITransition
     {
         private TextMeshProUGUI[] _texts;
-        private UIFader[] _faders;
+        private ITransition[] _faders;
 
         private void Awake()
         {
             _texts = GetComponentsInChildren<TextMeshProUGUI>();
-            _faders = GetComponentsInChildren<UIFader>();
+            _faders = GetComponentsInChildren<ITransition>();
         }
 
         public void SetText(string text)
@@ -24,19 +23,12 @@ namespace tap_heading.UI.components.Text
             }
         }
 
-        public void SetActive(bool active)
-        {
-            foreach (var uiFader in _faders)
-            {
-                uiFader.gameObject.SetActive(active);
-            }
-        }
-
         public void In()
         {
             foreach (var fader in _faders)
             {
-                fader.FadeIn();
+                if (fader.Equals(this)) continue;
+                fader.In();
             }
         }
 
@@ -44,7 +36,8 @@ namespace tap_heading.UI.components.Text
         {
             foreach (var fader in _faders)
             {
-                fader.FadeOut();
+                if (fader.Equals(this)) continue;
+                fader.Out();
             }
         }
     }

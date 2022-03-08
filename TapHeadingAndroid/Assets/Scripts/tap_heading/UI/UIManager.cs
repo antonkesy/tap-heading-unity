@@ -37,5 +37,15 @@ namespace tap_heading.UI
         {
             _state.ShowPlaying();
         }
+
+        public void UpdateScoreText(int i)
+        {
+            _state.UpdateScoreText(i);
+        }
+
+        public void UpdateHighScoreText(int highScore)
+        {
+            _state.UpdateHighScoreText(highScore);
+        }
     }
 }

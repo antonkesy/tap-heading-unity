@@ -1685,8 +1685,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 0.12
+  fadeOutDuration: 0.12
 --- !u!225 &704849381
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3418,8 +3418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 0.12
+  fadeOutDuration: 0.12
 --- !u!225 &1508997210
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3813,8 +3813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 0.12
+  fadeOutDuration: 0.12
 --- !u!114 &1601284069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10092,8 +10092,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 0.12
+  fadeOutDuration: 0.12
 --- !u!114 &2134768031
 MonoBehaviour:
   m_ObjectHideFlags: 0
