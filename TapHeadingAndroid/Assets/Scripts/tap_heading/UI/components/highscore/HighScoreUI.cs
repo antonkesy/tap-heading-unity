@@ -17,18 +17,18 @@ namespace tap_heading.UI.components.highscore
 
         public void FadeInNewHighScore(float duration)
         {
-            newHighScore.FadeIn();
+            newHighScore.In();
         }
 
         public void In()
         {
-            highScore.FadeIn();
+            highScore.In();
         }
 
         public void Out()
         {
-            newHighScore.FadeOut();
-            highScore.FadeOut();
+            newHighScore.Out();
+            highScore.Out();
         }
     }
 }

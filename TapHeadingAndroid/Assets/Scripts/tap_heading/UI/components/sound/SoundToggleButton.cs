@@ -1,6 +1,4 @@
-﻿using System;
-using tap_heading.Settings;
-using tap_heading.UI.utility;
+﻿using tap_heading.Settings;
 using tap_heading.UI.utility.Transition;
 using tap_heading.UI.utility.Transition.Fade;
 using UnityEngine;
@@ -14,25 +12,25 @@ namespace tap_heading.UI.components.sound
 
         [SerializeField] private PlayerPrefsManager settings;
 
-        private IFader _currentActive;
-        private IFader _notActive;
+        private ITransition _currentActive;
+        private ITransition _notActive;
 
         private void Awake()
         {
             _currentActive = soundOnFader;
-            Toggle();
+            _notActive = soundOffFader;
         }
 
         public void In()
         {
-            _currentActive.FadeIn();
-            _notActive.FadeOut();
+            _currentActive.In();
+            _notActive.Out();
         }
 
         public void Out()
         {
-            _currentActive.FadeOut();
-            _notActive.FadeOut();
+            _currentActive.Out();
+            _notActive.Out();
         }
 
         public void Toggle()
@@ -48,8 +46,8 @@ namespace tap_heading.UI.components.sound
                 _currentActive = soundOffFader;
             }
 
-            _notActive.FadeOut();
-            _currentActive.FadeIn();
+            _notActive.Out();
+            _currentActive.In();
         }
     }
 }

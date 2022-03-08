@@ -24,8 +24,8 @@ namespace tap_heading.UI.State.States
         private IEnumerator ShowMenu()
         {
             yield return new WaitForSecondsRealtime(menuOffsetTime);
-            menuManager.In();
             tapToStartText.SetText("TAP TO START");
+            menuManager.In();
             managers.GetGameManager().ReadyToStartGameCallback();
             yield return null;
         }

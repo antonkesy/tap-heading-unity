@@ -2,7 +2,5 @@
 {
     public interface IFader : ITransition
     {
-        void FadeIn();
-        void FadeOut();
     }
 }

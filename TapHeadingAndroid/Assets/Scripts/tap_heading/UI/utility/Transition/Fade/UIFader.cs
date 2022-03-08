@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace tap_heading.UI.utility.Transition.Fade
 {
-    public class UIFader : MonoBehaviour, IFader, ITransition
+    public class UIFader : MonoBehaviour, ITransition
     {
         [SerializeField] private float fadeInDuration;
         [SerializeField] private float fadeOutDuration;
@@ -24,13 +24,14 @@ namespace tap_heading.UI.utility.Transition.Fade
             }
 
             gameObject.SetActive(true);
-            _fading = StartCoroutine(DoFade(fadeIn ? 0 : 1, fadeIn ? 1 : 0, fadeIn,
+            _fading = StartCoroutine(DoFade(fadeIn ? 1 : 0, fadeIn,
                 fadeIn ? fadeInDuration : fadeOutDuration));
         }
 
-        private IEnumerator DoFade(float start, float end, bool endState, float duration)
+        private IEnumerator DoFade(float end, bool endState, float duration)
         {
             var counter = 0f;
+            var start = _canvasGroup.alpha;
 
             while (counter < duration)
             {
@@ -44,24 +45,14 @@ namespace tap_heading.UI.utility.Transition.Fade
             _fading = null;
         }
 
-        public void FadeIn()
+        public void In()
         {
             Fade(true);
         }
 
-        public void FadeOut()
-        {
-            Fade(false);
-        }
-
-        public void In()
-        {
-            FadeIn();
-        }
-
         public void Out()
         {
-            FadeOut();
+            Fade(false);
         }
     }
 }
