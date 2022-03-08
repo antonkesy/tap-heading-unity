@@ -63,19 +63,9 @@ namespace tap_heading.UI
             Application.OpenURL(url);
         }
 
-        public void OnWebsiteButtonClick()
-        {
-            OpenWebsite("https://antonkesy.de/");
-        }
-
         public void OnGitHubButtonClick()
         {
             OpenWebsite("https://github.com/antonkesy/tap-heading-unity");
-        }
-
-        public void OnYouTubeButtonClick()
-        {
-            OpenWebsite("https://www.youtube.com/channel/UCgMifJ1aQnFFkwGgrxHSPjg");
         }
 
         public void OnPlayStoreButtonClick()
