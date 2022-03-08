@@ -1,7 +1,6 @@
 using tap_heading.UI.components.Text;
 using tap_heading.UI.utility.Transition;
 using tap_heading.UI.utility.Transition.Zoom;
-using TMPro;
 using UnityEngine;
 
 namespace tap_heading.UI.components.Score
