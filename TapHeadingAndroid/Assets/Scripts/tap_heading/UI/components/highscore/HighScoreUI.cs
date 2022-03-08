@@ -1,18 +1,19 @@
 ﻿using tap_heading.UI.utility.Transition;
 using tap_heading.UI.utility.Transition.Fade;
+using TMPro;
 using UnityEngine;
 
 namespace tap_heading.UI.components.highscore
 {
     public class HighScoreUI : MonoBehaviour, IHighScoreUI, ITransition
-
     {
         [SerializeField] private UIFader newHighScore;
         [SerializeField] private UIFader highScore;
+        [SerializeField] private TextMeshProUGUI text;
 
         public void SetScore(int score)
         {
-            //TODO 
+            text.SetText(score.ToString());
         }
 
         public void FadeInNewHighScore(float duration)
