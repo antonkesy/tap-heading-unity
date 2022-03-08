@@ -55,7 +55,6 @@ namespace tap_heading.Game.level.obstacle
 
         public void DeSpawn()
         {
-            HideCoins();
             StartCoroutine(MoveOut(DeSpawnTime));
         }
 
