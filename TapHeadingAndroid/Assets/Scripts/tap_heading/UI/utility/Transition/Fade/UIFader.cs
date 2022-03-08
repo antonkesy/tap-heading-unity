@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-namespace tap_heading.UI.utility.Fade
+namespace tap_heading.UI.utility.Transition.Fade
 {
-    public class UIFader : MonoBehaviour, IFader
+    public class UIFader : MonoBehaviour, IFader, ITransition
     {
+        [SerializeField] private float fadeInDuration;
+        [SerializeField] private float fadeOutDuration;
         private CanvasGroup _canvasGroup;
         private Coroutine _fading;
 
@@ -13,7 +15,7 @@ namespace tap_heading.UI.utility.Fade
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        private void Fade(bool fadeIn, float duration)
+        private void Fade(bool fadeIn)
         {
             if (_fading != null)
             {
@@ -21,7 +23,8 @@ namespace tap_heading.UI.utility.Fade
             }
 
             gameObject.SetActive(true);
-            _fading = StartCoroutine(DoFade(fadeIn ? 0 : 1, fadeIn ? 1 : 0, fadeIn, duration));
+            _fading = StartCoroutine(DoFade(fadeIn ? 0 : 1, fadeIn ? 1 : 0, fadeIn,
+                fadeIn ? fadeInDuration : fadeOutDuration));
         }
 
         private IEnumerator DoFade(float start, float end, bool endState, float duration)
@@ -40,14 +43,24 @@ namespace tap_heading.UI.utility.Fade
             _fading = null;
         }
 
-        public void FadeIn(float duration)
+        public void FadeIn()
         {
-            Fade(true, duration);
+            Fade(true);
         }
 
-        public void FadeOut(float duration)
+        public void FadeOut()
         {
-            Fade(false, duration);
+            Fade(false);
+        }
+
+        public void In()
+        {
+            FadeIn();
+        }
+
+        public void Out()
+        {
+            FadeOut();
         }
     }
 }

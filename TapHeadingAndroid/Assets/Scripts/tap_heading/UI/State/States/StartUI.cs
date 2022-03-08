@@ -17,19 +17,19 @@ namespace tap_heading.UI.State.States
         {
             score.HideAll();
             about.Close();
-            score.FadeOut(0f);
-            menuManager.FadeOut(0f);
-            gameTitle.SlideIn();
-            //wait 1sec 
-            menuManager.FadeIn(.5f);
+            score.Out();
+            menuManager.Out();
+            gameTitle.In();
+            //TODO wait 1sec 
+            menuManager.In();
             tapToStartText.SetText("TAP TO START");
             managers.GetGameManager().ReadyToStartGameCallback();
         }
 
         public override void OnLeaving()
         {
-            menuManager.FadeOut(0.5f);
-            gameTitle.SlideOut();
+            menuManager.Out();
+            gameTitle.Out();
         }
     }
 }

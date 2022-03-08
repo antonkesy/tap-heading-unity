@@ -2,17 +2,17 @@ using System.Collections.Generic;
 using tap_heading.UI.components.highscore;
 using tap_heading.UI.components.sound;
 using tap_heading.UI.components.Text;
-using tap_heading.UI.utility;
-using tap_heading.UI.utility.Fade;
+using tap_heading.UI.utility.Transition;
+using tap_heading.UI.utility.Transition.Fade;
 using UnityEngine;
 
 namespace tap_heading.UI
 {
-    public class UIMenuManager : MonoBehaviour, IFader
+    public class UIMenuManager : MonoBehaviour, ITransition
     {
         [SerializeField] private UIFader[] serializedFader;
 
-        private readonly List<IFader> _faders = new List<IFader>();
+        private readonly List<ITransition> _transitions = new List<ITransition>();
 
         [SerializeField] private HighScoreUI highScoreUI;
 
@@ -24,12 +24,12 @@ namespace tap_heading.UI
         {
             foreach (var fader in serializedFader)
             {
-                _faders.Add(fader);
+                _transitions.Add(fader);
             }
 
-            _faders.Add(soundButton);
-            _faders.Add(highScoreUI);
-            _faders.Add(tapToInfo);
+            _transitions.Add(soundButton);
+            _transitions.Add(highScoreUI);
+            _transitions.Add(tapToInfo);
         }
 
         internal void FadeInNewHighScore(float duration)
@@ -37,19 +37,19 @@ namespace tap_heading.UI
             highScoreUI.FadeInNewHighScore(duration);
         }
 
-        public void FadeIn(float duration)
+        public void In()
         {
-            foreach (var fader in _faders)
+            foreach (var trans in _transitions)
             {
-                fader.FadeIn(duration);
+                trans.In();
             }
         }
 
-        public void FadeOut(float duration)
+        public void Out()
         {
-            foreach (var fader in _faders)
+            foreach (var trans in _transitions)
             {
-                fader.FadeOut(duration);
+                trans.Out();
             }
         }
     }

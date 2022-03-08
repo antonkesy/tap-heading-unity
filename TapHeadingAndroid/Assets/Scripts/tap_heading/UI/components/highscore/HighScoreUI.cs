@@ -1,10 +1,11 @@
-﻿using tap_heading.UI.utility;
-using tap_heading.UI.utility.Fade;
+﻿using tap_heading.UI.utility.Transition;
+using tap_heading.UI.utility.Transition.Fade;
 using UnityEngine;
 
 namespace tap_heading.UI.components.highscore
 {
-    public class HighScoreUI : MonoBehaviour, IHighScoreUI
+    public class HighScoreUI : MonoBehaviour, IHighScoreUI, ITransition
+
     {
         [SerializeField] private UIFader newHighScore;
         [SerializeField] private UIFader highScore;
@@ -16,18 +17,18 @@ namespace tap_heading.UI.components.highscore
 
         public void FadeInNewHighScore(float duration)
         {
-            newHighScore.FadeIn(duration);
+            newHighScore.FadeIn();
         }
 
-        public void FadeIn(float duration)
+        public void In()
         {
-            highScore.FadeIn(duration);
+            highScore.FadeIn();
         }
 
-        public void FadeOut(float duration)
+        public void Out()
         {
-            newHighScore.FadeOut(duration);
-            highScore.FadeOut(duration);
+            newHighScore.FadeOut();
+            highScore.FadeOut();
         }
     }
 }

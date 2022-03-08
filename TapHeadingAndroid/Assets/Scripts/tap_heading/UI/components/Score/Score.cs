@@ -1,16 +1,17 @@
 using tap_heading.UI.components.Text;
 using tap_heading.UI.utility;
-using tap_heading.UI.utility.Fade;
+using tap_heading.UI.utility.Transition;
+using tap_heading.UI.utility.Transition.Fade;
 using UnityEngine;
 
 namespace tap_heading.UI.components.Score
 {
-    public class Score : MonoBehaviour, IFader
+    public class Score : MonoBehaviour, ITransition
     {
         [SerializeField] private ShadowText playing;
         [SerializeField] private ShadowText menu;
 
-        private IFader _active;
+        private ITransition _active;
 
         public void HideAll()
         {
@@ -38,14 +39,14 @@ namespace tap_heading.UI.components.Score
             menu.SetText(score.ToString());
         }
 
-        public void FadeIn(float duration)
+        public void In()
         {
-            _active?.FadeIn(duration);
+            _active?.In();
         }
 
-        public void FadeOut(float duration)
+        public void Out()
         {
-            _active?.FadeOut(duration);
+            _active?.Out();
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using tap_heading.Settings;
 using tap_heading.UI.utility;
-using tap_heading.UI.utility.Fade;
+using tap_heading.UI.utility.Transition;
+using tap_heading.UI.utility.Transition.Fade;
 using UnityEngine;
 
 namespace tap_heading.UI.components.sound
 {
-    public class SoundToggleButton : MonoBehaviour, ISoundButton
+    public class SoundToggleButton : MonoBehaviour, ITransition
     {
         [SerializeField] private UIFader soundOnFader;
         [SerializeField] private UIFader soundOffFader;
@@ -22,16 +23,16 @@ namespace tap_heading.UI.components.sound
             Toggle();
         }
 
-        public void FadeIn(float duration)
+        public void In()
         {
-            _currentActive.FadeIn(duration);
-            _notActive.FadeOut(0f);
+            _currentActive.FadeIn();
+            _notActive.FadeOut();
         }
 
-        public void FadeOut(float duration)
+        public void Out()
         {
-            _currentActive.FadeOut(duration);
-            _notActive.FadeOut(0f);
+            _currentActive.FadeOut();
+            _notActive.FadeOut();
         }
 
         public void Toggle()
@@ -47,8 +48,8 @@ namespace tap_heading.UI.components.sound
                 _currentActive = soundOffFader;
             }
 
-            _notActive.FadeOut(0f);
-            _currentActive.FadeIn(0f);
+            _notActive.FadeOut();
+            _currentActive.FadeIn();
         }
     }
 }

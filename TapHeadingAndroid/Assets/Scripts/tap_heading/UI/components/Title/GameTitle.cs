@@ -1,11 +1,11 @@
 using tap_heading.UI.components.Text;
-using tap_heading.UI.utility.Fade;
 using tap_heading.UI.utility.Slide;
+using tap_heading.UI.utility.Transition;
 using UnityEngine;
 
 namespace tap_heading.UI.components.Title
 {
-    public class GameTitle : MonoBehaviour, ISlider, IFader
+    public class GameTitle : MonoBehaviour, ITransition
     {
         private ShadowText _text;
         private Slider _slider;
@@ -16,22 +16,12 @@ namespace tap_heading.UI.components.Title
             _slider = GetComponentInChildren<Slider>();
         }
 
-        public void FadeIn(float duration)
-        {
-            _text.FadeIn(duration);
-        }
-
-        public void FadeOut(float duration)
-        {
-            _text.FadeOut(duration);
-        }
-
-        public void SlideIn()
+        public void In()
         {
             _slider.SlideIn();
         }
 
-        public void SlideOut()
+        public void Out()
         {
             _slider.SlideOut();
         }

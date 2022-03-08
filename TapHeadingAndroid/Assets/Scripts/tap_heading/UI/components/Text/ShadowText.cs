@@ -1,11 +1,11 @@
-using tap_heading.UI.utility;
-using tap_heading.UI.utility.Fade;
+using tap_heading.UI.utility.Transition;
+using tap_heading.UI.utility.Transition.Fade;
 using TMPro;
 using UnityEngine;
 
 namespace tap_heading.UI.components.Text
 {
-    public class ShadowText : MonoBehaviour, IText, IFader
+    public class ShadowText : MonoBehaviour, ITransition
     {
         private TextMeshProUGUI[] _texts;
         private UIFader[] _faders;
@@ -24,27 +24,27 @@ namespace tap_heading.UI.components.Text
             }
         }
 
-        public void FadeIn(float duration)
-        {
-            foreach (var fader in _faders)
-            {
-                fader.FadeIn(duration);
-            }
-        }
-
-        public void FadeOut(float duration)
-        {
-            foreach (var fader in _faders)
-            {
-                fader.FadeOut(duration);
-            }
-        }
-
         public void SetActive(bool active)
         {
             foreach (var uiFader in _faders)
             {
                 uiFader.gameObject.SetActive(active);
+            }
+        }
+
+        public void In()
+        {
+            foreach (var fader in _faders)
+            {
+                fader.FadeIn();
+            }
+        }
+
+        public void Out()
+        {
+            foreach (var fader in _faders)
+            {
+                fader.FadeOut();
             }
         }
     }
