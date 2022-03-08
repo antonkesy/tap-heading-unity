@@ -6,31 +6,15 @@ namespace tap_heading.Game.level.obstacle
     public class Obstacle : MonoBehaviour, IObstacle
     {
         private const float DeSpawnTime = 4f;
-        private const float CoinSpawnProbability = 0.5f;
 
         [SerializeField] private GameObject[] coins;
         private IObstacle.Side _side;
 
         private void SetCoin()
         {
-            if (CoinSpawnProbability > Random.Range(0f, 1f))
-            {
-                foreach (var coin in coins)
-                {
-                    coin.SetActive(true);
-                }
-            }
-            else
-            {
-                HideCoins();
-            }
-        }
-
-        private void HideCoins()
-        {
             foreach (var coin in coins)
             {
-                coin.SetActive(false);
+                coin.SetActive(true);
             }
         }
 
