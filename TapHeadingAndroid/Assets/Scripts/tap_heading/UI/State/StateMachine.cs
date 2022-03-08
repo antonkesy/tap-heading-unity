@@ -19,11 +19,11 @@ namespace tap_heading.UI.State
         {
             if (_current != null)
             {
-                _current.OnLeaving();
+                _current.Leave();
             }
 
             _current = to;
-            _current.OnEntering();
+            _current.Enter();
         }
 
         public void ShowStart()

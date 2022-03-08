@@ -12,16 +12,20 @@ namespace tap_heading.UI.State.States
         [SerializeField] protected TapInfo tapToStartText;
         [SerializeField] protected GameTitle gameTitle;
 
-        public override void OnEntering()
+        protected override void OnEntering()
         {
             score.ShowMenu();
             gameTitle.In();
             menuManager.In();
             tapToStartText.SetText("TAP TO RESTART");
+        }
+
+        protected override void OnWaitAnimationDone()
+        {
             managers.GetGameManager().ReadyToStartGameCallback();
         }
 
-        public override void OnLeaving()
+        protected override void OnLeaving()
         {
             about.Close();
             menuManager.Out();

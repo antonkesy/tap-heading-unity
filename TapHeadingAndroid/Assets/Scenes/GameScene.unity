@@ -9066,6 +9066,7 @@ MonoBehaviour:
   managers: {fileID: 1386425711}
   score: {fileID: 1672779192}
   highScoreUI: {fileID: 1543269425}
+  animationTime: 0
 --- !u!114 &1781529471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9081,11 +9082,11 @@ MonoBehaviour:
   managers: {fileID: 1386425711}
   score: {fileID: 1672779192}
   highScoreUI: {fileID: 1543269425}
+  animationTime: 4
   about: {fileID: 290838431}
   menuManager: {fileID: 2097025356}
   tapToStartText: {fileID: 1410661630}
   gameTitle: {fileID: 1098123584}
-  menuOffsetTime: 1.5
 --- !u!114 &1781529472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9101,6 +9102,7 @@ MonoBehaviour:
   managers: {fileID: 1386425711}
   score: {fileID: 1672779192}
   highScoreUI: {fileID: 1543269425}
+  animationTime: 2
   menuManager: {fileID: 2097025356}
   about: {fileID: 290838431}
   tapToStartText: {fileID: 1410661630}

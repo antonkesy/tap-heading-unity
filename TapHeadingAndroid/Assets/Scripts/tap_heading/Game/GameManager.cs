@@ -1,4 +1,3 @@
-using System.Collections;
 using tap_heading.Game.States;
 using tap_heading.input;
 using tap_heading.manager;
@@ -121,7 +120,6 @@ namespace tap_heading.Game
             managers.GetCameraManager().StartShaking();
             _gameState = new WaitForAnimation();
             managers.GetUIManager().ShowMenu();
-            StartCoroutine(WaitToRestart());
             managers.GetLevelManager().Stop();
             managers.GetPlayerManager().Spawn();
             CheckForIARPopUp();
@@ -132,12 +130,6 @@ namespace tap_heading.Game
                 //TODO
                 //managers.GetUIManager().FadeInNewHighScore();
             }
-        }
-
-        private IEnumerator WaitToRestart()
-        {
-            yield return new WaitForSecondsRealtime(1f);
-            _gameState = new WaitingRestart();
         }
 
         private void CheckForIARPopUp()

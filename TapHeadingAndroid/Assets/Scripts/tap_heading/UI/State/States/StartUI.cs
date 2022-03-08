@@ -1,4 +1,3 @@
-using System.Collections;
 using tap_heading.UI.components.About;
 using tap_heading.UI.components.Text;
 using tap_heading.UI.components.Title;
@@ -12,28 +11,24 @@ namespace tap_heading.UI.State.States
         [SerializeField] protected UIMenuManager menuManager;
         [SerializeField] protected TapInfo tapToStartText;
         [SerializeField] protected GameTitle gameTitle;
-        [SerializeField] private float menuOffsetTime;
 
-        public override void OnEntering()
+        protected override void OnEntering()
         {
             about.Close();
             gameTitle.In();
-            StartCoroutine(ShowMenu());
         }
 
-        private IEnumerator ShowMenu()
-        {
-            yield return new WaitForSecondsRealtime(menuOffsetTime);
-            tapToStartText.SetText("TAP TO START");
-            menuManager.In();
-            managers.GetGameManager().ReadyToStartGameCallback();
-            yield return null;
-        }
-
-        public override void OnLeaving()
+        protected override void OnLeaving()
         {
             menuManager.Out();
             gameTitle.Out();
+        }
+
+        protected override void OnWaitAnimationDone()
+        {
+            tapToStartText.SetText("TAP TO START");
+            menuManager.In();
+            managers.GetGameManager().ReadyToStartGameCallback();
         }
     }
 }
