@@ -1359,6 +1359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 522016614}
   - component: {fileID: 522016615}
+  - component: {fileID: 522016616}
   m_Layer: 5
   m_Name: Playing
   m_TagString: Untagged
@@ -1399,6 +1400,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a20817c22440de95b569bcc9bc528b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &522016616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522016613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b8109732224fbb863d83f637d0808a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomDuration: 0.75
 --- !u!1001 &586790483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1548,7 +1562,6 @@ GameObject:
   - component: {fileID: 704849377}
   - component: {fileID: 704849379}
   - component: {fileID: 704849378}
-  - component: {fileID: 704849380}
   - component: {fileID: 704849381}
   m_Layer: 5
   m_Name: ScoreTextShadow
@@ -1673,20 +1686,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704849376}
   m_CullTransparentMesh: 1
---- !u!114 &704849380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 704849376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeInDuration: 0.12
-  fadeOutDuration: 0.12
 --- !u!225 &704849381
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2871,6 +2870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1371396805}
   - component: {fileID: 1371396806}
+  - component: {fileID: 1371396807}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -2911,6 +2911,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a20817c22440de95b569bcc9bc528b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1371396807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371396804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b8109732224fbb863d83f637d0808a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomDuration: 0.75
 --- !u!1 &1386425709
 GameObject:
   m_ObjectHideFlags: 0
@@ -3281,7 +3294,6 @@ GameObject:
   - component: {fileID: 1508997206}
   - component: {fileID: 1508997208}
   - component: {fileID: 1508997207}
-  - component: {fileID: 1508997209}
   - component: {fileID: 1508997210}
   m_Layer: 5
   m_Name: ScoreText
@@ -3406,20 +3418,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508997205}
   m_CullTransparentMesh: 1
---- !u!114 &1508997209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1508997205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeInDuration: 0.12
-  fadeOutDuration: 0.12
 --- !u!225 &1508997210
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3761,7 +3759,6 @@ GameObject:
   - component: {fileID: 1601284066}
   - component: {fileID: 1601284070}
   - component: {fileID: 1601284069}
-  - component: {fileID: 1601284068}
   - component: {fileID: 1601284067}
   m_Layer: 5
   m_Name: ScoreTextShadow
@@ -3801,20 +3798,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1601284068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601284065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeInDuration: 0.12
-  fadeOutDuration: 0.12
 --- !u!114 &1601284069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8799,6 +8782,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playing: {fileID: 522016615}
   menu: {fileID: 1371396806}
+  playingZoom: {fileID: 522016616}
+  menuZoom: {fileID: 1371396807}
 --- !u!1 &1743539654
 GameObject:
   m_ObjectHideFlags: 0
@@ -10028,7 +10013,6 @@ GameObject:
   - component: {fileID: 2134768028}
   - component: {fileID: 2134768032}
   - component: {fileID: 2134768031}
-  - component: {fileID: 2134768030}
   - component: {fileID: 2134768029}
   m_Layer: 5
   m_Name: ScoreText
@@ -10068,20 +10052,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2134768030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2134768027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeInDuration: 0.12
-  fadeOutDuration: 0.12
 --- !u!114 &2134768031
 MonoBehaviour:
   m_ObjectHideFlags: 0
