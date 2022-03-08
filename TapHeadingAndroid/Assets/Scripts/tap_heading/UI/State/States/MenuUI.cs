@@ -9,7 +9,7 @@ namespace tap_heading.UI.State.States
     {
         [SerializeField] protected UIMenuManager menuManager;
         [SerializeField] protected AboutUI about;
-        [SerializeField] protected ShadowText tapToStartText;
+        [SerializeField] protected TapInfo tapToStartText;
         [SerializeField] protected GameTitle gameTitle;
 
         public override void OnEntering()

@@ -442,6 +442,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!1 &258433588
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!114 &313344902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,6 +782,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!114 &364520999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1095,6 +1101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!225 &500859734
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1677,6 +1685,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!225 &704849381
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1975,7 +1985,6 @@ GameObject:
   - component: {fileID: 905528571}
   - component: {fileID: 905528576}
   - component: {fileID: 905528575}
-  - component: {fileID: 905528574}
   - component: {fileID: 905528573}
   - component: {fileID: 905528572}
   m_Layer: 5
@@ -2035,18 +2044,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &905528574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905528570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &905528575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2166,7 +2163,6 @@ GameObject:
   - component: {fileID: 980880118}
   - component: {fileID: 980880120}
   - component: {fileID: 980880119}
-  - component: {fileID: 980880121}
   - component: {fileID: 980880122}
   - component: {fileID: 980880123}
   m_Layer: 5
@@ -2292,18 +2288,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 980880117}
   m_CullTransparentMesh: 1
---- !u!114 &980880121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 980880117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!225 &980880122
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2994,6 +2978,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1410661627}
   - component: {fileID: 1410661628}
+  - component: {fileID: 1410661629}
+  - component: {fileID: 1410661630}
   m_Layer: 5
   m_Name: TapToStart
   m_TagString: Untagged
@@ -3032,6 +3018,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41a20817c22440de95b569bcc9bc528b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1410661629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410661626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b8109732224fbb863d83f637d0808a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomDuration: 2
+--- !u!114 &1410661630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410661626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60672ac803d147548be8d22bcb860e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1437524543
@@ -3180,6 +3191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!225 &1437524549
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3405,6 +3418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!225 &1508997210
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3565,6 +3580,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!225 &1516585969
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3796,6 +3813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!114 &1601284069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9079,7 +9098,7 @@ MonoBehaviour:
   highScoreUI: {fileID: 1543269425}
   about: {fileID: 290838431}
   menuManager: {fileID: 2097025356}
-  tapToStartText: {fileID: 1410661628}
+  tapToStartText: {fileID: 1410661630}
   gameTitle: {fileID: 1098123584}
 --- !u!114 &1781529472
 MonoBehaviour:
@@ -9098,7 +9117,7 @@ MonoBehaviour:
   highScoreUI: {fileID: 1543269425}
   menuManager: {fileID: 2097025356}
   about: {fileID: 290838431}
-  tapToStartText: {fileID: 1410661628}
+  tapToStartText: {fileID: 1410661630}
   gameTitle: {fileID: 1098123584}
 --- !u!114 &1781529473
 MonoBehaviour:
@@ -9261,6 +9280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!225 &1826263794
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -9351,7 +9372,6 @@ GameObject:
   - component: {fileID: 1938896774}
   - component: {fileID: 1938896779}
   - component: {fileID: 1938896778}
-  - component: {fileID: 1938896777}
   - component: {fileID: 1938896776}
   - component: {fileID: 1938896775}
   m_Layer: 5
@@ -9411,18 +9431,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1938896777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1938896773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1938896778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9668,6 +9676,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!225 &2015256197
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -9789,7 +9799,6 @@ GameObject:
   - component: {fileID: 2078979232}
   - component: {fileID: 2078979237}
   - component: {fileID: 2078979236}
-  - component: {fileID: 2078979235}
   - component: {fileID: 2078979234}
   - component: {fileID: 2078979233}
   m_Layer: 5
@@ -9849,18 +9858,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2078979235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078979231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2078979236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10017,10 +10014,9 @@ MonoBehaviour:
   - {fileID: 500859733}
   - {fileID: 1437524548}
   - {fileID: 364520998}
-  - {fileID: 980880121}
   highScoreUI: {fileID: 1543269425}
   soundButton: {fileID: 1765039355}
-  tapToInfo: {fileID: 1410661628}
+  tapToInfo: {fileID: 1410661630}
 --- !u!225 &2097025357
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -10096,6 +10092,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeInDuration: 0
+  fadeOutDuration: 0
 --- !u!114 &2134768031
 MonoBehaviour:
   m_ObjectHideFlags: 0

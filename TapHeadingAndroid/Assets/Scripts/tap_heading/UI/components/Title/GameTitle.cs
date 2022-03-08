@@ -1,6 +1,6 @@
 using tap_heading.UI.components.Text;
-using tap_heading.UI.utility.Slide;
 using tap_heading.UI.utility.Transition;
+using tap_heading.UI.utility.Transition.Slide;
 using UnityEngine;
 
 namespace tap_heading.UI.components.Title
@@ -18,12 +18,12 @@ namespace tap_heading.UI.components.Title
 
         public void In()
         {
-            _slider.SlideIn();
+            _slider.In();
         }
 
         public void Out()
         {
-            _slider.SlideOut();
+            _slider.Out();
         }
     }
 }

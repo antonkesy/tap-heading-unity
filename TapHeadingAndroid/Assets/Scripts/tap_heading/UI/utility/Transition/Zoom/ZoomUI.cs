@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace tap_heading.UI.utility.Zoom
+namespace tap_heading.UI.utility.Transition.Zoom
 {
     public class ZoomUI : MonoBehaviour, IZoom
     {
@@ -11,17 +11,9 @@ namespace tap_heading.UI.utility.Zoom
 
         private void Awake()
         {
-            _originalScale = transform.localScale;
-        }
-
-        public void ZoomIn()
-        {
-            Zoom(true);
-        }
-
-        public void ZoomOut()
-        {
-            Zoom(false);
+            var trans = transform;
+            _originalScale = trans.localScale;
+            trans.localScale = Vector3.zero;
         }
 
         private void Zoom(bool zoomIn)
@@ -64,6 +56,16 @@ namespace tap_heading.UI.utility.Zoom
 
             _zoom = null;
             yield return null;
+        }
+
+        public void In()
+        {
+            Zoom(true);
+        }
+
+        public void Out()
+        {
+            Zoom(false);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace tap_heading.UI
 
         [SerializeField] private SoundToggleButton soundButton;
 
-        [SerializeField] private ShadowText tapToInfo;
+        [SerializeField] private TapInfo tapToInfo;
 
         private void Awake()
         {

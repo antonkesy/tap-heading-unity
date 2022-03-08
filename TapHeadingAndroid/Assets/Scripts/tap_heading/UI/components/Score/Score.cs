@@ -1,3 +1,4 @@
+using System;
 using tap_heading.UI.components.Text;
 using tap_heading.UI.utility;
 using tap_heading.UI.utility.Transition;
@@ -13,7 +14,7 @@ namespace tap_heading.UI.components.Score
 
         private ITransition _active;
 
-        public void HideAll()
+        private void Awake()
         {
             menu.SetActive(false);
             playing.SetActive(false);

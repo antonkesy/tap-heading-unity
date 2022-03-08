@@ -1,5 +1,5 @@
 using tap_heading.UI.utility.Transition;
-using tap_heading.UI.utility.Zoom;
+using tap_heading.UI.utility.Transition.Zoom;
 using UnityEngine;
 
 namespace tap_heading.UI.components.Text
@@ -12,17 +12,17 @@ namespace tap_heading.UI.components.Text
         private void Awake()
         {
             _text = GetComponent<ShadowText>();
-            _zoom = GetComponent<IZoom>();
+            _zoom = GetComponent<ZoomUI>();
         }
 
         public void In()
         {
-            _zoom.ZoomIn();
+            _zoom.In();
         }
 
         public void Out()
         {
-            _zoom.ZoomOut();
+            _zoom.Out();
         }
 
         public void SetText(string text)

@@ -1,8 +1,7 @@
-namespace tap_heading.UI.utility.Slide
+namespace tap_heading.UI.utility.Transition.Slide
 {
-    public interface ISlider
+    public interface ISlider : ITransition
     {
-        public void SlideIn();
-        public void SlideOut();
+
     }
 }

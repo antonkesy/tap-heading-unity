@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace tap_heading.UI.utility.Slide
+namespace tap_heading.UI.utility.Transition.Slide
 {
     public class Slider : MonoBehaviour, ISlider
     {
@@ -28,12 +28,12 @@ namespace tap_heading.UI.utility.Slide
                 Slide(slideIn ? _showPosition : hidePosition));
         }
 
-        public void SlideIn()
+        public void In()
         {
             Slide(true);
         }
 
-        public void SlideOut()
+        public void Out()
         {
             Slide(false);
         }

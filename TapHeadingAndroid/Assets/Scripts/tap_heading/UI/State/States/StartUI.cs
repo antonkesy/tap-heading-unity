@@ -2,7 +2,6 @@ using tap_heading.UI.components.About;
 using tap_heading.UI.components.Text;
 using tap_heading.UI.components.Title;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace tap_heading.UI.State.States
 {
@@ -10,15 +9,12 @@ namespace tap_heading.UI.State.States
     {
         [SerializeField] protected AboutUI about;
         [SerializeField] protected UIMenuManager menuManager;
-        [SerializeField] protected ShadowText tapToStartText;
+        [SerializeField] protected TapInfo tapToStartText;
         [SerializeField] protected GameTitle gameTitle;
 
         public override void OnEntering()
         {
-            score.HideAll();
             about.Close();
-            score.Out();
-            menuManager.Out();
             gameTitle.In();
             //TODO wait 1sec 
             menuManager.In();

@@ -1,8 +1,6 @@
-namespace tap_heading.UI.utility.Zoom
+namespace tap_heading.UI.utility.Transition.Zoom
 {
-    public interface IZoom
+    public interface IZoom : ITransition
     {
-        public void ZoomIn();
-        public void ZoomOut();
     }
 }

@@ -13,6 +13,7 @@ namespace tap_heading.UI.utility.Transition.Fade
         private void Awake()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup.alpha = 0f;
         }
 
         private void Fade(bool fadeIn)
