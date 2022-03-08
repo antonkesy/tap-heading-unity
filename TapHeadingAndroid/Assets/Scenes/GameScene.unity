@@ -534,7 +534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aboutPanel: {fileID: 72142198}
   toHide:
-  - {fileID: 980880117}
+  - {fileID: 1410661626}
   - {fileID: 1672779190}
 --- !u!1 &313344898
 GameObject:
