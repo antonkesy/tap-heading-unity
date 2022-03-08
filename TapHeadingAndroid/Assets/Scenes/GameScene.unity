@@ -9037,6 +9037,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aboutPanel: {fileID: 72142198}
+  score: {fileID: 1672779192}
+  highScore: {fileID: 1543269425}
 --- !u!4 &1781529469
 Transform:
   m_ObjectHideFlags: 0
@@ -9082,7 +9084,7 @@ MonoBehaviour:
   managers: {fileID: 1386425711}
   score: {fileID: 1672779192}
   highScoreUI: {fileID: 1543269425}
-  animationTime: 4
+  animationTime: 2
   about: {fileID: 290838431}
   menuManager: {fileID: 2097025356}
   tapToStartText: {fileID: 1410661630}
@@ -9102,7 +9104,7 @@ MonoBehaviour:
   managers: {fileID: 1386425711}
   score: {fileID: 1672779192}
   highScoreUI: {fileID: 1543269425}
-  animationTime: 2
+  animationTime: 1
   menuManager: {fileID: 2097025356}
   about: {fileID: 290838431}
   tapToStartText: {fileID: 1410661630}

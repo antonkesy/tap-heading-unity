@@ -35,20 +35,5 @@ namespace tap_heading.UI.State
             OnWaitAnimationDone();
             yield return null;
         }
-
-        internal void UpdateScoreText(int newScore)
-        {
-            score.UpdateScore(newScore);
-        }
-
-        internal void UpdateHighScoreText(int newScore)
-        {
-            highScoreUI.SetScore(newScore);
-        }
-
-        internal void FadeInNewHighScore()
-        {
-            //menuManager.FadeInNewHighScore(1f);
-        }
     }
 }

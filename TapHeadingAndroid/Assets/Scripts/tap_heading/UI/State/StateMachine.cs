@@ -40,17 +40,5 @@ namespace tap_heading.UI.State
         {
             SwitchState(_playing);
         }
-
-        public void UpdateScoreText(int score)
-        {
-            //TODO
-            _current.UpdateScoreText(score);
-        }
-
-        public void UpdateHighScoreText(int highScore)
-        {
-            //TODO
-            _current.UpdateHighScoreText(highScore);
-        }
     }
 }

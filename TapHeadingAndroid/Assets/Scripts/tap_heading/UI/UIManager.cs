@@ -1,3 +1,4 @@
+using tap_heading.UI.components.highscore;
 using tap_heading.UI.State;
 using tap_heading.UI.State.States;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace tap_heading.UI
     public class UIManager : MonoBehaviour
     {
         [SerializeField] private GameObject aboutPanel;
+        [SerializeField] private components.Score.Score score;
+        [SerializeField] private HighScoreUI highScore;
 
         private StateMachine _state;
 
@@ -27,7 +30,6 @@ namespace tap_heading.UI
             return result;
         }
 
-
         public void ShowMenu()
         {
             _state.ShowMenu();
@@ -40,12 +42,17 @@ namespace tap_heading.UI
 
         public void UpdateScoreText(int i)
         {
-            _state.UpdateScoreText(i);
+            score.UpdateScore(i);
         }
 
         public void UpdateHighScoreText(int highScore)
         {
-            _state.UpdateHighScoreText(highScore);
+            this.highScore.SetScore(highScore);
+        }
+
+        internal void FadeInNewHighScore()
+        {
+            highScore.FadeInNewHighScore(1f);
         }
     }
 }

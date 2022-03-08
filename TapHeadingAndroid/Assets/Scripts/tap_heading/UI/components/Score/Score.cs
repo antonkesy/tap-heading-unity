@@ -18,6 +18,7 @@ namespace tap_heading.UI.components.Score
         {
             _active?.Out();
             _active = playingZoom;
+            playing.SetText(0.ToString());
             _active.In();
         }
 
