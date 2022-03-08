@@ -10,16 +10,6 @@ namespace tap_heading.Settings
         private const string SoundOnKey = "s";
         private const string LocalHighScoreKey = "h";
 
-
-#if UNITY_EDITOR
-        [SerializeField] private bool resetPrefs = false;
-        private void Awake()
-        {
-            if (resetPrefs)
-                PlayerPrefs.DeleteAll();
-        }
-#endif
-
         public int GetTimesPlayed()
         {
             return PlayerPrefs.GetInt(TimesPlayKey, 0);
