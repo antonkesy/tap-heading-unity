@@ -1770,6 +1770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078f92f8911d4e34a332654f3698f643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resetPrefs: 0
 --- !u!4 &830017581
 Transform:
   m_ObjectHideFlags: 0
@@ -9175,7 +9176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ce3d43c414fc345adc517c58f61f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aboutPanel: {fileID: 72142198}
+  aboutPanel: {fileID: 290838431}
   score: {fileID: 1672779192}
   highScore: {fileID: 1543269425}
 --- !u!4 &1781529469

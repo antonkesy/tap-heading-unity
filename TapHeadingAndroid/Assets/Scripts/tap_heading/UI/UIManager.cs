@@ -1,3 +1,4 @@
+using tap_heading.UI.components.About;
 using tap_heading.UI.components.highscore;
 using tap_heading.UI.State;
 using tap_heading.UI.State.States;
@@ -7,7 +8,7 @@ namespace tap_heading.UI
 {
     public class UIManager : MonoBehaviour
     {
-        [SerializeField] private GameObject aboutPanel;
+        [SerializeField] private AboutUI aboutPanel;
         [SerializeField] private components.Score.Score score;
         [SerializeField] private HighScoreUI highScore;
 
@@ -25,9 +26,10 @@ namespace tap_heading.UI
 
         internal bool CancelAbout()
         {
-            var result = aboutPanel.activeSelf;
-            aboutPanel.SetActive(false);
-            return result;
+            if (!aboutPanel.IsOpen()) return false;
+            
+            aboutPanel.Close();
+            return true;
         }
 
         public void ShowMenu()
