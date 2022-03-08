@@ -442,8 +442,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 1
+  fadeOutDuration: 1
 --- !u!1 &258433588
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,8 +600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 1
+  fadeOutDuration: 1
 --- !u!114 &313344902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,8 +782,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 1
+  fadeOutDuration: 1
 --- !u!114 &364520999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1101,8 +1101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 1
+  fadeOutDuration: 1
 --- !u!225 &500859734
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3191,8 +3191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 1
+  fadeOutDuration: 1
 --- !u!225 &1437524549
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3580,8 +3580,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 1
+  fadeOutDuration: 1
 --- !u!225 &1516585969
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -9280,8 +9280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 1
+  fadeOutDuration: 1
 --- !u!225 &1826263794
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -9676,8 +9676,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1ac543e4722924fba0ecbc0ba892de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0
-  fadeOutDuration: 0
+  fadeInDuration: 1
+  fadeOutDuration: 1
 --- !u!225 &2015256197
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -9966,7 +9966,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2097025355}
-  - component: {fileID: 2097025357}
   - component: {fileID: 2097025356}
   m_Layer: 5
   m_Name: Menu
@@ -10017,18 +10016,6 @@ MonoBehaviour:
   highScoreUI: {fileID: 1543269425}
   soundButton: {fileID: 1765039355}
   tapToInfo: {fileID: 1410661630}
---- !u!225 &2097025357
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2097025354}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &2134768027
 GameObject:
   m_ObjectHideFlags: 0
