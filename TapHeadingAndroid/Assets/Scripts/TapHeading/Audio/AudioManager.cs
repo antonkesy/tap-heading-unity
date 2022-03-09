@@ -6,31 +6,28 @@ namespace TapHeading.Audio
     {
         private AudioSource _audioSource;
 
-        [Header("Collect Coin")] [SerializeField]
-        private AudioClip collectCoinAudioClip;
-
+        [Header("Collect Coin")]
+        [SerializeField] private AudioClip collectCoinAudioClip;
         [SerializeField] private float coinVolume;
 
-        [Header("Destroy Player")] [SerializeField]
-        private AudioClip destroyPlayerAudioClip;
-
+        [Header("Destroy Player")]
+        [SerializeField] private AudioClip destroyPlayerAudioClip;
         [SerializeField] private float destroyVolume;
 
-        [Header("Tap Player")] [SerializeField]
-        private AudioClip tapPlayerAudioClip;
-
+        [Header("Tap Player")]
+        [SerializeField] private AudioClip tapPlayerAudioClip;
         [SerializeField] private float tapVolume;
-        [Header("Tap UI")] [SerializeField] private AudioClip tapUIAudioClip;
+        
+        [Header("Tap UI")]
+        [SerializeField] private AudioClip tapUIAudioClip;
         [SerializeField] private float uiVolume;
 
-        [Header("New HighScore")] [SerializeField]
-        private AudioClip newHighSoreAudioClip;
-
+        [Header("New HighScore")]
+        [SerializeField] private AudioClip newHighSoreAudioClip;
         [SerializeField] private float newHighScoreVolume;
 
-        [Header("Start Application")] [SerializeField]
-        private AudioClip startApplicationAudioClip;
-
+        [Header("Start Application")]
+        [SerializeField] private AudioClip startApplicationAudioClip;
         [SerializeField] private float startApplicationVolume;
 
 
