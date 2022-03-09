@@ -4,11 +4,11 @@ namespace TapHeading.Settings
 {
     public class PlayerPrefsManager : ISettings
     {
-        private const string TimesPlayKey = "p";
-        private const string TimesOpenKey = "o";
-        private const string AutoLoginKey = "l";
-        private const string SoundOnKey = "s";
-        private const string LocalHighScoreKey = "h";
+        private const string TimesPlayKey = "timesPlayedKey";
+        private const string TimesOpenKey = "timesOpenKey";
+        private const string AutoLoginKey = "autoLoginKey";
+        private const string SoundOnKey = "soundOnKey";
+        private const string LocalHighScoreKey = "localHighScoreKey";
 
         public int GetTimesPlayed()
         {
