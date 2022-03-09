@@ -51,9 +51,9 @@ namespace TapHeading.UI
             score.UpdateScore(i);
         }
 
-        public void UpdateHighScoreText(int highScore)
+        public void UpdateHighScoreText(int highScoreValue)
         {
-            this.highScore.SetScore(highScore);
+            highScore.SetScore(highScoreValue);
         }
 
         internal void FadeInNewHighScore()
