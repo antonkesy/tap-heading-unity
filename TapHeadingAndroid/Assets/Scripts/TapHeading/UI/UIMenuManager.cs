@@ -11,14 +11,10 @@ namespace TapHeading.UI
     public class UIMenuManager : MonoBehaviour, ITransition
     {
         [SerializeField] private FaderUI[] serializedFader;
-
-        private readonly List<ITransition> _transitions = new List<ITransition>();
-
         [SerializeField] private HighScoreUI highScoreUI;
-
         [SerializeField] private SoundToggleButton soundButton;
-
         [SerializeField] private TapInfo tapToInfo;
+        private readonly List<ITransition> _transitions = new List<ITransition>();
 
         private void Awake()
         {
@@ -30,11 +26,6 @@ namespace TapHeading.UI
             _transitions.Add(soundButton);
             _transitions.Add(highScoreUI);
             _transitions.Add(tapToInfo);
-        }
-
-        internal void FadeInNewHighScore(float duration)
-        {
-            highScoreUI.FadeInNewHighScore(duration);
         }
 
         public void In()
