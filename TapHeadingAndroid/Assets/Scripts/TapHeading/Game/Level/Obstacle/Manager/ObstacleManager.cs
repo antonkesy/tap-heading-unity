@@ -6,20 +6,13 @@ namespace TapHeading.Game.Level.Obstacle.Manager
     public class ObstacleManager : MonoBehaviour, IObstacleManager
     {
         [SerializeField] [Range(0, 1f)] private float maxRandomOffset;
-
         [SerializeField] private GameObject obstaclePrefab;
-
-        private float _chunkSpeed;
-        private float _yStartHeight;
-        private float _minSightHeight;
-
-        private int _amountOfObstaclesBuffer;
         [SerializeField] private float yOffsetBetweenObstacles = 6f;
         [SerializeField] private float xOffset = 5.5f;
-
         private readonly List<IObstacle> _obstacles = new List<IObstacle>();
-
         private IObstacle.Side _nextSide;
+        private float _speed, _yStartHeight, _yEndHeight;
+        private int _obstaclesBuffered;
 
         private void Start()
         {
@@ -40,17 +33,13 @@ namespace TapHeading.Game.Level.Obstacle.Manager
                 var frustumHeight = 2.0f * mainCam.orthographicSize *
                                     Mathf.Tan(mainCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
                 _yStartHeight = frustumHeight + chunkHeight / 2f;
-                _minSightHeight = -(frustumHeight + chunkHeight / 2f);
-                _amountOfObstaclesBuffer = (int) (frustumHeight * 2 / yOffsetBetweenObstacles);
-            }
-            else
-            {
-                Application.Quit(1);
+                _yEndHeight = -(frustumHeight + chunkHeight / 2f);
+                _obstaclesBuffered = (int) (frustumHeight * 2 / yOffsetBetweenObstacles);
             }
 
             maxRandomOffset = (obstaclePrefab.transform.localScale.x - xOffset) * maxRandomOffset;
 
-            for (var i = 0; i < _amountOfObstaclesBuffer; ++i)
+            for (var i = 0; i < _obstaclesBuffered; ++i)
             {
                 GenerateObstacle();
             }
@@ -68,7 +57,7 @@ namespace TapHeading.Game.Level.Obstacle.Manager
 
         private void ResetObstacle(IObstacle obstacle, float yOffset)
         {
-            obstacle.Reset(GetNewChunkPosition(yOffset), _nextSide);
+            obstacle.Reset(GetNewObstaclePosition(yOffset), _nextSide);
             SwitchSide();
         }
 
@@ -81,22 +70,21 @@ namespace TapHeading.Game.Level.Obstacle.Manager
         }
 
 
-        private Vector3 GetNewChunkPosition(float yOffset)
+        private Vector3 GetNewObstaclePosition(float yOffset)
         {
-            return new Vector3(
-                (Random.Range(0, maxRandomOffset) + xOffset) * (_nextSide == IObstacle.Side.Right ? 1 : -1),
-                _yStartHeight + yOffset,
-                0);
+            var randomXInRange = Random.Range(0, maxRandomOffset) + xOffset;
+            randomXInRange *= _nextSide == IObstacle.Side.Right ? 1 : -1;
+            return new Vector3(randomXInRange, _yStartHeight + yOffset, 0);
         }
 
 
         private void MoveObstacles()
         {
-            var downVector = Vector3.down * (_chunkSpeed * Time.deltaTime);
+            var downVector = Vector3.down * (_speed * Time.deltaTime);
             foreach (var obstacle in _obstacles)
             {
                 obstacle.Move(downVector);
-                if (obstacle.GetYPos() <= _minSightHeight)
+                if (obstacle.GetYPos() <= _yEndHeight)
                 {
                     ResetObstacle(obstacle, 0f);
                 }
@@ -105,7 +93,7 @@ namespace TapHeading.Game.Level.Obstacle.Manager
 
         public void SetSpeed(float speed)
         {
-            _chunkSpeed = speed;
+            _speed = speed;
         }
 
         public void Restart()
@@ -115,7 +103,7 @@ namespace TapHeading.Game.Level.Obstacle.Manager
 
         public void Stop()
         {
-            _chunkSpeed = 0f;
+            _speed = 0f;
             foreach (var keyValuePair in _obstacles)
             {
                 keyValuePair.DeSpawn();
@@ -124,9 +112,7 @@ namespace TapHeading.Game.Level.Obstacle.Manager
 
         private void SwitchSide()
         {
-            _nextSide = _nextSide == IObstacle.Side.Left
-                ? IObstacle.Side.Right
-                : IObstacle.Side.Left;
+            _nextSide = _nextSide == IObstacle.Side.Left ? IObstacle.Side.Right : IObstacle.Side.Left;
         }
     }
 }
