@@ -1,6 +1,5 @@
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using tap_heading.Settings;
 using UnityEngine;
 
 namespace tap_heading.Services.Google
@@ -34,19 +33,17 @@ namespace tap_heading.Services.Google
         {
             if (IsAuthenticated())
             {
-                Social.ReportScore(highScore, GPGSIds.LeaderboardHighScore, null);
+                Social.ReportScore(highScore, GPGSIds.leaderboard_high_score, null);
             }
         }
 
         private void SignInCanceled(ISignInListener listener)
         {
-            new PlayerPrefsManager().SetAutoLogin(false);
             listener?.OnSignInFailed();
         }
 
         private void SignInSuccess(ISignInListener listener)
         {
-            new PlayerPrefsManager().SetAutoLogin(true);
             GetHighScore(listener);
         }
 
@@ -57,35 +54,35 @@ namespace tap_heading.Services.Google
 
             if (highScore >= 200)
             {
-                UnlockAchievement(GPGSIds.AchievementOof);
+                UnlockAchievement(GPGSIds.achievement_oof);
             }
 
             if (highScore >= 100)
             {
-                UnlockAchievement(GPGSIds.Achievement100);
+                UnlockAchievement(GPGSIds.achievement_100);
             }
 
             if (highScore >= 69)
             {
-                UnlockAchievement(GPGSIds.AchievementNice);
+                UnlockAchievement(GPGSIds.achievement_nice);
             }
 
             if (highScore >= 50)
             {
-                UnlockAchievement(GPGSIds.Achievement50);
+                UnlockAchievement(GPGSIds.achievement_50);
             }
 
             if (highScore >= 42)
             {
                 UnlockAchievement(GPGSIds
-                    .AchievementAnswerToTheUltimateQuestionOfLifeTheUniverseAndEverything);
+                    .achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything);
             }
         }
 
         internal void ThankYouAchievement()
         {
             if (!IsAuthenticated()) return;
-            UnlockAchievement(GPGSIds.AchievementThankYou);
+            UnlockAchievement(GPGSIds.achievement_thank_you);
         }
 
         public void UnlockAchievement(string id)
@@ -144,7 +141,7 @@ namespace tap_heading.Services.Google
         public void GetHighScore(ISignInListener listener)
         {
             PlayGamesPlatform.Instance.LoadScores(
-                GPGSIds.LeaderboardHighScore,
+                GPGSIds.leaderboard_high_score,
                 LeaderboardStart.PlayerCentered,
                 1,
                 LeaderboardCollection.Public,

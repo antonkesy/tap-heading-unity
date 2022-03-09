@@ -13,7 +13,7 @@ namespace tap_heading.UI.components.About
 
         public void Open()
         {
-            Social.ReportProgress(GPGSIds.AchievementThankYou, 0.0f, null);
+            Social.ReportProgress(GPGSIds.achievement_thank_you, 0.0f, null);
             GooglePlayServicesManager.Instance.ThankYouAchievement();
 
             aboutPanel.SetActive(true);
