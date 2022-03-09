@@ -1,9 +1,6 @@
-﻿using tap_heading.UI.utility;
-using tap_heading.UI.utility.Transition.Fade;
-
-namespace tap_heading.UI.components.highscore
+﻿namespace tap_heading.UI.components.highscore
 {
-    public interface IHighScoreUI 
+    public interface IHighScoreUI
     {
         public void FadeInNewHighScore(float duration);
     }
