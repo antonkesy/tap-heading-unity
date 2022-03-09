@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TapHeading.UI.Utility.Transition.Zoom
 {
-    public class ZoomUI : MonoBehaviour, IZoom
+    public class ZoomUI : MonoBehaviour, ITransition
     {
         [SerializeField] private float zoomDuration;
         private Vector3 _originalScale;

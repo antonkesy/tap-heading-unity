@@ -6,21 +6,21 @@ namespace TapHeading.UI.Components.Title
 {
     public class GameTitle : MonoBehaviour, ITransition
     {
-        private Slider _slider;
+        private SliderUI _sliderUI;
 
         private void Awake()
         {
-            _slider = GetComponentInChildren<Slider>();
+            _sliderUI = GetComponentInChildren<SliderUI>();
         }
 
         public void In()
         {
-            _slider.In();
+            _sliderUI.In();
         }
 
         public void Out()
         {
-            _slider.Out();
+            _sliderUI.Out();
         }
     }
 }

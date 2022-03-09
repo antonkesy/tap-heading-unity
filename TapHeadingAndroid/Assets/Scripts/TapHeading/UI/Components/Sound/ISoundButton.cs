@@ -1,8 +1,8 @@
-﻿using TapHeading.UI.Utility.Transition.Fade;
+﻿using TapHeading.UI.Utility.Transition;
 
 namespace TapHeading.UI.Components.Sound
 {
-    public interface ISoundButton : IFader
+    public interface ISoundButton : ITransition
     {
         void Toggle();
     }

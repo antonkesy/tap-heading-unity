@@ -7,8 +7,8 @@ namespace TapHeading.UI.Components.Sound
 {
     public class SoundToggleButton : MonoBehaviour, ITransition
     {
-        [SerializeField] private UIFader soundOnFader;
-        [SerializeField] private UIFader soundOffFader;
+        [SerializeField] private FaderUI soundOn;
+        [SerializeField] private FaderUI soundOff;
 
         [SerializeField] private ManagerCollector managers;
 
@@ -17,8 +17,8 @@ namespace TapHeading.UI.Components.Sound
 
         private void Awake()
         {
-            _currentActive = soundOnFader;
-            _notActive = soundOffFader;
+            _currentActive = soundOn;
+            _notActive = soundOff;
         }
 
         public void In()
@@ -37,13 +37,13 @@ namespace TapHeading.UI.Components.Sound
         {
             if (managers.GetSettings().IsSoundOn())
             {
-                _notActive = soundOffFader;
-                _currentActive = soundOnFader;
+                _notActive = soundOff;
+                _currentActive = soundOn;
             }
             else
             {
-                _notActive = soundOnFader;
-                _currentActive = soundOffFader;
+                _notActive = soundOn;
+                _currentActive = soundOff;
             }
 
             _notActive.Out();

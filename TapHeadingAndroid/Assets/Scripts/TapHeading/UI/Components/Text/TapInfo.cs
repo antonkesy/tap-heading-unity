@@ -7,22 +7,22 @@ namespace TapHeading.UI.Components.Text
     public class TapInfo : MonoBehaviour, ITransition, IText
     {
         private ShadowText _text;
-        private IZoom _zoom;
+        private ITransition _zoomUI;
 
         private void Awake()
         {
             _text = GetComponent<ShadowText>();
-            _zoom = GetComponent<ZoomUI>();
+            _zoomUI = GetComponent<ZoomUI>();
         }
 
         public void In()
         {
-            _zoom.In();
+            _zoomUI.In();
         }
 
         public void Out()
         {
-            _zoom.Out();
+            _zoomUI.Out();
         }
 
         public void SetText(string text)

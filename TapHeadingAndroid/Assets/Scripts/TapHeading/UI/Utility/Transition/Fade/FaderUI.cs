@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TapHeading.UI.Utility.Transition.Fade
 {
-    public class UIFader : MonoBehaviour, ITransition
+    public class FaderUI : MonoBehaviour, ITransition
     {
         [SerializeField] private float fadeInDuration;
         [SerializeField] private float fadeOutDuration;

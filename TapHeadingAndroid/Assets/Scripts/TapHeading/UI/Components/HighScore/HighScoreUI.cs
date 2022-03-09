@@ -7,8 +7,8 @@ namespace TapHeading.UI.Components.HighScore
 {
     public class HighScoreUI : MonoBehaviour, IHighScoreUI, ITransition
     {
-        [SerializeField] private UIFader newHighScore;
-        [SerializeField] private UIFader highScore;
+        [SerializeField] private FaderUI newHighScore;
+        [SerializeField] private FaderUI highScore;
         [SerializeField] private ShadowText text;
 
         public void SetScore(int score)

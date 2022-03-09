@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TapHeading.UI.Utility.Transition.Slide
 {
-    public class Slider : MonoBehaviour, ISlider
+    public class SliderUI : MonoBehaviour, ITransition
     {
         [SerializeField] protected float slideDuration;
         [SerializeField] protected Vector3 hidePosition;

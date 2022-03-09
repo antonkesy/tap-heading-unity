@@ -10,7 +10,7 @@ namespace TapHeading.UI
 {
     public class UIMenuManager : MonoBehaviour, ITransition
     {
-        [SerializeField] private UIFader[] serializedFader;
+        [SerializeField] private FaderUI[] serializedFader;
 
         private readonly List<ITransition> _transitions = new List<ITransition>();
 
