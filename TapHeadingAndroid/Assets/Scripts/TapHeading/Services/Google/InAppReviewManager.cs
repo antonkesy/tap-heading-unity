@@ -33,8 +33,9 @@ namespace TapHeading.Services.Google
             }
         }
 
-        public void RequestReview(MonoBehaviour monoBehaviour)
+        public void RequestReview(MonoBehaviour monoBehaviour, int timesOpen)
         {
+            if (timesOpen < 30) return;
             monoBehaviour.StartCoroutine(_RequestReview());
         }
     }

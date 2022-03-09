@@ -13,10 +13,6 @@ namespace TapHeading.Game
     {
         [SerializeField] private ManagerCollector managers;
 
-        private bool _isIarPopUpPossible;
-        private const int TimesToOpenB4IarCall = 10;
-        private const int TimesToPlayB4IarCall = 50;
-
         [SerializeField] internal bool isSingleClick = true;
 
         private IGameState _gameState = new WaitForAnimation();
@@ -43,9 +39,7 @@ namespace TapHeading.Game
 
         private void LoadFlagsFromPlayerPrefs()
         {
-            _isIarPopUpPossible = managers.GetSettings().GetTimesOpen() < TimesToOpenB4IarCall &&
-                                  managers.GetSettings().GetTimesPlayed() < TimesToPlayB4IarCall;
-
+            managers.GetSettings().IncrementTimesOpen();
             managers.GetAudioManager().SetSound(managers.GetSettings().IsSoundOn());
         }
 
@@ -120,26 +114,13 @@ namespace TapHeading.Game
             managers.GetUIManager().ShowMenu();
             managers.GetLevelManager().Stop();
             managers.GetPlayerManager().Spawn();
-            CheckForIARPopUp();
+            InAppReviewManager.Instance.RequestReview(this, managers.GetSettings().GetTimesOpen());
 
             if (_score.IsHighScore())
             {
                 managers.GetAudioManager().PlayNewHighScore();
                 managers.GetUIManager().FadeInNewHighScore();
             }
-        }
-
-        private void CheckForIARPopUp()
-        {
-            if (!_isIarPopUpPossible) return;
-            if (managers.GetSettings().GetTimesPlayed() > TimesToPlayB4IarCall ||
-                managers.GetSettings().GetTimesOpen() > TimesToOpenB4IarCall)
-            {
-                InAppReviewManager.Instance.RequestReview(this);
-            }
-
-            managers.GetSettings().IncrementTimesOpen();
-            managers.GetSettings().IncrementTimesPlayed();
         }
 
         public void OnClick(Vector2 position)
