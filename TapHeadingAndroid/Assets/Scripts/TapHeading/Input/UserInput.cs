@@ -5,21 +5,21 @@ namespace TapHeading.Input
 {
     public abstract class UserInput : MonoBehaviour, IUserInput
     {
-        private readonly List<IPlayerInputListener> listeners = new List<IPlayerInputListener>();
+        private readonly List<IPlayerInputListener> _listeners = new List<IPlayerInputListener>();
 
         public void AddListener(IPlayerInputListener listener)
         {
-            listeners.Add(listener);
+            _listeners.Add(listener);
         }
 
         public void RemoveListener(IPlayerInputListener listener)
         {
-            listeners.Remove(listener);
+            _listeners.Remove(listener);
         }
 
         protected void Notify(Vector2 position)
         {
-            foreach (var observer in listeners)
+            foreach (var observer in _listeners)
             {
                 observer.OnClick(position);
             }
