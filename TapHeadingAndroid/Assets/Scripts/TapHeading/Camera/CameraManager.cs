@@ -4,22 +4,23 @@ namespace TapHeading.Camera
 {
     public class CameraManager : MonoBehaviour, ICameraManager
     {
-        [Header("Scene")] [SerializeField] private float sceneWidth = 10;
-        [Header("Shaking")] [SerializeField] private float shakeDuration = 1f;
+        [Header("Scene")]
+        [SerializeField] private float sceneWidth = 10;
+        [Header("Shaking")]
+        [SerializeField] private float shakeDuration = 1f;
         [SerializeField] private float decreaseFactor = 1.0f;
-        private float _shakeDuration;
-        private Transform _transform;
         [SerializeField] private float shakeAmount = 0.05f;
+        
+        private float _timeToShakeLeft;
         private Vector3 _originalPos;
         private bool _isShaking;
 
         private void Awake()
         {
-            _transform = GetComponent<Transform>();
             ScaleCameraToWidth();
         }
 
-        private void LateUpdate()
+        private void Update()
         {
             if (_isShaking)
             {
@@ -38,14 +39,14 @@ namespace TapHeading.Camera
 
         private void Shake()
         {
-            if (_shakeDuration > 0)
+            if (_timeToShakeLeft > 0)
             {
-                _transform.localPosition = _originalPos + Random.insideUnitSphere * shakeAmount;
-                _shakeDuration -= decreaseFactor * Time.deltaTime;
+                transform.localPosition = _originalPos + Random.insideUnitSphere * shakeAmount;
+                _timeToShakeLeft -= decreaseFactor * Time.deltaTime;
             }
             else
             {
-                _transform.localPosition = _originalPos;
+                transform.localPosition = _originalPos;
                 _isShaking = false;
             }
         }
@@ -53,8 +54,8 @@ namespace TapHeading.Camera
 
         public void StartShaking()
         {
-            _shakeDuration = shakeDuration;
-            _originalPos = gameObject.transform.position;
+            _timeToShakeLeft = shakeDuration;
+            _originalPos = transform.position;
             _isShaking = true;
         }
     }
