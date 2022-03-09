@@ -4389,8 +4389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e110cb5bcf744359b48a41192b37906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundOnFader: {fileID: 1826263793}
-  soundOffFader: {fileID: 2015256196}
+  soundOn: {fileID: 1826263793}
+  soundOff: {fileID: 2015256196}
   managers: {fileID: 1386425711}
 --- !u!224 &1765039356
 RectTransform:
