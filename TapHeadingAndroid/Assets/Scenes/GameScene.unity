@@ -3356,7 +3356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioManager: {fileID: 1180965302}
-  cameraManager: {fileID: 519420033}
+  cameraShake: {fileID: 519420033}
   obstacle: {fileID: 0}
   levelManager: {fileID: 836582972}
   playerManager: {fileID: 906787710}
