@@ -12,7 +12,7 @@ Quick weekend project with Unity.
   - [Screenshots](#screenshots)
   - [Install](#install)
   - [Background](#background)
-  - [Known-Bugs-And-TODO](#known-bugs-and-todo)
+  - [Update Spring 2022](#Update-Spring-2022)
   - [License](#license)
 
 ## How To Play
@@ -24,32 +24,26 @@ Simply touch the screen to change the movement direction of the cube to the oppo
 - Google Play Service integration
   - Leaderboard
   - Achievements
-  - Load highscore
-- Optimised for mobile
 
 ## Screenshots
 
 <p float="left">
-<img src="Store/Screenshots/Phone/Screenshot3.png?raw=true" width="200" />
-<img src="Store/Screenshots/Phone/Screenshot0.png?raw=true" width="200" />
-<img src="Store/Screenshots/Phone/Screenshot1.png?raw=true" width="200" />
+<img src="Store/Screenshots/Phone/screenshot_menu.png?raw=true" width="200" />
+<img src="Store/Screenshots/Phone/screenshot_play_0.png?raw=true" width="200" />
+<img src="Store/Screenshots/Phone/screenshot_play_1.png?raw=true" width="200" />
 </p>
 
 
 ## Install
 
-[GooglePlayStore](https://play.google.com/store/apps/details?id=com.poorskill.tapheading "PoorPassword on GooglePlayStore")
+[GooglePlayStore](https://play.google.com/store/apps/details?id=de.antonkesy.tapheading "Tap Heading on GooglePlayStore")
 
 ## Background
 Last weekend before lectures starting again. Time to do some small project. Haven't touched Unity in nearly a year.
 
-## Known-Bugs-And-TODO
 
-Bugs
-* none (found yet :P)
-
-Todo
-* UI Animations
+## Update-Spring-2022
+Checked out the project and tried to refactor with use of my freshly learned knowledge from university
 
 ## License
 
