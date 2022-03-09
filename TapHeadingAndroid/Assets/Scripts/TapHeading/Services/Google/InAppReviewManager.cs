@@ -4,16 +4,13 @@ using UnityEngine;
 
 namespace TapHeading.Services.Google
 {
-    /**
- * InAppReviewManager for Google Play Core IAR
- */
-    public class IAReviewManager : MonoBehaviour, IReviewService
+    public class InAppReviewManager : IReviewService
     {
         private static IReviewService _instance;
         private static ReviewManager _reviewManager;
         private static PlayReviewInfo _playReviewInfo;
 
-        public static IReviewService Instance => _instance ??= new IAReviewManager();
+        public static IReviewService Instance => _instance ??= new InAppReviewManager();
 
         private static IEnumerator _RequestReview()
         {
@@ -32,13 +29,13 @@ namespace TapHeading.Services.Google
             _playReviewInfo = null; // Reset the object
             if (launchFlowOperation.Error != ReviewErrorCode.NoError)
             {
-                yield break;
+                //nothing
             }
         }
 
-        public void RequestReview()
+        public void RequestReview(MonoBehaviour monoBehaviour)
         {
-            StartCoroutine(_RequestReview());
+            monoBehaviour.StartCoroutine(_RequestReview());
         }
     }
 }

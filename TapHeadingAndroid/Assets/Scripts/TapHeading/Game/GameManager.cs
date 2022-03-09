@@ -59,7 +59,6 @@ namespace TapHeading.Game
                     ? playerManager.ChangeDirection(IPlayerManager.Direction.Right)
                     : playerManager.ChangeDirection(IPlayerManager.Direction.Left);
 
-            //play click audio if changed direction
             if (changedDirection)
             {
                 managers.GetAudioManager().PlayPlayerTap();
@@ -136,7 +135,7 @@ namespace TapHeading.Game
             if (managers.GetSettings().GetTimesPlayed() > TimesToPlayB4IarCall ||
                 managers.GetSettings().GetTimesOpen() > TimesToOpenB4IarCall)
             {
-                IAReviewManager.Instance.RequestReview();
+                InAppReviewManager.Instance.RequestReview(this);
             }
 
             managers.GetSettings().IncrementTimesOpen();

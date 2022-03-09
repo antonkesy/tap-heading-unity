@@ -1,7 +1,9 @@
-﻿namespace TapHeading.Services
+﻿using UnityEngine;
+
+namespace TapHeading.Services
 {
     public interface IReviewService
     {
-        public void RequestReview();
+        public void RequestReview(MonoBehaviour monoBehaviour);
     }
 }

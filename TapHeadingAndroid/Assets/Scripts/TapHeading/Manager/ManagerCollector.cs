@@ -21,7 +21,7 @@ namespace TapHeading.Manager
         [SerializeField] private PlayerManager playerManager;
         [SerializeField] private GameManager gameManager;
         [SerializeField] private UIManager uiManager;
-        [SerializeField] IAReviewManager inAppReviewService;
+        [SerializeField] InAppReviewManager inAppReviewService;
         [SerializeField] private PlayerPrefsManager settings;
         private GooglePlayServicesManager _googleServiceManager;
 
