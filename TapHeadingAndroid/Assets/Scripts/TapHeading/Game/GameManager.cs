@@ -109,7 +109,7 @@ namespace TapHeading.Game
         private void OnPlayerDestroy()
         {
             managers.GetAudioManager().PlayPlayerDeath();
-            managers.GetCameraManager().Shake();
+            managers.GetCameraShaker().Shake();
             _gameState = new WaitForAnimation();
             managers.GetUIManager().ShowMenu();
             managers.GetLevelManager().Stop();

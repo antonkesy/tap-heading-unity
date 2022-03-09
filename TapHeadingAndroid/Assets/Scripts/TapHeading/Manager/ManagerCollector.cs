@@ -21,21 +21,14 @@ namespace TapHeading.Manager
         [SerializeField] private PlayerManager playerManager;
         [SerializeField] private GameManager gameManager;
         [SerializeField] private UIManager uiManager;
-        [SerializeField] InAppReviewManager inAppReviewService;
         [SerializeField] private PlayerPrefsManager settings;
-        private GooglePlayServicesManager _googleServiceManager;
-
-        private void Awake()
-        {
-            _googleServiceManager = GooglePlayServicesManager.Instance;
-        }
 
         public IAudioManager GetAudioManager()
         {
             return audioManager;
         }
 
-        public ICameraShake GetCameraManager()
+        public ICameraShake GetCameraShaker()
         {
             return cameraShake;
         }
@@ -58,16 +51,6 @@ namespace TapHeading.Manager
         public IGameManager GetGameManager()
         {
             return gameManager;
-        }
-
-        public IReviewService GetReviewService()
-        {
-            return inAppReviewService;
-        }
-
-        public IScoreService GetScoreService()
-        {
-            return _googleServiceManager;
         }
 
         public UIManager GetUIManager()
