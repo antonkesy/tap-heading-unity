@@ -1,4 +1,5 @@
 using System.Collections;
+using TapHeading.Camera.Utility;
 using TapHeading.Game.Level.Obstacle;
 using TapHeading.Manager;
 using UnityEngine;
@@ -37,21 +38,11 @@ namespace TapHeading.Player
             SetSpawnStartPositionY();
         }
 
-        /**
-     * Sets spawn y position of player depending on Camera
-     */
         private void SetSpawnStartPositionY()
         {
-            var mainCam = UnityEngine.Camera.main;
-            if (mainCam is null) return;
-            var frustumHeight = 2.0f * mainCam.orthographicSize *
-                                Mathf.Tan(mainCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-            _spawnStartPositionY = frustumHeight * -1f;
+            _spawnStartPositionY = CameraUtility.GetFrustumHeight() * -1f;
         }
 
-        /**
-     * Starts player moving in random direction
-     */
         public void StartMoving()
         {
             if (_isRespawning)
@@ -74,34 +65,29 @@ namespace TapHeading.Player
             return direction == _direction && ChangeDirection();
         }
 
-        /**
-     * Returns if player direction is changeable
-     * changes player direction
-     */
         public bool ChangeDirection()
         {
             if (!_isDirectionChangeable) return false;
-            _direction = _direction == IPlayerManager.Direction.Left
-                ? IPlayerManager.Direction.Right
-                : IPlayerManager.Direction.Left;
+            SwitchDirection();
             _rb.velocity = Vector2.zero;
-            _rb.AddForce(
-                _direction == IPlayerManager.Direction.Right ? Vector2.right * sideSpeed : Vector2.left * sideSpeed,
+            _rb.AddForce((_direction == IPlayerManager.Direction.Right ? Vector2.right : Vector2.left) * sideSpeed,
                 ForceMode2D.Impulse);
             ChangeShadowPosition();
             return true;
         }
 
-        /**
-     * Sets player shadow position according to direction is heading to
-     */
+        private void SwitchDirection()
+        {
+            _direction = _direction == IPlayerManager.Direction.Left
+                ? IPlayerManager.Direction.Right
+                : IPlayerManager.Direction.Left;
+        }
+
         private void ChangeShadowPosition()
         {
-            shadowTransform.localPosition = Vector3.right *
-                                            (_direction == IPlayerManager.Direction.Right
-                                                ? -shadowOffset
-                                                : shadowOffset) +
-                                            Vector3.up * -shadowOffset;
+            var xVector = (_direction == IPlayerManager.Direction.Right ? Vector3.right : Vector3.left) * shadowOffset;
+            var yVector = Vector3.down * shadowOffset;
+            shadowTransform.localPosition = xVector + yVector;
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -122,9 +108,6 @@ namespace TapHeading.Player
             }
         }
 
-        /**
-     * Handles coin collision
-     */
         private void OnCoinCollision(GameObject coinGameObject)
         {
             var coin = coinGameObject.GetComponent<Coin>();
@@ -132,9 +115,6 @@ namespace TapHeading.Player
             managers.GetGameManager().CoinPickedUpCallback();
         }
 
-        /**
-    * Destroys Player
-    */
         private void DestroyPlayer()
         {
             _rb.velocity = Vector2.zero;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TapHeading.Camera.Utility;
 using UnityEngine;
 
 namespace TapHeading.Game.Level.Obstacle.Manager
@@ -26,18 +27,14 @@ namespace TapHeading.Game.Level.Obstacle.Manager
 
         private void Setup()
         {
-            var chunkHeight = obstaclePrefab.transform.localScale.y;
-            var mainCam = UnityEngine.Camera.main;
-            if (mainCam is { })
-            {
-                var frustumHeight = 2.0f * mainCam.orthographicSize *
-                                    Mathf.Tan(mainCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-                _yStartHeight = frustumHeight + chunkHeight / 2f;
-                _yEndHeight = -(frustumHeight + chunkHeight / 2f);
-                _obstaclesBuffered = (int) (frustumHeight * 2 / yOffsetBetweenObstacles);
-            }
+            var obstacleLocalScale = obstaclePrefab.transform.localScale;
+            var chunkHeight = obstacleLocalScale.y;
+            var frustumHeight = CameraUtility.GetFrustumHeight();
+            _yStartHeight = frustumHeight + chunkHeight / 2f;
+            _yEndHeight = -(frustumHeight + chunkHeight / 2f);
+            _obstaclesBuffered = (int) (frustumHeight * 2 / yOffsetBetweenObstacles);
 
-            maxRandomOffset = (obstaclePrefab.transform.localScale.x - xOffset) * maxRandomOffset;
+            maxRandomOffset = (obstacleLocalScale.x - xOffset) * maxRandomOffset;
 
             for (var i = 0; i < _obstaclesBuffered; ++i)
             {
