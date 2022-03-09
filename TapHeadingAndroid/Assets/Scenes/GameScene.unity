@@ -1652,49 +1652,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!1 &830017579
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 830017581}
-  - component: {fileID: 830017580}
-  m_Layer: 0
-  m_Name: Settings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &830017580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830017579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 078f92f8911d4e34a332654f3698f643, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &830017581
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830017579}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1386425710}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &836582971
 GameObject:
   m_ObjectHideFlags: 0
@@ -3295,7 +3252,6 @@ Transform:
   - {fileID: 190944115}
   - {fileID: 1180965303}
   - {fileID: 836582973}
-  - {fileID: 830017581}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3318,7 +3274,6 @@ MonoBehaviour:
   playerManager: {fileID: 906787710}
   gameManager: {fileID: 190944114}
   uiManager: {fileID: 1781529468}
-  settings: {fileID: 830017580}
 --- !u!1 &1410661626
 GameObject:
   m_ObjectHideFlags: 0
@@ -4436,7 +4391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundOnFader: {fileID: 1826263793}
   soundOffFader: {fileID: 2015256196}
-  settings: {fileID: 830017580}
+  managers: {fileID: 1386425711}
 --- !u!224 &1765039356
 RectTransform:
   m_ObjectHideFlags: 0

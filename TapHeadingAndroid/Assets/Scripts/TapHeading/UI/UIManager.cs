@@ -20,6 +20,10 @@ namespace TapHeading.UI
             var menu = GetComponent<MenuUI>();
             var playing = GetComponent<PlayingUI>();
             _state = new StateMachine(start, menu, playing);
+        }
+
+        private void Start()
+        {
             _state.ShowStart();
         }
 
@@ -27,7 +31,7 @@ namespace TapHeading.UI
         internal bool CancelAbout()
         {
             if (!aboutPanel.IsOpen()) return false;
-            
+
             aboutPanel.Close();
             return true;
         }

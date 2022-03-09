@@ -1,4 +1,5 @@
-﻿using TapHeading.Audio;
+﻿using System;
+using TapHeading.Audio;
 using TapHeading.Camera;
 using TapHeading.Game;
 using TapHeading.Game.Level;
@@ -21,7 +22,12 @@ namespace TapHeading.Manager
         [SerializeField] private PlayerManager playerManager;
         [SerializeField] private GameManager gameManager;
         [SerializeField] private UIManager uiManager;
-        [SerializeField] private PlayerPrefsManager settings;
+        private PlayerPrefsManager _settings;
+
+        private void Awake()
+        {
+            _settings = new PlayerPrefsManager();
+        }
 
         public IAudioManager GetAudioManager()
         {
@@ -60,7 +66,7 @@ namespace TapHeading.Manager
 
         public ISettings GetSettings()
         {
-            return settings;
+            return _settings;
         }
     }
 }

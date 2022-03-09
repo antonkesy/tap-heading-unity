@@ -1,4 +1,4 @@
-﻿using TapHeading.Settings;
+﻿using TapHeading.Manager;
 using TapHeading.UI.Utility.Transition;
 using TapHeading.UI.Utility.Transition.Fade;
 using UnityEngine;
@@ -10,7 +10,7 @@ namespace TapHeading.UI.Components.Sound
         [SerializeField] private UIFader soundOnFader;
         [SerializeField] private UIFader soundOffFader;
 
-        [SerializeField] private PlayerPrefsManager settings;
+        [SerializeField] private ManagerCollector managers;
 
         private ITransition _currentActive;
         private ITransition _notActive;
@@ -35,7 +35,7 @@ namespace TapHeading.UI.Components.Sound
 
         public void Toggle()
         {
-            if (settings.IsSoundOn())
+            if (managers.GetSettings().IsSoundOn())
             {
                 _notActive = soundOffFader;
                 _currentActive = soundOnFader;
