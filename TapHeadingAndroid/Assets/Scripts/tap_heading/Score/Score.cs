@@ -64,6 +64,7 @@ namespace tap_heading.Score
 
             _isHighScore = true;
             _highScore = _score;
+            _settings.SetLocalHighScore(_highScore);
             _listener?.OnNewHighScore(_highScore);
         }
     }
