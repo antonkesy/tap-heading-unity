@@ -10,6 +10,10 @@ namespace TapHeading.Services.Google
         private static ReviewManager _reviewManager;
         private static PlayReviewInfo _playReviewInfo;
 
+        private InAppReviewManager()
+        {
+        }
+
         public static IReviewService Instance => _instance ??= new InAppReviewManager();
 
         private static IEnumerator _RequestReview()
