@@ -57,7 +57,7 @@ namespace TapHeading.Game.Level.Obstacle.Manager
 
         private void ResetObstacle(IObstacle obstacle, float yOffset)
         {
-            obstacle.Reset(GetNewObstaclePosition(yOffset), _nextSide);
+            obstacle.ResetTo(GetNewObstaclePosition(yOffset), _nextSide);
             SwitchSide();
         }
 

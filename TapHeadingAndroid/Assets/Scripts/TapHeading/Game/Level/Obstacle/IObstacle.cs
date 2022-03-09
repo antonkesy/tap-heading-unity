@@ -12,7 +12,7 @@ namespace TapHeading.Game.Level.Obstacle
 
         public void DeSpawn();
 
-        void Reset(Vector3 position, Side side);
+        void ResetTo(Vector3 position, Side side);
         void Move(Vector3 moveBy);
         float GetYPos();
     }
