@@ -15,7 +15,7 @@ namespace TapHeading.Manager
     public class ManagerCollector : MonoBehaviour, IManagerCollector
     {
         [SerializeField] private AudioManager audioManager;
-        [SerializeField] private CameraManager cameraManager;
+        [SerializeField] private CameraShake cameraShake;
         [SerializeField] private Obstacle obstacle;
         [SerializeField] private LevelManager levelManager;
         [SerializeField] private PlayerManager playerManager;
@@ -35,9 +35,9 @@ namespace TapHeading.Manager
             return audioManager;
         }
 
-        public ICameraManager GetCameraManager()
+        public ICameraShake GetCameraManager()
         {
-            return cameraManager;
+            return cameraShake;
         }
 
         public IObstacle GetChunkManager()

@@ -13,7 +13,7 @@ namespace TapHeading.Manager
     public interface IManagerCollector
     {
         IAudioManager GetAudioManager();
-        ICameraManager GetCameraManager();
+        ICameraShake GetCameraManager();
         IObstacle GetChunkManager();
         ILevelManager GetLevelManager();
         IPlayerManager GetPlayerManager();

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TapHeading.Camera
 {
-    public class CameraManager : MonoBehaviour, ICameraManager
+    public class CameraShake : MonoBehaviour, ICameraShake
     {
         [Header("Scene")]
         [SerializeField] private float sceneWidth = 10;
@@ -24,7 +24,7 @@ namespace TapHeading.Camera
         {
             if (_isShaking)
             {
-                Shake();
+                ShakeCamera();
             }
         }
 
@@ -37,7 +37,7 @@ namespace TapHeading.Camera
             if (UnityEngine.Camera.main is { }) UnityEngine.Camera.main.orthographicSize = desiredHalfHeight;
         }
 
-        private void Shake()
+        private void ShakeCamera()
         {
             if (_timeToShakeLeft > 0)
             {
@@ -52,7 +52,7 @@ namespace TapHeading.Camera
         }
 
 
-        public void StartShaking()
+        public void Shake()
         {
             _timeToShakeLeft = shakeDuration;
             _originalPos = transform.position;
