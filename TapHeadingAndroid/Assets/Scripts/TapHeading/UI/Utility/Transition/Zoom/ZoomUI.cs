@@ -23,24 +23,21 @@ namespace TapHeading.UI.Utility.Transition.Zoom
                 StopCoroutine(_zoom);
             }
 
-            Vector3 from;
             Vector3 to;
             if (zoomIn)
             {
-                from = Vector3.zero;
                 to = _originalScale;
             }
             else
             {
-                from = _originalScale;
                 to = Vector3.zero;
             }
 
             gameObject.SetActive(true);
-            _zoom = StartCoroutine(Zooming(from, to));
+            _zoom = StartCoroutine(Zooming(to, zoomIn));
         }
 
-        private IEnumerator Zooming(Vector3 from, Vector3 to)
+        private IEnumerator Zooming(Vector3 to, bool endState)
         {
             var counter = 0f;
 
@@ -54,6 +51,7 @@ namespace TapHeading.UI.Utility.Transition.Zoom
                 yield return null;
             }
 
+            gameObject.SetActive(endState);
             _zoom = null;
             yield return null;
         }

@@ -252,7 +252,7 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 1
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: P:/keys/tap-heading/tap-heading.keystore
+  AndroidKeystoreName: S:/keys/tap-heading/tap-heading.keystore
   AndroidKeyaliasName: antonkesy
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0

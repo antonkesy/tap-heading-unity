@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace TapHeading.Input
 {
@@ -16,7 +17,9 @@ namespace TapHeading.Input
 
             if (UnityEngine.Input.GetMouseButtonDown(0))
             {
-                if (EventSystem.current.IsPointerOverGameObject())
+                if (EventSystem.current.IsPointerOverGameObject() &&
+                    EventSystem.current.currentSelectedGameObject != null &&
+                    EventSystem.current.currentSelectedGameObject.GetComponent<Button>() == null)
                 {
                     Debug.Log("UI click");
                 }
