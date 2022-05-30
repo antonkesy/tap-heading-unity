@@ -158,5 +158,10 @@ namespace TapHeading.Services.Google
                     }
                 });
         }
+
+        public void SignIn()
+        {
+            PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, result => { });
+        }
     }
 }

@@ -35,6 +35,7 @@ namespace TapHeading.Game
             var inputDebug = gameObject.AddComponent<DebugEditorInput>();
             inputDebug.AddListener(this);
 #endif
+            GooglePlayServicesManager.Instance.SignIn();
         }
 
         private void LoadFlagsFromPlayerPrefs()
