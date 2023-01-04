@@ -21,8 +21,7 @@ namespace TapHeading.Game
 
         private void Start()
         {
-            Application.targetFrameRate = 200;
-            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 500;
 
             _score = new Score.Score(this, managers.GetSettings());
             LoadFlagsFromPlayerPrefs();
