@@ -22,6 +22,11 @@ namespace Google.Android.AppBundle.Editor.Internal.AssetPacks
 {
     public class AssetDeliveryWindow : EditorWindow
     {
+        /// <summary>
+        /// Label for the split base APK checkbox. Visible for referencing from error messages.
+        /// </summary>
+        public const string SeparateAssetsLabel = "Separate Base APK Assets";
+
         private const string RefreshButtonText = "Refresh";
         private const int WindowMinWidth = 610;
         private const int WindowMinHeight = 300;
@@ -58,22 +63,26 @@ namespace Google.Android.AppBundle.Editor.Internal.AssetPacks
                 _collapsedAssetPacks = new HashSet<string>();
             }
 
-            var descriptionTextStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontStyle = FontStyle.Italic,
-                wordWrap = true
-            };
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Base APK Asset Delivery", EditorStyles.boldLabel);
+            RenderDescription(
+                "When building an Android App Bundle (AAB), automatically move assets that would normally be " +
+                "delivered in the base APK into an install-time asset pack. This option reduces base APK size " +
+                "similarly to the \"Split Application Binary\" publishing setting, but it uses Play Asset Delivery " +
+                "instead of APK Expansion (OBB) files, so it's compatible with AABs. This option is recommended for " +
+                "apps with a large base APK, e.g. over 150 MB.");
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(SeparateAssetsLabel, GUILayout.Width(145));
+            var pendingSplitBaseModuleAssets = EditorGUILayout.Toggle(_assetDeliveryConfig.SplitBaseModuleAssets);
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Space();
+            EditorGUILayout.Space();
 
-            EditorGUILayout.Space();
-            EditorGUILayout.BeginVertical("textfield"); // Adds a light grey background.
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField(
+            EditorGUILayout.LabelField("Asset Pack Configuration", EditorStyles.boldLabel);
+            RenderDescription(
                 "Add folders that directly contain AssetBundle files, for example the output folder from Unity's " +
                 "AssetBundle Browser. All AssetBundles directly contained in the specified folders will be displayed " +
-                "below. Update the \"Delivery Mode\" to include an AssetBundle in Android App Bundle builds.",
-                descriptionTextStyle);
-            EditorGUILayout.Space();
-            EditorGUILayout.EndVertical();
+                "below. Update the \"Delivery Mode\" to include an AssetBundle in AAB builds.");
             EditorGUILayout.Space();
 
             // TODO(b/144677274): Remove this #if once TCF support is available in Play, to make TCF targeting discoverable.
@@ -136,7 +145,7 @@ namespace Google.Android.AppBundle.Editor.Internal.AssetPacks
             // Hide this setting for projects targeting SDK 21+ since it only affects install-time asset pack
             // installation on older devices.
             if (_assetDeliveryConfig.HasTextureCompressionFormatTargeting() &&
-                PlayerSettings.Android.minSdkVersion < AndroidSdkVersions.AndroidApiLevel21)
+                TextureTargetingTools.IsSdkVersionPreLollipop(PlayerSettings.Android.minSdkVersion))
             {
                 EditorGUILayout.LabelField("Texture Compression Configuration", EditorStyles.boldLabel);
                 EditorGUILayout.Space();
@@ -181,8 +190,12 @@ namespace Google.Android.AppBundle.Editor.Internal.AssetPacks
             EditorGUILayout.EndScrollView();
 
             // Defer folder refresh, addition and removal to avoid modification of the collection while iterating.
-            if (_assetDeliveryConfig.UpdateAndRefreshFolders(refreshAssetDeliveryConfig, foldersToAdd, foldersToRemove))
+            var pendingConfigChanges =
+                _assetDeliveryConfig.UpdateAndRefreshFolders(refreshAssetDeliveryConfig, foldersToAdd, foldersToRemove);
+            pendingConfigChanges |= pendingSplitBaseModuleAssets != _assetDeliveryConfig.SplitBaseModuleAssets;
+            if (pendingConfigChanges)
             {
+                _assetDeliveryConfig.SplitBaseModuleAssets = pendingSplitBaseModuleAssets;
                 AssetDeliveryConfigSerializer.SaveConfig(_assetDeliveryConfig);
             }
         }
@@ -341,6 +354,21 @@ namespace Google.Android.AppBundle.Editor.Internal.AssetPacks
                 MessageType.None);
         }
 
+        private static void RenderDescription(string label)
+        {
+            var descriptionTextStyle = new GUIStyle(GUI.skin.label)
+            {
+                fontStyle = FontStyle.Italic,
+                wordWrap = true
+            };
+
+            EditorGUILayout.BeginVertical("textfield"); // Adds a light grey background.
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField(label, descriptionTextStyle);
+            EditorGUILayout.Space();
+            EditorGUILayout.EndVertical();
+        }
+
         private string GetPackagingSummary()
         {
             int numAssetPacksToDeliver;
@@ -348,7 +376,9 @@ namespace Google.Android.AppBundle.Editor.Internal.AssetPacks
 
             if (numAssetPacksToDeliver == 0)
             {
-                return "There are no AssetBundles marked for packaging.";
+                return _assetDeliveryConfig.SplitBaseModuleAssets
+                    ? "The Base APK's assets will be packaged in an asset pack."
+                    : "There are no AssetBundles marked for packaging.";
             }
 
             if (errorMessages.Count > 0)
@@ -358,9 +388,12 @@ namespace Google.Android.AppBundle.Editor.Internal.AssetPacks
                        string.Join(separator, errorMessages.ToArray());
             }
 
-            return numAssetPacksToDeliver == 1
+            var description = numAssetPacksToDeliver == 1
                 ? "There is 1 AssetBundle marked for packaging."
                 : string.Format("There are {0} AssetBundles marked for packaging.", numAssetPacksToDeliver);
+            return _assetDeliveryConfig.SplitBaseModuleAssets
+                ? description + " Also, the Base APK's assets will be packaged in an asset pack."
+                : description;
         }
     }
 }

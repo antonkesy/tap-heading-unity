@@ -18,9 +18,6 @@ namespace TapHeading.Services.Google
 
         private static void Activate()
         {
-            var config = new PlayGamesClientConfiguration.Builder().Build();
-
-            PlayGamesPlatform.InitializeInstance(config);
             PlayGamesPlatform.Activate();
         }
 
@@ -94,17 +91,16 @@ namespace TapHeading.Services.Google
         {
             if (!IsAuthenticated())
             {
-                PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
+                PlayGamesPlatform.Instance.Authenticate(null, result =>
                 {
-                    switch (result)
+                    if (result)
                     {
-                        case SignInStatus.Canceled:
-                            SignInCanceled(listener);
-                            break;
-                        case SignInStatus.Success:
-                            SignInSuccess(listener);
-                            PlayGamesPlatform.Instance.ShowLeaderboardUI();
-                            break;
+                        SignInSuccess(listener);
+                        PlayGamesPlatform.Instance.ShowLeaderboardUI();
+                    }
+                    else
+                    {
+                        SignInCanceled(listener);
                     }
                 });
             }
@@ -118,17 +114,16 @@ namespace TapHeading.Services.Google
         {
             if (!IsAuthenticated())
             {
-                PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, result =>
+                PlayGamesPlatform.Instance.Authenticate(null, result =>
                 {
-                    switch (result)
+                    if (result)
                     {
-                        case SignInStatus.Canceled:
-                            SignInCanceled(listener);
-                            break;
-                        case SignInStatus.Success:
-                            SignInSuccess(listener);
-                            PlayGamesPlatform.Instance.ShowAchievementsUI();
-                            break;
+                        SignInSuccess(listener);
+                        PlayGamesPlatform.Instance.ShowAchievementsUI();
+                    }
+                    else
+                    {
+                        SignInCanceled(listener);
                     }
                 });
             }
@@ -161,7 +156,7 @@ namespace TapHeading.Services.Google
 
         public void SignIn()
         {
-            PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, result => { });
+            PlayGamesPlatform.Instance.Authenticate(null, _ => { });
         }
     }
 }

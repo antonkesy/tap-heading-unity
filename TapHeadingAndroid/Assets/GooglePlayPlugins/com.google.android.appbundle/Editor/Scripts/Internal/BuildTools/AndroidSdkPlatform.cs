@@ -28,8 +28,8 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
     {
         // The minimum Android target SDK version supported by Google Play is described here:
         // https://support.google.com/googleplay/android-developer/answer/113469#targetsdk
-        private const int MinimumVersion = 28;
-        private const int LatestVersion = 29;
+        private const int MinimumVersion = 30;
+        private const int LatestVersion = 31;
 
         private static readonly Regex PlatformVersionRegex = RegexHelper.CreateCompiled(@"^android-(\d+)$");
 
@@ -45,6 +45,14 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
             if (!_androidSdk.Initialize(buildToolLogger))
             {
                 return false;
+            }
+
+            // If targetSdkVersion is higher than the MinimumVersion, we skip verifying the newest version,
+            // and instead trust that Unity will install it at build time if it isn't already available.
+            var targetSdkVersion = PlayerSettings.Android.targetSdkVersion;
+            if ((int)targetSdkVersion >= MinimumVersion)
+            {
+                return true;
             }
 
             string ignoredPath;
@@ -69,14 +77,14 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
                     // Note: this install can be slow, but it's not clear that it's any slower through Unity.
                     AndroidSdkPackageInstaller.InstallPackage(
                         string.Format("platforms;android-{0}", LatestVersion),
-                        string.Format("Android SDK Platform {0}", LatestVersion));
+                        string.Format("Android SDK Platform {0}", LatestVersion),
+                        _androidSdk.RootPath);
                 }
 
                 return false;
             }
 
-            var targetSdkVersion = PlayerSettings.Android.targetSdkVersion;
-            if (targetSdkVersion == AndroidSdkVersions.AndroidApiLevelAuto || (int) targetSdkVersion >= MinimumVersion)
+            if (targetSdkVersion == AndroidSdkVersions.AndroidApiLevelAuto)
             {
                 return true;
             }
@@ -85,7 +93,7 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
                 "The currently selected Android Target API Level is {0}, however version {1} is the minimum "
                 + "required to build for Google Play.\n\nClick \"OK\" to change the Target API Level to "
                 + "\"Automatic (highest installed)\", which is currently {2}.",
-                (int) targetSdkVersion, MinimumVersion, newestVersion);
+                (int)targetSdkVersion, MinimumVersion, newestVersion);
             if (buildToolLogger.DisplayActionableErrorDialog(selectedVersionMessage))
             {
                 PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;

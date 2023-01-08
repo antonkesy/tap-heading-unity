@@ -60,9 +60,9 @@ namespace Google.Android.AppBundle.Editor.Internal
         private static void BuildAndRunDefault()
         {
             var assetPackConfig = AssetPackConfigSerializer.LoadConfig();
-            if (assetPackConfig.DeliveredAssetPacks.Any())
+            if (assetPackConfig.HasDeliveredAssetPacks())
             {
-                AppBundlePublisher.BuildAndRun();
+                AppBundlePublisher.BuildAndRun(assetPackConfig);
             }
             else
             {
@@ -77,22 +77,14 @@ namespace Google.Android.AppBundle.Editor.Internal
         {
             var androidSdk = new AndroidSdk();
             var androidSdkPlatform = new AndroidSdkPlatform(androidSdk);
-            var androidBuildTools = new AndroidBuildTools(androidSdk);
-            var javaUtils = new JavaUtils();
-            var apkSigner = new ApkSigner(androidBuildTools, javaUtils);
-            var androidBuilder = new AndroidBuilder(androidSdkPlatform, apkSigner);
+            var androidBuilder = new AndroidBuilder(androidSdkPlatform);
             var buildToolLogger = new BuildToolLogger();
             if (!androidBuilder.Initialize(buildToolLogger))
             {
                 return;
             }
 
-            if (EditorUserBuildSettings.androidBuildSystem == AndroidBuildSystem.Gradle)
-            {
-                EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
-            }
-
-            var artifactName = AndroidAppBundle.IsNativeBuildEnabled() ? "temp.aab" : "temp.apk";
+            var artifactName = EditorUserBuildSettings.buildAppBundle ? "temp.aab" : "temp.apk";
             var artifactPath = Path.Combine(Path.GetTempPath(), artifactName);
             var buildPlayerOptions = AndroidBuildHelper.CreateBuildPlayerOptions(artifactPath);
             buildPlayerOptions.options |= BuildOptions.AutoRunPlayer;

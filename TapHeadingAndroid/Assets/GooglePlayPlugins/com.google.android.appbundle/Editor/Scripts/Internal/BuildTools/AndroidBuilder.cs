@@ -13,82 +13,150 @@
 // limitations under the License.
 
 using System;
+using System.IO;
+using Google.Android.AppBundle.Editor.Internal.AssetPacks;
 using UnityEditor;
 using UnityEngine;
-
 #if UNITY_2018_1_OR_NEWER
 using UnityEditor.Build.Reporting;
+
 #endif
 
 namespace Google.Android.AppBundle.Editor.Internal.BuildTools
 {
     /// <summary>
+    /// Indicates the results of an <see cref="AndroidBuilder"/> build. This provides similar information as
+    /// Task&lt;AndroidBuildReport&gt; without requiring the .NET 4.0 async task API.
+    /// </summary>
+    public class AndroidBuildResult
+    {
+        /// <summary>
+        /// Returns true if Android Player build Succeeded, otherwise false.
+        /// </summary>
+        public bool Succeeded
+        {
+            get { return !Cancelled && ErrorMessage == null; }
+        }
+
+        /// <summary>
+        /// Returns true if the Android Player build was cancelled before it finished.
+        /// </summary>
+        public bool Cancelled { get; internal set; }
+
+        /// <summary>
+        /// If non-null, the build failed and this message may indicate the cause.
+        /// </summary>
+        public string ErrorMessage { get; internal set; }
+
+#if UNITY_2018_1_OR_NEWER
+        /// <summary>
+        /// Contains the BuildReport generated during the creation of the Android Player.
+        /// </summary>
+        public BuildReport Report { get; internal set; }
+#endif
+    }
+
+    /// <summary>
     /// Provides methods for building an Android app for distribution on Google Play.
     /// </summary>
     public class AndroidBuilder : IBuildTool
     {
+        // This string is returned by pre-2018.1's BuildPipeline.BuildPlayer() when a build is cancelled.
+        private const string BuildCancelledMessage = "Building Player was cancelled";
+
         private readonly AndroidSdkPlatform _androidSdkPlatform;
-        private readonly ApkSigner _apkSigner;
 
         private BuildToolLogger _buildToolLogger;
 
-        public AndroidBuilder(AndroidSdkPlatform androidSdkPlatform, ApkSigner apkSigner)
+        public AndroidBuilder(AndroidSdkPlatform androidSdkPlatform)
         {
             _androidSdkPlatform = androidSdkPlatform;
-            _apkSigner = apkSigner;
+        }
+
+        // TODO(b/189958664): Needed for 1.x API compatibility. Should be removed with 2.x.
+        public AndroidBuilder(AndroidSdkPlatform androidSdkPlatform, ApkSigner apkSigner) : this(androidSdkPlatform)
+        {
         }
 
         public virtual bool Initialize(BuildToolLogger buildToolLogger)
         {
             _buildToolLogger = buildToolLogger;
-            return _androidSdkPlatform.Initialize(buildToolLogger) && _apkSigner.Initialize(buildToolLogger);
-        }
 
-        /// <summary>
-        /// Builds an APK or AAB based on the specified options and signs it (if necessary) via
-        /// <a href="https://source.android.com/security/apksigning/v2">APK Signature Scheme V2</a>.
-        /// Displays warning/error dialogs if there are issues during the build.
-        /// </summary>
-        /// <returns>True if the build succeeded, false if it failed or was cancelled.</returns>
-        public virtual bool BuildAndSign(BuildPlayerOptions buildPlayerOptions)
-        {
-            if (!Build(buildPlayerOptions))
+            if (EditorUserBuildSettings.androidBuildSystem != AndroidBuildSystem.Gradle)
             {
+                // We require Gradle builds for APK Signature Scheme V2, which is required for Play Instant on Unity 2017+.
+                const string message = "This build requires the Gradle Build System.\n\n" +
+                                       "Click \"OK\" to change the Android Build System to Gradle.";
+                if (buildToolLogger.DisplayActionableErrorDialog(message))
+                {
+                    EditorUserBuildSettings.androidBuildSystem = AndroidBuildSystem.Gradle;
+                }
+
                 return false;
             }
 
-#if UNITY_2018_1_OR_NEWER
-            // On Unity 2018.1+ we require Gradle builds. Unity 2018+ Gradle builds always yield a properly signed APK.
-            return true;
-#else
-            // ApkSigner is fast so we call it synchronously rather than wait for the post build AppDomain reset.
-            Debug.Log("Checking for APK Signature Scheme V2...");
-            var apkPath = buildPlayerOptions.locationPathName;
-            if (_apkSigner.Verify(apkPath))
+            // TODO(b/154937088): remove this check if we add support for exporting a Gradle project.
+            if (EditorUserBuildSettings.exportAsGoogleAndroidProject)
             {
-                return true;
+                const string message = "This build doesn't support exporting to Android Studio.\n\n" +
+                                       "Click \"OK\" to disable exporting a Gradle project.";
+                if (buildToolLogger.DisplayActionableErrorDialog(message))
+                {
+                    EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
+                }
+
+                return false;
             }
 
-            Debug.Log("APK must be re-signed for APK Signature Scheme V2...");
-            var signingResult = _apkSigner.Sign(apkPath);
-            if (signingResult == null)
+            if (BuiltInPadHelper.EditorSupportsPad() && BuiltInPadHelper.ProjectHasAndroidPacks())
             {
-                Debug.Log("Re-signed with APK Signature Scheme V2.");
-                return true;
+                var message =
+                    "This build method doesn't support .androidpack folders. Assets within those folders will not be included" +
+                    " in the build.";
+                buildToolLogger.DisplayOptOutDialog(message, "androidPackError");
             }
 
-            _buildToolLogger.DisplayErrorDialog(
-                string.Format("Failed to re-sign the APK using apksigner:\n\n{0}", signingResult));
-            return false;
-#endif
+            if (PlayerSettings.Android.useAPKExpansionFiles)
+            {
+                string messagePrefix;
+                if (BuiltInPadHelper.EditorSupportsPad())
+                {
+                    messagePrefix = "This build method doesn't support Unity's \"Split Application Binary\" option.";
+                }
+                else
+                {
+                    messagePrefix = "This build method doesn't support APK Expansion (OBB) files.";
+                }
+
+                var message = string.Format(
+                    "{0}\n\nLarge games can instead use the " +
+                    "\"{1}\" option available through the \"Google > Android App Bundle > Asset Delivery " +
+                    "Settings\" menu or the AssetPackConfig API's SplitBaseModuleAssets field.\n\n" +
+                    "Click \"OK\" to disable the \"Split Application Binary\" setting.",
+                    messagePrefix,
+                    AssetDeliveryWindow.SeparateAssetsLabel);
+                if (buildToolLogger.DisplayActionableErrorDialog(message))
+                {
+                    PlayerSettings.Android.useAPKExpansionFiles = false;
+                }
+
+                return false;
+            }
+
+            return _androidSdkPlatform.Initialize(buildToolLogger);
+        }
+
+        // TODO(b/189958664): Needed for 1.x API compatibility. Should be removed with 2.x.
+        public virtual bool BuildAndSign(BuildPlayerOptions buildPlayerOptions)
+        {
+            return Build(buildPlayerOptions).Succeeded;
         }
 
         /// <summary>
         /// Builds an APK or AAB based on the specified options.
         /// Displays warning/error dialogs if there are issues during the build.
         /// </summary>
-        /// <returns>True if the build succeeded, false if it failed or was cancelled.</returns>
-        public virtual bool Build(BuildPlayerOptions buildPlayerOptions)
+        public virtual AndroidBuildResult Build(BuildPlayerOptions buildPlayerOptions)
         {
             if (_buildToolLogger == null)
             {
@@ -105,64 +173,84 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
                 throw new ArgumentException("The build target group must be Android.", "buildPlayerOptions");
             }
 
-            var buildReport = BuildPipeline.BuildPlayer(buildPlayerOptions);
-#if UNITY_2018_1_OR_NEWER
-            var totalErrors = buildReport.summary.totalErrors;
-            switch (buildReport.summary.result)
+            // Note: the type of the variable below differs by version. On 2018+ it's BuildReport. On pre-2018 it's
+            // string: if the string is null, the build was successful, otherwise it's a build error message.
+            var buildReportOrErrorMessage = BuildPipeline.BuildPlayer(buildPlayerOptions);
+            var androidBuildResult = GetAndroidBuildResult(buildReportOrErrorMessage);
+            if (androidBuildResult.Cancelled)
             {
-                case BuildResult.Cancelled:
-                    Debug.Log("Build cancelled");
-                    return false;
-                case BuildResult.Succeeded:
-                    Debug.Log("Build succeeded");
-                    return HandleBuildPlayerSucceeded(totalErrors);
-                case BuildResult.Failed:
-                    _buildToolLogger.DisplayErrorDialog(string.Format("Build failed with {0} error(s)", totalErrors));
-                    return false;
-                default:
-                    _buildToolLogger.DisplayErrorDialog("Build failed with unknown error");
-                    return false;
-            }
-#else
-            if (string.IsNullOrEmpty(buildReport))
-            {
-                return true;
+                // Don't display an error message dialog if the user asked to cancel, just log to the Console.
+                Debug.Log(BuildCancelledMessage);
+                return androidBuildResult;
             }
 
-            // Check for intended build cancellation.
-            if (buildReport == "Building Player was cancelled")
+            if (androidBuildResult.Succeeded && !File.Exists(buildPlayerOptions.locationPathName))
             {
-                Debug.Log(buildReport);
+                // Sometimes the build "succeeds" but the AAB/APK file is missing.
+                androidBuildResult.ErrorMessage =
+                    string.Format(
+                        "The Android Player file \"{0}\" is missing, possibly because of a late cancellation.",
+                        buildPlayerOptions.locationPathName);
+#if UNITY_2018_1_OR_NEWER
+                androidBuildResult.ErrorMessage += " TotalErrors=" + buildReportOrErrorMessage.summary.totalErrors;
+#endif
+            }
+
+            if (androidBuildResult.Succeeded)
+            {
+                Debug.Log("Android Player build succeeded");
             }
             else
             {
-                _buildToolLogger.DisplayErrorDialog(buildReport);
+                _buildToolLogger.DisplayErrorDialog(androidBuildResult.ErrorMessage);
             }
 
-            return false;
-#endif
+            return androidBuildResult;
         }
 
 #if UNITY_2018_1_OR_NEWER
-        // This method is in an #if block since it's only called for 2018.1+
-        private static bool HandleBuildPlayerSucceeded(int totalErrors)
+        private static AndroidBuildResult GetAndroidBuildResult(BuildReport buildReport)
         {
-            if (totalErrors == 0)
+            var androidBuildResult = new AndroidBuildResult();
+            androidBuildResult.Report = buildReport;
+            switch (buildReport.summary.result)
             {
-                return true;
+                case BuildResult.Succeeded:
+                    // Do nothing.
+                    break;
+                case BuildResult.Cancelled:
+                    androidBuildResult.Cancelled = true;
+                    break;
+                case BuildResult.Failed:
+                    androidBuildResult.ErrorMessage =
+                        string.Format("Build failed with {0} error(s)", buildReport.summary.totalErrors);
+                    break;
+                case BuildResult.Unknown:
+                    androidBuildResult.ErrorMessage = "Build failed with unknown result";
+                    break;
+                default:
+                    androidBuildResult.ErrorMessage =
+                        "Build failed with unexpected result: " + buildReport.summary.result;
+                    break;
             }
 
-            var messagePrefix = string.Format("BuildPlayer \"succeeded\" with {0} error(s). ", totalErrors);
-#if UNITY_2018_4_OR_NEWER
-            // BuildPlayer can succeed and yet have non-zero totalErrors on some versions of Unity.
-            Debug.LogWarning(messagePrefix + "Assuming success.");
-            return true;
+            return androidBuildResult;
+        }
 #else
-            // BuildPlayer can fail and yet return BuildResult Succeeded on some versions of Unity.
-            // No need to display an error dialog since Unity should already have done this.
-            Debug.LogError(messagePrefix + "Assuming failure.");
-            return false;
-#endif
+        private static AndroidBuildResult GetAndroidBuildResult(string errorMessage)
+        {
+            var androidBuildResult = new AndroidBuildResult();
+            if (errorMessage == BuildCancelledMessage)
+            {
+                androidBuildResult.Cancelled = true;
+            }
+            else if (!string.IsNullOrEmpty(errorMessage))
+            {
+                // Assume that a null or empty error message string indicates success.
+                androidBuildResult.ErrorMessage = errorMessage;
+            }
+
+            return androidBuildResult;
         }
 #endif
     }

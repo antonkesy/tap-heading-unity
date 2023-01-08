@@ -35,6 +35,8 @@ namespace TapHeading.Services.Google
             {
                 //nothing
             }
+
+            yield break;
         }
 
         public void RequestReview(MonoBehaviour monoBehaviour, int timesOpen)
