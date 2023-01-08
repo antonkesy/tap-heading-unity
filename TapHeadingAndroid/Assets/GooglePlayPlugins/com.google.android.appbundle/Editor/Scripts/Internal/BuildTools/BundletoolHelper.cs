@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Google.Android.AppBundle.Editor.Internal.AssetPacks;
 using Google.Android.AppBundle.Editor.Internal.PlayServices;
 using UnityEditor;
 using UnityEngine;
@@ -43,6 +44,7 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
             /// </summary>
             public string defaultTcfSuffix;
 
+
             /// <summary>
             /// Whether or not this bundle contains an install-time asset pack.
             /// </summary>
@@ -52,6 +54,12 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
             /// Minimum Android SDK version, e.g. from PlayerSettings.Android.
             /// </summary>
             public AndroidSdkVersions minSdkVersion;
+
+            /// <summary>
+            /// Options for overriding the default file compression policies.
+            /// </summary>
+            public CompressionOptions compressionOptions;
+
         }
 
         // Paths where the bundletool jar may potentially be found.
@@ -62,11 +70,10 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
 
         /// <summary>
         /// List of glob patterns specifying files that Unity requires be left uncompressed.
-        /// Taken from PlaybackEngines/AndroidPlayer/Tools/GradleTemplates/mainTemplate.gradle installed alongside
-        /// Unity.
+        /// Similar to PlaybackEngines/AndroidPlayer/Tools/GradleTemplates/mainTemplate.gradle
         /// </summary>
         private static readonly string[] UnityUncompressedGlob =
-            {"assets/**/*.unity3d", "assets/**/*.ress", "assets/**/*.resource", "assets/**/*.obb"};
+            {"assets/**/*.unity3d", "assets/**/*.ress", "assets/**/*.resource"};
 
         /// <summary>
         /// Make the Bundle Config exported as JSON cleaner by removing the suffix stripping fields
@@ -92,20 +99,24 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
 
             // APK download size is smaller when native libraries are uncompressed. uncompressNativeLibraries sets
             // android:extractNativeLibs="false" in the manifest, which also reduces on-disk for Android 6.0+ devices.
-            // However, apps built with older Unity versions will crash when android:extractNativeLibs="false", so
-            // we must set it to false.
-#if UNITY_2017_2_OR_NEWER
             config.optimizations.uncompressNativeLibraries.enabled = true;
-#elif PLAY_INSTANT
-            config.optimizations.uncompressNativeLibraries.enabled = false;
-            // For instant builds we mark the "lib" folder as uncompressed to get a download size reduction at the
-            // expense of slightly increased on-disk size.
-            config.compression.uncompressedGlob.Add("lib/**");
-#else
-            config.optimizations.uncompressNativeLibraries.enabled = false;
-#endif
             config.compression.uncompressedGlob.AddRange(UnityUncompressedGlob);
-            config.compression.uncompressedGlob.AddRange(GetStreamingAssetsFilePaths(streamingAssetsPath));
+
+            var compressionOptions = configParams.compressionOptions;
+            if (compressionOptions.UncompressedGlobs != null)
+            {
+                config.compression.uncompressedGlob.AddRange(compressionOptions.UncompressedGlobs);
+            }
+
+            if (!compressionOptions.CompressStreamingAssets)
+            {
+                config.compression.uncompressedGlob.AddRange(GetStreamingAssetsFileGlobs(streamingAssetsPath));
+            }
+
+            if (compressionOptions.CompressInstallTimeAssetPacks)
+            {
+                config.compression.installTimeAssetModuleDefaultCompression = BundletoolConfig.Compressed;
+            }
 
             var dimensions = config.optimizations.splitsConfig.splitDimension;
             // Split on ABI so only one set of native libraries (armeabi-v7a, arm64-v8a, or x86) is sent to a device.
@@ -128,9 +139,11 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
                 });
             }
 
+
+
             // Bundletool requires the below standaloneConfig when supporting install-time asset packs for pre-Lollipop.
             if (configParams.containsInstallTimeAssetPack &&
-                configParams.minSdkVersion < AndroidSdkVersions.AndroidApiLevel21)
+                TextureTargetingTools.IsSdkVersionPreLollipop(configParams.minSdkVersion))
             {
                 config.optimizations.standaloneConfig.splitDimension.Add(new BundletoolConfig.SplitDimension
                     {value = BundletoolConfig.Abi, negate = true});
@@ -151,12 +164,12 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
         }
 
         /// <summary>
-        /// Recursively searches the streaming assets path, and returns the path to each file relative to its final
-        /// location within the APK.
+        /// Searches the streaming assets path and returns a list of globs that includes the contained files relative to
+        /// their final location within the APK.
         /// Note: Does not include .meta files.
         /// Visible for testing.
         /// </summary>
-        public static IEnumerable<string> GetStreamingAssetsFilePaths(string streamingAssetsPath)
+        public static IEnumerable<string> GetStreamingAssetsFileGlobs(string streamingAssetsPath)
         {
             if (!Directory.Exists(streamingAssetsPath))
             {
@@ -164,9 +177,21 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
             }
 
             var streamingAssets = new DirectoryInfo(streamingAssetsPath);
-            return streamingAssets.GetFiles("*", SearchOption.AllDirectories)
+
+            // Create a glob for every subdirectory in the streaming assets path.
+            // This is more efficient than returning every file from each of the subdirectories.
+            var directoryGlobs = streamingAssets.GetDirectories("*", SearchOption.TopDirectoryOnly)
+                .Select(directory => Path.Combine(directory.FullName, "**"));
+
+            // Create a list of files that are located in the root of the streaming assets directory.
+            var fileNames = streamingAssets.GetFiles("*", SearchOption.TopDirectoryOnly)
                 .Where(file => !file.Name.EndsWith(".meta"))
-                .Select(file => "assets/" + file.FullName.Remove(0, streamingAssetsPath.Length + 1))
+                .Select(file => file.FullName);
+
+            // Combine the directory glob list and file list and update the paths to be relative to the final file
+            // locations within the APK.
+            return directoryGlobs.Concat(fileNames)
+                .Select(fullName => "assets/" + fullName.Remove(0, streamingAssetsPath.Length + 1))
                 .Select(name => name.Replace("\\", "/")); // Support Windows' path separator.
         }
 

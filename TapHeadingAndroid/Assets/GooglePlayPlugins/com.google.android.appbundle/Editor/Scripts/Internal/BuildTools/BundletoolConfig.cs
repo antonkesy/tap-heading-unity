@@ -25,16 +25,23 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
     /// </summary>
     public static class BundletoolConfig
     {
+        // Options for installTimeAssetModuleDefaultCompression
+        public const string Unspecified = "UNSPECIFIED";
+        public const string Compressed = "COMPRESSED";
+
         public const string Abi = "ABI";
         public const string Language = "LANGUAGE";
         public const string ScreenDensity = "SCREEN_DENSITY";
         public const string TextureCompressionFormat = "TEXTURE_COMPRESSION_FORMAT";
+
+
 
         [Serializable]
         public class Config
         {
             public Optimizations optimizations = new Optimizations();
             public Compression compression = new Compression();
+
         }
 
         [Serializable]
@@ -71,6 +78,7 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
         public class Compression
         {
             public List<string> uncompressedGlob = new List<string>();
+            public string installTimeAssetModuleDefaultCompression = Unspecified;
         }
 
         [Serializable]
@@ -91,5 +99,6 @@ namespace Google.Android.AppBundle.Editor.Internal.BuildTools
             public bool enabled;
             public string defaultSuffix;
         }
+
     }
 }
