@@ -1,19 +1,8 @@
 # tap-heading-unity
+
 Hyper Casual Android Game in Unity
 
 Quick weekend project with Unity.
-
-## Table of Contents
-
-- [tap-heading-unity](#tap-heading-unity)
-  - [Table of Contents](#table-of-contents)
-  - [How To Play](#how-to-play)
-  - [Features](#features)
-  - [Screenshots](#screenshots)
-  - [Install](#install)
-  - [Background](#background)
-  - [Update Spring 2022](#Update-Spring-2022)
-  - [License](#license)
 
 ## How To Play
 
@@ -33,19 +22,18 @@ Simply touch the screen to change the movement direction of the cube to the oppo
 <img src="Store/Screenshots/Phone/screenshot_play_1.png?raw=true" width="200" />
 </p>
 
-
 ## Install
 
 [GooglePlayStore](https://play.google.com/store/apps/details?id=de.antonkesy.tapheading "Tap Heading on GooglePlayStore")
 
 ## Background
+
 Last weekend before lectures starting again. Time to do some small project. Haven't touched Unity in nearly a year.
 
-
 ## Update-Spring-2022
+
 Checked out the project and tried to refactor with use of my freshly learned knowledge from university
 
 ## License
 
 [MIT](LICENSE) © Anton Kesy
-
