@@ -163,9 +163,22 @@ namespace TapHeading.Services.Google
             );
         }
 
-        public void SignIn()
+        public void SignIn(ISignInListener listener)
         {
-            PlayGamesPlatform.Instance.Authenticate(null, _ => { });
+            PlayGamesPlatform.Instance.Authenticate(
+                null,
+                result =>
+                {
+                    if (result)
+                    {
+                        SignInSuccess(listener);
+                    }
+                    else
+                    {
+                        SignInCanceled(listener);
+                    }
+                }
+            );
         }
     }
 }

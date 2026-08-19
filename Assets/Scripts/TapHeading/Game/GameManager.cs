@@ -24,7 +24,8 @@ namespace TapHeading.Game
         {
             Application.targetFrameRate = 500;
 
-            _score = new Score.Score(this, managers.GetSettings());
+            var score = new Score.Score(this, managers.GetSettings());
+            _score = score;
             LoadFlagsFromPlayerPrefs();
             managers.GetAudioManager().PlayStartApplication();
             managers.GetPlayerManager().Spawn();
@@ -35,13 +36,15 @@ namespace TapHeading.Game
             var inputDebug = gameObject.AddComponent<DebugEditorInput>();
             inputDebug.AddListener(this);
 #endif
-            GooglePlayServicesManager.Instance.SignIn();
+            //re-reads the high score once authentication comes back
+            GooglePlayServicesManager.Instance.SignIn(score);
         }
 
         private void LoadFlagsFromPlayerPrefs()
         {
             managers.GetSettings().IncrementTimesOpen();
             managers.GetAudioManager().SetSound(managers.GetSettings().IsSoundOn());
+            isSingleClick = managers.GetSettings().IsSingleClick();
         }
 
         private void UserInteractionWhilePlaying(Vector2 position)
@@ -110,6 +113,7 @@ namespace TapHeading.Game
         {
             managers.GetAudioManager().PlayPlayerDeath();
             managers.GetCameraShaker().Shake();
+            _score.Submit();
             _gameState = new WaitForAnimation();
             managers.GetUIManager().ShowMenu();
             managers.GetLevelManager().Stop();

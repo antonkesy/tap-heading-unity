@@ -3,18 +3,13 @@ using UnityEngine;
 
 namespace TapHeading.Input
 {
-    public abstract class UserInput : MonoBehaviour, IUserInput
+    public abstract class UserInput : MonoBehaviour
     {
         private readonly List<IPlayerInputListener> _listeners = new List<IPlayerInputListener>();
 
         public void AddListener(IPlayerInputListener listener)
         {
             _listeners.Add(listener);
-        }
-
-        public void RemoveListener(IPlayerInputListener listener)
-        {
-            _listeners.Remove(listener);
         }
 
         protected void Notify(Vector2 position)

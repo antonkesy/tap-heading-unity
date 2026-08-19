@@ -43,17 +43,18 @@ namespace TapHeading.UI.Utility.Transition.Slide
         private IEnumerator Slide(Vector3 toPosition)
         {
             var counter = 0f;
+            //lerping from the live position never reaches the target, so it drifts every cycle
+            var start = transform.localPosition;
 
             while (counter < slideDuration)
             {
                 counter += Time.deltaTime;
-                var position = transform.localPosition;
-                position = Vector3.Lerp(position, toPosition, counter / slideDuration);
-                transform.localPosition = position;
+                transform.localPosition = Vector3.Lerp(start, toPosition, counter / slideDuration);
 
                 yield return null;
             }
 
+            transform.localPosition = toPosition;
             _slide = null;
         }
     }

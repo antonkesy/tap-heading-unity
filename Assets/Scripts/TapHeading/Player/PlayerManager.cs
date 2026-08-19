@@ -51,7 +51,7 @@ namespace TapHeading.Player
 
         private void SetSpawnStartPositionY()
         {
-            _spawnStartPositionY = CameraUtility.GetFrustumHeight() * -1f;
+            _spawnStartPositionY = CameraUtility.GetSpawnHeight() * -1f;
         }
 
         public void StartMoving()
@@ -73,7 +73,8 @@ namespace TapHeading.Player
 
         public bool ChangeDirection(IPlayerManager.Direction direction)
         {
-            return direction == _direction && ChangeDirection();
+            //only react when asked to head the other way
+            return direction != _direction && ChangeDirection();
         }
 
         public bool ChangeDirection()

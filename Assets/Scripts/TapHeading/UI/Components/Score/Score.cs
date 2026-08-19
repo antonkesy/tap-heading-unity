@@ -20,7 +20,7 @@ namespace TapHeading.UI.Components.Score
         private ZoomUI menuZoom;
 
         private ITransition _active;
-        private bool _isForceReset = false;
+        private bool _isForceReset;
 
         public void ShowPlaying()
         {

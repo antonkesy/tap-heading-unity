@@ -18,6 +18,7 @@ namespace TapHeading.UI.State
 
         [SerializeField]
         protected float animationTime;
+        private Coroutine _waitAnimation;
 
         protected abstract void OnEntering();
         protected abstract void OnLeaving();
@@ -26,19 +27,26 @@ namespace TapHeading.UI.State
         public void Enter()
         {
             OnEntering();
-            StartCoroutine(WaitAnimation());
+            _waitAnimation = StartCoroutine(WaitAnimation());
         }
 
         public void Leave()
         {
+            //otherwise a stale OnWaitAnimationDone fires after the state is gone
+            if (_waitAnimation != null)
+            {
+                StopCoroutine(_waitAnimation);
+                _waitAnimation = null;
+            }
+
             OnLeaving();
         }
 
         private IEnumerator WaitAnimation()
         {
             yield return new WaitForSecondsRealtime(animationTime);
+            _waitAnimation = null;
             OnWaitAnimationDone();
-            yield return null;
         }
     }
 }

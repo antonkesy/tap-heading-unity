@@ -1,12 +1,8 @@
-﻿using System;
-using TapHeading.Audio;
+﻿using TapHeading.Audio;
 using TapHeading.Camera;
 using TapHeading.Game;
 using TapHeading.Game.Level;
-using TapHeading.Game.Level.Obstacle;
 using TapHeading.Player;
-using TapHeading.Services;
-using TapHeading.Services.Google;
 using TapHeading.Settings;
 using TapHeading.UI;
 using UnityEngine;
@@ -20,9 +16,6 @@ namespace TapHeading.Manager
 
         [SerializeField]
         private CameraShake cameraShake;
-
-        [SerializeField]
-        private Obstacle obstacle;
 
         [SerializeField]
         private LevelManager levelManager;
@@ -50,11 +43,6 @@ namespace TapHeading.Manager
         public ICameraShake GetCameraShaker()
         {
             return cameraShake;
-        }
-
-        public IObstacle GetChunkManager()
-        {
-            return obstacle;
         }
 
         public ILevelManager GetLevelManager()

@@ -4,22 +4,10 @@ namespace TapHeading.Settings
 {
     public class PlayerPrefsManager : ISettings
     {
-        private const string TimesPlayKey = "timesPlayedKey";
         private const string TimesOpenKey = "timesOpenKey";
-        private const string AutoLoginKey = "autoLoginKey";
         private const string SoundOnKey = "soundOnKey";
+        private const string SingleClickKey = "singleClickKey";
         private const string LocalHighScoreKey = "localHighScoreKey";
-
-        public int GetTimesPlayed()
-        {
-            return PlayerPrefs.GetInt(TimesPlayKey, 0);
-        }
-
-        public void IncrementTimesPlayed()
-        {
-            var timesPlayed = PlayerPrefs.GetInt(TimesPlayKey, 0);
-            PlayerPrefs.SetInt(TimesPlayKey, ++timesPlayed);
-        }
 
         public int GetTimesOpen()
         {
@@ -32,14 +20,14 @@ namespace TapHeading.Settings
             PlayerPrefs.SetInt(TimesOpenKey, ++timeOpened);
         }
 
-        public bool IsAutoLogin()
+        public bool IsSingleClick()
         {
-            return PlayerPrefs.GetInt(AutoLoginKey, 1) == 1;
+            return PlayerPrefs.GetInt(SingleClickKey, 1) == 1;
         }
 
-        public void SetAutoLogin(bool isAutoLogin)
+        public void SetSingleClick(bool isSingleClick)
         {
-            PlayerPrefs.SetInt(AutoLoginKey, isAutoLogin ? 1 : 0);
+            PlayerPrefs.SetInt(SingleClickKey, isSingleClick ? 1 : 0);
         }
 
         public bool IsSoundOn()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TapHeading.UI.Components.HighScore
 {
-    public class HighScoreUI : MonoBehaviour, IHighScoreUI, ITransition
+    public class HighScoreUI : MonoBehaviour, ITransition
     {
         [SerializeField]
         private FaderUI newHighScore;
@@ -21,7 +21,7 @@ namespace TapHeading.UI.Components.HighScore
             text.SetText(score.ToString());
         }
 
-        public void FadeInNewHighScore(float duration)
+        public void FadeInNewHighScore()
         {
             newHighScore.In();
         }

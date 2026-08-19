@@ -38,7 +38,7 @@ namespace TapHeading.Game.Level.Obstacle
         {
             foreach (var coin in coins)
             {
-                coin.Reset();
+                coin.Show();
             }
         }
 

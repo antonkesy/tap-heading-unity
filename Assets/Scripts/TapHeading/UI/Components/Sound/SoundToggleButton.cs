@@ -37,7 +37,8 @@ namespace TapHeading.UI.Components.Sound
             _notActive.Out();
         }
 
-        public void Toggle()
+        //shows whichever icon matches the stored setting; does not change it
+        public void Refresh()
         {
             if (managers.GetSettings().IsSoundOn())
             {

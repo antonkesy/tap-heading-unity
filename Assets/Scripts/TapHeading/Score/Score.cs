@@ -1,6 +1,7 @@
 ﻿using TapHeading.Services;
 using TapHeading.Services.Google;
 using TapHeading.Settings;
+using UnityEngine;
 
 namespace TapHeading.Score
 {
@@ -27,10 +28,17 @@ namespace TapHeading.Score
         public void Add(int value)
         {
             _score += value;
-            GooglePlayServicesManager.Instance.SubmitScore(_score);
-            GooglePlayServicesManager.Instance.CheckAchievement(_score);
             _listener?.OnScoreUpdate(_score);
             IsNewHighScore();
+        }
+
+        /// <summary>
+        /// Reports the run to Play Games. Called once per run, not per coin.
+        /// </summary>
+        public void Submit()
+        {
+            GooglePlayServicesManager.Instance.SubmitScore(_score);
+            GooglePlayServicesManager.Instance.CheckAchievement(_score);
         }
 
         public void Reset()
@@ -47,8 +55,9 @@ namespace TapHeading.Score
 
         public void OnSignInSuccess(int playerScoreValue)
         {
-            _highScore = playerScoreValue;
-            _settings.SetLocalHighScore(playerScoreValue);
+            //the leaderboard can be behind the local score (fresh account, offline runs)
+            _highScore = Mathf.Max(playerScoreValue, _settings.GetLocalHighScore());
+            _settings.SetLocalHighScore(_highScore);
             _listener.OnNewHighScore(_highScore);
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TapHeading.UI.Components.Text
 {
-    public class TapInfo : MonoBehaviour, ITransition, IText
+    public class TapInfo : MonoBehaviour, ITransition
     {
         private ShadowText _text;
         private ITransition _zoomUI;

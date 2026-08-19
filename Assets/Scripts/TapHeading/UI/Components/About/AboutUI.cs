@@ -16,7 +16,6 @@ namespace TapHeading.UI.Components.About
 
         public void Open()
         {
-            Social.ReportProgress(GPGSIds.achievement_thank_you, 0.0f, null);
             GooglePlayServicesManager.Instance.ThankYouAchievement();
 
             aboutPanel.SetActive(true);

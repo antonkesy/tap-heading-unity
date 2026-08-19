@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TapHeading.Game.Level.Obstacle.Manager
 {
-    public class ObstacleManager : MonoBehaviour, IObstacleManager
+    public class ObstacleManager : MonoBehaviour
     {
         [SerializeField]
         [Range(0, 1f)]
@@ -23,6 +23,9 @@ namespace TapHeading.Game.Level.Obstacle.Manager
         private float _speed,
             _yStartHeight,
             _yEndHeight;
+
+        //maxRandomOffset is a fraction; this is it resolved to world units
+        private float _maxRandomOffsetWorld;
         private int _obstaclesBuffered;
 
         private void Start()
@@ -39,12 +42,12 @@ namespace TapHeading.Game.Level.Obstacle.Manager
         {
             var obstacleLocalScale = obstaclePrefab.transform.localScale;
             var chunkHeight = obstacleLocalScale.y;
-            var frustumHeight = CameraUtility.GetFrustumHeight();
-            _yStartHeight = frustumHeight + chunkHeight / 2f;
-            _yEndHeight = -(frustumHeight + chunkHeight / 2f);
-            _obstaclesBuffered = (int)(frustumHeight * 2 / yOffsetBetweenObstacles);
+            var spawnHeight = CameraUtility.GetSpawnHeight();
+            _yStartHeight = spawnHeight + chunkHeight / 2f;
+            _yEndHeight = -(spawnHeight + chunkHeight / 2f);
+            _obstaclesBuffered = (int)(spawnHeight * 2 / yOffsetBetweenObstacles);
 
-            maxRandomOffset = (obstacleLocalScale.x - xOffset) * maxRandomOffset;
+            _maxRandomOffsetWorld = (obstacleLocalScale.x - xOffset) * maxRandomOffset;
 
             for (var i = 0; i < _obstaclesBuffered; ++i)
             {
@@ -78,7 +81,7 @@ namespace TapHeading.Game.Level.Obstacle.Manager
 
         private Vector3 GetNewObstaclePosition(float yOffset)
         {
-            var randomXInRange = Random.Range(0, maxRandomOffset) + xOffset;
+            var randomXInRange = Random.Range(0, _maxRandomOffsetWorld) + xOffset;
             randomXInRange *= _nextSide == IObstacle.Side.Right ? 1 : -1;
             return new Vector3(randomXInRange, _yStartHeight + yOffset, 0);
         }
@@ -109,9 +112,9 @@ namespace TapHeading.Game.Level.Obstacle.Manager
         public void Stop()
         {
             _speed = 0f;
-            foreach (var keyValuePair in _obstacles)
+            foreach (var obstacle in _obstacles)
             {
-                keyValuePair.DeSpawn();
+                obstacle.DeSpawn();
             }
         }
 

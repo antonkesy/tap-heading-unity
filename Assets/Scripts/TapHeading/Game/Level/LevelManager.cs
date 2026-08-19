@@ -26,10 +26,10 @@ namespace TapHeading.Game.Level
 
         private void Awake()
         {
-            SetsWalls();
+            SetWalls();
         }
 
-        private void SetsWalls()
+        private void SetWalls()
         {
             wallGameObjects[0].transform.position = Vector3.right * xOffsetWall;
             wallGameObjects[1].transform.position = Vector3.left * xOffsetWall;

@@ -62,7 +62,12 @@ namespace TapHeading.Camera
         public void Shake()
         {
             _timeToShakeLeft = shakeDuration;
-            _originalPos = transform.position;
+            //re-capturing while shaking would make the offset the new origin
+            if (!_isShaking)
+            {
+                _originalPos = transform.localPosition;
+            }
+
             _isShaking = true;
         }
     }

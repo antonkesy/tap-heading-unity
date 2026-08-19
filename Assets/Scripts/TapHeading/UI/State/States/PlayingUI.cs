@@ -10,7 +10,7 @@ namespace TapHeading.UI.State.States
 
         protected override void OnLeaving()
         {
-            //TODO
+            //nothing
         }
 
         protected override void OnWaitAnimationDone()

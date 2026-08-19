@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace TapHeading.Input
 {
@@ -11,22 +9,11 @@ namespace TapHeading.Input
             if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
                 Notify(Vector2.zero);
 
+            //listeners compare against Screen.width, so send screen space, not unit vectors
             if (UnityEngine.Input.GetKeyDown(KeyCode.LeftArrow))
-                Notify(Vector2.left);
+                Notify(Vector2.zero);
             else if (UnityEngine.Input.GetKeyDown(KeyCode.RightArrow))
-                Notify(Vector2.right);
-
-            if (UnityEngine.Input.GetMouseButtonDown(0))
-            {
-                if (
-                    EventSystem.current.IsPointerOverGameObject()
-                    && EventSystem.current.currentSelectedGameObject != null
-                    && EventSystem.current.currentSelectedGameObject.GetComponent<Button>() == null
-                )
-                {
-                    Debug.Log("UI click");
-                }
-            }
+                Notify(Vector2.right * Screen.width);
         }
     }
 }

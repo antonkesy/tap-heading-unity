@@ -3,6 +3,7 @@
     public interface IScore
     {
         void Add(int value);
+        void Submit();
         void Reset();
         bool IsHighScore();
     }

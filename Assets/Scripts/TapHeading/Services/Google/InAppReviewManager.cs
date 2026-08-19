@@ -7,16 +7,16 @@ namespace TapHeading.Services.Google
     public class InAppReviewManager : IReviewService
     {
         private static IReviewService _instance;
-        private static ReviewManager _reviewManager;
-        private static PlayReviewInfo _playReviewInfo;
+        private ReviewManager _reviewManager;
 
         private InAppReviewManager() { }
 
         public static IReviewService Instance => _instance ??= new InAppReviewManager();
 
-        private static IEnumerator _RequestReview()
+        private IEnumerator RequestReviewFlow()
         {
-            _reviewManager = new ReviewManager();
+            //built on first use so Play Core is not touched for players who never reach 30 opens
+            _reviewManager ??= new ReviewManager();
             var requestFlowOperation = _reviewManager.RequestReviewFlow();
             yield return requestFlowOperation;
             if (requestFlowOperation.Error != ReviewErrorCode.NoError)
@@ -24,24 +24,15 @@ namespace TapHeading.Services.Google
                 yield break;
             }
 
-            _playReviewInfo = requestFlowOperation.GetResult();
-
-            var launchFlowOperation = _reviewManager.LaunchReviewFlow(_playReviewInfo);
-            yield return launchFlowOperation;
-            _playReviewInfo = null; // Reset the object
-            if (launchFlowOperation.Error != ReviewErrorCode.NoError)
-            {
-                //nothing
-            }
-
-            yield break;
+            //nothing to do about a failed launch, the store decides whether to show anything
+            yield return _reviewManager.LaunchReviewFlow(requestFlowOperation.GetResult());
         }
 
         public void RequestReview(MonoBehaviour monoBehaviour, int timesOpen)
         {
             if (timesOpen < 30)
                 return;
-            monoBehaviour.StartCoroutine(_RequestReview());
+            monoBehaviour.StartCoroutine(RequestReviewFlow());
         }
     }
 }

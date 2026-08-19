@@ -57,7 +57,7 @@ namespace TapHeading.UI
             managers.GetSettings().SetSoundOn(setOn);
             managers.GetAudioManager().SetSound(setOn);
             managers.GetAudioManager().PlayUITap();
-            soundToggleButton.Toggle();
+            soundToggleButton.Refresh();
         }
 
         private void OpenWebsite(string url)

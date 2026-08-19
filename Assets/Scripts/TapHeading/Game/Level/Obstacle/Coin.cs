@@ -13,8 +13,7 @@ namespace TapHeading.Game.Level.Obstacle
 
         private void Awake()
         {
-            _pickupParticleSystem = Instantiate(particlePrefab, transform)
-                .GetComponent<ParticleSystem>();
+            _pickupParticleSystem = Instantiate(particlePrefab, transform);
         }
 
         public void PickUp()
@@ -26,7 +25,8 @@ namespace TapHeading.Game.Level.Obstacle
             }
         }
 
-        public void Reset()
+        //not named Reset: that is a Unity editor message and would fire on inspector reset
+        public void Show()
         {
             foreach (var sprite in sprites)
             {

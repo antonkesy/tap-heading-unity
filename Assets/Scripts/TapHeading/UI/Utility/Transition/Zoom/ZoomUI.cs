@@ -41,20 +41,20 @@ namespace TapHeading.UI.Utility.Transition.Zoom
         private IEnumerator Zooming(Vector3 to, bool endState)
         {
             var counter = 0f;
+            //lerping from the live scale never reaches `to`, so it drifts every cycle
+            var start = transform.localScale;
 
             while (counter < zoomDuration)
             {
                 counter += Time.deltaTime;
-                var newScale = transform.localScale;
-                newScale = Vector3.Lerp(newScale, to, counter / zoomDuration);
-                transform.localScale = newScale;
+                transform.localScale = Vector3.Lerp(start, to, counter / zoomDuration);
 
                 yield return null;
             }
 
+            transform.localScale = to;
             gameObject.SetActive(endState);
             _zoom = null;
-            yield return null;
         }
 
         public void In()

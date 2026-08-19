@@ -365,7 +365,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212954457}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
@@ -408,7 +408,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1781529468}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: ToggleInputSettings
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -416,7 +416,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 1
+        m_CallState: 2
   m_IsOn: 1
 --- !u!225 &212954460
 CanvasGroup:
@@ -425,7 +425,7 @@ CanvasGroup:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212954457}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
@@ -4446,9 +4446,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ce3d43c414fc345adc517c58f61f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  managers: {fileID: 1386425711}
   aboutPanel: {fileID: 290838431}
   score: {fileID: 1672779192}
   highScore: {fileID: 1543269425}
+  inputToggle: {fileID: 212954459}
 --- !u!4 &1781529469
 Transform:
   m_ObjectHideFlags: 0

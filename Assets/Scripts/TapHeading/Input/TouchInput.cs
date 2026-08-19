@@ -30,7 +30,8 @@ namespace TapHeading.Input
             )
                 return;
 
-            Notify(UnityEngine.Input.GetTouch(UnityEngine.Input.touchCount - 1).position);
+            //same touch the phase check above looked at
+            Notify(UnityEngine.Input.GetTouch(0).position);
         }
     }
 }
