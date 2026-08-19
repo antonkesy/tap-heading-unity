@@ -1,5 +1,7 @@
 # tap-heading-unity
 
+[![pre-commit](https://github.com/antonkesy/tap-heading-unity/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/antonkesy/tap-heading-unity/actions/workflows/pre-commit.yml)
+
 Hyper Casual Android Game in Unity
 
 Quick weekend project with Unity.
