@@ -34,6 +34,17 @@ Last weekend before lectures starting again. Time to do some small project. Have
 
 Checked out the project and tried to refactor with use of my freshly learned knowledge from university
 
+## Development
+
+Checks run on commit via [pre-commit](https://pre-commit.com) — CSharpier formatting for
+`Assets/Scripts`, plus a guard against missing or orphaned Unity `.meta` files. Once after cloning:
+
+```sh
+pre-commit install
+```
+
+Run everything manually with `pre-commit run --all-files`.
+
 ## License
 
 [MIT](LICENSE) © Anton Kesy

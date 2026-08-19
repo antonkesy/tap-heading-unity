@@ -1,0 +1,46 @@
+# Text hooks are scoped by `files:` to our own sources — vendored plugins under Assets/
+# and Unity's YAML assets (.asset/.prefab/.unity/.meta) are left byte-for-byte alone.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        # Unity assets are legitimately big (SDF font atlases ~2 MB); this is here to
+        # catch an accidental build/.apk, not to police art.
+        args: [--maxkb=2048]
+      - id: mixed-line-ending
+        args: [--fix=lf]
+        files: &ours ^(Assets/Scripts/|Store/|\.pre-commit/|README\.md)
+        # Unity writes .meta files without a trailing newline and rewrites them on
+        # import, so "fixing" them just churns the diff.
+        exclude: &generated \.meta$
+      - id: trailing-whitespace
+        files: *ours
+        exclude: *generated
+      - id: end-of-file-fixer
+        files: *ours
+        exclude: *generated
+
+  - repo: local
+    hooks:
+      - id: unity-meta
+        name: Unity .meta files present and not orphaned
+        entry: python3 .pre-commit/check-unity-meta.py
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: dotnet-tool-restore
+        name: Install .NET tools
+        entry: dotnet tool restore
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: csharpier
+        name: CSharpier
+        entry: dotnet tool run csharpier format
+        language: system
+        types: [c#]
+        files: ^Assets/Scripts/
