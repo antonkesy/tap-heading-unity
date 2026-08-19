@@ -6,13 +6,23 @@ namespace TapHeading.Game.Level.Obstacle.Manager
 {
     public class ObstacleManager : MonoBehaviour, IObstacleManager
     {
-        [SerializeField] [Range(0, 1f)] private float maxRandomOffset;
-        [SerializeField] private GameObject obstaclePrefab;
-        [SerializeField] private float yOffsetBetweenObstacles = 6f;
-        [SerializeField] private float xOffset = 5.5f;
+        [SerializeField]
+        [Range(0, 1f)]
+        private float maxRandomOffset;
+
+        [SerializeField]
+        private GameObject obstaclePrefab;
+
+        [SerializeField]
+        private float yOffsetBetweenObstacles = 6f;
+
+        [SerializeField]
+        private float xOffset = 5.5f;
         private readonly List<IObstacle> _obstacles = new List<IObstacle>();
         private IObstacle.Side _nextSide;
-        private float _speed, _yStartHeight, _yEndHeight;
+        private float _speed,
+            _yStartHeight,
+            _yEndHeight;
         private int _obstaclesBuffered;
 
         private void Start()
@@ -32,7 +42,7 @@ namespace TapHeading.Game.Level.Obstacle.Manager
             var frustumHeight = CameraUtility.GetFrustumHeight();
             _yStartHeight = frustumHeight + chunkHeight / 2f;
             _yEndHeight = -(frustumHeight + chunkHeight / 2f);
-            _obstaclesBuffered = (int) (frustumHeight * 2 / yOffsetBetweenObstacles);
+            _obstaclesBuffered = (int)(frustumHeight * 2 / yOffsetBetweenObstacles);
 
             maxRandomOffset = (obstacleLocalScale.x - xOffset) * maxRandomOffset;
 
@@ -66,14 +76,12 @@ namespace TapHeading.Game.Level.Obstacle.Manager
             _obstacles.Add(obstacleManager);
         }
 
-
         private Vector3 GetNewObstaclePosition(float yOffset)
         {
             var randomXInRange = Random.Range(0, maxRandomOffset) + xOffset;
             randomXInRange *= _nextSide == IObstacle.Side.Right ? 1 : -1;
             return new Vector3(randomXInRange, _yStartHeight + yOffset, 0);
         }
-
 
         private void MoveObstacles()
         {
@@ -109,7 +117,8 @@ namespace TapHeading.Game.Level.Obstacle.Manager
 
         private void SwitchSide()
         {
-            _nextSide = _nextSide == IObstacle.Side.Left ? IObstacle.Side.Right : IObstacle.Side.Left;
+            _nextSide =
+                _nextSide == IObstacle.Side.Left ? IObstacle.Side.Right : IObstacle.Side.Left;
         }
     }
 }

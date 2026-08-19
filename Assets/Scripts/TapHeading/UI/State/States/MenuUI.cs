@@ -7,10 +7,17 @@ namespace TapHeading.UI.State.States
 {
     public class MenuUI : UIState
     {
-        [SerializeField] protected UIMenuManager menuManager;
-        [SerializeField] protected AboutUI about;
-        [SerializeField] protected TapInfo tapToStartText;
-        [SerializeField] protected GameTitle gameTitle;
+        [SerializeField]
+        protected UIMenuManager menuManager;
+
+        [SerializeField]
+        protected AboutUI about;
+
+        [SerializeField]
+        protected TapInfo tapToStartText;
+
+        [SerializeField]
+        protected GameTitle gameTitle;
 
         protected override void OnEntering()
         {

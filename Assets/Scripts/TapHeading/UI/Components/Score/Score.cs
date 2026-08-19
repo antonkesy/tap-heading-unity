@@ -7,10 +7,17 @@ namespace TapHeading.UI.Components.Score
 {
     public class Score : MonoBehaviour, ITransition
     {
-        [SerializeField] private ShadowText playing;
-        [SerializeField] private ShadowText menu;
-        [SerializeField] private ZoomUI playingZoom;
-        [SerializeField] private ZoomUI menuZoom;
+        [SerializeField]
+        private ShadowText playing;
+
+        [SerializeField]
+        private ShadowText menu;
+
+        [SerializeField]
+        private ZoomUI playingZoom;
+
+        [SerializeField]
+        private ZoomUI menuZoom;
 
         private ITransition _active;
         private bool _isForceReset = false;

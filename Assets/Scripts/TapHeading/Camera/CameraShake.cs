@@ -5,12 +5,19 @@ namespace TapHeading.Camera
     public class CameraShake : MonoBehaviour, ICameraShake
     {
         [Header("Scene")]
-        [SerializeField] private float sceneWidth = 10;
+        [SerializeField]
+        private float sceneWidth = 10;
+
         [Header("Shaking")]
-        [SerializeField] private float shakeDuration = 1f;
-        [SerializeField] private float decreaseFactor = 1.0f;
-        [SerializeField] private float shakeAmount = 0.05f;
-        
+        [SerializeField]
+        private float shakeDuration = 1f;
+
+        [SerializeField]
+        private float decreaseFactor = 1.0f;
+
+        [SerializeField]
+        private float shakeAmount = 0.05f;
+
         private float _timeToShakeLeft;
         private Vector3 _originalPos;
         private bool _isShaking;
@@ -34,7 +41,8 @@ namespace TapHeading.Camera
 
             var desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
 
-            if (UnityEngine.Camera.main is { }) UnityEngine.Camera.main.orthographicSize = desiredHalfHeight;
+            if (UnityEngine.Camera.main is { })
+                UnityEngine.Camera.main.orthographicSize = desiredHalfHeight;
         }
 
         private void ShakeCamera()
@@ -50,7 +58,6 @@ namespace TapHeading.Camera
                 _isShaking = false;
             }
         }
-
 
         public void Shake()
         {

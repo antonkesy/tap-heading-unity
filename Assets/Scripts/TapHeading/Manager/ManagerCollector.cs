@@ -15,13 +15,26 @@ namespace TapHeading.Manager
 {
     public class ManagerCollector : MonoBehaviour, IManagerCollector
     {
-        [SerializeField] private AudioManager audioManager;
-        [SerializeField] private CameraShake cameraShake;
-        [SerializeField] private Obstacle obstacle;
-        [SerializeField] private LevelManager levelManager;
-        [SerializeField] private PlayerManager playerManager;
-        [SerializeField] private GameManager gameManager;
-        [SerializeField] private UIManager uiManager;
+        [SerializeField]
+        private AudioManager audioManager;
+
+        [SerializeField]
+        private CameraShake cameraShake;
+
+        [SerializeField]
+        private Obstacle obstacle;
+
+        [SerializeField]
+        private LevelManager levelManager;
+
+        [SerializeField]
+        private PlayerManager playerManager;
+
+        [SerializeField]
+        private GameManager gameManager;
+
+        [SerializeField]
+        private UIManager uiManager;
         private PlayerPrefsManager _settings;
 
         private void Awake()

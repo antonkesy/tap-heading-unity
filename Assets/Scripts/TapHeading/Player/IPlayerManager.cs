@@ -5,7 +5,7 @@
         enum Direction
         {
             Left,
-            Right
+            Right,
         }
 
         public void Spawn();

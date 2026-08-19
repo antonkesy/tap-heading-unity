@@ -27,7 +27,8 @@ namespace TapHeading.UI.Components.Text
         {
             foreach (var fader in _faders)
             {
-                if (fader.Equals(this)) continue;
+                if (fader.Equals(this))
+                    continue;
                 fader.In();
             }
         }
@@ -36,7 +37,8 @@ namespace TapHeading.UI.Components.Text
         {
             foreach (var fader in _faders)
             {
-                if (fader.Equals(this)) continue;
+                if (fader.Equals(this))
+                    continue;
                 fader.Out();
             }
         }

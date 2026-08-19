@@ -8,7 +8,8 @@ namespace TapHeading.Input
     {
         protected override void ProcessInput()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Space)) Notify(Vector2.zero);
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
+                Notify(Vector2.zero);
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.LeftArrow))
                 Notify(Vector2.left);
@@ -17,9 +18,11 @@ namespace TapHeading.Input
 
             if (UnityEngine.Input.GetMouseButtonDown(0))
             {
-                if (EventSystem.current.IsPointerOverGameObject() &&
-                    EventSystem.current.currentSelectedGameObject != null &&
-                    EventSystem.current.currentSelectedGameObject.GetComponent<Button>() == null)
+                if (
+                    EventSystem.current.IsPointerOverGameObject()
+                    && EventSystem.current.currentSelectedGameObject != null
+                    && EventSystem.current.currentSelectedGameObject.GetComponent<Button>() == null
+                )
                 {
                     Debug.Log("UI click");
                 }

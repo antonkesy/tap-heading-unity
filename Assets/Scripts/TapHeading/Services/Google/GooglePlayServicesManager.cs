@@ -8,13 +8,13 @@ namespace TapHeading.Services.Google
     {
         private static GooglePlayServicesManager _instance;
 
-
         private GooglePlayServicesManager()
         {
             Activate();
         }
 
-        public static GooglePlayServicesManager Instance => _instance ??= new GooglePlayServicesManager();
+        public static GooglePlayServicesManager Instance =>
+            _instance ??= new GooglePlayServicesManager();
 
         private static void Activate()
         {
@@ -44,10 +44,10 @@ namespace TapHeading.Services.Google
             GetHighScore(listener);
         }
 
-
         public void CheckAchievement(int highScore)
         {
-            if (!IsAuthenticated()) return;
+            if (!IsAuthenticated())
+                return;
 
             if (highScore >= 200)
             {
@@ -71,14 +71,16 @@ namespace TapHeading.Services.Google
 
             if (highScore >= 42)
             {
-                UnlockAchievement(GPGSIds
-                    .achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything);
+                UnlockAchievement(
+                    GPGSIds.achievement_answer_to_the_ultimate_question_of_life_the_universe_and_everything
+                );
             }
         }
 
         internal void ThankYouAchievement()
         {
-            if (!IsAuthenticated()) return;
+            if (!IsAuthenticated())
+                return;
             UnlockAchievement(GPGSIds.achievement_thank_you);
         }
 
@@ -91,18 +93,21 @@ namespace TapHeading.Services.Google
         {
             if (!IsAuthenticated())
             {
-                PlayGamesPlatform.Instance.Authenticate(null, result =>
-                {
-                    if (result)
+                PlayGamesPlatform.Instance.Authenticate(
+                    null,
+                    result =>
                     {
-                        SignInSuccess(listener);
-                        PlayGamesPlatform.Instance.ShowLeaderboardUI();
+                        if (result)
+                        {
+                            SignInSuccess(listener);
+                            PlayGamesPlatform.Instance.ShowLeaderboardUI();
+                        }
+                        else
+                        {
+                            SignInCanceled(listener);
+                        }
                     }
-                    else
-                    {
-                        SignInCanceled(listener);
-                    }
-                });
+                );
             }
             else
             {
@@ -114,18 +119,21 @@ namespace TapHeading.Services.Google
         {
             if (!IsAuthenticated())
             {
-                PlayGamesPlatform.Instance.Authenticate(null, result =>
-                {
-                    if (result)
+                PlayGamesPlatform.Instance.Authenticate(
+                    null,
+                    result =>
                     {
-                        SignInSuccess(listener);
-                        PlayGamesPlatform.Instance.ShowAchievementsUI();
+                        if (result)
+                        {
+                            SignInSuccess(listener);
+                            PlayGamesPlatform.Instance.ShowAchievementsUI();
+                        }
+                        else
+                        {
+                            SignInCanceled(listener);
+                        }
                     }
-                    else
-                    {
-                        SignInCanceled(listener);
-                    }
-                });
+                );
             }
             else
             {
@@ -145,13 +153,14 @@ namespace TapHeading.Services.Google
                 {
                     if (data.Valid)
                     {
-                        listener?.OnSignInSuccess((int) data.PlayerScore.value);
+                        listener?.OnSignInSuccess((int)data.PlayerScore.value);
                     }
                     else
                     {
                         listener?.OnSignInFailed();
                     }
-                });
+                }
+            );
         }
 
         public void SignIn()

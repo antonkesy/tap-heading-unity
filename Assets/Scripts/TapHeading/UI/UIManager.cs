@@ -8,9 +8,14 @@ namespace TapHeading.UI
 {
     public class UIManager : MonoBehaviour
     {
-        [SerializeField] private AboutUI aboutPanel;
-        [SerializeField] private Components.Score.Score score;
-        [SerializeField] private HighScoreUI highScore;
+        [SerializeField]
+        private AboutUI aboutPanel;
+
+        [SerializeField]
+        private Components.Score.Score score;
+
+        [SerializeField]
+        private HighScoreUI highScore;
 
         private StateMachine _state;
 
@@ -27,10 +32,10 @@ namespace TapHeading.UI
             _state.ShowStart();
         }
 
-
         internal bool CancelAbout()
         {
-            if (!aboutPanel.IsOpen()) return false;
+            if (!aboutPanel.IsOpen())
+                return false;
 
             aboutPanel.Close();
             return true;

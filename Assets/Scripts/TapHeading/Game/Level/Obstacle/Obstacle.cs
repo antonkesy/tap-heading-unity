@@ -5,8 +5,11 @@ namespace TapHeading.Game.Level.Obstacle
 {
     public class Obstacle : MonoBehaviour, IObstacle
     {
-        [SerializeField] private float deSpawnTime = 4f;
-        [SerializeField] private Coin[] coins;
+        [SerializeField]
+        private float deSpawnTime = 4f;
+
+        [SerializeField]
+        private Coin[] coins;
         private IObstacle.Side _side;
 
         public void DeSpawn()
@@ -43,11 +46,14 @@ namespace TapHeading.Game.Level.Obstacle
         {
             var time = 0f;
             var position = transform.position;
-            var targetPosition =
-                new Vector3(GetDeSpawnPosition(), position.y, position.z);
+            var targetPosition = new Vector3(GetDeSpawnPosition(), position.y, position.z);
             while (time < duration)
             {
-                transform.position = Vector3.LerpUnclamped(transform.position, targetPosition, time / duration);
+                transform.position = Vector3.LerpUnclamped(
+                    transform.position,
+                    targetPosition,
+                    time / duration
+                );
                 time += Time.deltaTime;
                 yield return null;
                 if (DeSpawnTargetDistance(targetPosition) < 1)

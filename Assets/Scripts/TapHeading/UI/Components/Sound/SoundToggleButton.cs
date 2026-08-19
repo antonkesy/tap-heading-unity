@@ -7,10 +7,14 @@ namespace TapHeading.UI.Components.Sound
 {
     public class SoundToggleButton : MonoBehaviour, ITransition
     {
-        [SerializeField] private FaderUI soundOn;
-        [SerializeField] private FaderUI soundOff;
+        [SerializeField]
+        private FaderUI soundOn;
 
-        [SerializeField] private ManagerCollector managers;
+        [SerializeField]
+        private FaderUI soundOff;
+
+        [SerializeField]
+        private ManagerCollector managers;
 
         private ITransition _currentActive;
         private ITransition _notActive;

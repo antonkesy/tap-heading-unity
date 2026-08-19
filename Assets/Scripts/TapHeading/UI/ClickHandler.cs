@@ -8,9 +8,14 @@ namespace TapHeading.UI
 {
     public class ClickHandler : MonoBehaviour
     {
-        [SerializeField] private AboutUI aboutUI;
-        [SerializeField] private ManagerCollector managers;
-        [SerializeField] private SoundToggleButton soundToggleButton;
+        [SerializeField]
+        private AboutUI aboutUI;
+
+        [SerializeField]
+        private ManagerCollector managers;
+
+        [SerializeField]
+        private SoundToggleButton soundToggleButton;
 
         public void OnAboutButtonClick()
         {
@@ -25,13 +30,11 @@ namespace TapHeading.UI
             }
         }
 
-
         public void OnLeaderboardButtonClick()
         {
             managers.GetAudioManager().PlayUITap();
             GooglePlayServicesManager.Instance.ShowLeaderBoardUI(null);
         }
-
 
         public void OnAchievementsButtonClick()
         {

@@ -28,7 +28,8 @@ namespace TapHeading.Game.States
     {
         public void OnUserClick(IManagerCollector manager, Vector2 clickPosition)
         {
-            if (manager.GetGameManager().IsClickForGame()) manager.GetGameManager().Restart();
+            if (manager.GetGameManager().IsClickForGame())
+                manager.GetGameManager().Restart();
         }
 
         public void OnScoreUpdate(IManagerCollector managers, int score)

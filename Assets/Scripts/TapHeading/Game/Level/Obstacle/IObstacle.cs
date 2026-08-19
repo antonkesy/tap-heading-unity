@@ -7,7 +7,7 @@ namespace TapHeading.Game.Level.Obstacle
         enum Side
         {
             Left,
-            Right
+            Right,
         }
 
         public void DeSpawn();

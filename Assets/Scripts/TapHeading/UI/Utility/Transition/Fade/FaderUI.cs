@@ -5,8 +5,11 @@ namespace TapHeading.UI.Utility.Transition.Fade
 {
     public class FaderUI : MonoBehaviour, ITransition
     {
-        [SerializeField] private float fadeInDuration;
-        [SerializeField] private float fadeOutDuration;
+        [SerializeField]
+        private float fadeInDuration;
+
+        [SerializeField]
+        private float fadeOutDuration;
         private CanvasGroup _canvasGroup;
         private Coroutine _fading;
 
@@ -24,8 +27,9 @@ namespace TapHeading.UI.Utility.Transition.Fade
             }
 
             gameObject.SetActive(true);
-            _fading = StartCoroutine(DoFade(fadeIn ? 1 : 0, fadeIn,
-                fadeIn ? fadeInDuration : fadeOutDuration));
+            _fading = StartCoroutine(
+                DoFade(fadeIn ? 1 : 0, fadeIn, fadeIn ? fadeInDuration : fadeOutDuration)
+            );
         }
 
         private IEnumerator DoFade(float end, bool endState, float duration)

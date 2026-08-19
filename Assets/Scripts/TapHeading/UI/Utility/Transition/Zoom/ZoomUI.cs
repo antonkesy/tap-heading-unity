@@ -5,7 +5,8 @@ namespace TapHeading.UI.Utility.Transition.Zoom
 {
     public class ZoomUI : MonoBehaviour, ITransition
     {
-        [SerializeField] private float zoomDuration;
+        [SerializeField]
+        private float zoomDuration;
         private Vector3 _originalScale;
         private Coroutine _zoom;
 

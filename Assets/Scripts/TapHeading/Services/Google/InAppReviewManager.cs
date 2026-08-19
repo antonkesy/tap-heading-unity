@@ -10,9 +10,7 @@ namespace TapHeading.Services.Google
         private static ReviewManager _reviewManager;
         private static PlayReviewInfo _playReviewInfo;
 
-        private InAppReviewManager()
-        {
-        }
+        private InAppReviewManager() { }
 
         public static IReviewService Instance => _instance ??= new InAppReviewManager();
 
@@ -41,7 +39,8 @@ namespace TapHeading.Services.Google
 
         public void RequestReview(MonoBehaviour monoBehaviour, int timesOpen)
         {
-            if (timesOpen < 30) return;
+            if (timesOpen < 30)
+                return;
             monoBehaviour.StartCoroutine(_RequestReview());
         }
     }

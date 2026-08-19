@@ -5,14 +5,22 @@ namespace TapHeading.Game.Level
 {
     public class LevelManager : MonoBehaviour, ILevelManager
     {
-        [Header("Walls")] 
-        [SerializeField] private GameObject[] wallGameObjects;
-        [SerializeField] private ObstacleManager obstacleManager;
-        [SerializeField] private float xOffsetWall;
+        [Header("Walls")]
+        [SerializeField]
+        private GameObject[] wallGameObjects;
+
+        [SerializeField]
+        private ObstacleManager obstacleManager;
+
+        [SerializeField]
+        private float xOffsetWall;
 
         [Header("Speed")]
-        [SerializeField] private float speedIncreaseBy = .5f;
-        [SerializeField] private float baseSpeed = 5f;
+        [SerializeField]
+        private float speedIncreaseBy = .5f;
+
+        [SerializeField]
+        private float baseSpeed = 5f;
 
         private float _speed;
 

@@ -6,8 +6,11 @@ namespace TapHeading.UI.Components.About
 {
     public class AboutUI : MonoBehaviour
     {
-        [SerializeField] private GameObject aboutPanel;
-        [SerializeField] private GameObject[] toHide;
+        [SerializeField]
+        private GameObject aboutPanel;
+
+        [SerializeField]
+        private GameObject[] toHide;
 
         private readonly List<GameObject> _hidden = new List<GameObject>();
 

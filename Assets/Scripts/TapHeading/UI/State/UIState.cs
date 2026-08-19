@@ -7,11 +7,17 @@ namespace TapHeading.UI.State
 {
     public abstract class UIState : MonoBehaviour
     {
-        [SerializeField] protected ManagerCollector managers;
-        [SerializeField] protected Components.Score.Score score;
-        [SerializeField] protected HighScoreUI highScoreUI;
+        [SerializeField]
+        protected ManagerCollector managers;
 
-        [SerializeField] protected float animationTime;
+        [SerializeField]
+        protected Components.Score.Score score;
+
+        [SerializeField]
+        protected HighScoreUI highScoreUI;
+
+        [SerializeField]
+        protected float animationTime;
 
         protected abstract void OnEntering();
         protected abstract void OnLeaving();
@@ -22,7 +28,6 @@ namespace TapHeading.UI.State
             OnEntering();
             StartCoroutine(WaitAnimation());
         }
-
 
         public void Leave()
         {

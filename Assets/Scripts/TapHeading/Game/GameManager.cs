@@ -9,11 +9,12 @@ using UnityEngine;
 namespace TapHeading.Game
 {
     public class GameManager : MonoBehaviour, IGameManager, IPlayerInputListener, IScoreListener
-
     {
-        [SerializeField] private ManagerCollector managers;
+        [SerializeField]
+        private ManagerCollector managers;
 
-        [SerializeField] internal bool isSingleClick = true;
+        [SerializeField]
+        internal bool isSingleClick = true;
 
         private IGameState _gameState = new WaitForAnimation();
 
@@ -43,15 +44,14 @@ namespace TapHeading.Game
             managers.GetAudioManager().SetSound(managers.GetSettings().IsSoundOn());
         }
 
-
         private void UserInteractionWhilePlaying(Vector2 position)
         {
             var playerManager = managers.GetPlayerManager();
-            var changedDirection = isSingleClick
-                ? playerManager.ChangeDirection()
+            var changedDirection =
+                isSingleClick ? playerManager.ChangeDirection()
                 : position.x > Screen.width / 2.0f
                     ? playerManager.ChangeDirection(IPlayerManager.Direction.Right)
-                    : playerManager.ChangeDirection(IPlayerManager.Direction.Left);
+                : playerManager.ChangeDirection(IPlayerManager.Direction.Left);
 
             if (changedDirection)
             {
@@ -66,7 +66,8 @@ namespace TapHeading.Game
 
         public bool IsClickForGame()
         {
-            if (managers.GetUIManager().CancelAbout()) return false;
+            if (managers.GetUIManager().CancelAbout())
+                return false;
             managers.GetAudioManager().PlayPlayerTap();
             return true;
         }
@@ -80,7 +81,6 @@ namespace TapHeading.Game
         {
             isSingleClick = isSingle;
         }
-
 
         public void Restart()
         {

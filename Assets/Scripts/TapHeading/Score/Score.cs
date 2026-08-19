@@ -60,7 +60,8 @@ namespace TapHeading.Score
 
         private void IsNewHighScore()
         {
-            if (_score <= _highScore) return;
+            if (_score <= _highScore)
+                return;
 
             _isHighScore = true;
             _highScore = _score;

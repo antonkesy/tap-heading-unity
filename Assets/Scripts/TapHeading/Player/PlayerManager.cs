@@ -8,16 +8,27 @@ namespace TapHeading.Player
 {
     public class PlayerManager : MonoBehaviour, IPlayerManager
     {
-        [SerializeField] private ManagerCollector managers;
-        [SerializeField] private ParticleSystem thrusterParticleSystem;
-        [SerializeField] private ParticleSystem destroyParticleSystem;
-        [SerializeField] private Transform shadowTransform;
-        [SerializeField] private float shadowOffset;
+        [SerializeField]
+        private ManagerCollector managers;
 
-        [Header("Properties")] [SerializeField]
+        [SerializeField]
+        private ParticleSystem thrusterParticleSystem;
+
+        [SerializeField]
+        private ParticleSystem destroyParticleSystem;
+
+        [SerializeField]
+        private Transform shadowTransform;
+
+        [SerializeField]
+        private float shadowOffset;
+
+        [Header("Properties")]
+        [SerializeField]
         private float sideSpeed;
 
-        [SerializeField] private float spawnTime;
+        [SerializeField]
+        private float spawnTime;
         private Vector2 _startPosition;
         private Rigidbody2D _rb;
         private float _spawnStartPositionY = -20;
@@ -67,25 +78,32 @@ namespace TapHeading.Player
 
         public bool ChangeDirection()
         {
-            if (!_isDirectionChangeable) return false;
+            if (!_isDirectionChangeable)
+                return false;
             SwitchDirection();
             _rb.velocity = Vector2.zero;
-            _rb.AddForce((_direction == IPlayerManager.Direction.Right ? Vector2.right : Vector2.left) * sideSpeed,
-                ForceMode2D.Impulse);
+            _rb.AddForce(
+                (_direction == IPlayerManager.Direction.Right ? Vector2.right : Vector2.left)
+                    * sideSpeed,
+                ForceMode2D.Impulse
+            );
             ChangeShadowPosition();
             return true;
         }
 
         private void SwitchDirection()
         {
-            _direction = _direction == IPlayerManager.Direction.Left
-                ? IPlayerManager.Direction.Right
-                : IPlayerManager.Direction.Left;
+            _direction =
+                _direction == IPlayerManager.Direction.Left
+                    ? IPlayerManager.Direction.Right
+                    : IPlayerManager.Direction.Left;
         }
 
         private void ChangeShadowPosition()
         {
-            var xVector = (_direction == IPlayerManager.Direction.Right ? Vector3.right : Vector3.left) * shadowOffset;
+            var xVector =
+                (_direction == IPlayerManager.Direction.Right ? Vector3.right : Vector3.left)
+                * shadowOffset;
             var yVector = Vector3.down * shadowOffset;
             shadowTransform.localPosition = xVector + yVector;
         }

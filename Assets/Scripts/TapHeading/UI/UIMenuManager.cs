@@ -10,10 +10,17 @@ namespace TapHeading.UI
 {
     public class UIMenuManager : MonoBehaviour, ITransition
     {
-        [SerializeField] private FaderUI[] serializedFader;
-        [SerializeField] private HighScoreUI highScoreUI;
-        [SerializeField] private SoundToggleButton soundButton;
-        [SerializeField] private TapInfo tapToInfo;
+        [SerializeField]
+        private FaderUI[] serializedFader;
+
+        [SerializeField]
+        private HighScoreUI highScoreUI;
+
+        [SerializeField]
+        private SoundToggleButton soundButton;
+
+        [SerializeField]
+        private TapInfo tapToInfo;
         private readonly List<ITransition> _transitions = new List<ITransition>();
 
         private void Awake()

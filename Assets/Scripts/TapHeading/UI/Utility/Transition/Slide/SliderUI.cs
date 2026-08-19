@@ -5,8 +5,11 @@ namespace TapHeading.UI.Utility.Transition.Slide
 {
     public class SliderUI : MonoBehaviour, ITransition
     {
-        [SerializeField] protected float slideDuration;
-        [SerializeField] protected Vector3 hidePosition;
+        [SerializeField]
+        protected float slideDuration;
+
+        [SerializeField]
+        protected Vector3 hidePosition;
         private Vector3 _showPosition;
         private Coroutine _slide;
 
@@ -24,8 +27,7 @@ namespace TapHeading.UI.Utility.Transition.Slide
                 StopCoroutine(_slide);
             }
 
-            _slide = StartCoroutine(
-                Slide(slideIn ? _showPosition : hidePosition));
+            _slide = StartCoroutine(Slide(slideIn ? _showPosition : hidePosition));
         }
 
         public void In()
