@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeInDuration: 1
-  fadeOutDuration: 1
+  fadeOutDuration: 0.5
 --- !u!1 &258433588
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,7 +735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeInDuration: 0.25
-  fadeOutDuration: 0.25
+  fadeOutDuration: 0.125
 --- !u!114 &364520999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1024,7 +1024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeInDuration: 0.25
-  fadeOutDuration: 0.25
+  fadeOutDuration: 0.125
 --- !u!225 &500859734
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1420,7 +1420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeInDuration: 0.25
-  fadeOutDuration: 0.25
+  fadeOutDuration: 0.125
 --- !u!222 &582188620
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2078,7 +2078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeInDuration: 0.25
-  fadeOutDuration: 0.25
+  fadeOutDuration: 0.125
 --- !u!1 &980880117
 GameObject:
   m_ObjectHideFlags: 0
@@ -3498,7 +3498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeInDuration: 0.25
-  fadeOutDuration: 0.25
+  fadeOutDuration: 0.125
 --- !u!225 &1437524549
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -4683,7 +4683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeInDuration: 0.25
-  fadeOutDuration: 0.25
+  fadeOutDuration: 0.125
 --- !u!225 &1826263794
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5151,7 +5151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeInDuration: 0.25
-  fadeOutDuration: 0.25
+  fadeOutDuration: 0.125
 --- !u!225 &2015256197
 CanvasGroup:
   m_ObjectHideFlags: 0
