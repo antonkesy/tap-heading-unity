@@ -3338,7 +3338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0b8109732224fbb863d83f637d0808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomDuration: 1.2
+  zoomDuration: 0.6
 --- !u!114 &1410661630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3574,7 +3574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c744968979472583784197bdfbec48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slideDuration: 2
+  slideDuration: 1
   hidePosition: {x: 0, y: 600, z: 0}
 --- !u!1 &1508997205
 GameObject:
@@ -4496,7 +4496,7 @@ MonoBehaviour:
   managers: {fileID: 1386425711}
   score: {fileID: 1672779192}
   highScoreUI: {fileID: 1543269425}
-  animationTime: 2
+  animationTime: 1
   about: {fileID: 290838431}
   menuManager: {fileID: 2097025356}
   tapToStartText: {fileID: 1410661630}
